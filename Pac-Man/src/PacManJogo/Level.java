@@ -17,7 +17,7 @@ public class Level
 	
 	public static Tile[][] tiles;
 	
-	public static List<Apple> apples;			// Apple list (Pacman food)
+	public static List<Food> food;			// Apple list (Pacman food)
 	public static List<Energizer> energizers; 	// Energizer list
 	
 	public static int INFO_Y = 745;
@@ -33,7 +33,7 @@ public class Level
 	
 	public Level(String path)	//path para a imagem do mapa criado
 	{
-		apples = new ArrayList<>();
+		food = new ArrayList<>();
 		energizers = new ArrayList<>();
 		
 		try 
@@ -91,7 +91,7 @@ public class Level
 					}
 					else if(val == 0xFFFFFFFF) //cor branca					
 					{
-						apples.add(new Apple(xx*32, yy*32));
+						food.add(new Food(xx*32, yy*32));
 					}
 					else if(val == 0xFFFFFF00) //cor amarela			
 					{
@@ -155,9 +155,9 @@ public class Level
 				}				
 			}
 		}
-		for(int i = 0; i < apples.size(); i++) 
+		for(int i = 0; i < food.size(); i++) 
 		{
-				apples.get(i).render(g);
+				food.get(i).render(g);
 		}
 		for(int i = 0; i < energizers.size(); i++) 
 		{

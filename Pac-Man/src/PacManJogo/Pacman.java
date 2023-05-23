@@ -287,7 +287,7 @@ public class Pacman extends Rectangle
 	
 	public void colision_with_food()
 	{
-		if(Level.apples.size() == 0 && Level.energizers.size() == 0)	
+		if(Level.food.size() == 0 && Level.energizers.size() == 0)	
 		{
 			Game.STATE = Game.WIN;	
 			
@@ -301,15 +301,15 @@ public class Pacman extends Rectangle
 			return;
 		}
 		
-		for(int i = 0; i < Level.apples.size(); i++) 		//Interce��o com comida 
+		for(int i = 0; i < Level.food.size(); i++) 		//Interce��o com comida 
 		{
 			String filepath = "res\\Sounds\\PacMan Eating.wav";
             
-			if(this.intersects(Level.apples.get(i)))							
+			if(this.intersects(Level.food.get(i)))							
 			{
 				playSound(filepath);
 				
-				Level.apples.remove(i);		
+				Level.food.remove(i);		
 				Game.score+=10;
 				
 				if(Game.score >= Game.highscore)

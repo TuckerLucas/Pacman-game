@@ -4,11 +4,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class Apple extends Rectangle
+public class Food extends Rectangle
 {
 	private static final long serialVersionUID = 1L;
 
-	public Apple(int x, int y)
+	public Food(int x, int y)
 	{
 		setBounds(x+12,y+12,8,8);			
 	}
