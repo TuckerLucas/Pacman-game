@@ -612,70 +612,86 @@ public class Ghost extends Rectangle
 		}
 		else if(crossmap == -1)
 		{
-			if(difx > 0 && dify > 0 && difx > dify)			//Zona 1
+			// Ghost in right portal moving right
+			if((x == 490 && y == 320) && lastDir == right)
 			{
-				move_to_zone(1);
+				// Ensure ghost crosses portal to the other side of the map
+				crossmap = right;
 			}
-			else if(difx > 0 && dify > 0 && difx == dify)	//Zona 2				
+			// Ghost in left portal moving left
+			else if((x == 150 && y == 320) && lastDir == left)
 			{
-				move_to_zone(2);
+				// Ensure ghost crosses portal to the other side of the map
+				crossmap = left;
 			}
-			else if(difx > 0 && dify > 0 && dify > difx)	//Zona 3					
+			else
 			{
-				move_to_zone(3);
+				if(difx > 0 && dify > 0 && difx > dify)			//Zona 1
+				{
+					move_to_zone(1);
+				}
+				else if(difx > 0 && dify > 0 && difx == dify)	//Zona 2				
+				{
+					move_to_zone(2);
+				}
+				else if(difx > 0 && dify > 0 && dify > difx)	//Zona 3					
+				{
+					move_to_zone(3);
+				}
+				else if(difx == 0 && dify > 0)					//Zona 4				
+				{
+					move_to_zone(4);
+				}
+				else if(difx < 0 && dify > 0 && dify > -difx)	//Zona 5					
+				{
+					move_to_zone(5);
+				}
+				else if(difx < 0 && dify > 0 && -difx == dify)	//Zona 6					
+				{
+					move_to_zone(6);
+				}
+				else if(difx < 0 && dify > 0 && -difx > dify)	//Zona 7					
+				{
+					move_to_zone(7);
+				}
+				else if(difx > 0 && dify == 0)					//Zona 8					
+				{
+					move_to_zone(8);
+				}
+				else if(difx < 0 && dify == 0)					//Zona 9					
+				{
+					move_to_zone(9);
+				}
+				else if(difx > 0 && dify < 0 && difx > -dify)	//Zona 10 					
+				{
+					move_to_zone(10);
+				}
+				else if(difx > 0 && dify < 0 && difx == -dify)	//Zona 11 					
+				{
+					move_to_zone(11);
+				}
+				else if(difx > 0 && dify < 0 && -dify > difx)	//Zona 12					
+				{
+					move_to_zone(12);
+				}
+				else if(difx == 0 && dify < 0)					//Zona 13					
+				{
+					move_to_zone(13);
+				}
+				else if(difx < 0 && dify < 0 && -dify > -difx)	//Zona 14					
+				{
+					move_to_zone(14);
+				}
+				else if(difx < 0 && dify < 0 && -dify == -difx)	//Zona 15					
+				{
+					move_to_zone(15);
+				}
+				else if(difx < 0 && dify < 0 && -difx > -dify)	//Zona 16					
+				{
+					move_to_zone(16);
+				}
 			}
-			else if(difx == 0 && dify > 0)					//Zona 4				
-			{
-				move_to_zone(4);
-			}
-			else if(difx < 0 && dify > 0 && dify > -difx)	//Zona 5					
-			{
-				move_to_zone(5);
-			}
-			else if(difx < 0 && dify > 0 && -difx == dify)	//Zona 6					
-			{
-				move_to_zone(6);
-			}
-			else if(difx < 0 && dify > 0 && -difx > dify)	//Zona 7					
-			{
-				move_to_zone(7);
-			}
-			else if(difx > 0 && dify == 0)					//Zona 8					
-			{
-				move_to_zone(8);
-			}
-			else if(difx < 0 && dify == 0)					//Zona 9					
-			{
-				move_to_zone(9);
-			}
-			else if(difx > 0 && dify < 0 && difx > -dify)	//Zona 10 					
-			{
-				move_to_zone(10);
-			}
-			else if(difx > 0 && dify < 0 && difx == -dify)	//Zona 11 					
-			{
-				move_to_zone(11);
-			}
-			else if(difx > 0 && dify < 0 && -dify > difx)	//Zona 12					
-			{
-				move_to_zone(12);
-			}
-			else if(difx == 0 && dify < 0)					//Zona 13					
-			{
-				move_to_zone(13);
-			}
-			else if(difx < 0 && dify < 0 && -dify > -difx)	//Zona 14					
-			{
-				move_to_zone(14);
-			}
-			else if(difx < 0 && dify < 0 && -dify == -difx)	//Zona 15					
-			{
-				move_to_zone(15);
-			}
-			else if(difx < 0 && dify < 0 && -difx > -dify)	//Zona 16					
-			{
-				move_to_zone(16);
-			}
+			
 		}
 		smart_time++;								
 		
