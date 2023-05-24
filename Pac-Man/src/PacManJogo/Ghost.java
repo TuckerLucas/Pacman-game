@@ -111,38 +111,24 @@ public class Ghost extends Rectangle
 		enemyID = ID;
 	}
 	
-	private void move(int dir)
+	private void setDirection(int dir)
 	{
 		switch(dir)
 		{
-			case 0:		if(canMove(right))
-						{
-							x+=spd;
-							lastDir = right;
-						}
-						break;
-						
-			case 1:		if(canMove(left))
-						{
-							x-=spd;
-							lastDir = left;
-						}
-						break;
-						
-			case 2:		if(canMove(up))
-						{
-							y-=spd;
-							lastDir = up;
-						}
-						break;
-						
-			case 3:		if(canMove(down))
-						{
-							y+=spd;
-							lastDir = down;
-						}
-						break;
+			case 0: x+=spd; lastDir = right; break;
+				
+			case 1: x-=spd; lastDir = left; break;
+			
+			case 2: y-=spd; lastDir = up; break;
+			
+			case 3: y+=spd; lastDir = down; break;
 		}
+	}
+	
+	private void move(int dir)
+	{
+		if(canMove(dir))
+			setDirection(dir);
 	}
 	
 	private boolean canMove(int dir)
@@ -151,25 +137,15 @@ public class Ghost extends Rectangle
 		
 		switch(dir)
 		{
-			case 0:		nextx = x + spd;
-						nexty = y;
-						break;
+			case 0:	nextx = x+spd; nexty = y; break;
 						
-			case 1:		nextx = x - spd;
-						nexty = y;
-						break;
+			case 1:	nextx = x-spd; nexty = y; break;
 						
-			case 2:		nextx = x;
-						nexty = y - spd;
-						break;
+			case 2:	nextx = x; nexty = y-spd; break;
+			
+			case 3:	if(x == 320 && y == 256) {return false;}			// Prevent ghosts from reentering spawn box
 						
-			case 3:		if(x == 320 && y == 256)
-						{
-							return false;
-						}
-						nextx = x;
-						nexty = y + spd;
-						break;
+					nextx = x; nexty = y+spd; break;
 		}
 		
 		Rectangle bounds = new Rectangle(nextx, nexty, width, height);

@@ -149,8 +149,23 @@ public class Pacman extends Rectangle
 	}
 	
 	
-	private boolean canMove(int nextx, int nexty)
+	private boolean canMove(int direction)
 	{
+		int nextx = 0, nexty = 0;
+		
+		switch(direction)
+		{
+			case 1: nextx = x+speed; nexty = y; break;
+			
+			case 2:	nextx = x-speed; nexty = y; break;
+			
+			case 3: nextx = x; nexty = y-speed; break;
+			
+			case 4: if(x == 320 && y == 256) {return false;}
+			
+					nextx = x; nexty = y+speed; break;
+		}
+		
 		Rectangle bounds = new Rectangle(nextx, nexty, width, height);
 
 		for(int xx = 0; xx < Level.tiles.length; xx++)
@@ -169,122 +184,115 @@ public class Pacman extends Rectangle
 		return true;
 	}
 	
-	public void move_right()
+	private void setDirection(int dir)
 	{
-		if(canMove(x+speed, y))
+		switch(dir)
 		{
-			x+=speed;
-			lastDir = right;
-		}
-		else
-		{
-			if(lastDir == left && canMove(x-speed, y))
-			{
-				x-=speed;
-			}
-			if(lastDir == up && canMove(x, y-speed))
-			{
-				y-=speed;
-			}
-			if(lastDir == down && canMove(x, y+speed))
-			{
-				y+=speed;
-			}
+			case 1: x+=speed; lastDir = right; break;
+				
+			case 2: x-=speed; lastDir = left; break;
+			
+			case 3: y-=speed; lastDir = up; break;
+			
+			case 4: y+=speed; lastDir = down; break;
 		}
 	}
 	
-	public void move_left()
+	public void move(int dir)
 	{
-		if(canMove(x-speed, y))
+		if(canMove(dir))
 		{
-			x-=speed;
-			lastDir = left;
+			setDirection(dir);
+			return;
 		}
-		else
+		
+		switch(dir)
 		{
-			if(lastDir == right && canMove(x+speed, y))
-			{
-				x+=speed;
-			}
-			if(lastDir == up && canMove(x, y-speed))
-			{
-				y-=speed;
-			}
-			if(lastDir == down && canMove(x, y+speed))
-			{
-				y+=speed;
-			}
+			case 1:
+					if(lastDir == left && canMove(left))
+					{
+						x-=speed;
+					}
+					if(lastDir == up && canMove(up))
+					{
+						y-=speed;
+					}
+					if(lastDir == down && canMove(down))
+					{
+						y+=speed;
+					}
+				
+					break;
+					
+			case 2: 
+					if(lastDir == right && canMove(right))
+					{
+						x+=speed;
+					}
+					if(lastDir == up && canMove(up))
+					{
+						y-=speed;
+					}
+					if(lastDir == down && canMove(down))
+					{
+						y+=speed;
+					}
+						
+					break;
+					
+			case 3:
+					if(lastDir == left && canMove(left))
+					{
+						x-=speed;
+					}
+					if(lastDir == right && canMove(right))
+					{
+						x+=speed;
+					}
+					if(lastDir == down && canMove(down))
+					{
+						y+=speed;
+					}
+					
+					break;
+			
+			case 4:
+					
+					if(lastDir == left && canMove(left))
+					{
+						x-=speed;
+					}
+					if(lastDir == up && canMove(up))
+					{
+						y-=speed;
+					}
+					if(lastDir == right && canMove(right))
+					{
+						x+=speed;
+					}
+					
+					break;
 		}
-	}
-	
-	public void move_up()
-	{
-		if(canMove(x, y-speed))
+		
+		/*
+	 	int dirArray[] = {right,left,up,down};
+		 
+		for(int i = 0; i < 4; i++)
 		{
-			y-=speed;
-			lastDir = up;
-		}
-		else
-		{
-			if(lastDir == left && canMove(x-speed, y))
-			{
-				x-=speed;
-			}
-			if(lastDir == 1 && canMove(x+speed, y))
-			{
-				x+=speed;
-			}
-			if(lastDir == 4 && canMove(x, y+speed))
-			{
-				y+=speed;
-			}
-		}
-	}
-
-	public void move_down()
-	{
-		if(x == 320 && y == 256)					
-		{
-			if(lastDir == left && canMove(x-speed, y))
-			{
-				x-=speed;
-			}
-			if(lastDir == up && canMove(x, y-speed))
-			{
-				y-=speed;
-			}
-			if(lastDir == 1 && canMove(x+speed, y))
-			{
-				x+=speed;
-			}
-		}
-		else
-		{
-			if(canMove(x, y+speed))
-			{
-				y+=speed;
-				lastDir = 4;
-			}
+			if(dirArray[i] == dir)
+				break;
 			else
 			{
-				if(lastDir == left && canMove(x-speed, y))
+				if(lastDir == dirArray[i] && canMove(dirArray[i]))
 				{
-					x-=speed;
-				}
-				if(lastDir == up && canMove(x, y-speed))
-				{
-					y-=speed;
-				}
-				if(lastDir == right && canMove(x+speed, y))
-				{
-					x+=speed;
+					setDirection(dirArray[i]);
+					return;
 				}
 			}
 		}
+		*/
 	}
 
-	
-	
 	public void colision_with_food()
 	{
 		if(Level.food.size() == 0 && Level.energizers.size() == 0)	
@@ -301,7 +309,8 @@ public class Pacman extends Rectangle
 			return;
 		}
 		
-		for(int i = 0; i < Level.food.size(); i++) 		//Interce��o com comida 
+		// Collision with food
+		for(int i = 0; i < Level.food.size(); i++) 		
 		{
 			String filepath = "res\\Sounds\\PacMan Eating.wav";
             
@@ -324,22 +333,24 @@ public class Pacman extends Rectangle
 		for(int i = 0; i < Level.energizers.size(); i++) 	//Interce��o com energizer
 		{
 			String filepath = "res\\Sounds\\Energizer.wav";
+			
 			if(this.intersects(Level.energizers.get(i)))						
 			{
 				playSound(filepath);
 				
 				Level.energizers.remove(i);
 				
-				Game.score+=50;
+				Game.score += 50;							// Add energizer points to the player's score
 				
 				if(Game.score >= Game.highscore)
 				{
 					Game.highscore = Game.score;
 				}
 				
-				energizer_status = true;					//Estado energizer ativado
-				energizer_time = 0;							//Reset tempo energizer
+				energizer_status = true;					// Energizer status activated
+				energizer_time = 0;							// Reset the energizer timer
 				
+				// No ghosts eaten
 				Game.Blinky.eaten = false;													
 				Game.Inky.eaten = false;
 				Game.Pinky.eaten = false;
@@ -814,22 +825,7 @@ public class Pacman extends Rectangle
 	
 	public void movement()
 	{
-		if(dir == right)
-		{
-			move_right();
-		}
-		else if(dir == left)
-		{
-			move_left();
-		}
-		else if(dir == up)
-		{
-			move_up();
-		}
-		else if(dir == down)
-		{
-			move_down();
-		}
+		move(dir);
 	}
 	
 	public void colisions()
