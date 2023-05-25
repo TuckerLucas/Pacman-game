@@ -61,7 +61,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public Game()
 	{
 		addKeyListener(this);
-		 
+		
 		STATE = PAUSE_SCREEN;			
 		
 		new Texture();
@@ -112,6 +112,18 @@ public class Game extends Canvas implements Runnable, KeyListener
 		}
 	}
 
+	private void loadCharacters()
+	{
+		pacman 	= new Pacman(192, 512);
+		Blinky 	= new Ghost(320, 256, 0, -1, -1); 			
+		Inky 	= new Ghost(288, 320, 1, -1, -1);
+		Pinky 	= new Ghost(320, 320, 2, -1, -1);
+		Clyde 	= new Ghost(352, 320, 3, -1, -1);
+		
+		Pacman.lastDir = Pacman.right;
+		Pacman.dir = Pacman.right;
+	}
+	
 	private void tick()
 	{
 		if(STATE == GAME)		
@@ -144,19 +156,12 @@ public class Game extends Canvas implements Runnable, KeyListener
 			{
 				Enter = false;
 				
-				pacman = new Pacman(Game.WIDTH/2, Game.HEIGHT/2);
-				Blinky = new Ghost(Game.WIDTH/2, Game.HEIGHT/2, 0, -1, -1); 			
-				Inky = new Ghost(Game.WIDTH/2, Game.HEIGHT/2, 1, -1, -1);
-				Pinky = new Ghost(Game.WIDTH/2, Game.HEIGHT/2, 2, -1, -1);
-				Clyde = new Ghost(Game.WIDTH/2, Game.HEIGHT/2, 3, -1, -1);
+				loadCharacters();
+				
 				energizer = new Energizer(Game.WIDTH/2, Game.HEIGHT/2);
 				door = new Door(Game.WIDTH/2, Game.HEIGHT/2);
 				
 				level = new Level("/map/map.png");
-				
-				Pacman.lastDir = 1;
-				
-				Pacman.dir = Pacman.right;
 				
 				STATE = GAME;
 			}
@@ -186,16 +191,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 			if(Enter == true)
 			{
 				Enter = false;
-				pacman = new Pacman(Game.WIDTH/2, Game.HEIGHT/2);
-				Blinky = new Ghost(Game.WIDTH/2, Game.HEIGHT/2, 0, -1, -1); 			
-				Inky = new Ghost(Game.WIDTH/2, Game.HEIGHT/2, 1, -1, -1);
-				Pinky = new Ghost(Game.WIDTH/2, Game.HEIGHT/2, 2, -1, -1);
-				Clyde = new Ghost(Game.WIDTH/2, Game.HEIGHT/2, 3, -1, -1);
+
+				loadCharacters();
+				
 				level = new Level("/map/map.png");
 				
-				Pacman.lastDir = 1;
-				Pacman.dir = Pacman.right;
-
 				STATE = GAME;
 			}
 		}
@@ -233,15 +233,9 @@ public class Game extends Canvas implements Runnable, KeyListener
 				score = 0;
 				Enter = false;
 				
-				pacman = new Pacman(Game.WIDTH/2, Game.HEIGHT/2);
-				Blinky  = new Ghost(Game.WIDTH/2, Game.HEIGHT/2, 0, -1, -1); 			
-				Inky = new Ghost(Game.WIDTH/2, Game.HEIGHT/2, 1, -1, -1);
-				Pinky = new Ghost(Game.WIDTH/2, Game.HEIGHT/2, 2, -1, -1);
-				Clyde = new Ghost(Game.WIDTH/2, Game.HEIGHT/2, 3, -1, -1);
-				level  = new Level("/map/map.png");
+				loadCharacters();
 				
-				Pacman.lastDir 	= 1;
-				Pacman.dir 		= Pacman.right;
+				level  = new Level("/map/map.png");
 				
 				STATE = GAME;
 			}
@@ -249,21 +243,16 @@ public class Game extends Canvas implements Runnable, KeyListener
 			if(Space == true)
 			{
 				score = 0;
-				Space = false;
 				
-				pacman = new Pacman(Game.WIDTH/2, Game.HEIGHT/2);
-				Blinky  = new Ghost(Game.WIDTH/2, Game.HEIGHT/2, 0, -1, -1); 			
-				Inky = new Ghost(Game.WIDTH/2, Game.HEIGHT/2, 1, -1, -1);
-				Pinky = new Ghost(Game.WIDTH/2, Game.HEIGHT/2, 2, -1, -1);
-				Clyde = new Ghost(Game.WIDTH/2, Game.HEIGHT/2, 3, -1, -1);
-				level  = new Level("/map/map.png");
+				loadCharacters();
 				
-				Pacman.lastDir 	= 1;
-				Pacman.dir 		= Pacman.right;
+				level = new Level("/map/map.png");
 				
 				STATE = PAUSE_SCREEN;
 				
 				CLayout.cardLayout.show(CLayout.panelContainer, "Home");
+				
+				Space = false;
 			}
 		}
 		else if(STATE == LIFE_LOST)
@@ -275,6 +264,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 			
 			life_was_lost = true;
 			
+			/*
 			pacman = new Pacman(192, 512);
 			Blinky = new Ghost(320, 256, 0, -1, -1); 			
 			Inky = new Ghost(288, 320, 1, -1, -1);
@@ -283,6 +273,9 @@ public class Game extends Canvas implements Runnable, KeyListener
 			
 			Pacman.lastDir = 1;
 			Pacman.dir = Pacman.right;
+			*/
+			
+			loadCharacters();
 
 			STATE = GAME;
 		}
