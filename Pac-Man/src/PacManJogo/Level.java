@@ -17,27 +17,43 @@ public class Level
 	
 	public static Tile[][] tiles;
 	
-	public static List<Food> food;			// Apple list (Pacman food)
-	public static List<Energizer> energizers; 	// Energizer list
+	public static List<Food> food;					// Food list
+	public static List<Energizer> energizers; 		// Energizer list
 	
-	public static int INFO_Y = 745;
+	// Vertical coordinate for data presentation
+	public static int INFO_Y = 740;
+	
+	// Variables for player score data presentation
 	public static int SCORE = 15;
 	public static int SCORE_SCORE = 95;
 	public static int HIGHSCORE = 180;
 	public static int HIGHSCORE_HIGHSCORE = 320;
 	
+	// Variables for player's life data presentation
 	public static int LIVES = 450;
 	public static int LIFE1 = 530;
 	public static int LIFE2 = 567;
 	public static int LIFE3 = 604;
 	
-	public Level(String path)	//path para a imagem do mapa criado
+	// Variables for object loading via color identification
+	public static final int BLACK 	= 0xFF000000;
+	public static final int PINK 	= 0xFFFF00FF;
+	public static final int BLUE	= 0xFF0000FF;
+	public static final int RED		= 0xFFFF0000;
+	public static final int CYAN	= 0xFF00FFFF;
+	public static final int ORANGE	= 0xFFFF8726;
+	public static final int PURPLE	= 0xFFE7CCFF;
+	public static final int WHITE	= 0xFFFFFFFF;
+	public static final int YELLOW	= 0xFFFFFF00;
+	
+	public Level(String path)	
 	{
 		food = new ArrayList<>();
 		energizers = new ArrayList<>();
 		
 		try 
 		{
+			// Get map sketch image via the passed path
 			BufferedImage map = ImageIO.read(getClass().getResource(path));
 			
 			Level.width = map.getWidth();
@@ -45,57 +61,77 @@ public class Level
 			
 			tiles = new Tile[width][height];
 			
-			int[] pixels = new int[width * height];	
+			int pixels[] = new int[width * height];	
 			map.getRGB(0, 0, width, height, pixels, 0, width);
 			
 			for(int xx = 0; xx < width; xx++)
 			{
 				for(int yy = 0; yy < height; yy++)
 				{
-					int val = pixels[xx + (yy*width)];
+					int color = pixels[xx + (yy*width)];
 					
-					//Identifica��o de cores
-					if(val == 0xFF000000)		//cor preta						
+					// Color identification for object loading
+					switch(color)
 					{
-						tiles[xx][yy] = new Tile(xx*32, yy*32);
-					}
-					else if(val == 0xFFFF00FF)	//cor rosa
-					{
-						Game.door.x = xx*32;
-						Game.door.y = yy*32;
-					}
-					else if(val == 0xFF0000FF)	//cor azul					
-					{
-						Game.pacman.x = xx*32;
-						Game.pacman.y = yy*32;
-					}
-					else if(val == 0xFFFF0000)	//cor vermelha			
-					{
-						Game.Blinky.x = xx*32;
-						Game.Blinky.y = yy*32;
-					}
-					else if(val == 0xFF00FFFF)	//cor ciano
-					{
-						Game.Inky.x = xx*32;
-						Game.Inky.y = yy*32;
-					}
-					else if(val == 0xFFFF8726) //cor laranja
-					{
-						Game.Pinky.x = xx*32;
-						Game.Pinky.y = yy*32;
-					}
-					else if(val == 0xFFE7CCFF) //cor roxa
-					{
-						Game.Clyde.x = xx*32;
-						Game.Clyde.y = yy*32;
-					}
-					else if(val == 0xFFFFFFFF) //cor branca					
-					{
-						food.add(new Food(xx*32, yy*32));
-					}
-					else if(val == 0xFFFFFF00) //cor amarela			
-					{
-						energizers.add(new Energizer(xx*32, yy*32));
+						case BLACK:
+							
+							tiles[xx][yy] = new Tile(xx*32, yy*32);
+							
+							break;
+							
+						case PINK:			
+							
+							Game.door.x = xx*32;
+							Game.door.y = yy*32;
+							
+							break;
+							
+						case BLUE:			
+							
+							Game.pacman.x = xx*32;
+							Game.pacman.y = yy*32;
+							
+							break;
+							
+						case RED:			
+							
+							Game.Blinky.x = xx*32;
+							Game.Blinky.y = yy*32;
+							
+							break;
+							
+						case CYAN:			
+							
+							Game.Inky.x = xx*32;
+							Game.Inky.y = yy*32;
+							
+							break;
+							
+						case PURPLE:
+							
+							Game.Pinky.x = xx*32;
+							Game.Pinky.y = yy*32;
+							
+							break;
+							
+						case ORANGE:
+							
+							Game.Clyde.x = xx*32;
+							Game.Clyde.y = yy*32;
+							
+							break;
+							
+						case YELLOW:
+							
+							energizers.add(new Energizer(xx*32, yy*32));
+							
+							break;
+							
+						case WHITE:
+							
+							food.add(new Food(xx*32, yy*32));
+							
+							break;
 					}
 				}	
 			}
@@ -107,14 +143,7 @@ public class Level
 	}
 
 	public static void draw_data(Graphics g)
-	{
-		int boxWidth  = 672;						
-		int boxHeight = 76;		
-		int xx = 0;
-		int yy = 708;
-		g.setColor(new Color(0,0,0));
-		g.fillRect(xx, yy, boxWidth, boxHeight);
-		
+	{	
 		g.setColor(Color.white);
 		g.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 23));
 		
@@ -126,20 +155,28 @@ public class Level
 		
 		g.drawString("LIVES:", LIVES, INFO_Y);
 		
-		if(Pacman.lives == 3)
+		switch(Pacman.lives) 
 		{
-			g.drawImage(Texture.getSprite(32, 0), LIFE1, 710, 32, 32, null);
-			g.drawImage(Texture.getSprite(32, 0), LIFE2, 710, 32, 32, null);
-			g.drawImage(Texture.getSprite(32, 0), LIFE3, 710, 32, 32, null);
-		}
-		else if(Pacman.lives == 2)
-		{
-			g.drawImage(Texture.getSprite(32, 0), LIFE1, 710, 32, 32, null);
-			g.drawImage(Texture.getSprite(32, 0), LIFE2, 710, 32, 32, null);
-		}
-		else if(Pacman.lives == 1)
-		{
-			g.drawImage(Texture.getSprite(32, 0), LIFE1, 710, 32, 32, null);
+			case 3:
+				
+				g.drawImage(Texture.getSprite(32, 0), LIFE1, 710, 32, 32, null);
+				g.drawImage(Texture.getSprite(32, 0), LIFE2, 710, 32, 32, null);
+				g.drawImage(Texture.getSprite(32, 0), LIFE3, 710, 32, 32, null);
+				
+				break;
+				
+			case 2:
+				
+				g.drawImage(Texture.getSprite(32, 0), LIFE1, 710, 32, 32, null);
+				g.drawImage(Texture.getSprite(32, 0), LIFE2, 710, 32, 32, null);
+				
+				break;
+				
+			case 1:
+				
+				g.drawImage(Texture.getSprite(32, 0), LIFE1, 710, 32, 32, null);
+				
+				break;	
 		}
 	}
 	
@@ -150,19 +187,15 @@ public class Level
 			for(int y = 0; y < height; y++)
 			{
 				if(tiles[x][y] != null)
-				{
 					tiles[x][y].render(g);
-				}				
 			}
 		}
+		
 		for(int i = 0; i < food.size(); i++) 
-		{
 				food.get(i).render(g);
-		}
+		
 		for(int i = 0; i < energizers.size(); i++) 
-		{
 			energizers.get(i).render(g);
-		}
 		
 		Game.pacman.render(g);
 		Game.Blinky.render(g);
