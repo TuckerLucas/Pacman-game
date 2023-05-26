@@ -12,15 +12,15 @@ public class Ghost extends Rectangle
 	
 	private Random randomGen;
 	
-	private int random = 0;
-	private int smart  = 1;
-	private int find_path = 2;
+	public static final int random 		= 0;
+	public static final int smart  		= 1;
+	public static final int find_path 	= 2;
 	private int state = random; 
 	
-	private int right = 0; 
-	private int left  = 1;
-	private int up 	  = 2;
-	private int down  = 3;
+	public static final int right = 0; 
+	public static final int left  = 1;
+	public static final int up 	  = 2;
+	public static final int down  = 3;
 	
 	private int dir 	= -1;
 	private int lastDir = -1;
@@ -115,13 +115,13 @@ public class Ghost extends Rectangle
 	{
 		switch(dir)
 		{
-			case 0: x+=spd; lastDir = right; break;
+			case right: x+=spd; lastDir = right; break;
 				
-			case 1: x-=spd; lastDir = left; break;
+			case left: x-=spd; lastDir = left; break;
 			
-			case 2: y-=spd; lastDir = up; break;
+			case up: y-=spd; lastDir = up; break;
 			
-			case 3: y+=spd; lastDir = down; break;
+			case down: y+=spd; lastDir = down; break;
 		}
 	}
 	
@@ -137,15 +137,15 @@ public class Ghost extends Rectangle
 		
 		switch(dir)
 		{
-			case 0:	nextx = x+spd; nexty = y; break;
+			case right:	nextx = x+spd; nexty = y; break;
 						
-			case 1:	nextx = x-spd; nexty = y; break;
+			case left:	nextx = x-spd; nexty = y; break;
 						
-			case 2:	nextx = x; nexty = y-spd; break;
+			case up:	nextx = x; nexty = y-spd; break;
 			
-			case 3:	if(x == 320 && y == 256) {return false;}			// Prevent ghosts from reentering spawn box
+			case down:	if(x == 320 && y == 256) {return false;}			// Prevent ghosts from reentering spawn box
 						
-					nextx = x; nexty = y+spd; break;
+						nextx = x; nexty = y+spd; break;
 		}
 		
 		Rectangle bounds = new Rectangle(nextx, nexty, width, height);
@@ -154,9 +154,11 @@ public class Ghost extends Rectangle
 		{
 			for(int yy = 0; yy < Level.tiles[0].length; yy++)
 			{
-				if(Level.tiles[xx][yy] != null)								//se != null significa que nos deparamos com uma parede
+				// If not null, we have intercepted a map wall
+				if(Level.tiles[xx][yy] != null)								
 				{
-					if(bounds.intersects(Level.tiles[xx][yy]))				//intercetamos uma parede, logo j� n�o nos podemos deslocar nesta dire��o
+					// Intercepted a map wall. Can no longer move in this direction
+					if(bounds.intersects(Level.tiles[xx][yy]))				
 					{
 						return false;								
 					}
@@ -166,11 +168,11 @@ public class Ghost extends Rectangle
 		return true;
 	}
 	
-	private void update_zone(int current_zone)
+	private void update_zone(int currentZone)
 	{
 		reset_zones();
 		
-		switch(current_zone)
+		switch(currentZone)
 		{
 			case 1:
 				zone1 = true;
@@ -243,8 +245,7 @@ public class Ghost extends Rectangle
 		zone16 	= false;
 	}
 
-	
-	private void get_to_zone(int dir1, int dir2)
+	private void getToZone(int dir1, int dir2)
 	{
 		if(canMove(dir1))
 		{
@@ -267,13 +268,13 @@ public class Ghost extends Rectangle
 		
 		switch(zone)
 		{
-			case 1: get_to_zone(left, up);
+			case 1: getToZone(left, up);
 					break;
 					
-			case 2: get_to_zone(up, left);
+			case 2: getToZone(up, left);
 					break;
 				
-			case 3: get_to_zone(up, left);
+			case 3: getToZone(up, left);
 					break;
 					
 			case 4: 
@@ -293,13 +294,13 @@ public class Ghost extends Rectangle
 				}
 				break;
 				
-			case 5: get_to_zone(up, right);
+			case 5: getToZone(up, right);
 					break;
 
-			case 6: get_to_zone(up, right);
+			case 6: getToZone(up, right);
 					break;
 					
-			case 7: get_to_zone(right, up);
+			case 7: getToZone(right, up);
 					break;
 					
 			case 8: 
@@ -336,13 +337,13 @@ public class Ghost extends Rectangle
 				}
 				break;
 				
-			case 10: get_to_zone(left, down);
+			case 10: getToZone(left, down);
 					 break;
 
-			case 11: get_to_zone(down, left);
+			case 11: getToZone(down, left);
 					 break;
 					 
-			case 12: get_to_zone(down, left);
+			case 12: getToZone(down, left);
 					 break;
 					 
 			case 13: 
@@ -357,23 +358,34 @@ public class Ghost extends Rectangle
 				}
 				else if(canMove(right))
 				{
-					
 					right13 = true;
 					state = find_path;
 				}
 				break;
 				
-			case 14: get_to_zone(down, right);
+			case 14: getToZone(down, right);
 					 break;
 					
-			case 15: get_to_zone(down, right);
+			case 15: getToZone(down, right);
 					 break;
 					 
-			case 16: get_to_zone(right, down);
+			case 16: getToZone(right, down);
 					 break;
 		}
 	}
 
+	private boolean randomMovement(int direction)
+	{
+		if(canMove(direction))			
+		{
+			move(direction);
+			dir = randomGen.nextInt(4);
+			return true;
+		}
+		
+		return false;
+	}
+	
 	private void move_randomly()
 	{
 		difx = x - Game.pacman.x;
@@ -423,126 +435,102 @@ public class Ghost extends Rectangle
 		}
 		else if(crossmap == -1)
 		{
-			if(dir == right)
+			switch(dir)
 			{
-				if(canMove(right))			
-				{
-					move(right);
-					dir = randomGen.nextInt(4);	//gerar dire��o aleat�ria
-				}
-				else							
-				{
-					if(lastDir == left && canMove(left))
-					{
-						move(left);
-					}
-					else if(lastDir == up && canMove(up))
-					{
-						move(up);
-					}
-					else if(lastDir == down && canMove(down))
-					{
-						move(down);
-					}
-					else 
-					{
-						dir = randomGen.nextInt(4); 
-					}
-				}
-			}
-			else if(dir == left)
-			{
-				if(canMove(left))			
-				{
-					move(left);
-					dir = randomGen.nextInt(4);
-				}
-				else							
-				{
-					if(lastDir == right && canMove(right))
-					{
-						x+=spd;
-					}
-					else if(lastDir == up && canMove(up))
-					{
-						y-=spd;
-					}
-					else if(lastDir == down && canMove(down))
-					{
-						y+=spd;
-					}
-					else 
-					{
-						dir = randomGen.nextInt(4); 
-					}
-				}
-			}
-			else if(dir == up)
-			{
-				if(canMove(up))			
-				{
-					move(up);
-					dir = randomGen.nextInt(4);
-				}
-				else							
-				{
-					if(lastDir == left && canMove(left))
-					{
-						x-=spd;
-					}
-					else if(lastDir == right && canMove(right))
-					{
-						x+=spd;
-					}
-					else if(lastDir == down && canMove(down))
-					{
-						y+=spd;
-					}
-					else 
-					{
-						dir = randomGen.nextInt(4); //escolher outra dire��o aleatoria
-					}
-				}
-			}
-			else if(dir == down)
-			{
-				if(x == 320 && y == 256)
-				{
-					if(lastDir == left && canMove(left))
-					{
-						x-=spd;
-					}
-					else if(lastDir == up && canMove(up))
-					{
-						y-=spd;
-					}
-					else if(lastDir == right && canMove(right))
-					{
-						x+=spd;
-					}
-					else 
-					{
-						dir = randomGen.nextInt(4); 
-					}
-				}
-				else
-				{
-					if(canMove(down))			
-					{
-						move(down);
-						dir = randomGen.nextInt(4);
-					}
+				case right:
+					
+					if(randomMovement(right))
+						break;
 					else							
 					{
-						if(lastDir == 1 && canMove(left))
+						if(lastDir == left && canMove(left))
 						{
-							x-=spd;
+							move(left);
 						}
-						else if(lastDir == 2 && canMove(up))
+						else if(lastDir == up && canMove(up))
+						{
+							move(up);
+						}
+						else if(lastDir == down && canMove(down))
+						{
+							move(down);
+						}
+						else 
+						{
+							dir = randomGen.nextInt(4); 
+						}
+					}
+					
+					break;
+					
+					
+				case left:
+					
+					if(randomMovement(left))
+						break;
+					else							
+					{
+						if(lastDir == right && canMove(right))
+						{
+							x+=spd;
+						}
+						else if(lastDir == up && canMove(up))
 						{
 							y-=spd;
 						}
-						else if(lastDir == 0 && canMove(right))
+						else if(lastDir == down && canMove(down))
+						{
+							y+=spd;
+						}
+						else 
+						{
+							dir = randomGen.nextInt(4); 
+						}
+					}
+								
+					break;
+					
+				case up:
+					
+					if(randomMovement(up))
+						break;
+					else							
+					{
+						if(lastDir == left && canMove(left))
+						{
+							x-=spd;
+						}
+						else if(lastDir == right && canMove(right))
+						{
+							x+=spd;
+						}
+						else if(lastDir == down && canMove(down))
+						{
+							y+=spd;
+						}
+						else 
+						{
+							dir = randomGen.nextInt(4);
+						}
+					}
+					
+					break;
+					
+				case down:
+					
+					if(randomMovement(down))
+						break;
+					else							
+					{
+						if(lastDir == left && canMove(left))
+						{
+							x-=spd;
+						}
+						else if(lastDir == up && canMove(up))
+						{
+							y-=spd;
+						}
+						else if(lastDir == right && canMove(right))
 						{
 							x+=spd;
 						}
@@ -550,10 +538,19 @@ public class Ghost extends Rectangle
 						{
 							dir = randomGen.nextInt(4); 
 						}
-					}
-				}	
+					}	
+					
+					break;
 			}
 		}
+	}
+	
+	private boolean inPortal()
+	{
+		if((x < 160 || x > 480) && y == 320)
+			return true;
+
+		return false;
 	}
 	
 	private void move_smartly()
@@ -589,17 +586,18 @@ public class Ghost extends Rectangle
 		else if(crossmap == -1)
 		{
 			// Ghost in right portal moving right
-			if((x == 490 && y == 320) && lastDir == right)
+			if(inPortal() && lastDir == right)
 			{
 				// Ensure ghost crosses portal to the other side of the map
 				crossmap = right;
 			}
 			// Ghost in left portal moving left
-			else if((x == 150 && y == 320) && lastDir == left)
+			else if(inPortal() && lastDir == left)
 			{
 				// Ensure ghost crosses portal to the other side of the map
 				crossmap = left;
 			}
+			// Ghost not in a portal
 			else
 			{
 				if(difx > 0 && dify > 0 && difx > dify)			//Zona 1
@@ -667,7 +665,6 @@ public class Ghost extends Rectangle
 					move_to_zone(16);
 				}
 			}
-			
 		}
 		smart_time++;								
 		
@@ -849,23 +846,27 @@ public class Ghost extends Rectangle
 
 	private void move_until(int allowed_direction, int desired_direction)
 	{
-		if(allowed_direction == right)
+		switch(allowed_direction)
 		{
-			move(right);
+			case right:
+				
+				move(right);
+				
+				if(desired_direction == up && canMove(up))
+				{
+					right4 = false;
+					state = smart;
+				}
+				else if(desired_direction == down && canMove(down))
+				{
+					right13 = false;
+					state = smart;
+				}
+				
+				break;
 			
-			if(desired_direction == up && canMove(up))
-			{
-				right4 = false;
-				state = smart;
-			}
-			else if(desired_direction == down && canMove(down))
-			{
-				right13 = false;
-				state = smart;
-			}
-		}
-		else if(allowed_direction == left)
-		{
+			case left: 
+				
 				move(left);
 				
 				if(desired_direction == up && canMove(up))
@@ -875,58 +876,61 @@ public class Ghost extends Rectangle
 				}
 				else if(desired_direction == down && canMove(down))
 				{
-					
 					left13 = false;
 					state = smart;
 				}
-		}
-		else if(allowed_direction == down)
-		{
-			move(down);
+				
+				break;
+				
+			case up:
+				
+				move(up);
+				
+				if(desired_direction == right && canMove(right))
+				{
+					up9 = false;
+					state = smart;
+				}
+				else if(desired_direction == left && canMove(left))
+				{
+					up8 = false;
+					state = smart;
+				}
+				
+				break;
+				
+			case down:
+				
+				move(down);
+				
+				if(desired_direction == right && canMove(right))
+				{
+					down9 = false;
+					state = smart;
+				}
+				else if(desired_direction == left && canMove(left))
+				{
+					down8 = false;
+					state = smart;
+				}
+				
+				break;
+				
+			case -1:	
+				
+				state = smart; 
 			
-			if(desired_direction == right && canMove(right))
-			{
-				down9 = false;
-				state = smart;
-			}
-			else if(desired_direction == left && canMove(left))
-			{
-				down8 = false;
-				state = smart;
-			}
-		}
-		else if(allowed_direction == up)
-		{
-			move(up);
-			
-			if(desired_direction == right && canMove(right))
-			{
-				up9 = false;
-				state = smart;
-			}
-			else if(desired_direction == left && canMove(left))
-			{
-				up8 = false;
-				state = smart;
-			}
-		}
-		else if(allowed_direction == -1)
-		{
-			state = smart;
+				break;
 		}
 	}
-	
 	
 	private boolean inBox()
 	{
 		if((x < 385 && x > 255) && (y < 385 && y > 255))
-		{
 			return true;
-		}
 		
 		return false;
 	}
-	
 	
 	private void flash(Graphics g)
 	{
@@ -938,99 +942,70 @@ public class Ghost extends Rectangle
 		g.drawImage(Texture.blueghost[imageIndexEnemy], x, y, width, height, null);
 	}
 	
+	private void look(int where, Graphics g)
+	{
+		switch(where)
+		{
+			case right: 
+				
+				switch(enemyID)
+				{
+					case 0: g.drawImage(Texture.ghostr[imageIndexEnemy], x, y, width, height, null); break;
+					case 1: g.drawImage(Texture.ghost1r[imageIndexEnemy], x, y, width, height, null); break;
+					case 2: g.drawImage(Texture.ghost2r[imageIndexEnemy], x, y, width, height, null); break;
+					case 3: g.drawImage(Texture.ghost3r[imageIndexEnemy], x, y, width, height, null); break;
+				}
+				
+				break;
+				
+			case left:
+				
+				switch(enemyID)
+				{
+					case 0: g.drawImage(Texture.ghostl[imageIndexEnemy], x, y, width, height, null); break;
+					case 1: g.drawImage(Texture.ghost1l[imageIndexEnemy], x, y, width, height, null); break;
+					case 2: g.drawImage(Texture.ghost2l[imageIndexEnemy], x, y, width, height, null); break;
+					case 3: g.drawImage(Texture.ghost3l[imageIndexEnemy], x, y, width, height, null); break;
+				}
+				
+				break;
+				
+			case up:
+				
+				switch(enemyID)
+				{
+					case 0: g.drawImage(Texture.ghostu[imageIndexEnemy], x, y, width, height, null); break;
+					case 1: g.drawImage(Texture.ghost1u[imageIndexEnemy], x, y, width, height, null); break;
+					case 2: g.drawImage(Texture.ghost2u[imageIndexEnemy], x, y, width, height, null); break;
+					case 3: g.drawImage(Texture.ghost3u[imageIndexEnemy], x, y, width, height, null); break;
+				}
+				
+				break;
+				
+			case down:
+				
+				switch(enemyID)
+				{
+					case 0: g.drawImage(Texture.ghostd[imageIndexEnemy], x, y, width, height, null); break;
+					case 1: g.drawImage(Texture.ghost1d[imageIndexEnemy], x, y, width, height, null); break;
+					case 2: g.drawImage(Texture.ghost2d[imageIndexEnemy], x, y, width, height, null); break;
+					case 3: g.drawImage(Texture.ghost3d[imageIndexEnemy], x, y, width, height, null); break;
+				}
+				
+				break;
+		}
+	}
 
-	private void look_right(Graphics g)
-	{
-		switch(enemyID)
-		{
-			case 0:
-				g.drawImage(Texture.ghostr[imageIndexEnemy], x, y, width, height, null);
-				break;
-			case 1: 
-				g.drawImage(Texture.ghost1r[imageIndexEnemy], x, y, width, height, null);
-				break;
-			case 2:
-				g.drawImage(Texture.ghost2r[imageIndexEnemy], x, y, width, height, null);
-				break;
-			case 3:
-				g.drawImage(Texture.ghost3r[imageIndexEnemy], x, y, width, height, null);
-				break;
-		}
-		
-	}
-	
-	private void look_left(Graphics g)
-	{
-		switch(enemyID)
-		{
-			case 0:
-				g.drawImage(Texture.ghostl[imageIndexEnemy], x, y, width, height, null);
-				break;
-			case 1: 
-				g.drawImage(Texture.ghost1l[imageIndexEnemy], x, y, width, height, null);
-				break;
-			case 2:
-				g.drawImage(Texture.ghost2l[imageIndexEnemy], x, y, width, height, null);
-				break;
-			case 3:
-				g.drawImage(Texture.ghost3l[imageIndexEnemy], x, y, width, height, null);
-				break;
-		}
-	}
-	
-	private void look_up(Graphics g)
-	{
-		switch(enemyID)
-		{
-			case 0:
-				g.drawImage(Texture.ghostu[imageIndexEnemy], x, y, width, height, null);
-				break;
-			case 1: 
-				g.drawImage(Texture.ghost1u[imageIndexEnemy], x, y, width, height, null);
-				break;
-			case 2:
-				g.drawImage(Texture.ghost2u[imageIndexEnemy], x, y, width, height, null);
-				break;
-			case 3:
-				g.drawImage(Texture.ghost3u[imageIndexEnemy], x, y, width, height, null);
-				break;
-		}
-	}
-	
-	private void look_down(Graphics g)
-	{
-		switch(enemyID)
-		{
-			case 0:
-				g.drawImage(Texture.ghostd[imageIndexEnemy], x, y, width, height, null);
-				break;
-			case 1: 
-				g.drawImage(Texture.ghost1d[imageIndexEnemy], x, y, width, height, null);
-				break;
-			case 2:
-				g.drawImage(Texture.ghost2d[imageIndexEnemy], x, y, width, height, null);
-				break;
-			case 3:
-				g.drawImage(Texture.ghost3d[imageIndexEnemy], x, y, width, height, null);
-				break;
-		}
-	}
-	
-	
 	private void enemy_movement()
 	{
-		if(state == random)							
+		switch(state)
 		{
-			move_randomly();		//andar aleatoriamente
-		}
-		else if(state == smart)
-		{
-			move_smartly();			//seguir Pacman
-		}
-		else if(state == find_path)
-		{
-			finding_path();			//mover-se quando im�vel
-		}
+			case random: move_randomly(); break;	// Move in a random fashion
+			
+			case smart: move_smartly(); break;		// Chase pacman
+			
+			case find_path: finding_path(); break;	// Find path to pacman when stuck
+		}			
 	}
 	
 	private void positioning()
@@ -1042,18 +1017,10 @@ public class Ghost extends Rectangle
 			
 			switch(enemyID)
 			{
-				case 0:
-					Game.Blinky = new Ghost(640, 320, 0, lastDir, crossmap);
-					break;
-				case 1:
-					Game.Inky = new Ghost(640, 320, 1, lastDir, crossmap);
-					break;
-				case 2:
-					Game.Pinky = new Ghost(640, 320, 2, lastDir, crossmap);
-					break;
-				case 3:
-					Game.Clyde = new Ghost(640, 320, 3, lastDir, crossmap);
-					break;
+				case 0: Game.Blinky = new Ghost(640, 320, 0, lastDir, crossmap); break;
+				case 1: Game.Inky = new Ghost(640, 320, 1, lastDir, crossmap); break;
+				case 2: Game.Pinky = new Ghost(640, 320, 2, lastDir, crossmap); break;
+				case 3: Game.Clyde = new Ghost(640, 320, 3, lastDir, crossmap); break;
 			}
 		}
 		else if(x == 640 && y == 320)
@@ -1063,18 +1030,10 @@ public class Ghost extends Rectangle
 
 			switch(enemyID)
 			{
-				case 0:
-					Game.Blinky = new Ghost(0, 320, 0, lastDir, crossmap);
-					break;
-				case 1:
-					Game.Inky = new Ghost(0, 320, 1, lastDir, crossmap);
-					break;
-				case 2:
-					Game.Pinky = new Ghost(0, 320, 2, lastDir, crossmap);
-					break;
-				case 3:
-					Game.Clyde = new Ghost(0, 320, 3, lastDir, crossmap);
-					break;
+				case 0: Game.Blinky = new Ghost(0, 320, 0, lastDir, crossmap); break;
+				case 1: Game.Inky = new Ghost(0, 320, 1, lastDir, crossmap); break;
+				case 2: Game.Pinky = new Ghost(0, 320, 2, lastDir, crossmap); break;
+				case 3: Game.Clyde = new Ghost(0, 320, 3, lastDir, crossmap); break;
 			}
 		}
 	}
@@ -1094,62 +1053,17 @@ public class Ghost extends Rectangle
 	public void render(Graphics g)
 	{
 		if(imageIndexEnemy == 2)
-		{
 			imageIndexEnemy = 0;
-		}
 
-		if(Pacman.energizer_status == true)											//Estamos no estado energizer
+		if(!Pacman.energizer_status || eaten)
+			look(lastDir, g);
+		else
 		{
-			if(eaten == true)													//Inimigo comido
-			{
-				if(lastDir == right)
-				{
-					look_right(g);		//sprite do inimigo (fantasma)
-				}
-				else if(lastDir == left)
-				{
-					look_left(g);		//sprite do inimigo (fantasma)
-				}
-				else if(lastDir == up)
-				{
-					look_up(g);		//sprite do inimigo (fantasma)
-				}
-				else if(lastDir == down)
-				{
-					look_down(g);		//sprite do inimigo (fantasma)
-				}
-			}
-			else if(eaten == false)												//Inimigo n�o comido
-			{
-				if(Pacman.energizer_flash == false)
-				{
-					stay_blue(g);
-				}
-				else if(Pacman.energizer_flash == true)
-				{
-					flash(g);
-				}
-			}
+			if(!Pacman.energizer_flash)
+				stay_blue(g);
+			else if(Pacman.energizer_flash)
+				flash(g);
 		}
-		else if(Pacman.energizer_status == false)									//N�o estamos no estado energizer
-		{
-			if(lastDir == right)
-			{
-				look_right(g);		//sprite do inimigo (fantasma)
-			}
-			else if(lastDir == left)
-			{
-				look_left(g);		//sprite do inimigo (fantasma)
-			}
-			else if(lastDir == up)
-			{
-				look_up(g);		//sprite do inimigo (fantasma)
-			}
-			else if(lastDir == down)
-			{
-				look_down(g);		//sprite do inimigo (fantasma)
-			}	
-		}	
 	}
 	
 	public void tick()
