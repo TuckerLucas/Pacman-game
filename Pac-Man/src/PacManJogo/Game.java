@@ -18,12 +18,16 @@ public class Game extends Canvas implements Runnable, KeyListener
 	private static final long serialVersionUID = 1L;
 
 	private static boolean isRunning = false;	
-
-	public static final int WIDTH = 672, HEIGHT = 750;	
-	
 	private static Thread thread;
+
+	// Game dimension variables
+	public static final int WIDTH = 672;
+	public static final int	HEIGHT = 900;	
 	
+	// Game difficulty variable
 	public static int difficulty = 1;
+	
+	// Game object variables
 	public static Pacman pacman;
 	public static Ghost Blinky;
 	public static Ghost Inky;
@@ -32,29 +36,32 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static Energizer energizer;
 	public static Door door;
 	public static Level level;
-	public static int crossmap = -1;
-	public static int crossmap1 = -1;
-	public static int crossmap2 = -1;
-	public static int crossmap3 = -1;
 	 
-	public static final int PAUSE_SCREEN = 0;		
+	// Game status variables
+	public static final int INIT = 0;		
 	public static final int GAME = 1;
 	public static final int WIN = 2;
 	public static final int LOSE = 3; 
 	public static final int LIFE_LOST = 4;
-	public static int STATE = -1;
+	public static int GAME_STATUS = -1;
 	
+	// Score variables
 	public static int score = 0;
 	public static int highscore;
 
-	public static boolean life_was_lost = false;
+	// Pacman life lost flag
+	public boolean life_was_lost = false;
+	
+	// Key flag variables
 	public boolean Enter = false;					
 	public boolean Space = false;
 	
+	// Animation variables
 	private int time = 0;							// Animation variables
 	private int targetFrames = 30;
 	private boolean showText = true;
 	
+	// Map event coordinates variables
 	public static int x_position;
 	public static int y_position;
 	
@@ -62,7 +69,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	{
 		addKeyListener(this);
 		
-		STATE = PAUSE_SCREEN;			
+		GAME_STATUS = INIT;			
 		
 		new Texture();
 		
@@ -84,9 +91,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public synchronized void start()
 	{
 		if(isRunning)
-		{
 			return;
-		}
 		
 		isRunning = true;
 		thread = new Thread(this);
@@ -96,9 +101,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public synchronized static void stop()
 	{
 		if(!isRunning)
-		{
 			return;
-		}
 		
 		isRunning = false;
 		
@@ -124,224 +127,180 @@ public class Game extends Canvas implements Runnable, KeyListener
 		Pacman.dir = Pacman.right;
 	}
 	
+	private void resetBonusScores()
+	{
+		Pacman.score2 	= false;
+		Pacman.score4 	= false;
+		Pacman.score8 	= false;
+		Pacman.score16 	= false;
+	}
+	
+	private void checkShowText()
+	{
+		if(showText)
+			showText = false;
+		else 
+			showText = true;
+	}
+	
 	private void tick()
 	{
-		if(STATE == GAME)		
-		{	
-			pacman.tick();
-			Blinky.tick(); 					
-			Inky.tick();
-			Pinky.tick();
-			Clyde.tick();
-			energizer.tick();
-		}
-		else if(STATE == PAUSE_SCREEN)
+		switch(GAME_STATUS)
 		{
-			time++;
+			case GAME:
+				
+				pacman.tick();
+				Blinky.tick(); 					
+				Inky.tick();
+				Pinky.tick();
+				Clyde.tick();
+				energizer.tick();
+				
+				break;
+				
+			case INIT:
+				
+				time++;
+				
+				if(time == targetFrames)
+				{
+					time = 0;
+					
+					checkShowText();
+				}
+				
+				if(Enter)
+				{
+					Enter = false;
+					loadCharacters();
+					energizer = new Energizer(Game.WIDTH/2, Game.HEIGHT/2);
+					door = new Door(Game.WIDTH/2, Game.HEIGHT/2);
+					level = new Level("/map/map.png");
+					GAME_STATUS = GAME;
+				}
+				
+				break;
+				
+			case WIN:
+				
+				resetBonusScores();
+				
+				time++;
+				
+				if(time == targetFrames)
+				{
+					time = 0;
+					
+					checkShowText();
+				}
+				if(Enter)
+				{
+					Enter = false;
+					loadCharacters();
+					level = new Level("/map/map.png");
+					GAME_STATUS = GAME;
+				}
+				
+				break;
+				
+			case LOSE:
+				
+				resetBonusScores();
+				
+				if(score >= highscore) 
+	        		highscore = score;
+				
+				time++;
 			
-			if(time == targetFrames)
-			{
-				time = 0;
+				Pacman.lives = 3;
 				
-				if(showText == true)
+				if(time == targetFrames)
 				{
-					showText = false;
+					time = 0;
+					
+					checkShowText(); 
 				}
-				else 
-				{
-					showText = true; 
-				}
-			}
-			if(Enter == true)
-			{
-				Enter = false;
 				
+				if(Enter)
+				{
+					score = 0;
+					Enter = false;
+					loadCharacters();
+					level  = new Level("/map/map.png");
+					GAME_STATUS = GAME;
+				}
+				
+				if(Space)
+				{
+					score = 0;
+					loadCharacters();
+					level = new Level("/map/map.png");
+					GAME_STATUS = INIT;
+					CLayout.cardLayout.show(CLayout.panelContainer, "Home");
+					Space = false;
+				}
+				
+				break;
+				
+			case LIFE_LOST:
+				
+				resetBonusScores();
+				life_was_lost = true;
 				loadCharacters();
+				GAME_STATUS = GAME;
 				
-				energizer = new Energizer(Game.WIDTH/2, Game.HEIGHT/2);
-				door = new Door(Game.WIDTH/2, Game.HEIGHT/2);
-				
-				level = new Level("/map/map.png");
-				
-				STATE = GAME;
-			}
-		}
-		else if(STATE == WIN)
-		{
-			Pacman.score2 = false;
-			Pacman.score16 = false;
-			Pacman.score8 = false;
-			Pacman.score4 = false;
-			
-			time++;
-			
-			if(time == targetFrames)
-			{
-				time = 0;
-				
-				if(showText == true)
-				{
-					showText = false;
-				}
-				else 
-				{
-					showText = true; 
-				}
-			}
-			if(Enter == true)
-			{
-				Enter = false;
-
-				loadCharacters();
-				
-				level = new Level("/map/map.png");
-				
-				STATE = GAME;
-			}
-		}
-		else if(STATE == LOSE)
-		{
-			Pacman.score2 = false;
-			Pacman.score16 = false;
-			Pacman.score8 = false;
-			Pacman.score4 = false;
-			
-			if(score >= highscore) 
-			{
-        		highscore = score;
-        	}
-			
-			time++;
-		
-			Pacman.lives = 3;
-			
-			if(time == targetFrames)
-			{
-				time = 0;
-				
-				if(showText == true)
-				{
-					showText = false;
-				}
-				else 
-				{
-					showText = true; 
-				}
-			}
-			if(Enter == true)
-			{
-				score = 0;
-				Enter = false;
-				
-				loadCharacters();
-				
-				level  = new Level("/map/map.png");
-				
-				STATE = GAME;
-			}
-			
-			if(Space == true)
-			{
-				score = 0;
-				
-				loadCharacters();
-				
-				level = new Level("/map/map.png");
-				
-				STATE = PAUSE_SCREEN;
-				
-				CLayout.cardLayout.show(CLayout.panelContainer, "Home");
-				
-				Space = false;
-			}
-		}
-		else if(STATE == LIFE_LOST)
-		{
-			Pacman.score2 = false;
-			Pacman.score16 = false;
-			Pacman.score8 = false;
-			Pacman.score4 = false;
-			
-			life_was_lost = true;
-			
-			/*
-			pacman = new Pacman(192, 512);
-			Blinky = new Ghost(320, 256, 0, -1, -1); 			
-			Inky = new Ghost(288, 320, 1, -1, -1);
-			Pinky = new Ghost(320, 320, 2, -1, -1);
-			Clyde = new Ghost(352, 320, 3, -1, -1);
-			
-			Pacman.lastDir = 1;
-			Pacman.dir = Pacman.right;
-			*/
-			
-			loadCharacters();
-
-			STATE = GAME;
+				break;
 		}
 	}
 	
-	private void draw_win_screen(Graphics g)
+	private void setLetteringStyle(Graphics g)
 	{
-		int boxWidth = 560;														//largura da janela do menu				
-		int boxHeight = 400;													//altura da janela do menu
-		int xx = Game.WIDTH / 2 - boxWidth / 2;
-		int yy = Game.HEIGHT / 2 - boxHeight / 2;
-		
-		g.setColor(Color.white);												//cor da letra do menu
-		g.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 26)); 						//tipo de letra do menu
-		g.drawString("WELL DONE!", xx + 210, yy);
-		g.drawString("CURRENT SCORE: ", xx + 180, yy + 150);
-		g.drawString(String.valueOf(score), xx + 280, yy + 195);
-		
-		g.drawString("PRESS       TO CONTINUE GAME", xx + 60, yy + 350);
-		
-		if(showText == true)
-		{
-			g.drawString("      ENTER", xx + 60, yy + 350);
-		}
-	}
-	
-	private void draw_lose_screen(Graphics g)
-	{
-		int boxWidth = 560;						
-		int boxHeight = 400;		
-		int xx = Game.WIDTH / 2 - boxWidth / 2;
-		int yy = Game.HEIGHT / 2 - boxHeight / 2;
-		
-		g.setColor(Color.white);												
-		g.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 26));
-		
-		g.drawString("BAD LUCK!", xx + 200, yy);
-		g.drawString("YOU SCORED: ", xx + 190, yy + 150);
-		g.drawString(String.valueOf(score), xx + 260, yy + 195);
-		
-		g.drawString("PRESS       TO RESTART GAME", xx + 60, yy + 350);
-		g.drawString("PRESS       TO GO HOME", xx + 60, yy + 400);
-		if(showText == true)
-		{
-			g.drawString("      ENTER", xx + 60, yy + 350);
-			g.drawString("      SPACE", xx + 60, yy + 400);
-		}
-	}
-	
-	private void draw_pause_screen(Graphics g)
-	{
-		int boxWidth = 560;							
-		int boxHeight = 400;		
-		int xx = Game.WIDTH / 2 - boxWidth/ 2;
-		int yy = Game.HEIGHT / 2 - boxHeight / 2;
-		
-		g.setColor(new Color(0,0,0));
-		g.fillRect(xx, yy, boxWidth, boxHeight);
-		
+		// Lettering color, size and font
 		g.setColor(Color.white);												
 		g.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 26)); 
-		g.drawString("PRESS       TO START!", xx + 100, yy + 200); 
-		if(showText == true)
+	}
+	
+	private void drawWinScreen(Graphics g)
+	{		
+		setLetteringStyle(g);
+		
+		// Displayed text
+		g.drawString("WELL DONE!", 210, 0);
+		g.drawString("CURRENT SCORE: ", 180, 150);
+		g.drawString(String.valueOf(score), 280, 195);
+		if(showText)
+			g.drawString("ENTER", 60, 350);
+		g.drawString("PRESS       TO CONTINUE GAME", 60, 350);
+	}
+	
+	private void drawLoseScreen(Graphics g)
+	{		
+		setLetteringStyle(g);
+		
+		// Displayed text
+		g.drawString("BAD LUCK!", 270, 100);
+		g.drawString("YOU SCORED: ", 255, 180);
+		g.drawString(String.valueOf(score), 270, 220);
+		
+		if(showText)
 		{
-			g.drawString("ENTER", xx + 196, yy + 200); 	
+			g.drawString("ENTER", 156, 350);
+			g.drawString("SPACE", 156, 400);
 		}
+		
+		g.drawString("PRESS       TO RESTART GAME", 60, 350);
+		g.drawString("PRESS       TO GO HOME", 60, 400);
+	}
+	
+	private void drawInitScreen(Graphics g)
+	{	
+		setLetteringStyle(g);
+		
+		// Displayed text
+		if(showText)
+			g.drawString("ENTER", 266, 350); 	
+		
+		g.drawString("PRESS       TO START!", 170, 350); 
 	}
 
 	private void render()
@@ -358,26 +317,17 @@ public class Game extends Canvas implements Runnable, KeyListener
 		g.setColor(Color.black);
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 		
-		if(STATE == GAME)			
+		switch(GAME_STATUS)
 		{
-			Level.render(g);
-		}
-		else if(STATE == PAUSE_SCREEN) 	
-		{	
-			//draw_win_screen(g);
-			draw_pause_screen(g);
-		}
-		else if(STATE == WIN)
-		{
-			draw_win_screen(g);
-		}
-		else if(STATE == LOSE)
-		{
-			draw_lose_screen(g);
-		}
-		else if(STATE == LIFE_LOST)
-		{
-			pacman.render(g);
+			case GAME: Level.render(g); break;
+
+			case INIT: drawInitScreen(g); break;
+
+			case WIN: drawWinScreen(g); break;
+			
+			case LOSE: drawLoseScreen(g); break;
+			
+			case LIFE_LOST: pacman.render(g); break;			
 		}
 		
 		g.dispose();
@@ -388,14 +338,14 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public void run() 
 	{
 		requestFocus();					
-		//int fps = 0;				
-		//double timer = System.currentTimeMillis();
+		
 		long lastTime = System.nanoTime();
-		double targetTick = 65.0; 		//velocidade do jogo
+		double targetTick = 65.0; 				// Game speed
 		double delta = 0;
-		double ns = 1000000000 / targetTick; //intervalo entre ticks 
+		double ns = 1000000000 / targetTick; 	// Time interval between ticks
 				
-		while(isRunning)				//loop do jogo
+		// Game loop
+		while(isRunning)				
 		{	
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
@@ -405,18 +355,8 @@ public class Game extends Canvas implements Runnable, KeyListener
 			{
 				tick();
 				render();
-				//fps++;
-				delta--;		//compensar para manter a 60 fps
+				delta--;		
 			}
-			
-			/*
-			if(System.currentTimeMillis() - timer >= 1000)	//maior ou igual a um segundo
-			{
-				System.out.println(fps);		//imprimir fps
-				fps = 0;
-				timer += 1000;
-			}
-			*/
 		}
 		stop();							
 	}
@@ -425,49 +365,44 @@ public class Game extends Canvas implements Runnable, KeyListener
 	@Override
 	public void keyPressed(KeyEvent e)
 	{
-		if(STATE == GAME)						
-		{												
-			if(e.getKeyCode() == KeyEvent.VK_RIGHT)
-			{
-				Pacman.dir = Pacman.right;
-			}
-			if(e.getKeyCode() == KeyEvent.VK_LEFT)
-			{
-				Pacman.dir =  Pacman.left;
-			}
-			if(e.getKeyCode() == KeyEvent.VK_UP)
-			{
-				Pacman.dir = Pacman.up;
-			}
-			if(e.getKeyCode() == KeyEvent.VK_DOWN)
-			{
-				Pacman.dir = Pacman.down;
-			}
-		}
-		else if(STATE == PAUSE_SCREEN)			
+		switch(GAME_STATUS)
 		{
-			if(e.getKeyCode() == KeyEvent.VK_ENTER)
-			{
-				Enter = true;						
-			}
-		}
-		else if(STATE == WIN)				
-		{
-			if(e.getKeyCode() == KeyEvent.VK_ENTER)	
-			{
-				Enter = true;						
-			}
-		}
-		else if(STATE == LOSE)				
-		{
-			if(e.getKeyCode() == KeyEvent.VK_ENTER)	
-			{
-				Enter = true;						
-			}
-			if(e.getKeyCode() == KeyEvent.VK_SPACE)
-			{
-				Space = true;
-			}
+			case GAME: 
+				
+				switch(e.getKeyCode())
+				{
+					case KeyEvent.VK_RIGHT: Pacman.dir = Pacman.right; break;
+						
+					case KeyEvent.VK_LEFT: Pacman.dir = Pacman.left; break;
+						
+					case KeyEvent.VK_UP: Pacman.dir = Pacman.up; break;
+						
+					case KeyEvent.VK_DOWN: Pacman.dir = Pacman.down; break;
+				}
+				
+				break;
+				
+			case LOSE:
+				
+				if(e.getKeyCode() == KeyEvent.VK_SPACE)
+				{
+					Space = true;
+				}
+				
+				// fall through
+				
+			case INIT:	
+				
+				// fall through
+				
+			case WIN:
+				
+				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					Enter = true;						
+				}
+				
+				break;
 		}
 	}
 

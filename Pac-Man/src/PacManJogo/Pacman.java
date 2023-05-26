@@ -297,7 +297,7 @@ public class Pacman extends Rectangle
 	{
 		if(Level.food.size() == 0 && Level.energizers.size() == 0)	
 		{
-			Game.STATE = Game.WIN;	
+			Game.GAME_STATUS = Game.WIN;	
 			
 			energizer_status = false;				
 			Game.Blinky.eaten = false;													
@@ -391,11 +391,11 @@ public class Pacman extends Rectangle
 			    	
 					//LeaderboardPanel.update_table();
 					
-					Game.STATE = Game.LOSE;
+					Game.GAME_STATUS = Game.LOSE;
 				}
 				else 
 				{
-					Game.STATE = Game.LIFE_LOST;
+					Game.GAME_STATUS = Game.LIFE_LOST;
 				}	
 			}
 		}
@@ -427,11 +427,11 @@ public class Pacman extends Rectangle
 				LeaderboardPanel.read_from_file();
 				LeaderboardPanel.swap_values();
 				LeaderboardPanel.write_to_file();
-				Game.STATE = Game.LOSE;
+				Game.GAME_STATUS = Game.LOSE;
 			}
 			else 
 			{
-				Game.STATE = Game.LIFE_LOST;
+				Game.GAME_STATUS = Game.LIFE_LOST;
 			}
 			
 			energizer_status = false;				
@@ -463,11 +463,11 @@ public class Pacman extends Rectangle
 				LeaderboardPanel.read_from_file();
 				LeaderboardPanel.swap_values();
 				LeaderboardPanel.write_to_file();
-				Game.STATE = Game.LOSE;
+				Game.GAME_STATUS = Game.LOSE;
 			}
 			else 
 			{
-				Game.STATE = Game.LIFE_LOST;
+				Game.GAME_STATUS = Game.LIFE_LOST;
 			}
 			
 			energizer_status = false;										
@@ -498,11 +498,11 @@ public class Pacman extends Rectangle
 				LeaderboardPanel.read_from_file();
 				LeaderboardPanel.swap_values();
 				LeaderboardPanel.write_to_file();
-				Game.STATE = Game.LOSE;
+				Game.GAME_STATUS = Game.LOSE;
 			}
 			else 
 			{
-				Game.STATE = Game.LIFE_LOST;
+				Game.GAME_STATUS = Game.LIFE_LOST;
 			}
 			
 			energizer_status = false;										
@@ -533,11 +533,11 @@ public class Pacman extends Rectangle
 				LeaderboardPanel.read_from_file();
 				LeaderboardPanel.swap_values();
 				LeaderboardPanel.write_to_file();
-				Game.STATE = Game.LOSE;
+				Game.GAME_STATUS = Game.LOSE;
 			}
 			else 
 			{
-				Game.STATE = Game.LIFE_LOST;
+				Game.GAME_STATUS = Game.LIFE_LOST;
 			}
 			
 			energizer_status = false;										
