@@ -47,10 +47,11 @@ public class Pacman extends Rectangle
 	public static int imageIndex8 	= 0;
 	public static int imageIndex16 	= 0;
 	
-	public static boolean score2 		= false;
-	public static boolean score4 		= false;
-	public static boolean score8 		= false;
-	public static boolean score16 		= false;
+	public static int bonusScore	= -1;
+	public static int score2 		= 200;
+	public static int score4 		= 400;
+	public static int score8 		= 800;
+	public static int score16 		= 1600;
 	public static boolean stop_score 	= false;
 	
 	private int timesScoreFlashed = 0;
@@ -87,19 +88,16 @@ public class Pacman extends Rectangle
 			g.drawImage(Texture.player1[imageIndex], x, y, width, height, null);			//virar jogador para baixo
 		}	
 		
-		if(score2 == true || score4 == true || score8 == true || score16 == true)
+		if(bonusScore == 200 || bonusScore == 400 || bonusScore == 800 || bonusScore == 1600)
 		{
 			if(timesScoreFlashed == 3)
 			{
 				timesScoreFlashed = 0;
-				score2  = false;
-				score4  = false;
-				score8  = false; 
-				score16 = false;
+				bonusScore = -1;
 			}
 			else 
 			{
-				if(score2 == true)
+				if(bonusScore == 200)
 				{
 					if(imageIndex2 >= 10)
 					{
@@ -108,7 +106,7 @@ public class Pacman extends Rectangle
 					}
 					g.drawImage(Texture.two_hundred[imageIndex2], Game.x_position, Game.y_position, width, height, null);
 				}
-				if(score4 == true)
+				if(bonusScore == 400)
 				{
 					if(imageIndex4 >= 10)
 					{
@@ -117,7 +115,7 @@ public class Pacman extends Rectangle
 					}
 					g.drawImage(Texture.four_hundred[imageIndex4], Game.x_position, Game.y_position, width, height, null);
 				}
-				if(score8 == true)
+				if(bonusScore == 800)
 				{
 					if(imageIndex8 >= 10)
 					{
@@ -126,7 +124,7 @@ public class Pacman extends Rectangle
 					}
 					g.drawImage(Texture.eight_hundred[imageIndex8], Game.x_position, Game.y_position, width, height, null);
 				}
-				if(score16 == true)
+				if(bonusScore == 1600)
 				{
 					if(imageIndex16 >= 10)
 					{
@@ -442,10 +440,7 @@ public class Pacman extends Rectangle
 			
 			energizer_time = 0;	
 			
-			score2 = false;
-			score4 = false;
-			score8 = false;
-			score16 = false;
+			bonusScore = -1;
 		}
 	}
 
@@ -477,10 +472,7 @@ public class Pacman extends Rectangle
 			Game.Pinky.eaten = false;
 			Game.Clyde.eaten = false;
 			
-			score2 = false;
-			score4 = false;
-			score8 = false;
-			score16 = false;
+			bonusScore = -1;
 		}
 	}
 	
@@ -512,10 +504,7 @@ public class Pacman extends Rectangle
 			Game.Pinky.eaten = false;
 			Game.Clyde.eaten = false;
 			
-			score2 = false;
-			score4 = false;
-			score8 = false;
-			score16 = false;
+			bonusScore = -1;
 		}
 	}
 
@@ -547,48 +536,15 @@ public class Pacman extends Rectangle
 			Game.Pinky.eaten = false;
 			Game.Clyde.eaten = false;
 			
-			score2 = false;
-			score4 = false;
-			score8 = false;
-			score16 = false;
+			bonusScore = -1;
 		}
 	}
 
 	
-	
-	public void make_200_appear()
+	public void showBonusScore(int bScore)
 	{
-		score2 = true;
-		score16 = false;
-		score8 = false;
-		score4 = false;
+		bonusScore = bScore;
 	}
-	
-	public void make_400_appear()
-	{
-		score4 = true;
-		score2 = false;
-		score16 = false;
-		score8 = false;
-	}
-	
-	public void make_800_appear()
-	{
-		score8 = true;
-		score4 = false;
-		score2 = false;
-		score16 = false;
-	}
-	
-	public void make_1600_appear()
-	{
-		score16 = true;
-		score8 = false;
-		score4 = false;
-		score2 = false;
-	}
-	
-	
 	
 	public void energizer_time_over()
 	{
@@ -650,7 +606,7 @@ public class Pacman extends Rectangle
 						Game.x_position = x;
 						Game.y_position = y;
 						stop_score = false;
-						make_200_appear();
+						showBonusScore(200);
 					}
 					else if(ghosts_eaten == 2)
 					{
@@ -658,7 +614,7 @@ public class Pacman extends Rectangle
 						Game.x_position = x;
 						Game.y_position = y;
 						stop_score = false;
-						make_400_appear();
+						showBonusScore(400);
 					}
 					else if(ghosts_eaten == 3)
 					{
@@ -666,7 +622,7 @@ public class Pacman extends Rectangle
 						Game.x_position = x;
 						Game.y_position = y;
 						stop_score = false;
-						make_800_appear();
+						showBonusScore(800);
 					}
 					else if(ghosts_eaten == 4)
 					{
@@ -674,7 +630,7 @@ public class Pacman extends Rectangle
 						Game.x_position = x;
 						Game.y_position = y;
 						stop_score = false;
-						make_1600_appear();
+						showBonusScore(1600);
 						ghosts_eaten = 0;
 					}
 					Game.Blinky = new Ghost(320, 320, 0, -1, -1);
@@ -696,7 +652,7 @@ public class Pacman extends Rectangle
 						Game.x_position = x;
 						Game.y_position = y;
 						stop_score = false;
-						make_200_appear();
+						showBonusScore(200);
 					}
 					else if(ghosts_eaten == 2)
 					{
@@ -704,7 +660,7 @@ public class Pacman extends Rectangle
 						Game.x_position = x;
 						Game.y_position = y;
 						stop_score = false;
-						make_400_appear();
+						showBonusScore(400);
 					}
 					else if(ghosts_eaten == 3)
 					{
@@ -712,7 +668,7 @@ public class Pacman extends Rectangle
 						Game.x_position = x;
 						Game.y_position = y;
 						stop_score = false;
-						make_800_appear();
+						showBonusScore(800);
 					}
 					else if(ghosts_eaten == 4)
 					{
@@ -720,7 +676,7 @@ public class Pacman extends Rectangle
 						Game.x_position = x;
 						Game.y_position = y;
 						stop_score = false;
-						make_1600_appear();
+						showBonusScore(1600);
 						ghosts_eaten = 0;
 					}
 					Game.Inky = new Ghost(320, 320, 1, -1, -1);
@@ -741,7 +697,7 @@ public class Pacman extends Rectangle
 						Game.x_position = x;
 						Game.y_position = y;
 						stop_score = false;
-						make_200_appear();
+						showBonusScore(200);
 					}
 					else if(ghosts_eaten == 2)
 					{
@@ -749,7 +705,7 @@ public class Pacman extends Rectangle
 						Game.x_position = x;
 						Game.y_position = y;
 						stop_score = false;
-						make_400_appear();
+						showBonusScore(400);
 					}
 					else if(ghosts_eaten == 3)
 					{
@@ -757,7 +713,7 @@ public class Pacman extends Rectangle
 						Game.x_position = x;
 						Game.y_position = y;
 						stop_score = false;
-						make_800_appear();
+						showBonusScore(800);
 					}
 					else if(ghosts_eaten == 4)
 					{
@@ -765,7 +721,7 @@ public class Pacman extends Rectangle
 						Game.x_position = x;
 						Game.y_position = y;
 						stop_score = false;
-						make_1600_appear();
+						showBonusScore(1600);
 						ghosts_eaten = 0;
 					}
 					Game.Pinky = new Ghost(320, 320, 2, -1, -1);
@@ -786,7 +742,7 @@ public class Pacman extends Rectangle
 						Game.x_position = x;
 						Game.y_position = y;
 						stop_score = false;
-						make_200_appear();
+						showBonusScore(200);
 					}
 					else if(ghosts_eaten == 2)
 					{
@@ -794,7 +750,7 @@ public class Pacman extends Rectangle
 						Game.x_position = x;
 						Game.y_position = y;
 						stop_score = false;
-						make_400_appear();
+						showBonusScore(400);
 					}
 					else if(ghosts_eaten == 3)
 					{
@@ -802,7 +758,7 @@ public class Pacman extends Rectangle
 						Game.x_position = x;
 						Game.y_position = y;
 						stop_score = false;
-						make_800_appear();
+						showBonusScore(800);
 					}
 					else if(ghosts_eaten == 4)
 					{
@@ -810,7 +766,7 @@ public class Pacman extends Rectangle
 						Game.x_position = x;
 						Game.y_position = y;
 						stop_score = false;
-						make_1600_appear();
+						showBonusScore(1600);
 						ghosts_eaten = 0;
 					}						
 					Game.Clyde = new Ghost(320, 320, 3, -1, -1);
@@ -865,7 +821,7 @@ public class Pacman extends Rectangle
 			}
 		}
 		
-		if(score2 == true)
+		if(bonusScore == 200)
 		{
 			time2 ++;
 			
@@ -875,7 +831,7 @@ public class Pacman extends Rectangle
 				imageIndex2++;
 			}
 		}
-		if(score4 == true)
+		if(bonusScore == 400)
 		{
 			time4 ++;
 			
@@ -885,7 +841,7 @@ public class Pacman extends Rectangle
 				imageIndex4 ++;
 			}
 		}
-		if(score8 == true)
+		if(bonusScore == 800)
 		{
 			time8 ++;
 			
@@ -895,7 +851,7 @@ public class Pacman extends Rectangle
 				imageIndex8 ++;
 			}
 		}
-		if(score16 == true)
+		if(bonusScore == 1600)
 		{
 			time16 ++;
 			

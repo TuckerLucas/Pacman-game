@@ -127,12 +127,9 @@ public class Game extends Canvas implements Runnable, KeyListener
 		Pacman.dir = Pacman.right;
 	}
 	
-	private void resetBonusScores()
+	public static void resetBonusScores()
 	{
-		Pacman.score2 	= false;
-		Pacman.score4 	= false;
-		Pacman.score8 	= false;
-		Pacman.score16 	= false;
+		Pacman.bonusScore = -1;
 	}
 	
 	private void checkShowText()
