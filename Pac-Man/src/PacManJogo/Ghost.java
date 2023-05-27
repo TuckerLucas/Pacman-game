@@ -950,10 +950,10 @@ public class Ghost extends Rectangle
 				
 				switch(enemyID)
 				{
-					case 0: g.drawImage(Texture.ghostr[imageIndexEnemy], x, y, width, height, null); break;
-					case 1: g.drawImage(Texture.ghost1r[imageIndexEnemy], x, y, width, height, null); break;
-					case 2: g.drawImage(Texture.ghost2r[imageIndexEnemy], x, y, width, height, null); break;
-					case 3: g.drawImage(Texture.ghost3r[imageIndexEnemy], x, y, width, height, null); break;
+					case 0: g.drawImage(Texture.blinkyR[imageIndexEnemy], x, y, width, height, null); break;
+					case 1: g.drawImage(Texture.inkyR[imageIndexEnemy], x, y, width, height, null); break;
+					case 2: g.drawImage(Texture.pinkyR[imageIndexEnemy], x, y, width, height, null); break;
+					case 3: g.drawImage(Texture.clydeR[imageIndexEnemy], x, y, width, height, null); break;
 				}
 				
 				break;
@@ -962,10 +962,10 @@ public class Ghost extends Rectangle
 				
 				switch(enemyID)
 				{
-					case 0: g.drawImage(Texture.ghostl[imageIndexEnemy], x, y, width, height, null); break;
-					case 1: g.drawImage(Texture.ghost1l[imageIndexEnemy], x, y, width, height, null); break;
-					case 2: g.drawImage(Texture.ghost2l[imageIndexEnemy], x, y, width, height, null); break;
-					case 3: g.drawImage(Texture.ghost3l[imageIndexEnemy], x, y, width, height, null); break;
+					case 0: g.drawImage(Texture.blinkyL[imageIndexEnemy], x, y, width, height, null); break;
+					case 1: g.drawImage(Texture.inkyL[imageIndexEnemy], x, y, width, height, null); break;
+					case 2: g.drawImage(Texture.pinkyL[imageIndexEnemy], x, y, width, height, null); break;
+					case 3: g.drawImage(Texture.clydeL[imageIndexEnemy], x, y, width, height, null); break;
 				}
 				
 				break;
@@ -974,10 +974,10 @@ public class Ghost extends Rectangle
 				
 				switch(enemyID)
 				{
-					case 0: g.drawImage(Texture.ghostu[imageIndexEnemy], x, y, width, height, null); break;
-					case 1: g.drawImage(Texture.ghost1u[imageIndexEnemy], x, y, width, height, null); break;
-					case 2: g.drawImage(Texture.ghost2u[imageIndexEnemy], x, y, width, height, null); break;
-					case 3: g.drawImage(Texture.ghost3u[imageIndexEnemy], x, y, width, height, null); break;
+					case 0: g.drawImage(Texture.blinkyU[imageIndexEnemy], x, y, width, height, null); break;
+					case 1: g.drawImage(Texture.inkyU[imageIndexEnemy], x, y, width, height, null); break;
+					case 2: g.drawImage(Texture.pinkyU[imageIndexEnemy], x, y, width, height, null); break;
+					case 3: g.drawImage(Texture.clydeU[imageIndexEnemy], x, y, width, height, null); break;
 				}
 				
 				break;
@@ -986,10 +986,10 @@ public class Ghost extends Rectangle
 				
 				switch(enemyID)
 				{
-					case 0: g.drawImage(Texture.ghostd[imageIndexEnemy], x, y, width, height, null); break;
-					case 1: g.drawImage(Texture.ghost1d[imageIndexEnemy], x, y, width, height, null); break;
-					case 2: g.drawImage(Texture.ghost2d[imageIndexEnemy], x, y, width, height, null); break;
-					case 3: g.drawImage(Texture.ghost3d[imageIndexEnemy], x, y, width, height, null); break;
+					case 0: g.drawImage(Texture.blinkyD[imageIndexEnemy], x, y, width, height, null); break;
+					case 1: g.drawImage(Texture.inkyD[imageIndexEnemy], x, y, width, height, null); break;
+					case 2: g.drawImage(Texture.pinkyD[imageIndexEnemy], x, y, width, height, null); break;
+					case 3: g.drawImage(Texture.clydeD[imageIndexEnemy], x, y, width, height, null); break;
 				}
 				
 				break;

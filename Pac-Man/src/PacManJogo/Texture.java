@@ -9,25 +9,25 @@ public class Texture
 	public static BufferedImage[] player;
 	public static BufferedImage[] player1;
 	
-	public static BufferedImage[] ghostr;
-	public static BufferedImage[] ghostl;
-	public static BufferedImage[] ghostu;
-	public static BufferedImage[] ghostd;
+	public static BufferedImage[] blinkyR;
+	public static BufferedImage[] blinkyL;
+	public static BufferedImage[] blinkyU;
+	public static BufferedImage[] blinkyD;
 	
-	public static BufferedImage[] ghost1r;
-	public static BufferedImage[] ghost1l;
-	public static BufferedImage[] ghost1u;
-	public static BufferedImage[] ghost1d;
+	public static BufferedImage[] inkyR;
+	public static BufferedImage[] inkyL;
+	public static BufferedImage[] inkyU;
+	public static BufferedImage[] inkyD;
 	
-	public static BufferedImage[] ghost2r;
-	public static BufferedImage[] ghost2l;
-	public static BufferedImage[] ghost2u;
-	public static BufferedImage[] ghost2d;
+	public static BufferedImage[] pinkyR;
+	public static BufferedImage[] pinkyL;
+	public static BufferedImage[] pinkyU;
+	public static BufferedImage[] pinkyD;
 	
-	public static BufferedImage[] ghost3r;
-	public static BufferedImage[] ghost3l;
-	public static BufferedImage[] ghost3u;
-	public static BufferedImage[] ghost3d;
+	public static BufferedImage[] clydeR;
+	public static BufferedImage[] clydeL;
+	public static BufferedImage[] clydeU;
+	public static BufferedImage[] clydeD;
 	
 	public static BufferedImage[] blueghost;
 	public static BufferedImage[] whiteghost;
@@ -58,25 +58,25 @@ public class Texture
 		player = new BufferedImage[3];
 		player1 = new BufferedImage[3];
 		
-		ghostr = new BufferedImage[2];
-		ghostl = new BufferedImage[2];
-		ghostu = new BufferedImage[2];
-		ghostd = new BufferedImage[2];
+		blinkyR = new BufferedImage[2];
+		blinkyL = new BufferedImage[2];
+		blinkyU = new BufferedImage[2];
+		blinkyD = new BufferedImage[2];
 		
-		ghost1r = new BufferedImage[2];
-		ghost1l = new BufferedImage[2];
-		ghost1u = new BufferedImage[2];
-		ghost1d = new BufferedImage[2];
+		inkyR = new BufferedImage[2];
+		inkyL = new BufferedImage[2];
+		inkyU = new BufferedImage[2];
+		inkyD = new BufferedImage[2];
 		
-		ghost2r = new BufferedImage[2];
-		ghost2l = new BufferedImage[2];
-		ghost2u = new BufferedImage[2];
-		ghost2d = new BufferedImage[2];
+		pinkyR = new BufferedImage[2];
+		pinkyL = new BufferedImage[2];
+		pinkyU = new BufferedImage[2];
+		pinkyD = new BufferedImage[2];
 		
-		ghost3r = new BufferedImage[2];
-		ghost3l = new BufferedImage[2];
-		ghost3u = new BufferedImage[2];
-		ghost3d = new BufferedImage[2];
+		clydeR = new BufferedImage[2];
+		clydeL = new BufferedImage[2];
+		clydeU = new BufferedImage[2];
+		clydeD = new BufferedImage[2];
 		
 		blueghost = new BufferedImage[2];
 		whiteghost = new BufferedImage[2];
@@ -99,38 +99,38 @@ public class Texture
 		player1[1] = getSprite(112,0);
 		player1[2] = getSprite(128,0);
 		
-		ghostr[0] = getSprite(0, 16);
-		ghostr[1] = getSprite(64, 16);
-		ghostl[0] = getSprite(16, 16);
-		ghostl[1] = getSprite(80, 16);
-		ghostu[0] = getSprite(32, 16);
-		ghostu[1] = getSprite(96, 16);
-		ghostd[0] = getSprite(48, 16);
-		ghostd[1] = getSprite(112, 16);
-		ghost1r[0] = getSprite(0, 32);
-		ghost1r[1] = getSprite(64, 32);
-		ghost1l[0] = getSprite(16, 32);
-		ghost1l[1] = getSprite(80, 32);
-		ghost1u[0] = getSprite(32, 32);
-		ghost1u[1] = getSprite(96, 32);
-		ghost1d[0] = getSprite(48, 32);
-		ghost1d[1] = getSprite(112, 32);
-		ghost2r[0] = getSprite(0, 48);
-		ghost2r[1] = getSprite(64, 48);
-		ghost2l[0] = getSprite(16, 48);
-		ghost2l[1] = getSprite(80, 48);
-		ghost2u[0] = getSprite(32, 48);
-		ghost2u[1] = getSprite(96, 48);
-		ghost2d[0] = getSprite(48, 48);
-		ghost2d[1] = getSprite(112, 48);
-		ghost3r[0] = getSprite(0, 64);
-		ghost3r[1] = getSprite(64, 64);
-		ghost3l[0] = getSprite(16, 64);
-		ghost3l[1] = getSprite(80, 64);
-		ghost3u[0] = getSprite(32, 64);
-		ghost3u[1] = getSprite(96, 64);
-		ghost3d[0] = getSprite(48, 64);
-		ghost3d[1] = getSprite(112, 64);
+		blinkyR[0] = getSprite(0, 16);
+		blinkyR[1] = getSprite(64, 16);
+		blinkyL[0] = getSprite(16, 16);
+		blinkyL[1] = getSprite(80, 16);
+		blinkyU[0] = getSprite(32, 16);
+		blinkyU[1] = getSprite(96, 16);
+		blinkyD[0] = getSprite(48, 16);
+		blinkyD[1] = getSprite(112, 16);
+		inkyR[0] = getSprite(0, 32);
+		inkyR[1] = getSprite(64, 32);
+		inkyL[0] = getSprite(16, 32);
+		inkyL[1] = getSprite(80, 32);
+		inkyU[0] = getSprite(32, 32);
+		inkyU[1] = getSprite(96, 32);
+		inkyD[0] = getSprite(48, 32);
+		inkyD[1] = getSprite(112, 32);
+		pinkyR[0] = getSprite(0, 48);
+		pinkyR[1] = getSprite(64, 48);
+		pinkyL[0] = getSprite(16, 48);
+		pinkyL[1] = getSprite(80, 48);
+		pinkyU[0] = getSprite(32, 48);
+		pinkyU[1] = getSprite(96, 48);
+		pinkyD[0] = getSprite(48, 48);
+		pinkyD[1] = getSprite(112, 48);
+		clydeR[0] = getSprite(0, 64);
+		clydeR[1] = getSprite(64, 64);
+		clydeL[0] = getSprite(16, 64);
+		clydeL[1] = getSprite(80, 64);
+		clydeU[0] = getSprite(32, 64);
+		clydeU[1] = getSprite(96, 64);
+		clydeD[0] = getSprite(48, 64);
+		clydeD[1] = getSprite(112, 64);
 		
 		blueghost[0] = getSprite(0, 80);
 		blueghost[1] = getSprite(16, 80);

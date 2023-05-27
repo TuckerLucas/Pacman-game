@@ -23,7 +23,7 @@ public class Pacman extends Rectangle
 	
 	public static boolean energizer_flash  = false;
 	public static boolean energizer_status = false;
-	public static boolean sounds = false;
+	public static boolean soundOn = false;
 	
 	private int speed = 2;
 
@@ -47,12 +47,12 @@ public class Pacman extends Rectangle
 	public static int imageIndex8 	= 0;
 	public static int imageIndex16 	= 0;
 	
-	public static int bonusScore	= -1;
-	public static int score2 		= 200;
-	public static int score4 		= 400;
-	public static int score8 		= 800;
-	public static int score16 		= 1600;
-	public static boolean stop_score 	= false;
+	public static int bonusScore = -1;
+	public static int score2 = 200;
+	public static int score4 = 400;
+	public static int score8 = 800;
+	public static int score16 = 1600;
+	public static boolean stopBonusScore = false;
 	
 	private int timesScoreFlashed = 0;
 	
@@ -140,10 +140,8 @@ public class Pacman extends Rectangle
 
 	public static void playSound(String filepath)
 	{
-		if(sounds == true)
-		{
+		if(soundOn)
 			new Sounds(filepath);
-		}
 	}
 	
 	
@@ -328,7 +326,8 @@ public class Pacman extends Rectangle
 			
 		}
 		
-		for(int i = 0; i < Level.energizers.size(); i++) 	//Interce��o com energizer
+		// Collision with energizer
+		for(int i = 0; i < Level.energizers.size(); i++) 	
 		{
 			String filepath = "res\\Sounds\\Energizer.wav";
 			
@@ -344,6 +343,11 @@ public class Pacman extends Rectangle
 				{
 					Game.highscore = Game.score;
 				}
+				
+				/*
+				if(energizer_status)
+					bonusScore = -1;
+				*/
 				
 				energizer_status = true;					// Energizer status activated
 				energizer_time = 0;							// Reset the energizer timer
@@ -363,6 +367,8 @@ public class Pacman extends Rectangle
 	{
 		if(energizer_status == true)					//Estamos no estado energizer
 		{
+			//timesScoreFlashed = 0;
+			
 			if(energizer_time == energizer_targetTime)					//Tempo do energizer terminou
 			{
 				energizer_time_over();									//Reset tempo energizer
@@ -401,12 +407,12 @@ public class Pacman extends Rectangle
 		
 	
 	
-	public static void make_Blinky_flash()
+	public static void makeGhostFlash()
 	{
 		energizer_flash = true;
 	}
 	
-	public void keep_Blinky_blue()
+	public void keepGhostBlue()
 	{
 		energizer_flash = false;
 	}
@@ -564,11 +570,11 @@ public class Pacman extends Rectangle
 	{
 		if(energizer_time >= energizer_flashTime)
 		{
-			make_Blinky_flash();
+			makeGhostFlash();
 		}
 		else if(energizer_time < energizer_flashTime)
 		{
-			keep_Blinky_blue();
+			keepGhostBlue();
 		}
 		
 		if(Game.Blinky.eaten == true || Game.Inky.eaten == true || Game.Pinky.eaten == true || Game.Clyde.eaten == true)		
@@ -605,7 +611,7 @@ public class Pacman extends Rectangle
 						Game.score = Game.score + 200;
 						Game.x_position = x;
 						Game.y_position = y;
-						stop_score = false;
+						stopBonusScore = false;
 						showBonusScore(200);
 					}
 					else if(ghosts_eaten == 2)
@@ -613,7 +619,7 @@ public class Pacman extends Rectangle
 						Game.score = Game.score + 400;
 						Game.x_position = x;
 						Game.y_position = y;
-						stop_score = false;
+						stopBonusScore = false;
 						showBonusScore(400);
 					}
 					else if(ghosts_eaten == 3)
@@ -621,7 +627,7 @@ public class Pacman extends Rectangle
 						Game.score = Game.score + 800;
 						Game.x_position = x;
 						Game.y_position = y;
-						stop_score = false;
+						stopBonusScore = false;
 						showBonusScore(800);
 					}
 					else if(ghosts_eaten == 4)
@@ -629,7 +635,7 @@ public class Pacman extends Rectangle
 						Game.score = Game.score + 1600;
 						Game.x_position = x;
 						Game.y_position = y;
-						stop_score = false;
+						stopBonusScore = false;
 						showBonusScore(1600);
 						ghosts_eaten = 0;
 					}
@@ -651,7 +657,7 @@ public class Pacman extends Rectangle
 						Game.score = Game.score + 200;
 						Game.x_position = x;
 						Game.y_position = y;
-						stop_score = false;
+						stopBonusScore = false;
 						showBonusScore(200);
 					}
 					else if(ghosts_eaten == 2)
@@ -659,7 +665,7 @@ public class Pacman extends Rectangle
 						Game.score = Game.score + 400;
 						Game.x_position = x;
 						Game.y_position = y;
-						stop_score = false;
+						stopBonusScore = false;
 						showBonusScore(400);
 					}
 					else if(ghosts_eaten == 3)
@@ -667,7 +673,7 @@ public class Pacman extends Rectangle
 						Game.score = Game.score + 800;
 						Game.x_position = x;
 						Game.y_position = y;
-						stop_score = false;
+						stopBonusScore = false;
 						showBonusScore(800);
 					}
 					else if(ghosts_eaten == 4)
@@ -675,7 +681,7 @@ public class Pacman extends Rectangle
 						Game.score = Game.score + 1600;
 						Game.x_position = x;
 						Game.y_position = y;
-						stop_score = false;
+						stopBonusScore = false;
 						showBonusScore(1600);
 						ghosts_eaten = 0;
 					}
@@ -696,7 +702,7 @@ public class Pacman extends Rectangle
 						Game.score = Game.score + 200;
 						Game.x_position = x;
 						Game.y_position = y;
-						stop_score = false;
+						stopBonusScore = false;
 						showBonusScore(200);
 					}
 					else if(ghosts_eaten == 2)
@@ -704,7 +710,7 @@ public class Pacman extends Rectangle
 						Game.score = Game.score + 400;
 						Game.x_position = x;
 						Game.y_position = y;
-						stop_score = false;
+						stopBonusScore = false;
 						showBonusScore(400);
 					}
 					else if(ghosts_eaten == 3)
@@ -712,7 +718,7 @@ public class Pacman extends Rectangle
 						Game.score = Game.score + 800;
 						Game.x_position = x;
 						Game.y_position = y;
-						stop_score = false;
+						stopBonusScore = false;
 						showBonusScore(800);
 					}
 					else if(ghosts_eaten == 4)
@@ -720,7 +726,7 @@ public class Pacman extends Rectangle
 						Game.score = Game.score + 1600;
 						Game.x_position = x;
 						Game.y_position = y;
-						stop_score = false;
+						stopBonusScore = false;
 						showBonusScore(1600);
 						ghosts_eaten = 0;
 					}
@@ -741,7 +747,7 @@ public class Pacman extends Rectangle
 						Game.score = Game.score + 200;
 						Game.x_position = x;
 						Game.y_position = y;
-						stop_score = false;
+						stopBonusScore = false;
 						showBonusScore(200);
 					}
 					else if(ghosts_eaten == 2)
@@ -749,7 +755,7 @@ public class Pacman extends Rectangle
 						Game.score = Game.score + 400;
 						Game.x_position = x;
 						Game.y_position = y;
-						stop_score = false;
+						stopBonusScore = false;
 						showBonusScore(400);
 					}
 					else if(ghosts_eaten == 3)
@@ -757,7 +763,7 @@ public class Pacman extends Rectangle
 						Game.score = Game.score + 800;
 						Game.x_position = x;
 						Game.y_position = y;
-						stop_score = false;
+						stopBonusScore = false;
 						showBonusScore(800);
 					}
 					else if(ghosts_eaten == 4)
@@ -765,7 +771,7 @@ public class Pacman extends Rectangle
 						Game.score = Game.score + 1600;
 						Game.x_position = x;
 						Game.y_position = y;
-						stop_score = false;
+						stopBonusScore = false;
 						showBonusScore(1600);
 						ghosts_eaten = 0;
 					}						
@@ -774,6 +780,7 @@ public class Pacman extends Rectangle
 				}
 			}
 		}
+		
 		energizer_time ++;	
 	}
 
