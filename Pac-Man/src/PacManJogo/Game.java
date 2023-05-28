@@ -143,11 +143,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 		Pacman.dir = Pacman.right;
 	}
 	
-	public static void resetBonusScores()
-	{
-		Pacman.bonusScore = -1;
-	}
-	
 	private void checkShowText()
 	{
 		if(showText)
@@ -196,7 +191,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 			case WIN:
 				
-				resetBonusScores();
+				Pacman.bonusScore = -1;
 				
 				time++;
 				
@@ -218,7 +213,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 			case LOSE:
 				
-				resetBonusScores();
+				Pacman.bonusScore = -1;
 				
 				if(score >= highscore) 
 	        		highscore = score;
@@ -257,7 +252,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 			case LIFE_LOST:
 				
-				resetBonusScores();
+				Pacman.bonusScore = -1;
 				life_was_lost = true;
 				loadCharacters();
 				GAME_STATUS = GAME;

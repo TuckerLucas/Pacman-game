@@ -67,7 +67,10 @@ public class Ghost extends Rectangle
 	private int imageIndexEnemy = 0;
 	
 	public boolean eaten;
-	private int enemyID;
+
+	public int enemyID;
+	public int spawnX;
+	public int spawnY;
 	
 	public Ghost(int x, int y, int ID, int ld, int cm)
 	{	
@@ -948,7 +951,7 @@ public class Ghost extends Rectangle
 		{
 			case right: 
 				
-				switch(enemyID)
+				switch(this.enemyID)
 				{
 					case 0: g.drawImage(Texture.blinkyR[imageIndexEnemy], x, y, width, height, null); break;
 					case 1: g.drawImage(Texture.inkyR[imageIndexEnemy], x, y, width, height, null); break;
