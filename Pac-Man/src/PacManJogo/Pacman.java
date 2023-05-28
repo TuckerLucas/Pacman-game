@@ -377,7 +377,7 @@ public class Pacman extends Rectangle
 		energizer_flash = false;
 	}
 	
-	public void Blinky_eaten()
+	public void BlinkyEaten()
 	{
 		if(Game.Blinky.intersects(this))
 		{
@@ -456,7 +456,7 @@ public class Pacman extends Rectangle
 		}
 	}
 	
-	public void Inky_eaten()
+	public void InkyEaten()
 	{
 		if(Game.Inky.intersects(this))
 		{
@@ -535,7 +535,7 @@ public class Pacman extends Rectangle
 		}
 	}
 	
-	public void Pinky_eaten()
+	public void PinkyEaten()
 	{
 		if(Game.Pinky.intersects(this))
 		{
@@ -613,7 +613,7 @@ public class Pacman extends Rectangle
 		}
 	}
 	
-	public void Clyde_eaten()
+	public void ClydeEaten()
 	{
 		if(Game.Clyde.intersects(this))
 		{
@@ -710,25 +710,44 @@ public class Pacman extends Rectangle
 		ghosts_eaten = 0;
 	}
 	
-	public void checkEatenGhosts()
+	public void checkIfBlinkyEaten()
 	{
 		if(Game.Blinky.eaten)	
-			Blinky_eaten();
-		if(Game.Inky.eaten)		
-			Inky_eaten();
-		if(Game.Pinky.eaten)
-			Pinky_eaten();
-		if(Game.Clyde.eaten)
-			Clyde_eaten();
-		
-		if(!Game.Blinky.eaten)																
+			BlinkyEaten();
+		else if(!Game.Blinky.eaten)																
 			BlinkyNotEaten();
-		if(!Game.Inky.eaten)																
+	}
+	
+	public void checkIfInkyEaten()
+	{
+		if(Game.Inky.eaten)		
+			InkyEaten();
+		else if(!Game.Inky.eaten)																
 			InkyNotEaten();
-		if(!Game.Pinky.eaten)																
+	}
+	
+	public void checkIfPinkyEaten()
+	{
+		if(Game.Pinky.eaten)
+			PinkyEaten();
+		else if(!Game.Pinky.eaten)																
 			PinkyNotEaten();
-		if(!Game.Clyde.eaten)																
+	}
+	
+	public void checkIfClydeEaten()
+	{
+		if(Game.Clyde.eaten)
+			ClydeEaten();
+		else if(!Game.Clyde.eaten)																
 			ClydeNotEaten();
+	}
+	
+	public void checkEatenGhosts()
+	{
+		checkIfBlinkyEaten();
+		checkIfInkyEaten();
+		checkIfPinkyEaten();
+		checkIfClydeEaten();
 	}
 	
 	public void energizer_time_not_over()
