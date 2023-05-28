@@ -36,7 +36,23 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static Energizer energizer;
 	public static Door door;
 	public static Level level;
-	 
+	
+	// Ghost spawn coordinate variables
+	public static int blinkySpawnX = 320;
+	public static int blinkySpawnY = 256;
+	public static int inkySpawnX = 288;
+	public static int inkySpawnY = 320;
+	public static int pinkySpawnX = 320;
+	public static int pinkySpawnY = 320;
+	public static int clydeSpawnX = 352;
+	public static int clydeSpawnY = 320;
+	
+	// Ghost ID's
+	public static final int blinkyID = 0;
+	public static final int inkyID = 1;
+	public static final int pinkyID = 2;
+	public static final int clydeID = 3;
+	
 	// Game status variables
 	public static final int INIT = 0;		
 	public static final int GAME = 1;
@@ -317,13 +333,9 @@ public class Game extends Canvas implements Runnable, KeyListener
 		switch(GAME_STATUS)
 		{
 			case GAME: Level.render(g); break;
-
 			case INIT: drawInitScreen(g); break;
-
 			case WIN: drawWinScreen(g); break;
-			
 			case LOSE: drawLoseScreen(g); break;
-			
 			case LIFE_LOST: pacman.render(g); break;			
 		}
 		
@@ -369,11 +381,8 @@ public class Game extends Canvas implements Runnable, KeyListener
 				switch(e.getKeyCode())
 				{
 					case KeyEvent.VK_RIGHT: Pacman.dir = Pacman.right; break;
-						
 					case KeyEvent.VK_LEFT: Pacman.dir = Pacman.left; break;
-						
 					case KeyEvent.VK_UP: Pacman.dir = Pacman.up; break;
-						
 					case KeyEvent.VK_DOWN: Pacman.dir = Pacman.down; break;
 				}
 				
@@ -382,9 +391,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 			case LOSE:
 				
 				if(e.getKeyCode() == KeyEvent.VK_SPACE)
-				{
 					Space = true;
-				}
 				
 				// fall through
 				
@@ -395,9 +402,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 			case WIN:
 				
 				if(e.getKeyCode() == KeyEvent.VK_ENTER)
-				{
 					Enter = true;						
-				}
 				
 				break;
 		}

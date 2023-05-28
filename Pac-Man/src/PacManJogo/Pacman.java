@@ -17,12 +17,12 @@ public class Pacman extends Rectangle
 	public static int up    = 3;
 	public static int down  = 4;
 
-	public static int energizer_time       = 0;
-	public static int energizer_targetTime = 60*8; 
-	public static int energizer_flashTime  = 60*5;
+	public static int energizerTime       = 0;
+	public static int energizerTargetTime = 60*8; 
+	public static int energizerFlashTime  = 60*5;
 	
-	public static boolean energizer_flash  = false;
-	public static boolean energizer_status = false;
+	public static boolean energizerFlash  = false;
+	public static boolean energizerStatus = false;
 	public static boolean soundOn = false;
 	
 	private int speed = 2;
@@ -41,7 +41,7 @@ public class Pacman extends Rectangle
 	public static int imageIndex16 	= 0;
 	
 	public static int lives 		  = 3;
-	private int ghosts_eaten 		  = 0;
+	private int ghostsEaten 		  = 0;
 	
 	public static int bonusScore = -1;
 	public static int score2 = 200;
@@ -52,7 +52,7 @@ public class Pacman extends Rectangle
 	
 	private int timesScoreFlashed = 0;
 	
-	public int current_score;
+	public int currentScore;
 	
 	public Pacman(int x, int y)
 	{
@@ -259,13 +259,13 @@ public class Pacman extends Rectangle
 		{
 			Game.GAME_STATUS = Game.WIN;	
 			
-			energizer_status = false;				
+			energizerStatus = false;				
 			Game.Blinky.eaten = false;													
 			Game.Inky.eaten = false;
 			Game.Pinky.eaten = false;
 			Game.Clyde.eaten = false;
 			
-			energizer_time = 0;	
+			energizerTime = 0;	
 			return;
 		}
 		
@@ -309,12 +309,12 @@ public class Pacman extends Rectangle
 				}
 				
 				/*
-				if(energizer_status)
+				if(energizerStatus)
 					bonusScore = -1;
 				*/
 				
-				energizer_status = true;					// Energizer status activated
-				energizer_time = 0;							// Reset the energizer timer
+				energizerStatus = true;					// Energizer status activated
+				energizerTime = 0;							// Reset the energizer timer
 				
 				// No ghosts eaten
 				Game.Blinky.eaten = false;													
@@ -329,16 +329,16 @@ public class Pacman extends Rectangle
 	
 	public void colision_with_ghost()
 	{
-		if(energizer_status)					//Estamos no estado energizer
+		if(energizerStatus)					//Estamos no estado energizer
 		{
 			//timesScoreFlashed = 0;
 			
-			if(energizer_time == energizer_targetTime)					// Energizer time over		
-				energizer_time_over();									
-			else if(energizer_time < energizer_targetTime)				// Energizer time not over yet
-				energizer_time_not_over();								 			
+			if(energizerTime == energizerTargetTime)					// Energizer time over		
+				energizerTime_over();									
+			else if(energizerTime < energizerTargetTime)				// Energizer time not over yet
+				energizerTime_not_over();								 			
 		}
-		else if(!energizer_status)
+		else if(!energizerStatus)
 		{
 			if(Game.Blinky.intersects(this) || Game.Inky.intersects(this) || Game.Pinky.intersects(this) || Game.Clyde.intersects(this))	//Interce��o com inimigo										
 			{
@@ -369,45 +369,12 @@ public class Pacman extends Rectangle
 	
 	public static void makeGhostFlash()
 	{
-		energizer_flash = true;
+		energizerFlash = true;
 	}
 	
 	public void keepGhostBlue()
 	{
-		energizer_flash = false;
-	}
-	
-	public void BlinkyEaten()
-	{
-		if(Game.Blinky.intersects(this))
-		{
-			String filepath = "res\\Sounds\\PacMan Death.wav";
-			playSound(filepath);
-			
-			lives = lives - 1;
-			
-			if(lives == 0)
-			{
-				LeaderboardPanel.read_from_file();
-				LeaderboardPanel.swap_values();
-				LeaderboardPanel.write_to_file();
-				Game.GAME_STATUS = Game.LOSE;
-			}
-			else 
-			{
-				Game.GAME_STATUS = Game.LIFE_LOST;
-			}
-			
-			energizer_status = false;				
-			Game.Blinky.eaten = false;													
-			Game.Inky.eaten = false;
-			Game.Pinky.eaten = false;
-			Game.Clyde.eaten = false;
-			
-			energizer_time = 0;	
-			
-			bonusScore = -1;
-		}
+		energizerFlash = false;
 	}
 
 	public void BlinkyNotEaten()
@@ -417,8 +384,8 @@ public class Pacman extends Rectangle
 			String filepath = "res\\Sounds\\Ghost Eaten.wav";
 			playSound(filepath);	
 			
-			ghosts_eaten = ghosts_eaten + 1;
-			if(ghosts_eaten == 1)
+			ghostsEaten = ghostsEaten + 1;
+			if(ghostsEaten == 1)
 			{
 				Game.score = Game.score + 200;
 				Game.x_position = x;
@@ -426,7 +393,7 @@ public class Pacman extends Rectangle
 				stopBonusScore = false;
 				showBonusScore(200);
 			}
-			else if(ghosts_eaten == 2)
+			else if(ghostsEaten == 2)
 			{
 				Game.score = Game.score + 400;
 				Game.x_position = x;
@@ -434,7 +401,7 @@ public class Pacman extends Rectangle
 				stopBonusScore = false;
 				showBonusScore(400);
 			}
-			else if(ghosts_eaten == 3)
+			else if(ghostsEaten == 3)
 			{
 				Game.score = Game.score + 800;
 				Game.x_position = x;
@@ -442,49 +409,17 @@ public class Pacman extends Rectangle
 				stopBonusScore = false;
 				showBonusScore(800);
 			}
-			else if(ghosts_eaten == 4)
+			else if(ghostsEaten == 4)
 			{
 				Game.score = Game.score + 1600;
 				Game.x_position = x;
 				Game.y_position = y;
 				stopBonusScore = false;
 				showBonusScore(1600);
-				ghosts_eaten = 0;
+				ghostsEaten = 0;
 			}
 			Game.Blinky = new Ghost(320, 320, 0, -1, -1);
 			Game.Blinky.eaten = true;
-		}
-	}
-	
-	public void InkyEaten()
-	{
-		if(Game.Inky.intersects(this))
-		{
-			String filepath = "res\\Sounds\\PacMan Death.wav";
-			playSound(filepath);
-			
-			lives = lives - 1;
-			
-			if(lives == 0)
-			{
-				LeaderboardPanel.read_from_file();
-				LeaderboardPanel.swap_values();
-				LeaderboardPanel.write_to_file();
-				Game.GAME_STATUS = Game.LOSE;
-			}
-			else 
-			{
-				Game.GAME_STATUS = Game.LIFE_LOST;
-			}
-			
-			energizer_status = false;										
-			
-			Game.Blinky.eaten = false;													
-			Game.Inky.eaten = false;
-			Game.Pinky.eaten = false;
-			Game.Clyde.eaten = false;
-			
-			bonusScore = -1;
 		}
 	}
 	
@@ -495,9 +430,9 @@ public class Pacman extends Rectangle
 			String filepath = "res\\Sounds\\Ghost Eaten.wav";
 			playSound(filepath);
 			
-			ghosts_eaten = ghosts_eaten + 1;
+			ghostsEaten = ghostsEaten + 1;
 			
-			if(ghosts_eaten == 1)
+			if(ghostsEaten == 1)
 			{
 				Game.score = Game.score + 200;
 				Game.x_position = x;
@@ -505,7 +440,7 @@ public class Pacman extends Rectangle
 				stopBonusScore = false;
 				showBonusScore(200);
 			}
-			else if(ghosts_eaten == 2)
+			else if(ghostsEaten == 2)
 			{
 				Game.score = Game.score + 400;
 				Game.x_position = x;
@@ -513,7 +448,7 @@ public class Pacman extends Rectangle
 				stopBonusScore = false;
 				showBonusScore(400);
 			}
-			else if(ghosts_eaten == 3)
+			else if(ghostsEaten == 3)
 			{
 				Game.score = Game.score + 800;
 				Game.x_position = x;
@@ -521,49 +456,17 @@ public class Pacman extends Rectangle
 				stopBonusScore = false;
 				showBonusScore(800);
 			}
-			else if(ghosts_eaten == 4)
+			else if(ghostsEaten == 4)
 			{
 				Game.score = Game.score + 1600;
 				Game.x_position = x;
 				Game.y_position = y;
 				stopBonusScore = false;
 				showBonusScore(1600);
-				ghosts_eaten = 0;
+				ghostsEaten = 0;
 			}
 			Game.Inky = new Ghost(320, 320, 1, -1, -1);
 			Game.Inky.eaten = true;
-		}
-	}
-	
-	public void PinkyEaten()
-	{
-		if(Game.Pinky.intersects(this))
-		{
-			String filepath = "res\\Sounds\\PacMan Death.wav";
-			playSound(filepath);
-			
-			lives = lives - 1;
-			
-			if(lives == 0)
-			{
-				LeaderboardPanel.read_from_file();
-				LeaderboardPanel.swap_values();
-				LeaderboardPanel.write_to_file();
-				Game.GAME_STATUS = Game.LOSE;
-			}
-			else 
-			{
-				Game.GAME_STATUS = Game.LIFE_LOST;
-			}
-			
-			energizer_status = false;										
-			
-			Game.Blinky.eaten = false;													
-			Game.Inky.eaten = false;
-			Game.Pinky.eaten = false;
-			Game.Clyde.eaten = false;
-			
-			bonusScore = -1;
 		}
 	}
 
@@ -574,8 +477,8 @@ public class Pacman extends Rectangle
 			String filepath = "res\\Sounds\\Ghost Eaten.wav";
 			playSound(filepath);
 			
-			ghosts_eaten = ghosts_eaten + 1;
-			if(ghosts_eaten == 1)
+			ghostsEaten = ghostsEaten + 1;
+			if(ghostsEaten == 1)
 			{
 				Game.score = Game.score + 200;
 				Game.x_position = x;
@@ -583,7 +486,7 @@ public class Pacman extends Rectangle
 				stopBonusScore = false;
 				showBonusScore(200);
 			}
-			else if(ghosts_eaten == 2)
+			else if(ghostsEaten == 2)
 			{
 				Game.score = Game.score + 400;
 				Game.x_position = x;
@@ -591,7 +494,7 @@ public class Pacman extends Rectangle
 				stopBonusScore = false;
 				showBonusScore(400);
 			}
-			else if(ghosts_eaten == 3)
+			else if(ghostsEaten == 3)
 			{
 				Game.score = Game.score + 800;
 				Game.x_position = x;
@@ -599,49 +502,17 @@ public class Pacman extends Rectangle
 				stopBonusScore = false;
 				showBonusScore(800);
 			}
-			else if(ghosts_eaten == 4)
+			else if(ghostsEaten == 4)
 			{
 				Game.score = Game.score + 1600;
 				Game.x_position = x;
 				Game.y_position = y;
 				stopBonusScore = false;
 				showBonusScore(1600);
-				ghosts_eaten = 0;
+				ghostsEaten = 0;
 			}
 			Game.Pinky = new Ghost(320, 320, 2, -1, -1);
 			Game.Pinky.eaten = true;
-		}
-	}
-	
-	public void ClydeEaten()
-	{
-		if(Game.Clyde.intersects(this))
-		{
-			String filepath = "res\\Sounds\\PacMan Death.wav";
-			playSound(filepath);
-			
-			lives = lives - 1;
-			
-			if(lives == 0)
-			{
-				LeaderboardPanel.read_from_file();
-				LeaderboardPanel.swap_values();
-				LeaderboardPanel.write_to_file();
-				Game.GAME_STATUS = Game.LOSE;
-			}
-			else 
-			{
-				Game.GAME_STATUS = Game.LIFE_LOST;
-			}
-			
-			energizer_status = false;										
-			
-			Game.Blinky.eaten = false;													
-			Game.Inky.eaten = false;
-			Game.Pinky.eaten = false;
-			Game.Clyde.eaten = false;
-			
-			bonusScore = -1;
 		}
 	}
 	
@@ -652,8 +523,8 @@ public class Pacman extends Rectangle
 			String filepath = "res\\Sounds\\Ghost Eaten.wav";
 			playSound(filepath);
 			
-			ghosts_eaten = ghosts_eaten + 1;
-			if(ghosts_eaten == 1)
+			ghostsEaten = ghostsEaten + 1;
+			if(ghostsEaten == 1)
 			{
 				Game.score = Game.score + 200;
 				Game.x_position = x;
@@ -661,7 +532,7 @@ public class Pacman extends Rectangle
 				stopBonusScore = false;
 				showBonusScore(200);
 			}
-			else if(ghosts_eaten == 2)
+			else if(ghostsEaten == 2)
 			{
 				Game.score = Game.score + 400;
 				Game.x_position = x;
@@ -669,7 +540,7 @@ public class Pacman extends Rectangle
 				stopBonusScore = false;
 				showBonusScore(400);
 			}
-			else if(ghosts_eaten == 3)
+			else if(ghostsEaten == 3)
 			{
 				Game.score = Game.score + 800;
 				Game.x_position = x;
@@ -677,14 +548,14 @@ public class Pacman extends Rectangle
 				stopBonusScore = false;
 				showBonusScore(800);
 			}
-			else if(ghosts_eaten == 4)
+			else if(ghostsEaten == 4)
 			{
 				Game.score = Game.score + 1600;
 				Game.x_position = x;
 				Game.y_position = y;
 				stopBonusScore = false;
 				showBonusScore(1600);
-				ghosts_eaten = 0;
+				ghostsEaten = 0;
 			}						
 			Game.Clyde = new Ghost(320, 320, 3, -1, -1);
 			Game.Clyde.eaten = true;
@@ -696,24 +567,98 @@ public class Pacman extends Rectangle
 		bonusScore = bScore;
 	}
 	
-	public void energizer_time_over()
+	public void energizerTime_over()
 	{
-		energizer_status = false;
+		energizerStatus = false;
 		
 		Game.Blinky.eaten = false;													
 		Game.Inky.eaten = false;
 		Game.Pinky.eaten = false;
 		Game.Clyde.eaten = false;
 		
-		energizer_time = 0;	
+		energizerTime = 0;	
 
-		ghosts_eaten = 0;
+		ghostsEaten = 0;
+	}
+	
+	public void GhostEaten(Ghost ghost)
+	{
+		if(ghost.intersects(this))
+		{
+			String filepath = "res\\Sounds\\PacMan Death.wav";
+			playSound(filepath);
+			
+			lives = lives - 1;
+			
+			if(lives == 0)
+			{
+				LeaderboardPanel.read_from_file();
+				LeaderboardPanel.swap_values();
+				LeaderboardPanel.write_to_file();
+				Game.GAME_STATUS = Game.LOSE;
+			}
+			else 
+				Game.GAME_STATUS = Game.LIFE_LOST;
+			
+			energizerStatus = false;				
+			Game.Blinky.eaten = false;													
+			Game.Inky.eaten = false;
+			Game.Pinky.eaten = false;
+			Game.Clyde.eaten = false;
+			
+			energizerTime = 0;	
+			
+			bonusScore = -1;
+		}
+	}
+	
+	public void GhostNotEaten(Ghost ghost, int ghostID)
+	{
+		if(ghost.intersects(this))
+		{
+			String filepath = "res\\Sounds\\Ghost Eaten.wav";
+			playSound(filepath);
+			
+			ghostsEaten = ghostsEaten++;
+			
+			Game.x_position = x;
+			Game.y_position = y;
+			stopBonusScore = false;
+			
+			switch(ghostsEaten)
+			{
+				case 1: Game.score = Game.score + 200; showBonusScore(200); break;
+				case 2: Game.score = Game.score + 400; showBonusScore(400); break;
+				case 3: Game.score = Game.score + 800; showBonusScore(800); break;
+				case 4: Game.score = Game.score + 1600; showBonusScore(1600); break;
+			}	
+			
+			switch(ghostID)
+			{
+				case Game.blinkyID:
+					ghost = new Ghost(Game.blinkySpawnX, Game.blinkySpawnY, Game.blinkyID, -1, -1);
+					ghost.eaten = true;
+					break;
+				case Game.inkyID:
+					ghost = new Ghost(Game.inkySpawnX, Game.inkySpawnY, Game.inkyID, -1, -1);
+					ghost.eaten = true;
+					break;
+				case Game.pinkyID:
+					ghost = new Ghost(Game.pinkySpawnX, Game.pinkySpawnY, Game.pinkyID, -1, -1);
+					ghost.eaten = true;
+					break;
+				case Game.clydeID:
+					ghost = new Ghost(Game.clydeSpawnX, Game.clydeSpawnY, Game.clydeID, -1, -1);
+					ghost.eaten = true;
+					break;
+			}
+		}
 	}
 	
 	public void checkIfBlinkyEaten()
 	{
-		if(Game.Blinky.eaten)	
-			BlinkyEaten();
+		if(Game.Blinky.eaten)
+			GhostEaten(Game.Blinky);
 		else if(!Game.Blinky.eaten)																
 			BlinkyNotEaten();
 	}
@@ -721,7 +666,7 @@ public class Pacman extends Rectangle
 	public void checkIfInkyEaten()
 	{
 		if(Game.Inky.eaten)		
-			InkyEaten();
+			GhostEaten(Game.Inky);
 		else if(!Game.Inky.eaten)																
 			InkyNotEaten();
 	}
@@ -729,7 +674,7 @@ public class Pacman extends Rectangle
 	public void checkIfPinkyEaten()
 	{
 		if(Game.Pinky.eaten)
-			PinkyEaten();
+			GhostEaten(Game.Pinky);
 		else if(!Game.Pinky.eaten)																
 			PinkyNotEaten();
 	}
@@ -737,7 +682,7 @@ public class Pacman extends Rectangle
 	public void checkIfClydeEaten()
 	{
 		if(Game.Clyde.eaten)
-			ClydeEaten();
+			GhostEaten(Game.Clyde);
 		else if(!Game.Clyde.eaten)																
 			ClydeNotEaten();
 	}
@@ -750,16 +695,16 @@ public class Pacman extends Rectangle
 		checkIfClydeEaten();
 	}
 	
-	public void energizer_time_not_over()
+	public void energizerTime_not_over()
 	{
-		if(energizer_time >= energizer_flashTime)
+		if(energizerTime >= energizerFlashTime)
 			makeGhostFlash();
-		else if(energizer_time < energizer_flashTime)
+		else if(energizerTime < energizerFlashTime)
 			keepGhostBlue();
 		
 		checkEatenGhosts();
 		
-		energizer_time ++;	
+		energizerTime ++;	
 	}
 
 	

@@ -405,7 +405,7 @@ public class Ghost extends Rectangle
 		{
 			if((difx < radius && difx > -radius) && (dify < radius && dify > -radius))
 			{
-				if(Pacman.energizer_status == false && !inBox())
+				if(Pacman.energizerStatus == false && !inBox())
 				{
 					state = smart;
 				}
@@ -558,7 +558,7 @@ public class Ghost extends Rectangle
 		difx = x - Game.pacman.x;
 		dify = y - Game.pacman.y;
 
-		if(Pacman.energizer_status == true || inBox())
+		if(Pacman.energizerStatus == true || inBox())
 		{
 			state = random;
 		}
@@ -1055,13 +1055,13 @@ public class Ghost extends Rectangle
 		if(imageIndexEnemy == 2)
 			imageIndexEnemy = 0;
 
-		if(!Pacman.energizer_status || eaten)
+		if(!Pacman.energizerStatus || eaten)
 			look(lastDir, g);
 		else
 		{
-			if(!Pacman.energizer_flash)
+			if(!Pacman.energizerFlash)
 				stay_blue(g);
-			else if(Pacman.energizer_flash)
+			else if(Pacman.energizerFlash)
 				flash(g);
 		}
 	}
