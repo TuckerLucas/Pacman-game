@@ -768,56 +768,21 @@ public class Pacman extends Rectangle
 				imageIndexFlash ++;
 		}
 		
-		switch(bonusScore)
+		bonusScoreTime ++;
+		
+		if(bonusScoreTime == bonusScoreTargetTime)
 		{
-			case 200:
-				
-				bonusScoreTime ++;
-				
-				if(bonusScoreTime == bonusScoreTargetTime)
-				{
-					bonusScoreTime = 0;
-					imageIndex2++;
-				}
-				
-				break;
-				
-			case 400:
-				
-				bonusScoreTime ++;
-				
-				if(bonusScoreTime == bonusScoreTargetTime)
-				{
-					bonusScoreTime = 0;
-					imageIndex4++;
-				}
-				
-				break;
-				
-			case 800:
-				
-				bonusScoreTime ++;
-				
-				if(bonusScoreTime == bonusScoreTargetTime)
-				{
-					bonusScoreTime = 0;
-					imageIndex8++;
-				}
-				
-				break;
-				
-			case 1600:
-				
-				bonusScoreTime ++;
-				
-				if(bonusScoreTime == bonusScoreTargetTime)
-				{
-					bonusScoreTime = 0;
-					imageIndex16++;
-				}
-				
-				break;
+			bonusScoreTime = 0;
+			
+			switch(bonusScore)
+			{
+				case 200:imageIndex2++; break;
+				case 400:imageIndex4++; break;
+				case 800:imageIndex8++; break;
+				case 1600:imageIndex16++; break;
+			}
 		}
+
 	}
 	
 	public void tick()
