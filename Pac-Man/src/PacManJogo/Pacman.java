@@ -334,11 +334,11 @@ public class Pacman extends Rectangle
 			//timesScoreFlashed = 0;
 			
 			if(energizer_time == energizer_targetTime)					// Energizer time over		
-				energizer_time_over();									// Reset energizer time
+				energizer_time_over();									
 			else if(energizer_time < energizer_targetTime)				// Energizer time not over yet
-				energizer_time_not_over();								// 			
+				energizer_time_not_over();								 			
 		}
-		else if(energizer_status == false)
+		else if(!energizer_status)
 		{
 			if(Game.Blinky.intersects(this) || Game.Inky.intersects(this) || Game.Pinky.intersects(this) || Game.Clyde.intersects(this))	//Interce��o com inimigo										
 			{
@@ -410,6 +410,52 @@ public class Pacman extends Rectangle
 		}
 	}
 
+	public void BlinkyNotEaten()
+	{
+		if(Game.Blinky.intersects(this))									
+		{
+			String filepath = "res\\Sounds\\Ghost Eaten.wav";
+			playSound(filepath);	
+			
+			ghosts_eaten = ghosts_eaten + 1;
+			if(ghosts_eaten == 1)
+			{
+				Game.score = Game.score + 200;
+				Game.x_position = x;
+				Game.y_position = y;
+				stopBonusScore = false;
+				showBonusScore(200);
+			}
+			else if(ghosts_eaten == 2)
+			{
+				Game.score = Game.score + 400;
+				Game.x_position = x;
+				Game.y_position = y;
+				stopBonusScore = false;
+				showBonusScore(400);
+			}
+			else if(ghosts_eaten == 3)
+			{
+				Game.score = Game.score + 800;
+				Game.x_position = x;
+				Game.y_position = y;
+				stopBonusScore = false;
+				showBonusScore(800);
+			}
+			else if(ghosts_eaten == 4)
+			{
+				Game.score = Game.score + 1600;
+				Game.x_position = x;
+				Game.y_position = y;
+				stopBonusScore = false;
+				showBonusScore(1600);
+				ghosts_eaten = 0;
+			}
+			Game.Blinky = new Ghost(320, 320, 0, -1, -1);
+			Game.Blinky.eaten = true;
+		}
+	}
+	
 	public void Inky_eaten()
 	{
 		if(Game.Inky.intersects(this))
@@ -439,6 +485,53 @@ public class Pacman extends Rectangle
 			Game.Clyde.eaten = false;
 			
 			bonusScore = -1;
+		}
+	}
+	
+	public void InkyNotEaten()
+	{
+		if(Game.Inky.intersects(this))
+		{
+			String filepath = "res\\Sounds\\Ghost Eaten.wav";
+			playSound(filepath);
+			
+			ghosts_eaten = ghosts_eaten + 1;
+			
+			if(ghosts_eaten == 1)
+			{
+				Game.score = Game.score + 200;
+				Game.x_position = x;
+				Game.y_position = y;
+				stopBonusScore = false;
+				showBonusScore(200);
+			}
+			else if(ghosts_eaten == 2)
+			{
+				Game.score = Game.score + 400;
+				Game.x_position = x;
+				Game.y_position = y;
+				stopBonusScore = false;
+				showBonusScore(400);
+			}
+			else if(ghosts_eaten == 3)
+			{
+				Game.score = Game.score + 800;
+				Game.x_position = x;
+				Game.y_position = y;
+				stopBonusScore = false;
+				showBonusScore(800);
+			}
+			else if(ghosts_eaten == 4)
+			{
+				Game.score = Game.score + 1600;
+				Game.x_position = x;
+				Game.y_position = y;
+				stopBonusScore = false;
+				showBonusScore(1600);
+				ghosts_eaten = 0;
+			}
+			Game.Inky = new Ghost(320, 320, 1, -1, -1);
+			Game.Inky.eaten = true;
 		}
 	}
 	
@@ -474,6 +567,52 @@ public class Pacman extends Rectangle
 		}
 	}
 
+	public void PinkyNotEaten()
+	{
+		if(Game.Pinky.intersects(this))
+		{
+			String filepath = "res\\Sounds\\Ghost Eaten.wav";
+			playSound(filepath);
+			
+			ghosts_eaten = ghosts_eaten + 1;
+			if(ghosts_eaten == 1)
+			{
+				Game.score = Game.score + 200;
+				Game.x_position = x;
+				Game.y_position = y;
+				stopBonusScore = false;
+				showBonusScore(200);
+			}
+			else if(ghosts_eaten == 2)
+			{
+				Game.score = Game.score + 400;
+				Game.x_position = x;
+				Game.y_position = y;
+				stopBonusScore = false;
+				showBonusScore(400);
+			}
+			else if(ghosts_eaten == 3)
+			{
+				Game.score = Game.score + 800;
+				Game.x_position = x;
+				Game.y_position = y;
+				stopBonusScore = false;
+				showBonusScore(800);
+			}
+			else if(ghosts_eaten == 4)
+			{
+				Game.score = Game.score + 1600;
+				Game.x_position = x;
+				Game.y_position = y;
+				stopBonusScore = false;
+				showBonusScore(1600);
+				ghosts_eaten = 0;
+			}
+			Game.Pinky = new Ghost(320, 320, 2, -1, -1);
+			Game.Pinky.eaten = true;
+		}
+	}
+	
 	public void Clyde_eaten()
 	{
 		if(Game.Clyde.intersects(this))
@@ -505,8 +644,53 @@ public class Pacman extends Rectangle
 			bonusScore = -1;
 		}
 	}
-
 	
+	public void ClydeNotEaten()
+	{
+		if(Game.Clyde.intersects(this))
+		{
+			String filepath = "res\\Sounds\\Ghost Eaten.wav";
+			playSound(filepath);
+			
+			ghosts_eaten = ghosts_eaten + 1;
+			if(ghosts_eaten == 1)
+			{
+				Game.score = Game.score + 200;
+				Game.x_position = x;
+				Game.y_position = y;
+				stopBonusScore = false;
+				showBonusScore(200);
+			}
+			else if(ghosts_eaten == 2)
+			{
+				Game.score = Game.score + 400;
+				Game.x_position = x;
+				Game.y_position = y;
+				stopBonusScore = false;
+				showBonusScore(400);
+			}
+			else if(ghosts_eaten == 3)
+			{
+				Game.score = Game.score + 800;
+				Game.x_position = x;
+				Game.y_position = y;
+				stopBonusScore = false;
+				showBonusScore(800);
+			}
+			else if(ghosts_eaten == 4)
+			{
+				Game.score = Game.score + 1600;
+				Game.x_position = x;
+				Game.y_position = y;
+				stopBonusScore = false;
+				showBonusScore(1600);
+				ghosts_eaten = 0;
+			}						
+			Game.Clyde = new Ghost(320, 320, 3, -1, -1);
+			Game.Clyde.eaten = true;
+		}
+	}
+
 	public void showBonusScore(int bScore)
 	{
 		bonusScore = bScore;
@@ -514,7 +698,7 @@ public class Pacman extends Rectangle
 	
 	public void energizer_time_over()
 	{
-		energizer_status = false;										
+		energizer_status = false;
 		
 		Game.Blinky.eaten = false;													
 		Game.Inky.eaten = false;
@@ -526,208 +710,35 @@ public class Pacman extends Rectangle
 		ghosts_eaten = 0;
 	}
 	
+	public void checkEatenGhosts()
+	{
+		if(Game.Blinky.eaten)	
+			Blinky_eaten();
+		if(Game.Inky.eaten)		
+			Inky_eaten();
+		if(Game.Pinky.eaten)
+			Pinky_eaten();
+		if(Game.Clyde.eaten)
+			Clyde_eaten();
+		
+		if(!Game.Blinky.eaten)																
+			BlinkyNotEaten();
+		if(!Game.Inky.eaten)																
+			InkyNotEaten();
+		if(!Game.Pinky.eaten)																
+			PinkyNotEaten();
+		if(!Game.Clyde.eaten)																
+			ClydeNotEaten();
+	}
+	
 	public void energizer_time_not_over()
 	{
 		if(energizer_time >= energizer_flashTime)
-		{
 			makeGhostFlash();
-		}
 		else if(energizer_time < energizer_flashTime)
-		{
 			keepGhostBlue();
-		}
 		
-			if(Game.Blinky.eaten)	
-				Blinky_eaten();
-			if(Game.Inky.eaten)		
-				Inky_eaten();
-			if(Game.Pinky.eaten)
-				Pinky_eaten();
-			if(Game.Clyde.eaten)
-				Clyde_eaten();
-		
-		
-			if(!Game.Blinky.eaten)																
-			{
-				if(Game.Blinky.intersects(this))									
-				{
-					String filepath = "res\\Sounds\\Ghost Eaten.wav";
-					playSound(filepath);	
-					
-					ghosts_eaten = ghosts_eaten + 1;
-					if(ghosts_eaten == 1)
-					{
-						Game.score = Game.score + 200;
-						Game.x_position = x;
-						Game.y_position = y;
-						stopBonusScore = false;
-						showBonusScore(200);
-					}
-					else if(ghosts_eaten == 2)
-					{
-						Game.score = Game.score + 400;
-						Game.x_position = x;
-						Game.y_position = y;
-						stopBonusScore = false;
-						showBonusScore(400);
-					}
-					else if(ghosts_eaten == 3)
-					{
-						Game.score = Game.score + 800;
-						Game.x_position = x;
-						Game.y_position = y;
-						stopBonusScore = false;
-						showBonusScore(800);
-					}
-					else if(ghosts_eaten == 4)
-					{
-						Game.score = Game.score + 1600;
-						Game.x_position = x;
-						Game.y_position = y;
-						stopBonusScore = false;
-						showBonusScore(1600);
-						ghosts_eaten = 0;
-					}
-					Game.Blinky = new Ghost(320, 320, 0, -1, -1);
-					Game.Blinky.eaten = true;
-				}
-			}
-			if(!Game.Inky.eaten)																
-			{
-				if(Game.Inky.intersects(this))
-				{
-					String filepath = "res\\Sounds\\Ghost Eaten.wav";
-					playSound(filepath);
-					
-					ghosts_eaten = ghosts_eaten + 1;
-					
-					if(ghosts_eaten == 1)
-					{
-						Game.score = Game.score + 200;
-						Game.x_position = x;
-						Game.y_position = y;
-						stopBonusScore = false;
-						showBonusScore(200);
-					}
-					else if(ghosts_eaten == 2)
-					{
-						Game.score = Game.score + 400;
-						Game.x_position = x;
-						Game.y_position = y;
-						stopBonusScore = false;
-						showBonusScore(400);
-					}
-					else if(ghosts_eaten == 3)
-					{
-						Game.score = Game.score + 800;
-						Game.x_position = x;
-						Game.y_position = y;
-						stopBonusScore = false;
-						showBonusScore(800);
-					}
-					else if(ghosts_eaten == 4)
-					{
-						Game.score = Game.score + 1600;
-						Game.x_position = x;
-						Game.y_position = y;
-						stopBonusScore = false;
-						showBonusScore(1600);
-						ghosts_eaten = 0;
-					}
-					Game.Inky = new Ghost(320, 320, 1, -1, -1);
-					Game.Inky.eaten = true;
-				}
-			}	
-			if(!Game.Pinky.eaten)																
-			{
-				if(Game.Pinky.intersects(this))
-				{
-					String filepath = "res\\Sounds\\Ghost Eaten.wav";
-					playSound(filepath);
-					
-					ghosts_eaten = ghosts_eaten + 1;
-					if(ghosts_eaten == 1)
-					{
-						Game.score = Game.score + 200;
-						Game.x_position = x;
-						Game.y_position = y;
-						stopBonusScore = false;
-						showBonusScore(200);
-					}
-					else if(ghosts_eaten == 2)
-					{
-						Game.score = Game.score + 400;
-						Game.x_position = x;
-						Game.y_position = y;
-						stopBonusScore = false;
-						showBonusScore(400);
-					}
-					else if(ghosts_eaten == 3)
-					{
-						Game.score = Game.score + 800;
-						Game.x_position = x;
-						Game.y_position = y;
-						stopBonusScore = false;
-						showBonusScore(800);
-					}
-					else if(ghosts_eaten == 4)
-					{
-						Game.score = Game.score + 1600;
-						Game.x_position = x;
-						Game.y_position = y;
-						stopBonusScore = false;
-						showBonusScore(1600);
-						ghosts_eaten = 0;
-					}
-					Game.Pinky = new Ghost(320, 320, 2, -1, -1);
-					Game.Pinky.eaten = true;
-				}
-			}
-			if(!Game.Clyde.eaten)																
-			{
-				if(Game.Clyde.intersects(this))
-				{
-					String filepath = "res\\Sounds\\Ghost Eaten.wav";
-					playSound(filepath);
-					
-					ghosts_eaten = ghosts_eaten + 1;
-					if(ghosts_eaten == 1)
-					{
-						Game.score = Game.score + 200;
-						Game.x_position = x;
-						Game.y_position = y;
-						stopBonusScore = false;
-						showBonusScore(200);
-					}
-					else if(ghosts_eaten == 2)
-					{
-						Game.score = Game.score + 400;
-						Game.x_position = x;
-						Game.y_position = y;
-						stopBonusScore = false;
-						showBonusScore(400);
-					}
-					else if(ghosts_eaten == 3)
-					{
-						Game.score = Game.score + 800;
-						Game.x_position = x;
-						Game.y_position = y;
-						stopBonusScore = false;
-						showBonusScore(800);
-					}
-					else if(ghosts_eaten == 4)
-					{
-						Game.score = Game.score + 1600;
-						Game.x_position = x;
-						Game.y_position = y;
-						stopBonusScore = false;
-						showBonusScore(1600);
-						ghosts_eaten = 0;
-					}						
-					Game.Clyde = new Ghost(320, 320, 3, -1, -1);
-					Game.Clyde.eaten = true;
-				}
-			}
+		checkEatenGhosts();
 		
 		energizer_time ++;	
 	}
