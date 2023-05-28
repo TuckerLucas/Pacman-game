@@ -27,25 +27,21 @@ public class Pacman extends Rectangle
 	
 	private int speed = 2;
 
-	private int time 				  = 0;	//variaveis para temporiza��o da anima��o
+	// Animation timing variables
+	private int time 				  = 0;	
 	private int targetTime 			  = 8;
 	private int imageIndex            = 0;
 	public static int imageIndexFlash = 0;
-	public static int lives 		  = 3;
-	private int ghosts_eaten 		  = 0;
 	
-	private int time2 			 	= 0;
-	private int targetTime2 		= 10;
-	private int time4 			 	= 0;
-	private int targetTime4 		= 10;
-	private int time8 			 	= 0;
-	private int targetTime8 		= 10;
-	private int time16 			 	= 0;
-	private int targetTime16 		= 10;
+	private int bonusScoreTime			= 0;
+	private int bonusScoreTargetTime 	= 10;
 	public static int imageIndex2 	= 0;	
 	public static int imageIndex4 	= 0;
 	public static int imageIndex8 	= 0;
 	public static int imageIndex16 	= 0;
+	
+	public static int lives 		  = 3;
+	private int ghosts_eaten 		  = 0;
 	
 	public static int bonusScore = -1;
 	public static int score2 = 200;
@@ -63,30 +59,19 @@ public class Pacman extends Rectangle
 		setBounds(x,y,32,32);
 	}
 
-	
 	public void render(Graphics g)
 	{
 		if(imageIndex == 3)
-		{
 			imageIndex = 0;
-		}
 		
-		if(lastDir == right)																	
-		{
-			g.drawImage(Texture.player[imageIndex], x, y, width, height, null);				//virar jogador para a direita		
-		}
+		if(lastDir == right)
+			g.drawImage(Texture.player[imageIndex], x, y, width, height, null);			// Make pacman look right
 		else if(lastDir == left)
-		{
-			g.drawImage(Texture.player[imageIndex], x+32, y, -width, height, null);			//virar jogador para a esquerda
-		}
+			g.drawImage(Texture.player[imageIndex], x+32, y, -width, height, null);		// Make pacman look left
 		else if(lastDir == up)
-		{
-			g.drawImage(Texture.player1[imageIndex], x, y+32, width, -height, null);		//virar jogador para cima
-		}
+			g.drawImage(Texture.player1[imageIndex], x, y+32, width, -height, null);	// Make pacman look up
 		else if(lastDir == down)
-		{
-			g.drawImage(Texture.player1[imageIndex], x, y, width, height, null);			//virar jogador para baixo
-		}	
+			g.drawImage(Texture.player1[imageIndex], x, y, width, height, null);		// Make pacman look down
 		
 		if(bonusScore == 200 || bonusScore == 400 || bonusScore == 800 || bonusScore == 1600)
 		{
@@ -205,69 +190,48 @@ public class Pacman extends Rectangle
 		switch(dir)
 		{
 			case 1:
-					if(lastDir == left && canMove(left))
-					{
-						x-=speed;
-					}
-					if(lastDir == up && canMove(up))
-					{
-						y-=speed;
-					}
-					if(lastDir == down && canMove(down))
-					{
-						y+=speed;
-					}
 				
-					break;
+				if(lastDir == left && canMove(left))
+					x-=speed;
+				if(lastDir == up && canMove(up))
+					y-=speed;
+				if(lastDir == down && canMove(down))
+					y+=speed;
+			
+				break;
 					
 			case 2: 
-					if(lastDir == right && canMove(right))
-					{
-						x+=speed;
-					}
-					if(lastDir == up && canMove(up))
-					{
-						y-=speed;
-					}
-					if(lastDir == down && canMove(down))
-					{
-						y+=speed;
-					}
-						
-					break;
+				
+				if(lastDir == right && canMove(right))
+					x+=speed;
+				if(lastDir == up && canMove(up))
+					y-=speed;
+				if(lastDir == down && canMove(down))
+					y+=speed;
+					
+				break;
 					
 			case 3:
-					if(lastDir == left && canMove(left))
-					{
-						x-=speed;
-					}
-					if(lastDir == right && canMove(right))
-					{
-						x+=speed;
-					}
-					if(lastDir == down && canMove(down))
-					{
-						y+=speed;
-					}
-					
-					break;
+				
+				if(lastDir == left && canMove(left))
+					x-=speed;
+				if(lastDir == right && canMove(right))
+					x+=speed;
+				if(lastDir == down && canMove(down))
+					y+=speed;
+				
+				break;
 			
 			case 4:
 					
-					if(lastDir == left && canMove(left))
-					{
-						x-=speed;
-					}
-					if(lastDir == up && canMove(up))
-					{
-						y-=speed;
-					}
-					if(lastDir == right && canMove(right))
-					{
-						x+=speed;
-					}
-					
-					break;
+				if(lastDir == left && canMove(left))
+					x-=speed;
+				if(lastDir == up && canMove(up))
+					y-=speed;
+				if(lastDir == right && canMove(right))
+					x+=speed;
+				
+				break;
 		}
 		
 		/*
@@ -365,18 +329,14 @@ public class Pacman extends Rectangle
 	
 	public void colision_with_ghost()
 	{
-		if(energizer_status == true)					//Estamos no estado energizer
+		if(energizer_status)					//Estamos no estado energizer
 		{
 			//timesScoreFlashed = 0;
 			
-			if(energizer_time == energizer_targetTime)					//Tempo do energizer terminou
-			{
-				energizer_time_over();									//Reset tempo energizer
-			}
-			else if(energizer_time < energizer_targetTime)				//Tempo do energizer n�o terminou
-			{	
-				energizer_time_not_over();											
-			}	
+			if(energizer_time == energizer_targetTime)					// Energizer time over		
+				energizer_time_over();									// Reset energizer time
+			else if(energizer_time < energizer_targetTime)				// Energizer time not over yet
+				energizer_time_not_over();								// 			
 		}
 		else if(energizer_status == false)
 		{
@@ -554,7 +514,7 @@ public class Pacman extends Rectangle
 	
 	public void energizer_time_over()
 	{
-		energizer_status = false;										//Terminou estado energizer
+		energizer_status = false;										
 		
 		Game.Blinky.eaten = false;													
 		Game.Inky.eaten = false;
@@ -577,28 +537,17 @@ public class Pacman extends Rectangle
 			keepGhostBlue();
 		}
 		
-		if(Game.Blinky.eaten == true || Game.Inky.eaten == true || Game.Pinky.eaten == true || Game.Clyde.eaten == true)		
-		{
-			if(Game.Blinky.eaten == true)																
-			{
+			if(Game.Blinky.eaten)	
 				Blinky_eaten();
-			}
-			if(Game.Inky.eaten == true)																
-			{
+			if(Game.Inky.eaten)		
 				Inky_eaten();
-			}
-			if(Game.Pinky.eaten == true)															
-			{
+			if(Game.Pinky.eaten)
 				Pinky_eaten();
-			}
-			if(Game.Clyde.eaten == true)															
-			{
+			if(Game.Clyde.eaten)
 				Clyde_eaten();
-			}
-		}
-		if(Game.Blinky.eaten == false || Game.Inky.eaten == false || Game.Pinky.eaten == false || Game.Clyde.eaten == false)							
-		{
-			if(Game.Blinky.eaten == false)																
+		
+		
+			if(!Game.Blinky.eaten)																
 			{
 				if(Game.Blinky.intersects(this))									
 				{
@@ -643,7 +592,7 @@ public class Pacman extends Rectangle
 					Game.Blinky.eaten = true;
 				}
 			}
-			if(Game.Inky.eaten == false)																
+			if(!Game.Inky.eaten)																
 			{
 				if(Game.Inky.intersects(this))
 				{
@@ -689,7 +638,7 @@ public class Pacman extends Rectangle
 					Game.Inky.eaten = true;
 				}
 			}	
-			if(Game.Pinky.eaten == false)																
+			if(!Game.Pinky.eaten)																
 			{
 				if(Game.Pinky.intersects(this))
 				{
@@ -734,7 +683,7 @@ public class Pacman extends Rectangle
 					Game.Pinky.eaten = true;
 				}
 			}
-			if(Game.Clyde.eaten == false)																
+			if(!Game.Clyde.eaten)																
 			{
 				if(Game.Clyde.intersects(this))
 				{
@@ -779,7 +728,6 @@ public class Pacman extends Rectangle
 					Game.Clyde.eaten = true;
 				}
 			}
-		}
 		
 		energizer_time ++;	
 	}
@@ -799,14 +747,10 @@ public class Pacman extends Rectangle
 	
 	public void positioning()
 	{
-		if(x == 0 && y == 320)			//Portal da esquerda							
-		{
-			Game.pacman = new Pacman(640, 320);						
-		}
-		else if(x == 640 && y == 320)	//Portal da direita
-		{
-			Game.pacman = new Pacman(0, 320);
-		}
+		if(x == 0 && y == 320)						// Pacman going through the left portal	
+			Game.pacman = new Pacman(640, 320);		// Spawn pacman on the right side of the map
+		else if(x == 640 && y == 320)				// Pacman going through the right portal	
+			Game.pacman = new Pacman(0, 320);		// Spawn pacman on the left side of the map
 	}
 	
 	public void animation()
@@ -819,54 +763,60 @@ public class Pacman extends Rectangle
 			imageIndex ++;
 			
 			if(imageIndexFlash == 3)
-			{
 				imageIndexFlash = 0;
-			}
 			else
-			{
 				imageIndexFlash ++;
-			}
 		}
 		
-		if(bonusScore == 200)
+		switch(bonusScore)
 		{
-			time2 ++;
-			
-			if(time2 == targetTime2)
-			{
-				time2 = 0;
-				imageIndex2++;
-			}
-		}
-		if(bonusScore == 400)
-		{
-			time4 ++;
-			
-			if(time4 == targetTime4)
-			{
-				time4 = 0;
-				imageIndex4 ++;
-			}
-		}
-		if(bonusScore == 800)
-		{
-			time8 ++;
-			
-			if(time8 == targetTime8)
-			{
-				time8 = 0;
-				imageIndex8 ++;
-			}
-		}
-		if(bonusScore == 1600)
-		{
-			time16 ++;
-			
-			if(time16 == targetTime16)
-			{
-				time16 = 0;
-				imageIndex16 ++;
-			}
+			case 200:
+				
+				bonusScoreTime ++;
+				
+				if(bonusScoreTime == bonusScoreTargetTime)
+				{
+					bonusScoreTime = 0;
+					imageIndex2++;
+				}
+				
+				break;
+				
+			case 400:
+				
+				bonusScoreTime ++;
+				
+				if(bonusScoreTime == bonusScoreTargetTime)
+				{
+					bonusScoreTime = 0;
+					imageIndex4++;
+				}
+				
+				break;
+				
+			case 800:
+				
+				bonusScoreTime ++;
+				
+				if(bonusScoreTime == bonusScoreTargetTime)
+				{
+					bonusScoreTime = 0;
+					imageIndex8++;
+				}
+				
+				break;
+				
+			case 1600:
+				
+				bonusScoreTime ++;
+				
+				if(bonusScoreTime == bonusScoreTargetTime)
+				{
+					bonusScoreTime = 0;
+					imageIndex16++;
+				}
+				
+				break;
 		}
 	}
 	
