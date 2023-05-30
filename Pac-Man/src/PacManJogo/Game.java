@@ -81,7 +81,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static int x_position;
 	public static int y_position;
 	
-	public static Ghost ghost = null;
+	public static Ghost newghost;
 	
 	public Game()
 	{

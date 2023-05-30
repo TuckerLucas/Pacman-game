@@ -119,11 +119,8 @@ public class Ghost extends Rectangle
 		switch(dir)
 		{
 			case right: x+=spd; lastDir = right; break;
-				
 			case left: x-=spd; lastDir = left; break;
-			
 			case up: y-=spd; lastDir = up; break;
-			
 			case down: y+=spd; lastDir = down; break;
 		}
 	}

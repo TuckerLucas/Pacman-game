@@ -149,48 +149,34 @@ public class Texture
 		died[1] = died[2] = getSprite(0,0);
 		
 		two_hundred[0] = getScore(128,16);
-		two_hundred[1] = two_hundred[0];
-		two_hundred[4] = two_hundred[0];
-		two_hundred[5] = two_hundred[0];
-		two_hundred[8] = two_hundred[0];
-		two_hundred[9] = two_hundred[0];
-		two_hundred[2] = getScore(128,80);
-		two_hundred[3] = two_hundred[2];
-		two_hundred[8] = two_hundred[2];
-		two_hundred[9] = two_hundred[2];
+		two_hundred[1] = getScore(128,80);
 		
 		four_hundred[0] = getScore(128,32);
-		four_hundred[1] = four_hundred[0];
-		four_hundred[4] = four_hundred[0];
-		four_hundred[5] = four_hundred[0];
-		four_hundred[8] = four_hundred[0];
-		four_hundred[9] = four_hundred[0];
-		four_hundred[2] = getScore(128,96);
-		four_hundred[3] = four_hundred[2];
-		four_hundred[8] = four_hundred[2];
-		four_hundred[9] = four_hundred[2];
+		four_hundred[1] = getScore(128,96);
 		
 		eight_hundred[0] = getScore(128,48);
-		eight_hundred[1] = eight_hundred[0];
-		eight_hundred[4] = eight_hundred[0];
-		eight_hundred[5] = eight_hundred[0];
-		eight_hundred[8] = eight_hundred[0];
-		eight_hundred[9] = eight_hundred[0];
-		eight_hundred[2] = getScore(128,112);
-		eight_hundred[3] = eight_hundred[2];
-		eight_hundred[8] = eight_hundred[2];
-		eight_hundred[9] = eight_hundred[2];
+		eight_hundred[1] = getScore(128,112);
 		
 		sixteen_hundred[0] = getScore(128,64);
-		sixteen_hundred[1] = sixteen_hundred[0];
-		sixteen_hundred[4] = sixteen_hundred[0];
-		sixteen_hundred[5] = sixteen_hundred[0];
-		sixteen_hundred[8] = sixteen_hundred[0];
-		sixteen_hundred[9] = sixteen_hundred[0];
-		sixteen_hundred[2] = getScore(128,128);
-		sixteen_hundred[3] = sixteen_hundred[2];
-		sixteen_hundred[8] = sixteen_hundred[2];
-		sixteen_hundred[9] = sixteen_hundred[2];
+		sixteen_hundred[1] = getScore(128,128);
+		
+		for(int i = 2; i < 10; i++)
+		{
+			if(i%2 == 0)
+			{
+				two_hundred[i] = two_hundred[0];
+				four_hundred[i] = four_hundred[0];
+				eight_hundred[i] = eight_hundred[0];
+				sixteen_hundred[i] = sixteen_hundred[0];
+			}
+			else
+			{
+				two_hundred[i] = two_hundred[1];
+				four_hundred[i] = four_hundred[1];
+				eight_hundred[i] = eight_hundred[1];
+				sixteen_hundred[i] = sixteen_hundred[1];
+			}
+		}
 	}
 	
 	public static BufferedImage getSprite(int xx, int yy)

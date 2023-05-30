@@ -73,7 +73,7 @@ public class Pacman extends Rectangle
 		else if(lastDir == down)
 			g.drawImage(Texture.player1[imageIndex], x, y, width, height, null);		// Make pacman look down
 		
-		if(bonusScore == 200 || bonusScore == 400 || bonusScore == 800 || bonusScore == 1600)
+		if(bonusScore != -1)
 		{
 			if(timesScoreFlashed == 3)
 			{
@@ -82,41 +82,51 @@ public class Pacman extends Rectangle
 			}
 			else 
 			{
-				if(bonusScore == 200)
+				switch(bonusScore)
 				{
+				case 200: 
+					
 					if(imageIndex2 >= 10)
 					{
 						imageIndex2 = 0;
 						timesScoreFlashed++;
 					}
 					g.drawImage(Texture.two_hundred[imageIndex2], Game.x_position, Game.y_position, width, height, null);
-				}
-				if(bonusScore == 400)
-				{
+				
+					break;
+					
+				case 400:
+					
 					if(imageIndex4 >= 10)
 					{
 						imageIndex4 = 0;
 						timesScoreFlashed++;
 					}
 					g.drawImage(Texture.four_hundred[imageIndex4], Game.x_position, Game.y_position, width, height, null);
-				}
-				if(bonusScore == 800)
-				{
+					
+					break;
+					
+				case 800:
+					
 					if(imageIndex8 >= 10)
 					{
 						imageIndex8 = 0;
 						timesScoreFlashed++;
 					}
 					g.drawImage(Texture.eight_hundred[imageIndex8], Game.x_position, Game.y_position, width, height, null);
-				}
-				if(bonusScore == 1600)
-				{
+				
+					break;
+					
+				case 1600:
+					
 					if(imageIndex16 >= 10)
 					{
 						imageIndex16 = 0;
 						timesScoreFlashed++;
 					}
 					g.drawImage(Texture.sixteen_hundred[imageIndex16], Game.x_position, Game.y_position, width, height, null);
+				
+					break;
 				}
 			}
 		}
@@ -396,11 +406,11 @@ public class Pacman extends Rectangle
 		ghostsEaten = 0;
 	}
 	
-	public void isGhostEaten()
+	public void isGhostEaten(Ghost ghost)
 	{
-		if(Game.ghost.intersects(this))
+		if(ghost.intersects(this))
 		{
-			if(Game.ghost.eaten)
+			if(ghost.eaten)
 			{
 				String filepath = "res\\Sounds\\PacMan Death.wav";
 				playSound(filepath);
@@ -443,37 +453,37 @@ public class Pacman extends Rectangle
 					case 2: Game.score = Game.score + 400; showBonusScore(400); break;
 					case 3: Game.score = Game.score + 800; showBonusScore(800); break;
 					case 4: Game.score = Game.score + 1600; showBonusScore(1600); break;
-				}	
+				}
 				
-				//Game.ghost = new Ghost(320, 320, Game.ghost.enemyID, -1, -1);
-				//Game.ghost.eaten = true;
+				//ghost = new Ghost(320, 320, ghost.enemyID, -1, -1);
+				//ghost.eaten = true;
 			
-				switch(Game.ghost.enemyID)
+				switch(ghost.enemyID)
 				{
 					case Game.blinkyID:
 												
-						Game.Blinky = new Ghost(Game.blinkySpawnX, Game.blinkySpawnY, Game.ghost.enemyID, -1, -1);
+						Game.Blinky = new Ghost(Game.blinkySpawnX, Game.blinkySpawnY, ghost.enemyID, -1, -1);
 						Game.Blinky.eaten = true;
 						
 						break;
 						
 					case Game.inkyID:
 											
-						Game.Inky = new Ghost(Game.inkySpawnX, Game.inkySpawnY, Game.ghost.enemyID, -1, -1);
+						Game.Inky = new Ghost(Game.inkySpawnX, Game.inkySpawnY, ghost.enemyID, -1, -1);
 						Game.Inky.eaten = true;
 						
 						break;
 						
 					case Game.pinkyID:	
 						
-						Game.Pinky = new Ghost(Game.pinkySpawnX, Game.pinkySpawnY, Game.ghost.enemyID, -1, -1);
+						Game.Pinky = new Ghost(Game.pinkySpawnX, Game.pinkySpawnY, ghost.enemyID, -1, -1);
 						Game.Pinky.eaten = true;
 						
 						break;
 						
 					case Game.clydeID:
 												
-						Game.Clyde = new Ghost(Game.clydeSpawnX, Game.clydeSpawnY, Game.ghost.enemyID, -1, -1);
+						Game.Clyde = new Ghost(Game.clydeSpawnX, Game.clydeSpawnY, ghost.enemyID, -1, -1);
 						Game.Clyde.eaten = true;
 						
 						break;
@@ -482,65 +492,12 @@ public class Pacman extends Rectangle
 		}
 	}
 	
-	public void GhostNotEaten(Ghost ghost)
-	{			
-		if(ghost.intersects(this))
-		{
-			String filepath = "res\\Sounds\\Ghost Eaten.wav";
-			playSound(filepath);
-			
-			ghostsEaten = ghostsEaten++;
-			
-			Game.x_position = x;
-			Game.y_position = y;
-			stopBonusScore = false;
-			
-			switch(ghostsEaten)
-			{
-				case 1: Game.score = Game.score + 200; showBonusScore(200); break;
-				case 2: Game.score = Game.score + 400; showBonusScore(400); break;
-				case 3: Game.score = Game.score + 800; showBonusScore(800); break;
-				case 4: Game.score = Game.score + 1600; showBonusScore(1600); break;
-			}	
-			
-			switch(ghost.enemyID)
-			{
-				case Game.blinkyID:
-					ghost = new Ghost(Game.blinkySpawnX, Game.blinkySpawnY, Game.blinkyID, -1, -1);
-					ghost.eaten = true;
-					break;
-				case Game.inkyID:
-					ghost = new Ghost(Game.inkySpawnX, Game.inkySpawnY, Game.inkyID, -1, -1);
-					ghost.eaten = true;
-					break;
-				case Game.pinkyID:
-					ghost = new Ghost(Game.pinkySpawnX, Game.pinkySpawnY, Game.pinkyID, -1, -1);
-					ghost.eaten = true;
-					break;
-				case Game.clydeID:
-					ghost = new Ghost(Game.clydeSpawnX, Game.clydeSpawnY, Game.clydeID, -1, -1);
-					ghost.eaten = true;
-					break;
-			}
-		}
-	}
-	
 	public void checkEatenGhosts()
 	{
-		Game.ghost = Game.Blinky;
-		isGhostEaten();
-		Game.ghost = Game.Inky;
-		isGhostEaten();
-		Game.ghost = Game.Pinky;
-		isGhostEaten();
-		Game.ghost = Game.Clyde;
-		isGhostEaten();
-		
-		/*
-		isGhostEaten(Game.Blinky, Game.blinkyID);
-		isGhostEaten(Game.Inky, Game.inkyID);
-		isGhostEaten(Game.Pinky, Game.pinkyID);
-		isGhostEaten(Game.Clyde, Game.clydeID);*/
+		isGhostEaten(Game.Blinky);
+		isGhostEaten(Game.Inky);
+		isGhostEaten(Game.Pinky);
+		isGhostEaten(Game.Clyde);
 	}
 	
 	public void energizerTime_not_over()
@@ -599,10 +556,10 @@ public class Pacman extends Rectangle
 			
 			switch(bonusScore)
 			{
-				case 200:imageIndex2++; break;
-				case 400:imageIndex4++; break;
-				case 800:imageIndex8++; break;
-				case 1600:imageIndex16++; break;
+				case 200: imageIndex2++; break;
+				case 400: imageIndex4++; break;
+				case 800: imageIndex8++; break;
+				case 1600: imageIndex16++; break;
 			}
 		}
 	}
