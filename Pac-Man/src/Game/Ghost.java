@@ -10,7 +10,7 @@
 * 
 /**************************************************************/
 
-package PacManJogo;
+package Game;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;

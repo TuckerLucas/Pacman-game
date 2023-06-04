@@ -10,7 +10,7 @@
 * 
 /**************************************************************/
 
-package PacManGUI;
+package GUI;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import PacManJogo.Pacman;
+import Game.Pacman;
 
 public class SettingsPanel extends JPanel
 {
@@ -73,21 +73,21 @@ public class SettingsPanel extends JPanel
         	{
         		public void actionPerformed(ActionEvent e) 
         		{
-        			switch(PacManJogo.Game.difficulty)
+        			switch(Game.Game.difficulty)
         			{
-        				case 1: PacManJogo.Game.difficulty = 2;
+        				case 1: Game.Game.difficulty = 2;
         						DifficultyButton.setText("DIFFICULTY: MEDIUM");
         						break;
         				
-        				case 2: PacManJogo.Game.difficulty = 3;
+        				case 2: Game.Game.difficulty = 3;
         						DifficultyButton.setText("DIFFICULTY: HARD");
         						break;
         				
-        				case 3: PacManJogo.Game.difficulty = 4;
+        				case 3: Game.Game.difficulty = 4;
         						DifficultyButton.setText("DIFFICULTY: CRUSHING");
         						break;
         					
-        				case 4: PacManJogo.Game.difficulty = 1;
+        				case 4: Game.Game.difficulty = 1;
         						DifficultyButton.setText("DIFFICULTY: EASY");
         						break;
         			}

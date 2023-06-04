@@ -10,7 +10,7 @@
 * 
 /**************************************************************/
 
-package PacManJogo;
+package Game;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

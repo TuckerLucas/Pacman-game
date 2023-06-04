@@ -10,7 +10,7 @@
 * 
 /**************************************************************/
 
-package PacManGUI;
+package GUI;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -24,7 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import PacManJogo.Game;
+import Game.Game;
 
 public class PlayPanel extends JPanel
 {

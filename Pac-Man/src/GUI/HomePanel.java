@@ -10,7 +10,7 @@
 * 
 /**************************************************************/
 
-package PacManGUI;
+package GUI;
 
 import javax.swing.JPanel;
 

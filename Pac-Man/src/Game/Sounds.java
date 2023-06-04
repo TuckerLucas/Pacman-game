@@ -9,7 +9,7 @@
 * 
 /**************************************************************/
 
-package PacManJogo;
+package Game;
 
 import java.io.File;
 import javax.sound.sampled.AudioInputStream;

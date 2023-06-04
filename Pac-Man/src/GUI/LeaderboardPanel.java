@@ -10,7 +10,7 @@
 * 
 /**************************************************************/
 
-package PacManGUI;
+package GUI;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -28,7 +28,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import PacManJogo.Game;
+import Game.Game;
 
 public class LeaderboardPanel extends JPanel
 {

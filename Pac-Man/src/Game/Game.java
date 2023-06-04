@@ -12,7 +12,7 @@
 * 
 /**************************************************************/
 
-package PacManJogo;
+package Game;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -25,7 +25,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import PacManGUI.CLayout;
+import GUI.CLayout;
 
 public class Game extends Canvas implements Runnable, KeyListener
 {

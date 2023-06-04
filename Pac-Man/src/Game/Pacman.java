@@ -11,9 +11,9 @@
 * 
 /**************************************************************/
 
-package PacManJogo;
+package Game;
 
-import PacManGUI.LeaderboardPanel;
+import GUI.LeaderboardPanel;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;

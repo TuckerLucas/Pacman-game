@@ -11,12 +11,12 @@
 * 
 /**************************************************************/
 
-package PacManGUI;
+package GUI;
 
 import java.awt.*;
 import javax.swing.*;
 
-import PacManJogo.Game;
+import Game.Game;
 
 public class CLayout
 {	
