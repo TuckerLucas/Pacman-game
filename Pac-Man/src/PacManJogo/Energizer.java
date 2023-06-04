@@ -1,3 +1,15 @@
+/**************************************************************
+* Created by: Lucas Tucker (tucker.lucas.1404@gmail.com)
+* 
+* File: Energizer.java
+* 
+* Description: 
+* 
+* This file contains the implementation for the Energizers
+* displayed in the game map.
+* 
+/**************************************************************/
+
 package PacManJogo;
 
 import java.awt.Graphics;

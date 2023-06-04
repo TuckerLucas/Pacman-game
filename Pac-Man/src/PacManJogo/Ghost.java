@@ -1,3 +1,15 @@
+/**************************************************************
+* Created by: Lucas Tucker (tucker.lucas.1404@gmail.com)
+* 
+* File: Ghost.java
+* 
+* Description: 
+* 
+* This file contains the implementation for ghost behaviour 
+* regarding movement within the game map as well as animations.
+* 
+/**************************************************************/
+
 package PacManJogo;
 
 import java.awt.Graphics;
@@ -138,13 +150,9 @@ public class Ghost extends Rectangle
 		switch(dir)
 		{
 			case right:	nextx = x+spd; nexty = y; break;
-						
 			case left:	nextx = x-spd; nexty = y; break;
-						
 			case up:	nextx = x; nexty = y-spd; break;
-			
 			case down:	if(x == 320 && y == 256) {return false;}			// Prevent ghosts from reentering spawn box
-						
 						nextx = x; nexty = y+spd; break;
 		}
 		
@@ -174,54 +182,22 @@ public class Ghost extends Rectangle
 		
 		switch(currentZone)
 		{
-			case 1:
-				zone1 = true;
-				break;
-			case 2:
-				zone2 = true;
-				break;
-			case 3:
-				zone3 = true;
-				break;
-			case 4:
-				zone4 = true;
-				break;
-			case 5:
-				zone5 = true;
-				break;
-			case 6:
-				zone6 = true;
-				break;
-			case 7:
-				zone7 = true;
-				break;
-			case 8:
-				zone8 = true;
-				break;
-			case 9:
-				zone9 = true;
-				break;
-			case 10:
-				zone10 = true;
-				break;
-			case 11:
-				zone11 = true;
-				break;
-			case 12:
-				zone12 = true;
-				break;
-			case 13:
-				zone13 = true;
-				break;
-			case 14:
-				zone14 = true;
-				break;
-			case 15:
-				zone15 = true;
-				break;
-			case 16:
-				zone16 = true;
-				break;
+			case 1: zone1 = true; break;
+			case 2: zone2 = true; break;
+			case 3: zone3 = true; break;
+			case 4: zone4 = true; break;
+			case 5: zone5 = true; break;
+			case 6: zone6 = true; break;
+			case 7: zone7 = true; break;
+			case 8: zone8 = true; break;
+			case 9: zone9 = true; break;
+			case 10: zone10 = true; break;
+			case 11: zone11 = true; break;
+			case 12: zone12 = true; break;
+			case 13: zone13 = true; break;
+			case 14: zone14 = true; break;
+			case 15: zone15 = true; break;
+			case 16: zone16 = true; break;
 		}
 	}
 	
@@ -248,17 +224,11 @@ public class Ghost extends Rectangle
 	private void getToZone(int dir1, int dir2)
 	{
 		if(canMove(dir1))
-		{
 			move(dir1);
-		}
 		else if(canMove(dir2))
-		{
 			move(dir2);
-		}
 		else
-		{
 			state = find_path;
-		}
 	}
 	
 	
@@ -443,6 +413,7 @@ public class Ghost extends Rectangle
 						break;
 					else							
 					{
+						
 						if(lastDir == left && canMove(left))
 						{
 							move(left);
@@ -459,6 +430,7 @@ public class Ghost extends Rectangle
 						{
 							dir = randomGen.nextInt(4); 
 						}
+						
 					}
 					
 					break;

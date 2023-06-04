@@ -1,3 +1,15 @@
+/**************************************************************
+* Created by: Lucas Tucker (tucker.lucas.1404@gmail.com)
+* 
+* File: Tile.java
+* 
+* Description: 
+* 
+* This file contains the implementation for the Tiles
+* displayed in the game map.
+* 
+/**************************************************************/
+
 package PacManJogo;
 import java.awt.Color;
 import java.awt.Graphics;

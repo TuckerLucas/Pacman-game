@@ -1,3 +1,16 @@
+/**************************************************************
+* Created by: Lucas Tucker (tucker.lucas.1404@gmail.com)
+* 
+* File: Pacman.java
+* 
+* Description: 
+* 
+* This file contains the implementation for the Pacman 
+* character regarding movement around the map, colisions with
+* other characters/objects and animations.
+* 
+/**************************************************************/
+
 package PacManJogo;
 
 import PacManGUI.LeaderboardPanel;
@@ -180,11 +193,8 @@ public class Pacman extends Rectangle
 		switch(dir)
 		{
 			case 1: x+=speed; lastDir = right; break;
-				
 			case 2: x-=speed; lastDir = left; break;
-			
 			case 3: y-=speed; lastDir = up; break;
-			
 			case 4: y+=speed; lastDir = down; break;
 		}
 	}
@@ -498,6 +508,30 @@ public class Pacman extends Rectangle
 		isGhostEaten(Game.Inky);
 		isGhostEaten(Game.Pinky);
 		isGhostEaten(Game.Clyde);
+		
+		/*
+		
+		if(isGhostEaten(Game.Blinky))
+		{
+			Game.Blinky = new Ghost(Game.blinkySpawnX, Game.blinkySpawnY, Game.blinkyID, -1, -1);
+			Game.Blinky.eaten = true;
+		}
+		if(isGhostEaten(Game.Inky))
+		{
+			Game.Inky = new Ghost(Game.inkySpawnX, Game.inkySpawnY, Game.inkyID, -1, -1);
+			Game.Inky.eaten = true;
+		}
+		if(isGhostEaten(Game.Pinky))
+		{
+			Game.Pinky = new Ghost(Game.pinkySpawnX, Game.pinkySpawnY, Game.pinkyID, -1, -1);
+			Game.Pinky.eaten = true;
+		}
+		if(isGhostEaten(Game.Clyde))
+		{
+			Game.Clyde = new Ghost(Game.clydeSpawnX, Game.clydeSpawnY, Game.clydeID, -1, -1);
+			Game.Clyde.eaten = true;
+		}
+		*/
 	}
 	
 	public void energizerTime_not_over()

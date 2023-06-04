@@ -1,3 +1,15 @@
+/**************************************************************
+* Created by: Lucas Tucker (tucker.lucas.1404@gmail.com)
+* 
+* File: HomePanel.java
+* 
+* Description: 
+* 
+* This file contains the implementation of the Home panel 
+* displayed in the application's graphical user interface.
+* 
+/**************************************************************/
+
 package PacManGUI;
 
 import javax.swing.JPanel;
@@ -40,11 +52,11 @@ public class HomePanel extends JPanel
 		setLayout(null);
 		
 		// Buttons present on the Home panel
-		JButton PlayButton 			= new JButton("PLAY");
-		JButton LeaderboardButton 	= new JButton("LEADERBOARD");
-		JButton SettingsButton 		= new JButton("SETTINGS");
-		JButton ProjectInfoButton 	= new JButton("PROJECT INFO");
-		JButton ExitButton 			= new JButton("EXIT");
+		JButton PlayButton = new JButton("PLAY");
+		JButton LeaderboardButton = new JButton("LEADERBOARD");
+		JButton SettingsButton = new JButton("SETTINGS");
+		JButton ProjectInfoButton = new JButton("PROJECT INFO");
+		JButton ExitButton = new JButton("EXIT");
 		
 		// Button's bounds and placement on the home panel
 		PlayButton.setBounds(190, 325, 300, 30);

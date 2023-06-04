@@ -1,3 +1,14 @@
+/**************************************************************
+* Created by: Lucas Tucker (tucker.lucas.1404@gmail.com)
+* 
+* File: Sound.java
+* 
+* Description: 
+* 
+* This file contains the implementation for the game sounds.
+* 
+/**************************************************************/
+
 package PacManJogo;
 
 import java.io.File;

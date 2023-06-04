@@ -1,3 +1,16 @@
+/**************************************************************
+* Created by: Lucas Tucker (tucker.lucas.1404@gmail.com)
+* 
+* File: Level.java
+* 
+* Description: 
+* 
+* This file is responsible for rendering the game map and its
+* characters correctly as well as drawing live game information
+* for the user.
+* 
+/**************************************************************/
+
 package PacManJogo;
 
 import java.awt.Color;
@@ -159,22 +172,22 @@ public class Level
 		{
 			case 3:
 				
-				g.drawImage(Texture.getSprite(32, 0), LIFE1, 710, 32, 32, null);
-				g.drawImage(Texture.getSprite(32, 0), LIFE2, 710, 32, 32, null);
-				g.drawImage(Texture.getSprite(32, 0), LIFE3, 710, 32, 32, null);
+				g.drawImage(Texture.getSprite(32, 0, 16, 16), LIFE1, 710, 32, 32, null);
+				g.drawImage(Texture.getSprite(32, 0, 16, 16), LIFE2, 710, 32, 32, null);
+				g.drawImage(Texture.getSprite(32, 0, 16, 16), LIFE3, 710, 32, 32, null);
 				
 				break;
 				
 			case 2:
 				
-				g.drawImage(Texture.getSprite(32, 0), LIFE1, 710, 32, 32, null);
-				g.drawImage(Texture.getSprite(32, 0), LIFE2, 710, 32, 32, null);
+				g.drawImage(Texture.getSprite(32, 0, 16, 16), LIFE1, 710, 32, 32, null);
+				g.drawImage(Texture.getSprite(32, 0, 16, 16), LIFE2, 710, 32, 32, null);
 				
 				break;
 				
 			case 1:
 				
-				g.drawImage(Texture.getSprite(32, 0), LIFE1, 710, 32, 32, null);
+				g.drawImage(Texture.getSprite(32, 0, 16, 16), LIFE1, 710, 32, 32, null);
 				
 				break;	
 		}
@@ -192,7 +205,7 @@ public class Level
 		}
 		
 		for(int i = 0; i < food.size(); i++) 
-				food.get(i).render(g);
+			food.get(i).render(g);
 		
 		for(int i = 0; i < energizers.size(); i++) 
 			energizers.get(i).render(g);

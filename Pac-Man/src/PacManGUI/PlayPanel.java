@@ -1,3 +1,15 @@
+/**************************************************************
+* Created by: Lucas Tucker (tucker.lucas.1404@gmail.com)
+* 
+* File: PlayPanel.java
+* 
+* Description: 
+* 
+* This file contains the implementation of the Play panel 
+* displayed in the application's graphical user interface.
+* 
+/**************************************************************/
+
 package PacManGUI;
 
 import java.awt.Color;

@@ -1,3 +1,17 @@
+/**************************************************************
+* Created by: Lucas Tucker (tucker.lucas.1404@gmail.com)
+* 
+* File: Game.java
+* 
+* Description: 
+* 
+* This file manages the game states and is responsible for 
+* loading the characters into the map as well as displaying
+* the appropriate content/messages to the user depending on the 
+* current state of the game.
+* 
+/**************************************************************/
+
 package PacManJogo;
 
 import java.awt.Canvas;
@@ -53,6 +67,12 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static final int pinkyID = 2;
 	public static final int clydeID = 3;
 	
+	// Portal coordinate variables
+	public static final int leftPortalX = 0;
+	public static final int leftPortalY = 320;
+	public static final int rightPortalX = 640;
+	public static final int rightPortalY = 320;
+	
 	// Game status variables
 	public static final int INIT = 0;		
 	public static final int GAME = 1;
@@ -64,9 +84,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 	// Score variables
 	public static int score = 0;
 	public static int highscore;
-
-	// Pacman life lost flag
-	public boolean life_was_lost = false;
 	
 	// Key flag variables
 	public boolean Enter = false;					
@@ -80,8 +97,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 	// Map event coordinates variables
 	public static int x_position;
 	public static int y_position;
-	
-	public static Ghost newghost;
 	
 	public Game()
 	{
@@ -136,10 +151,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 	private void loadCharacters()
 	{
 		pacman 	= new Pacman(192, 512);
-		Blinky 	= new Ghost(320, 256, 0, -1, -1); 			
-		Inky 	= new Ghost(288, 320, 1, -1, -1);
-		Pinky 	= new Ghost(320, 320, 2, -1, -1);
-		Clyde 	= new Ghost(352, 320, 3, -1, -1);
+		Blinky 	= new Ghost(blinkySpawnX, blinkySpawnY, blinkyID, -1, -1); 			
+		Inky 	= new Ghost(inkySpawnX, inkySpawnY, inkyID, -1, -1);
+		Pinky 	= new Ghost(pinkySpawnX, pinkySpawnY, pinkyID, -1, -1);
+		Clyde 	= new Ghost(clydeSpawnX, clydeSpawnY, clydeID, -1, -1);
 		
 		Pacman.lastDir = Pacman.right;
 		Pacman.dir = Pacman.right;
@@ -255,7 +270,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 			case LIFE_LOST:
 				
 				Pacman.bonusScore = -1;
-				life_was_lost = true;
 				loadCharacters();
 				GAME_STATUS = GAME;
 				
@@ -265,7 +279,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	
 	private void setLetteringStyle(Graphics g)
 	{
-		// Lettering color, size and font
+		// Lettering colour, size and font
 		g.setColor(Color.white);												
 		g.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 26)); 
 	}
@@ -377,9 +391,13 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 				switch(e.getKeyCode())
 				{
+					case KeyEvent.VK_D:	// fall through
 					case KeyEvent.VK_RIGHT: Pacman.dir = Pacman.right; break;
+					case KeyEvent.VK_A:	// fall through
 					case KeyEvent.VK_LEFT: Pacman.dir = Pacman.left; break;
+					case KeyEvent.VK_W:	// fall through
 					case KeyEvent.VK_UP: Pacman.dir = Pacman.up; break;
+					case KeyEvent.VK_S:	// fall through
 					case KeyEvent.VK_DOWN: Pacman.dir = Pacman.down; break;
 				}
 				

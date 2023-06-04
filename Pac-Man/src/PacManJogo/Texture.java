@@ -1,3 +1,15 @@
+/**************************************************************
+* Created by: Lucas Tucker (tucker.lucas.1404@gmail.com)
+* 
+* File: Texture.java
+* 
+* Description: 
+* 
+* This file contains the arrays for the game sprite animations
+* and the methods 
+* 
+/**************************************************************/
+
 package PacManJogo;
 
 import java.awt.image.BufferedImage;
@@ -84,85 +96,87 @@ public class Texture
 		
 		energizer = new BufferedImage[2];
 		
-		died = new BufferedImage[30];
-		
 		two_hundred = new BufferedImage[10];
 		four_hundred = new BufferedImage[10];
 		eight_hundred = new BufferedImage[10];
 		sixteen_hundred = new BufferedImage[10];
 		
+		// Pacman sprite animation arrays
+		player[0] = getSprite(0,0, 16, 16);		
+		player[1] = getSprite(16,0, 16, 16);	
+		player[2] = getSprite(32,0, 16, 16);	
+		player1[0] = getSprite(0,0, 16, 16);
+		player1[1] = getSprite(112,0, 16, 16);
+		player1[2] = getSprite(128,0, 16, 16);
 		
-		player[0] = getSprite(0,0);		
-		player[1] = getSprite(16,0);	
-		player[2] = getSprite(32,0);	
-		player1[0] = getSprite(0,0);
-		player1[1] = getSprite(112,0);
-		player1[2] = getSprite(128,0);
+		// Blinky sprite animation arrays
+		blinkyR[0] = getSprite(0, 16, 16, 16);
+		blinkyR[1] = getSprite(64, 16, 16, 16);
+		blinkyL[0] = getSprite(16, 16, 16, 16);
+		blinkyL[1] = getSprite(80, 16, 16, 16);
+		blinkyU[0] = getSprite(32, 16, 16, 16);
+		blinkyU[1] = getSprite(96, 16, 16, 16);
+		blinkyD[0] = getSprite(48, 16, 16, 16);
+		blinkyD[1] = getSprite(112, 16, 16, 16);
 		
-		blinkyR[0] = getSprite(0, 16);
-		blinkyR[1] = getSprite(64, 16);
-		blinkyL[0] = getSprite(16, 16);
-		blinkyL[1] = getSprite(80, 16);
-		blinkyU[0] = getSprite(32, 16);
-		blinkyU[1] = getSprite(96, 16);
-		blinkyD[0] = getSprite(48, 16);
-		blinkyD[1] = getSprite(112, 16);
-		inkyR[0] = getSprite(0, 32);
-		inkyR[1] = getSprite(64, 32);
-		inkyL[0] = getSprite(16, 32);
-		inkyL[1] = getSprite(80, 32);
-		inkyU[0] = getSprite(32, 32);
-		inkyU[1] = getSprite(96, 32);
-		inkyD[0] = getSprite(48, 32);
-		inkyD[1] = getSprite(112, 32);
-		pinkyR[0] = getSprite(0, 48);
-		pinkyR[1] = getSprite(64, 48);
-		pinkyL[0] = getSprite(16, 48);
-		pinkyL[1] = getSprite(80, 48);
-		pinkyU[0] = getSprite(32, 48);
-		pinkyU[1] = getSprite(96, 48);
-		pinkyD[0] = getSprite(48, 48);
-		pinkyD[1] = getSprite(112, 48);
-		clydeR[0] = getSprite(0, 64);
-		clydeR[1] = getSprite(64, 64);
-		clydeL[0] = getSprite(16, 64);
-		clydeL[1] = getSprite(80, 64);
-		clydeU[0] = getSprite(32, 64);
-		clydeU[1] = getSprite(96, 64);
-		clydeD[0] = getSprite(48, 64);
-		clydeD[1] = getSprite(112, 64);
+		// Inky sprite animation arrays
+		inkyR[0] = getSprite(0, 32, 16, 16);
+		inkyR[1] = getSprite(64, 32, 16, 16);
+		inkyL[0] = getSprite(16, 32, 16, 16);
+		inkyL[1] = getSprite(80, 32, 16, 16);
+		inkyU[0] = getSprite(32, 32, 16, 16);
+		inkyU[1] = getSprite(96, 32, 16, 16);
+		inkyD[0] = getSprite(48, 32, 16, 16);
+		inkyD[1] = getSprite(112, 32, 16, 16);
 		
-		blueghost[0] = getSprite(0, 80);
-		blueghost[1] = getSprite(16, 80);
+		// Pinky sprite animation arrays
+		pinkyR[0] = getSprite(0, 48, 16, 16);
+		pinkyR[1] = getSprite(64, 48, 16, 16);
+		pinkyL[0] = getSprite(16, 48, 16, 16);
+		pinkyL[1] = getSprite(80, 48, 16, 16);
+		pinkyU[0] = getSprite(32, 48, 16, 16);
+		pinkyU[1] = getSprite(96, 48, 16, 16);
+		pinkyD[0] = getSprite(48, 48, 16, 16);
+		pinkyD[1] = getSprite(112, 48, 16, 16);
 		
-		whiteghost[0] = getSprite(32, 80);
-		whiteghost[1] = getSprite(48, 80);
+		// Clyde sprite animation arrays
+		clydeR[0] = getSprite(0, 64, 16, 16);
+		clydeR[1] = getSprite(64, 64, 16, 16);
+		clydeL[0] = getSprite(16, 64, 16, 16);
+		clydeL[1] = getSprite(80, 64, 16, 16);
+		clydeU[0] = getSprite(32, 64, 16, 16);
+		clydeU[1] = getSprite(96, 64, 16, 16);
+		clydeD[0] = getSprite(48, 64, 16, 16);
+		clydeD[1] = getSprite(112, 64, 16, 16);
+		
+		blueghost[0] = getSprite(0, 80, 16, 16);
+		blueghost[1] = getSprite(16, 80, 16, 16);
+		
+		whiteghost[0] = getSprite(32, 80, 16, 16);
+		whiteghost[1] = getSprite(48, 80, 16, 16);
 		
 		flash[0] = blueghost[0];
 		flash[1] = blueghost[1];
 		flash[2] = whiteghost[0];
 		flash[3] = whiteghost[1];
 		
-		energizer[0] = getSprite(0, 96);
-		energizer[1] = getSprite(16, 96);
+		// Energizer sprite animation array
+		energizer[0] = getSprite(0, 96, 16, 16);
+		energizer[1] = getSprite(16, 96, 16, 16);
 		
-		died[1] = died[2] = getSprite(0,0);
-		
-		two_hundred[0] = getScore(128,16);
-		two_hundred[1] = getScore(128,80);
-		
-		four_hundred[0] = getScore(128,32);
-		four_hundred[1] = getScore(128,96);
-		
-		eight_hundred[0] = getScore(128,48);
-		eight_hundred[1] = getScore(128,112);
-		
-		sixteen_hundred[0] = getScore(128,64);
-		sixteen_hundred[1] = getScore(128,128);
+		// Bonus score sprite animation arrays
+		two_hundred[0] = getSprite(128, 16, 32, 16);
+		two_hundred[1] = getSprite(128, 80, 32, 16);
+		four_hundred[0] = getSprite(128, 32, 32, 16);
+		four_hundred[1] = getSprite(128, 96, 32, 16);
+		eight_hundred[0] = getSprite(128, 48, 32, 16);
+		eight_hundred[1] = getSprite(128, 112, 32, 16);
+		sixteen_hundred[0] = getSprite(128, 64, 32, 16);
+		sixteen_hundred[1] = getSprite(128, 128, 32, 16);
 		
 		for(int i = 2; i < 10; i++)
 		{
-			if(i%2 == 0)
+			if(i % 2 == 0)
 			{
 				two_hundred[i] = two_hundred[0];
 				four_hundred[i] = four_hundred[0];
@@ -179,14 +193,9 @@ public class Texture
 		}
 	}
 	
-	public static BufferedImage getSprite(int xx, int yy)
+	public static BufferedImage getSprite(int x, int y, int w, int h)
 	{
-		return spritesheet.getSubimage(xx, yy, 16, 16);
-	}
-	
-	public static BufferedImage getScore(int xx, int yy)
-	{
-		return spritesheet.getSubimage(xx, yy, 32, 16);
+		return spritesheet.getSubimage(x, y, w, h);
 	}
 }
 

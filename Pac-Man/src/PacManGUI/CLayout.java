@@ -1,3 +1,16 @@
+/**************************************************************
+* Created by: Lucas Tucker (tucker.lucas.1404@gmail.com)
+* 
+* File: CLayout.java
+* 
+* Description: 
+* 
+* This file sets the layout to be used by the application's 
+* graphical user interface and declares all the panels to be 
+* used in the layout. This class contains the main function
+* 
+/**************************************************************/
+
 package PacManGUI;
 
 import java.awt.*;
@@ -20,7 +33,8 @@ public class CLayout
 	SettingsPanel panelSettings = new SettingsPanel();
 	ProjectInfoPanel panelProjectInfo = new ProjectInfoPanel();
 	
-	static Game game = new Game();															
+	static Game game = new Game();	
+	
 	public static CardLayout cardLayout = new CardLayout();
 
 	public CLayout() 
