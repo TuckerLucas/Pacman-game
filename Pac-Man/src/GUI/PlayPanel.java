@@ -68,7 +68,7 @@ public class PlayPanel extends JPanel
                 	{
                 		CLayout.game.start();													// Start the game
                     	CLayout.cardLayout.show(CLayout.panelContainer, "Game");				// Show game panel
-                		Game.GAME_STATUS = Game.INIT;											// Start on the inital screen
+                		Game.gameStatus = Game.init;											// Start on the inital screen
                 		LeaderboardPanel.username = textField.getText();                		// Save player's username
                 	}
                 	else

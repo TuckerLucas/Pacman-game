@@ -5,9 +5,9 @@
 * 
 * Description: 
 * 
-* This file is responsible for rendering the game map and its
-* characters correctly as well as drawing live game information
-* for the user.
+* This file is responsible for loading the game objects in the 
+* map as well as relevant game data regarding score, highscore
+* and lives.
 * 
 /**************************************************************/
 
@@ -25,40 +25,29 @@ import javax.imageio.ImageIO;
 
 public class Level 
 {
-	public static int width;
-	public static int height;
+	// Variables for game size
+	private static int gameWidth;
+	private static int gameHeight;
 	
+	// Game tiles (walls) matrix 
 	public static Tile[][] tiles;
 	
-	public static List<Food> food;					// Food list
-	public static List<Energizer> energizers; 		// Energizer list
+	// Food and energizer lists
+	public static List<Food> food;					
+	public static List<Energizer> energizers; 	
+		
+	// Variables for object loading via colour identification
+	private final int black = 0xFF000000;
+	private final int pink = 0xFFFF00FF;
+	private final int blue = 0xFF0000FF;
+	private final int red = 0xFFFF0000;
+	private final int cyan = 0xFF00FFFF;
+	private final int orange = 0xFFFF8726;
+	private final int purple = 0xFFE7CCFF;
+	private final int white = 0xFFFFFFFF;
+	private final int yellow = 0xFFFFFF00;
 	
-	// Vertical coordinate for data presentation
-	public static int INFO_Y = 740;
-	
-	// Variables for player score data presentation
-	public static int SCORE = 15;
-	public static int SCORE_SCORE = 95;
-	public static int HIGHSCORE = 180;
-	public static int HIGHSCORE_HIGHSCORE = 320;
-	
-	// Variables for player's life data presentation
-	public static int LIVES = 450;
-	public static int LIFE1 = 530;
-	public static int LIFE2 = 567;
-	public static int LIFE3 = 604;
-	
-	// Variables for object loading via color identification
-	public static final int BLACK 	= 0xFF000000;
-	public static final int PINK 	= 0xFFFF00FF;
-	public static final int BLUE	= 0xFF0000FF;
-	public static final int RED		= 0xFFFF0000;
-	public static final int CYAN	= 0xFF00FFFF;
-	public static final int ORANGE	= 0xFFFF8726;
-	public static final int PURPLE	= 0xFFE7CCFF;
-	public static final int WHITE	= 0xFFFFFFFF;
-	public static final int YELLOW	= 0xFFFFFF00;
-	
+	// Constructor
 	public Level(String path)	
 	{
 		food = new ArrayList<>();
@@ -69,80 +58,82 @@ public class Level
 			// Get map sketch image via the passed path
 			BufferedImage map = ImageIO.read(getClass().getResource(path));
 			
-			Level.width = map.getWidth();
-			Level.height = map.getHeight();
+			Level.gameWidth = map.getWidth();		// Get map width size
+			Level.gameHeight = map.getHeight();		// Get map height size
 			
-			tiles = new Tile[width][height];
+			tiles = new Tile[gameWidth][gameHeight];
 			
-			int pixels[] = new int[width * height];	
-			map.getRGB(0, 0, width, height, pixels, 0, width);
+			// Get RGB array of the whole map and store it
+			int pixels[] = new int[gameWidth * gameHeight];	
+			map.getRGB(0, 0, gameWidth, gameHeight, pixels, 0, gameWidth);
 			
-			for(int xx = 0; xx < width; xx++)
+			// Analyse RGB array line by line
+			for(int x = 0; x < gameWidth; x++)
 			{
-				for(int yy = 0; yy < height; yy++)
+				for(int y = 0; y < gameHeight; y++)
 				{
-					int color = pixels[xx + (yy*width)];
+					int color = pixels[x + (y * gameWidth)];
 					
-					// Color identification for object loading
+					// Load objects based on map sketch color
 					switch(color)
 					{
-						case BLACK:
+						case black:
 							
-							tiles[xx][yy] = new Tile(xx*32, yy*32);
-							
-							break;
-							
-						case PINK:			
-							
-							Game.door.x = xx*32;
-							Game.door.y = yy*32;
+							tiles[x][y] = new Tile(x*32, y*32);
 							
 							break;
 							
-						case BLUE:			
+						case pink:			
 							
-							Game.pacman.x = xx*32;
-							Game.pacman.y = yy*32;
-							
-							break;
-							
-						case RED:			
-							
-							Game.Blinky.x = xx*32;
-							Game.Blinky.y = yy*32;
+							Game.door.x = x*32;
+							Game.door.y = y*32;
 							
 							break;
 							
-						case CYAN:			
+						case blue:			
 							
-							Game.Inky.x = xx*32;
-							Game.Inky.y = yy*32;
-							
-							break;
-							
-						case PURPLE:
-							
-							Game.Pinky.x = xx*32;
-							Game.Pinky.y = yy*32;
+							Game.pacman.x = x*32;
+							Game.pacman.y = y*32;
 							
 							break;
 							
-						case ORANGE:
+						case red:			
 							
-							Game.Clyde.x = xx*32;
-							Game.Clyde.y = yy*32;
-							
-							break;
-							
-						case YELLOW:
-							
-							energizers.add(new Energizer(xx*32, yy*32));
+							Game.blinky.x = x*32;
+							Game.blinky.y = y*32;
 							
 							break;
 							
-						case WHITE:
+						case cyan:			
 							
-							food.add(new Food(xx*32, yy*32));
+							Game.inky.x = x*32;
+							Game.inky.y = y*32;
+							
+							break;
+							
+						case purple:
+							
+							Game.pinky.x = x*32;
+							Game.pinky.y = y*32;
+							
+							break;
+							
+						case orange:
+							
+							Game.clyde.x = x*32;
+							Game.clyde.y = y*32;
+							
+							break;
+							
+						case yellow:
+							
+							energizers.add(new Energizer(x*32, y*32));
+							
+							break;
+							
+						case white:
+							
+							food.add(new Food(x*32, y*32));
 							
 							break;
 					}
@@ -155,67 +146,85 @@ public class Level
 		}
 	}
 
-	public static void draw_data(Graphics g)
+	// Draw user score and lives data at the bottom of the game screen
+	private static void drawData(Graphics g)
 	{	
-		g.setColor(Color.white);
-		g.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 23));
+		// Variable for vertical data positioning in game window
+		int gameDataY = 745;
 		
-		g.drawString("SCORE: ", SCORE, INFO_Y);	
-		g.drawString(String.valueOf(Game.score), SCORE_SCORE, INFO_Y);
+		// Variables for horizontal score data positioning in game window
+		int scoreStrX = 20;			
+		int scoreValX = 105;		
+		int highscoreStrX = 210;	
+		int highscoreValX = 350;	
 		
-		g.drawString("HIGHSCORE: ", HIGHSCORE, INFO_Y);	
-		g.drawString(String.valueOf(Game.highscore), HIGHSCORE_HIGHSCORE, INFO_Y);
+		// Set letter color size and font
+		Game.setLetteringStyle(g, Color.white, Font.DIALOG_INPUT, 23);
 		
-		g.drawString("LIVES:", LIVES, INFO_Y);
+		// Draw game score and highscore data
+		/*******************************************************/
+		g.drawString("SCORE: ", scoreStrX, gameDataY);	
+		g.drawString(String.valueOf(Game.score), scoreValX, gameDataY);
+		g.drawString("HIGHSCORE: ", highscoreStrX, gameDataY);	
+		g.drawString(String.valueOf(Game.highscore), highscoreValX, gameDataY);
+		/*******************************************************/
 		
-		switch(Pacman.lives) 
+		// Variables for life data positioning in game window
+		int livesStrX = 470;
+		int livesSymbolsY = 720;
+		int life1SymbolX = 555;
+		int life2SymbolX = 590;
+		int life3SymbolX = 625;
+		int livesSymbolsX[] = {life1SymbolX, life2SymbolX, life3SymbolX};
+		
+		// Draw game lives data
+		/*******************************************************/
+		g.drawString("LIVES:", livesStrX, gameDataY);
+		
+		// Draw life symbols depending on number of user lives left
+		for(int i = 0; i < Pacman.lives; i++)
 		{
-			case 3:
-				
-				g.drawImage(Texture.getSprite(32, 0, 16, 16), LIFE1, 710, 32, 32, null);
-				g.drawImage(Texture.getSprite(32, 0, 16, 16), LIFE2, 710, 32, 32, null);
-				g.drawImage(Texture.getSprite(32, 0, 16, 16), LIFE3, 710, 32, 32, null);
-				
-				break;
-				
-			case 2:
-				
-				g.drawImage(Texture.getSprite(32, 0, 16, 16), LIFE1, 710, 32, 32, null);
-				g.drawImage(Texture.getSprite(32, 0, 16, 16), LIFE2, 710, 32, 32, null);
-				
-				break;
-				
-			case 1:
-				
-				g.drawImage(Texture.getSprite(32, 0, 16, 16), LIFE1, 710, 32, 32, null);
-				
-				break;	
+			g.drawImage(Texture.getSprite(32, 0, 16, 16), livesSymbolsX[i], 
+					livesSymbolsY, 32, 32, null);
 		}
+		/*******************************************************/
 	}
 	
+	// Render the game objects
 	public static void render(Graphics g)
 	{
-		for(int x = 0; x < width; x++)
+		// Render game tiles (walls)
+		for(int x = 0; x < gameWidth; x++)
 		{
-			for(int y = 0; y < height; y++)
+			for(int y = 0; y < gameHeight; y++)
 			{
 				if(tiles[x][y] != null)
+				{
 					tiles[x][y].render(g);
+				}
 			}
 		}
 		
-		for(int i = 0; i < food.size(); i++) 
+		// Render game food
+		for(int i = 0; i < food.size(); i++)
+		{
 			food.get(i).render(g);
+		}
 		
+		// Render game energizers
 		for(int i = 0; i < energizers.size(); i++) 
+		{
 			energizers.get(i).render(g);
+		}
 		
+		// Render game characters
 		Game.pacman.render(g);
-		Game.Blinky.render(g);
-		Game.Inky.render(g);
-		Game.Pinky.render(g);
-		Game.Clyde.render(g);
+		Game.blinky.render(g);
+		Game.inky.render(g);
+		Game.pinky.render(g);
+		Game.clyde.render(g);
 		Game.door.render(g);
-		draw_data(g);
+		
+		drawData(g);
 	}
 }

@@ -21,34 +21,39 @@ public class Texture
 	public static BufferedImage[] player;
 	public static BufferedImage[] player1;
 	
+	// Blinky ghost arrays for sprite animations
 	public static BufferedImage[] blinkyR;
 	public static BufferedImage[] blinkyL;
 	public static BufferedImage[] blinkyU;
 	public static BufferedImage[] blinkyD;
 	
+	// Inky ghost arrays for sprite animations
 	public static BufferedImage[] inkyR;
 	public static BufferedImage[] inkyL;
 	public static BufferedImage[] inkyU;
 	public static BufferedImage[] inkyD;
 	
+	// Pinky ghost arrays for sprite animations
 	public static BufferedImage[] pinkyR;
 	public static BufferedImage[] pinkyL;
 	public static BufferedImage[] pinkyU;
 	public static BufferedImage[] pinkyD;
 	
+	// Clyde ghost arrays for sprite animations
 	public static BufferedImage[] clydeR;
 	public static BufferedImage[] clydeL;
 	public static BufferedImage[] clydeU;
 	public static BufferedImage[] clydeD;
 	
+	// Vulnerable ghost arrays for sprite animations
 	public static BufferedImage[] blueghost;
 	public static BufferedImage[] whiteghost;
 	public static BufferedImage[] flash;
 	
+	// Energizer array
 	public static BufferedImage[] energizer;
 	
-	public static BufferedImage[] died;
-	
+	// Bonus score arrays for sprite animations
 	public static BufferedImage[] two_hundred;
 	public static BufferedImage[] four_hundred;
 	public static BufferedImage[] eight_hundred;
@@ -101,7 +106,7 @@ public class Texture
 		eight_hundred = new BufferedImage[10];
 		sixteen_hundred = new BufferedImage[10];
 		
-		// Pacman sprite animation arrays
+		// Load pacman sprite animation arrays
 		player[0] = getSprite(0,0, 16, 16);		
 		player[1] = getSprite(16,0, 16, 16);	
 		player[2] = getSprite(32,0, 16, 16);	
@@ -109,7 +114,7 @@ public class Texture
 		player1[1] = getSprite(112,0, 16, 16);
 		player1[2] = getSprite(128,0, 16, 16);
 		
-		// Blinky sprite animation arrays
+		// Load blinky sprite animation arrays
 		blinkyR[0] = getSprite(0, 16, 16, 16);
 		blinkyR[1] = getSprite(64, 16, 16, 16);
 		blinkyL[0] = getSprite(16, 16, 16, 16);
@@ -119,7 +124,7 @@ public class Texture
 		blinkyD[0] = getSprite(48, 16, 16, 16);
 		blinkyD[1] = getSprite(112, 16, 16, 16);
 		
-		// Inky sprite animation arrays
+		// Load inky sprite animation arrays
 		inkyR[0] = getSprite(0, 32, 16, 16);
 		inkyR[1] = getSprite(64, 32, 16, 16);
 		inkyL[0] = getSprite(16, 32, 16, 16);
@@ -129,7 +134,7 @@ public class Texture
 		inkyD[0] = getSprite(48, 32, 16, 16);
 		inkyD[1] = getSprite(112, 32, 16, 16);
 		
-		// Pinky sprite animation arrays
+		// Load pinky sprite animation arrays
 		pinkyR[0] = getSprite(0, 48, 16, 16);
 		pinkyR[1] = getSprite(64, 48, 16, 16);
 		pinkyL[0] = getSprite(16, 48, 16, 16);
@@ -139,7 +144,7 @@ public class Texture
 		pinkyD[0] = getSprite(48, 48, 16, 16);
 		pinkyD[1] = getSprite(112, 48, 16, 16);
 		
-		// Clyde sprite animation arrays
+		// Load clyde sprite animation arrays
 		clydeR[0] = getSprite(0, 64, 16, 16);
 		clydeR[1] = getSprite(64, 64, 16, 16);
 		clydeL[0] = getSprite(16, 64, 16, 16);
@@ -149,22 +154,21 @@ public class Texture
 		clydeD[0] = getSprite(48, 64, 16, 16);
 		clydeD[1] = getSprite(112, 64, 16, 16);
 		
+		// Load vulnerable ghost animation arrays
 		blueghost[0] = getSprite(0, 80, 16, 16);
 		blueghost[1] = getSprite(16, 80, 16, 16);
-		
 		whiteghost[0] = getSprite(32, 80, 16, 16);
 		whiteghost[1] = getSprite(48, 80, 16, 16);
-		
 		flash[0] = blueghost[0];
 		flash[1] = blueghost[1];
 		flash[2] = whiteghost[0];
 		flash[3] = whiteghost[1];
 		
-		// Energizer sprite animation array
+		// Load energizer sprite animation array
 		energizer[0] = getSprite(0, 96, 16, 16);
 		energizer[1] = getSprite(16, 96, 16, 16);
 		
-		// Bonus score sprite animation arrays
+		// Load bonus score sprite animation arrays
 		two_hundred[0] = getSprite(128, 16, 32, 16);
 		two_hundred[1] = getSprite(128, 80, 32, 16);
 		four_hundred[0] = getSprite(128, 32, 32, 16);

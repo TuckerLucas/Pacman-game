@@ -5,8 +5,8 @@
 * 
 * Description: 
 * 
-* This file contains the implementation for the Food
-* displayed in the game map.
+* This file contains the implementation for the Food present
+* within the game map.
 * 
 /**************************************************************/
 
@@ -20,11 +20,13 @@ public class Food extends Rectangle
 {
 	private static final long serialVersionUID = 1L;
 
+	// Constructor
 	public Food(int x, int y)
 	{
 		setBounds(x+12,y+12,8,8);			
 	}
 	
+	// Render object
 	public void render(Graphics g)
 	{
 		g.setColor(Color.yellow);				

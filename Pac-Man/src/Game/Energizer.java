@@ -5,7 +5,7 @@
 * 
 * Description: 
 * 
-* This file contains the implementation for the Energizers
+* This file contains the implementation for the 4 Energizers
 * displayed in the game map.
 * 
 /**************************************************************/
@@ -19,33 +19,38 @@ public class Energizer extends Rectangle
 {
 	private static final long serialVersionUID = 1L;
 	
-	private int time 			 = 0;
-	private int targetTime 		 = 10;
-	public static int imageIndex = 0;					
+	// Energizer animation variables
+	private int frameTime = 0;			// Time current frame has been displayed
+	private int frameTargetTime = 10;	// Target time for each frame to be displayed
+	private static int spriteFrame = 0;	// Array index of frame being displayed
+	private int spriteTargetFrame = 2;	// Array index of last frame of the animation 
 	
+	// Constructor
 	public Energizer(int x, int y)
 	{
 		setBounds(x+2,y+2,28,28);
 	}
 	
+	// Manage animation time
 	public void tick()
 	{
-		time ++;
+		frameTime++;
 		
-		if(time == targetTime)
+		if(frameTime == frameTargetTime)
 		{
-			time = 0;
-			imageIndex ++;
+			frameTime = 0;
+			spriteFrame++;
 		}
 	}
 	
+	// Render object
 	public void render(Graphics g)
 	{
-		if(imageIndex >= 2)
+		if(spriteFrame == spriteTargetFrame)
 		{
-			imageIndex = 0;
+			spriteFrame = 0;
 		}
 		
-		g.drawImage(Texture.energizer[imageIndex], x, y, width, height, null);	
+		g.drawImage(Texture.energizer[spriteFrame], x, y, width, height, null);	
 	}
 }

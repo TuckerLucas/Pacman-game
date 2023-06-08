@@ -27,7 +27,7 @@ public class Ghost extends Rectangle
 	public static final int random 		= 0;
 	public static final int smart  		= 1;
 	public static final int find_path 	= 2;
-	private int state = random; 
+	private int ghostMovement = random; 
 	
 	public static final int right = 0; 
 	public static final int left  = 1;
@@ -228,7 +228,7 @@ public class Ghost extends Rectangle
 		else if(canMove(dir2))
 			move(dir2);
 		else
-			state = find_path;
+			ghostMovement = find_path;
 	}
 	
 	
@@ -255,12 +255,12 @@ public class Ghost extends Rectangle
 				else if(canMove(left))
 				{
 					left4 = true;
-					state = find_path;
+					ghostMovement = find_path;
 				}
 				else if(canMove(right))
 				{
 					right4 = true;
-					state = find_path;
+					ghostMovement = find_path;
 				}
 				break;
 				
@@ -281,12 +281,12 @@ public class Ghost extends Rectangle
 				else if(canMove(up))
 				{
 					up8 = true;
-					state = find_path;
+					ghostMovement = find_path;
 				}
 				else if(canMove(down))
 				{
 					down8 = true;
-					state = find_path;
+					ghostMovement = find_path;
 				}
 				break;
 				
@@ -298,12 +298,12 @@ public class Ghost extends Rectangle
 				else if(canMove(up))
 				{
 					up9 = true;
-					state = find_path;
+					ghostMovement = find_path;
 				}
 				else if(canMove(down))
 				{
 					down9 = true;
-					state = find_path;
+					ghostMovement = find_path;
 				}
 				break;
 				
@@ -324,12 +324,12 @@ public class Ghost extends Rectangle
 				else if(canMove(left))
 				{
 					left13 = true;
-					state = find_path;
+					ghostMovement = find_path;
 				}
 				else if(canMove(right))
 				{
 					right13 = true;
-					state = find_path;
+					ghostMovement = find_path;
 				}
 				break;
 				
@@ -377,7 +377,7 @@ public class Ghost extends Rectangle
 			{
 				if(Pacman.energizerStatus == false && !inBox())
 				{
-					state = smart;
+					ghostMovement = smart;
 				}
 			}
 		}
@@ -532,7 +532,7 @@ public class Ghost extends Rectangle
 
 		if(Pacman.energizerStatus == true || inBox())
 		{
-			state = random;
+			ghostMovement = random;
 		}
 		
 		if(crossmap == left)
@@ -643,7 +643,7 @@ public class Ghost extends Rectangle
 		if(smart_time == smart_targetTime) 				
 		{
 			coolDown = true;
-			state = random;							
+			ghostMovement = random;							
 			smart_time = 0;						
 		}
 	}
@@ -827,12 +827,12 @@ public class Ghost extends Rectangle
 				if(desired_direction == up && canMove(up))
 				{
 					right4 = false;
-					state = smart;
+					ghostMovement = smart;
 				}
 				else if(desired_direction == down && canMove(down))
 				{
 					right13 = false;
-					state = smart;
+					ghostMovement = smart;
 				}
 				
 				break;
@@ -844,12 +844,12 @@ public class Ghost extends Rectangle
 				if(desired_direction == up && canMove(up))
 				{
 					left4 = false;
-					state = smart;
+					ghostMovement = smart;
 				}
 				else if(desired_direction == down && canMove(down))
 				{
 					left13 = false;
-					state = smart;
+					ghostMovement = smart;
 				}
 				
 				break;
@@ -861,12 +861,12 @@ public class Ghost extends Rectangle
 				if(desired_direction == right && canMove(right))
 				{
 					up9 = false;
-					state = smart;
+					ghostMovement = smart;
 				}
 				else if(desired_direction == left && canMove(left))
 				{
 					up8 = false;
-					state = smart;
+					ghostMovement = smart;
 				}
 				
 				break;
@@ -878,19 +878,19 @@ public class Ghost extends Rectangle
 				if(desired_direction == right && canMove(right))
 				{
 					down9 = false;
-					state = smart;
+					ghostMovement = smart;
 				}
 				else if(desired_direction == left && canMove(left))
 				{
 					down8 = false;
-					state = smart;
+					ghostMovement = smart;
 				}
 				
 				break;
 				
 			case -1:	
 				
-				state = smart; 
+				ghostMovement = smart; 
 			
 				break;
 		}
@@ -970,12 +970,10 @@ public class Ghost extends Rectangle
 
 	private void enemy_movement()
 	{
-		switch(state)
+		switch(ghostMovement)
 		{
 			case random: move_randomly(); break;	// Move in a random fashion
-			
 			case smart: move_smartly(); break;		// Chase pacman
-			
 			case find_path: finding_path(); break;	// Find path to pacman when stuck
 		}			
 	}
@@ -989,10 +987,10 @@ public class Ghost extends Rectangle
 			
 			switch(enemyID)
 			{
-				case 0: Game.Blinky = new Ghost(640, 320, 0, lastDir, crossmap); break;
-				case 1: Game.Inky = new Ghost(640, 320, 1, lastDir, crossmap); break;
-				case 2: Game.Pinky = new Ghost(640, 320, 2, lastDir, crossmap); break;
-				case 3: Game.Clyde = new Ghost(640, 320, 3, lastDir, crossmap); break;
+				case 0: Game.blinky = new Ghost(640, 320, 0, lastDir, crossmap); break;
+				case 1: Game.inky = new Ghost(640, 320, 1, lastDir, crossmap); break;
+				case 2: Game.pinky = new Ghost(640, 320, 2, lastDir, crossmap); break;
+				case 3: Game.clyde = new Ghost(640, 320, 3, lastDir, crossmap); break;
 			}
 		}
 		else if(x == 640 && y == 320)
@@ -1002,10 +1000,10 @@ public class Ghost extends Rectangle
 
 			switch(enemyID)
 			{
-				case 0: Game.Blinky = new Ghost(0, 320, 0, lastDir, crossmap); break;
-				case 1: Game.Inky = new Ghost(0, 320, 1, lastDir, crossmap); break;
-				case 2: Game.Pinky = new Ghost(0, 320, 2, lastDir, crossmap); break;
-				case 3: Game.Clyde = new Ghost(0, 320, 3, lastDir, crossmap); break;
+				case 0: Game.blinky = new Ghost(0, 320, 0, lastDir, crossmap); break;
+				case 1: Game.inky = new Ghost(0, 320, 1, lastDir, crossmap); break;
+				case 2: Game.pinky = new Ghost(0, 320, 2, lastDir, crossmap); break;
+				case 3: Game.clyde = new Ghost(0, 320, 3, lastDir, crossmap); break;
 			}
 		}
 	}

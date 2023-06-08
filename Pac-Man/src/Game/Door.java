@@ -5,8 +5,8 @@
 * 
 * Description: 
 * 
-* This file contains the implementation for the Door present in 
-* the game map.
+* This file contains the implementation for the Door present on 
+* the exit of the game map's ghost spawn box.
 * 
 /**************************************************************/
 
@@ -20,14 +20,16 @@ public class Door extends Rectangle
 {
 	private static final long serialVersionUID = 1L;
 
+	// Constructor
 	public Door(int x, int y)
 	{
 		setBounds(x,y,32,32);
 	}
 	
+	// Render object
 	public void render(Graphics g)
 	{
-		g.setColor(new Color(255,0,8));
+		g.setColor(Color.red);
 		g.fillRect(x, y, width, height/6);
 	}
 }

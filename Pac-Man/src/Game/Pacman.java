@@ -97,50 +97,50 @@ public class Pacman extends Rectangle
 			{
 				switch(bonusScore)
 				{
-				case 200: 
+					case 200: 
+						
+						if(imageIndex2 >= 10)
+						{
+							imageIndex2 = 0;
+							timesScoreFlashed++;
+						}
+						g.drawImage(Texture.two_hundred[imageIndex2], Game.xEvent, Game.yEvent, width, height, null);
 					
-					if(imageIndex2 >= 10)
-					{
-						imageIndex2 = 0;
-						timesScoreFlashed++;
+						break;
+						
+					case 400:
+						
+						if(imageIndex4 >= 10)
+						{
+							imageIndex4 = 0;
+							timesScoreFlashed++;
+						}
+						g.drawImage(Texture.four_hundred[imageIndex4], Game.xEvent, Game.yEvent, width, height, null);
+						
+						break;
+						
+					case 800:
+						
+						if(imageIndex8 >= 10)
+						{
+							imageIndex8 = 0;
+							timesScoreFlashed++;
+						}
+						g.drawImage(Texture.eight_hundred[imageIndex8], Game.xEvent, Game.yEvent, width, height, null);
+					
+						break;
+						
+					case 1600:
+						
+						if(imageIndex16 >= 10)
+						{
+							imageIndex16 = 0;
+							timesScoreFlashed++;
+						}
+						g.drawImage(Texture.sixteen_hundred[imageIndex16], Game.xEvent, Game.yEvent, width, height, null);
+					
+						break;
 					}
-					g.drawImage(Texture.two_hundred[imageIndex2], Game.x_position, Game.y_position, width, height, null);
-				
-					break;
-					
-				case 400:
-					
-					if(imageIndex4 >= 10)
-					{
-						imageIndex4 = 0;
-						timesScoreFlashed++;
-					}
-					g.drawImage(Texture.four_hundred[imageIndex4], Game.x_position, Game.y_position, width, height, null);
-					
-					break;
-					
-				case 800:
-					
-					if(imageIndex8 >= 10)
-					{
-						imageIndex8 = 0;
-						timesScoreFlashed++;
-					}
-					g.drawImage(Texture.eight_hundred[imageIndex8], Game.x_position, Game.y_position, width, height, null);
-				
-					break;
-					
-				case 1600:
-					
-					if(imageIndex16 >= 10)
-					{
-						imageIndex16 = 0;
-						timesScoreFlashed++;
-					}
-					g.drawImage(Texture.sixteen_hundred[imageIndex16], Game.x_position, Game.y_position, width, height, null);
-				
-					break;
-				}
 			}
 		}
 	}
@@ -160,13 +160,9 @@ public class Pacman extends Rectangle
 		switch(direction)
 		{
 			case 1: nextx = x+speed; nexty = y; break;
-			
 			case 2:	nextx = x-speed; nexty = y; break;
-			
 			case 3: nextx = x; nexty = y-speed; break;
-			
 			case 4: if(x == 320 && y == 256) {return false;}
-			
 					nextx = x; nexty = y+speed; break;
 		}
 		
@@ -254,6 +250,11 @@ public class Pacman extends Rectangle
 				break;
 		}
 		
+		if(x == 0 && y == 320)						// Pacman going through the left portal	
+			Game.pacman = new Pacman(640, 320);		// Spawn pacman on the right side of the map
+		else if(x == 640 && y == 320)				// Pacman going through the right portal	
+			Game.pacman = new Pacman(0, 320);		// Spawn pacman on the left side of the map
+		
 		/*
 	 	int dirArray[] = {right,left,up,down};
 		 
@@ -273,17 +274,23 @@ public class Pacman extends Rectangle
 		*/
 	}
 
-	public void colision_with_food()
+	private void resetEatenGhosts()
+	{
+		Game.blinky.eaten = false;													
+		Game.inky.eaten = false;
+		Game.pinky.eaten = false;
+		Game.clyde.eaten = false;
+	}
+	
+	public void foodColision()
 	{
 		if(Level.food.size() == 0 && Level.energizers.size() == 0)	
 		{
-			Game.GAME_STATUS = Game.WIN;	
+			Game.gameStatus = Game.win;	
 			
 			energizerStatus = false;				
-			Game.Blinky.eaten = false;													
-			Game.Inky.eaten = false;
-			Game.Pinky.eaten = false;
-			Game.Clyde.eaten = false;
+
+			resetEatenGhosts();
 			
 			energizerTime = 0;	
 			return;
@@ -337,30 +344,27 @@ public class Pacman extends Rectangle
 				energizerTime = 0;							// Reset the energizer timer
 				
 				// No ghosts eaten
-				Game.Blinky.eaten = false;													
-				Game.Inky.eaten = false;
-				Game.Pinky.eaten = false;
-				Game.Clyde.eaten = false;
+				resetEatenGhosts();
 				
 				break;
 			}
 		}
 	}
 	
-	public void colision_with_ghost()
+	public void ghostColision()
 	{
 		if(energizerStatus)					//Estamos no estado energizer
 		{
 			//timesScoreFlashed = 0;
 			
 			if(energizerTime == energizerTargetTime)					// Energizer time over		
-				energizerTime_over();									
+				energizerNotActive();									
 			else if(energizerTime < energizerTargetTime)				// Energizer time not over yet
-				energizerTime_not_over();								 			
+				energizerActive();								 			
 		}
 		else if(!energizerStatus)
 		{
-			if(Game.Blinky.intersects(this) || Game.Inky.intersects(this) || Game.Pinky.intersects(this) || Game.Clyde.intersects(this))	//Interce��o com inimigo										
+			if(Game.blinky.intersects(this) || Game.inky.intersects(this) || Game.pinky.intersects(this) || Game.clyde.intersects(this))										
 			{
 				String filepath = "res\\Sounds\\PacMan Death.wav";
 				playSound(filepath);
@@ -375,11 +379,11 @@ public class Pacman extends Rectangle
 			    	
 					//LeaderboardPanel.update_table();
 					
-					Game.GAME_STATUS = Game.LOSE;
+					Game.gameStatus = Game.lose;
 				}
 				else 
 				{
-					Game.GAME_STATUS = Game.LIFE_LOST;
+					Game.gameStatus = Game.lifeLost;
 				}	
 			}
 		}
@@ -402,14 +406,11 @@ public class Pacman extends Rectangle
 		bonusScore = bScore;
 	}
 	
-	public void energizerTime_over()
+	public void energizerNotActive()
 	{
 		energizerStatus = false;
 		
-		Game.Blinky.eaten = false;													
-		Game.Inky.eaten = false;
-		Game.Pinky.eaten = false;
-		Game.Clyde.eaten = false;
+		resetEatenGhosts();
 		
 		energizerTime = 0;	
 
@@ -432,16 +433,14 @@ public class Pacman extends Rectangle
 					LeaderboardPanel.read_from_file();
 					LeaderboardPanel.swap_values();
 					LeaderboardPanel.write_to_file();
-					Game.GAME_STATUS = Game.LOSE;
+					Game.gameStatus = Game.lose;
 				}
 				else 
-					Game.GAME_STATUS = Game.LIFE_LOST;
+					Game.gameStatus = Game.lifeLost;
 				
 				energizerStatus = false;				
-				Game.Blinky.eaten = false;													
-				Game.Inky.eaten = false;
-				Game.Pinky.eaten = false;
-				Game.Clyde.eaten = false;
+
+				resetEatenGhosts();
 				
 				energizerTime = 0;	
 				
@@ -453,8 +452,8 @@ public class Pacman extends Rectangle
 				playSound(filepath);
 				++ghostsEaten;
 				
-				Game.x_position = x;
-				Game.y_position = y;
+				Game.xEvent = x;
+				Game.yEvent = y;
 				stopBonusScore = false;
 				
 				switch(ghostsEaten)
@@ -464,37 +463,34 @@ public class Pacman extends Rectangle
 					case 3: Game.score = Game.score + 800; showBonusScore(800); break;
 					case 4: Game.score = Game.score + 1600; showBonusScore(1600); break;
 				}
-				
-				//ghost = new Ghost(320, 320, ghost.enemyID, -1, -1);
-				//ghost.eaten = true;
 			
 				switch(ghost.enemyID)
 				{
 					case Game.blinkyID:
 												
-						Game.Blinky = new Ghost(Game.blinkySpawnX, Game.blinkySpawnY, ghost.enemyID, -1, -1);
-						Game.Blinky.eaten = true;
+						Game.blinky = new Ghost(Game.blinkySpawnX, Game.blinkySpawnY, ghost.enemyID, -1, -1);
+						Game.blinky.eaten = true;
 						
 						break;
 						
 					case Game.inkyID:
 											
-						Game.Inky = new Ghost(Game.inkySpawnX, Game.inkySpawnY, ghost.enemyID, -1, -1);
-						Game.Inky.eaten = true;
+						Game.inky = new Ghost(Game.inkySpawnX, Game.inkySpawnY, ghost.enemyID, -1, -1);
+						Game.inky.eaten = true;
 						
 						break;
 						
 					case Game.pinkyID:	
 						
-						Game.Pinky = new Ghost(Game.pinkySpawnX, Game.pinkySpawnY, ghost.enemyID, -1, -1);
-						Game.Pinky.eaten = true;
+						Game.pinky = new Ghost(Game.pinkySpawnX, Game.pinkySpawnY, ghost.enemyID, -1, -1);
+						Game.pinky.eaten = true;
 						
 						break;
 						
 					case Game.clydeID:
 												
-						Game.Clyde = new Ghost(Game.clydeSpawnX, Game.clydeSpawnY, ghost.enemyID, -1, -1);
-						Game.Clyde.eaten = true;
+						Game.clyde = new Ghost(Game.clydeSpawnX, Game.clydeSpawnY, ghost.enemyID, -1, -1);
+						Game.clyde.eaten = true;
 						
 						break;
 				}
@@ -504,10 +500,10 @@ public class Pacman extends Rectangle
 	
 	public void checkEatenGhosts()
 	{
-		isGhostEaten(Game.Blinky);
-		isGhostEaten(Game.Inky);
-		isGhostEaten(Game.Pinky);
-		isGhostEaten(Game.Clyde);
+		isGhostEaten(Game.blinky);
+		isGhostEaten(Game.inky);
+		isGhostEaten(Game.pinky);
+		isGhostEaten(Game.clyde);
 		
 		/*
 		
@@ -534,7 +530,7 @@ public class Pacman extends Rectangle
 		*/
 	}
 	
-	public void energizerTime_not_over()
+	public void energizerActive()
 	{
 		if(energizerTime >= energizerFlashTime)
 			makeGhostFlash();
@@ -550,13 +546,14 @@ public class Pacman extends Rectangle
 	
 	public void movement()
 	{
+		
 		move(dir);
 	}
 	
 	public void colisions()
 	{
-		colision_with_food();
-		colision_with_ghost();
+		foodColision();
+		ghostColision();
 	}
 	
 	public void positioning()
@@ -597,6 +594,8 @@ public class Pacman extends Rectangle
 			}
 		}
 	}
+	
+	
 	
 	public void tick()
 	{	
