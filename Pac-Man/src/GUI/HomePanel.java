@@ -12,43 +12,61 @@
 
 package GUI;
 
-import javax.swing.JPanel;
-
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Font;
+
+import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
-
 import javax.swing.JLabel;
-import java.awt.Font;
 
 public class HomePanel extends JPanel 
 {
 	private static final long serialVersionUID = 1L;
 	
-	public static boolean username_inserted = false;
+	// Pacman logo variables
+	public static String pacmanLogoPath = "res\\Pacman\\PacManLogo.png";
+	public static int logoWidth = 405;
+	public static int logoHeight = 216;
+	public static int logoHorizontalPos = 137;
+	public static int logoVerticalPos = 49;
 	
+	// Home panel components dimensions 
+	public static int componentWidth = 300;
+	public static int componentHeight = 30;
+	
+	// Home panel components positioning
+	public static int componentHorizontalPos = 190;
+	public static int authorInforVerticalPos = 250;
+	private int playButtonVerticalPos = 325;
+	private int lbButtonVerticalPos = 375;
+	private int settingsButtonVerticalPos = 425;
+	private int projectInfoButtonVerticalPos = 475;
+	private int exitButtonVerticalPos = 525;
+	
+	// Constructor
 	public HomePanel() 
 	{
-		// Insert PAC-MAN logo image on the home panel
+		// Insert pacman logo image on the home panel
 		JLabel labelImage = new JLabel("New label");
-		labelImage.setBounds(137, 49, 405, 216);
-		ImageIcon imageIcon = new ImageIcon("res\\Pacman\\PacManLogo.png"); 
-		labelImage.setIcon(imageIcon);
+		labelImage.setBounds(logoHorizontalPos, logoVerticalPos, logoWidth, logoHeight);
+		ImageIcon pacmanLogoImageIcon = new ImageIcon(pacmanLogoPath); 
+		labelImage.setIcon(pacmanLogoImageIcon);
 		add(labelImage);
 		
 		// Insert author information on the home panel
 		JLabel labelID = new JLabel("Created by: Lucas Tucker\n");
 		labelID.setHorizontalAlignment(SwingConstants.CENTER);
-		labelID.setBounds(190, 250, 300, 30);
+		labelID.setBounds(componentHorizontalPos, authorInforVerticalPos, componentWidth, componentHeight);
 		labelID.setFont(new Font("Calibri Light", Font.PLAIN, 18));
-		labelID.setForeground(Color.BLACK);
+		labelID.setForeground(Color.black);
 		add(labelID);
 		
 		// Set home panel's background and layout
-		setBackground(new Color(240,240,240));
+		setBackground(new Color(240, 240, 240));
 		setLayout(null);
 		
 		// Buttons present on the Home panel
@@ -59,11 +77,11 @@ public class HomePanel extends JPanel
 		JButton ExitButton = new JButton("EXIT");
 		
 		// Button's bounds and placement on the home panel
-		PlayButton.setBounds(190, 325, 300, 30);
-		LeaderboardButton.setBounds(190, 375, 300, 30);
-		SettingsButton.setBounds(190, 425, 300, 30);
-		ProjectInfoButton.setBounds(190, 475, 300, 30);
-		ExitButton.setBounds(190, 525, 300, 30);
+		PlayButton.setBounds(componentHorizontalPos, playButtonVerticalPos, componentWidth, componentHeight);
+		LeaderboardButton.setBounds(componentHorizontalPos, lbButtonVerticalPos, componentWidth, componentHeight);
+		SettingsButton.setBounds(componentHorizontalPos, settingsButtonVerticalPos, componentWidth, componentHeight);
+		ProjectInfoButton.setBounds(componentHorizontalPos, projectInfoButtonVerticalPos, componentWidth, componentHeight);
+		ExitButton.setBounds(componentHorizontalPos, exitButtonVerticalPos, componentWidth, componentHeight);
 		
 		// Add the buttons to the home panel
 		add(PlayButton);

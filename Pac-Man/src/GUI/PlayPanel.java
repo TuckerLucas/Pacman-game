@@ -13,12 +13,16 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -30,17 +34,34 @@ public class PlayPanel extends JPanel
 {
 	private static final long serialVersionUID = 1L;
 	
-	public static boolean username_inserted = false;
-	private JTextField textField;
+	private JTextField usernameTextField;
 	
+	// Constructor
 	public PlayPanel()
 	{
+		// Insert pacman logo image on the home panel
+		JLabel labelImage = new JLabel("New label");
+		labelImage.setBounds(HomePanel.logoHorizontalPos, HomePanel.logoVerticalPos, 
+				HomePanel.logoWidth, HomePanel.logoHeight);
+		ImageIcon pacmanLogoImageIcon = new ImageIcon(HomePanel.pacmanLogoPath); 
+		labelImage.setIcon(pacmanLogoImageIcon);
+		add(labelImage);
+		
+		// Insert author information on the home panel
+		JLabel labelID = new JLabel("Created by: Lucas Tucker\n");
+		labelID.setHorizontalAlignment(SwingConstants.CENTER);
+		labelID.setBounds(HomePanel.componentHorizontalPos, HomePanel.authorInforVerticalPos, 
+				HomePanel.componentWidth, HomePanel.componentHeight);
+		labelID.setFont(new Font("Calibri Light", Font.PLAIN, 18));
+		labelID.setForeground(Color.black);
+		add(labelID);
+		
 		// Set play panel's background and layout
-		setBackground(new Color(240,240,240));
+		setBackground(new Color(240, 240, 240));
 		setLayout(null);
 		
 		// Play button configuration
-		JButton playButton = new JButton("LET'S PLAY PAC-MAN!");
+		JButton playButton = new JButton("PLAY PACMAN");
 		playButton.setBounds(190, 393, 300, 30);
 		add(playButton);
 		
@@ -50,11 +71,11 @@ public class PlayPanel extends JPanel
 		add(BackButton);
 		
 		// Username text field input configuration
-		textField = new JTextField("Username");
-		textField.setHorizontalAlignment(SwingConstants.CENTER);
-		textField.setForeground(Color.LIGHT_GRAY);
-		textField.setBounds(190, 350, 300, 30);
-		add(textField);
+		usernameTextField = new JTextField("Username");
+		usernameTextField.setHorizontalAlignment(SwingConstants.CENTER);
+		usernameTextField.setForeground(Color.lightGray);
+		usernameTextField.setBounds(190, 350, 300, 30);
+		add(usernameTextField);
 		
 		// Action listeners
 		playButton.addActionListener  
@@ -63,18 +84,24 @@ public class PlayPanel extends JPanel
             {  
                 public void actionPerformed(ActionEvent e) 
                 {  
-                	// Valid username?
-                	if(textField.getText().length() != 0 && textField.getText() != null)
+                	// Check for valid username
+                	if(checkValidUsername())
                 	{
-                		CLayout.game.start();													// Start the game
-                    	CLayout.cardLayout.show(CLayout.panelContainer, "Game");				// Show game panel
-                		Game.gameStatus = Game.init;											// Start on the inital screen
-                		LeaderboardPanel.username = textField.getText();                		// Save player's username
+                		// Start and show game
+                		CLayout.game.start();												
+                    	CLayout.cardLayout.show(CLayout.panelContainer, "Game");				
+                		Game.gameStatus = Game.init;	
+                		
+                		// Save username
+                		LeaderboardPanel.username = usernameTextField.getText();                
                 	}
                 	else
                 	{
-                		JFrame popupwindow = new JFrame();										// Display popup window
-                	    JOptionPane.showMessageDialog(popupwindow, "Insert valid username");	// requesting valid username
+                		// Display pop-up window
+                		JFrame popupwindow = new JFrame();						
+                		
+                		// Request user for a valid username
+                	    JOptionPane.showMessageDialog(popupwindow, "Insert a valid username!");	
                 	}
                 }  
             }  
@@ -91,21 +118,32 @@ public class PlayPanel extends JPanel
             }  
         );
 		
-		textField.addFocusListener
+		usernameTextField.addFocusListener
 		(
 				new FocusListener() 
 				{
 					public void focusGained(FocusEvent e) 
 					{
-						textField.setText("");									// Make suggestive text disappear on mouse click
-						textField.setForeground(Color.BLACK);					// Turn user text input black
+						// Make suggestive text disappear on mouse click
+						usernameTextField.setText("");	
+						
+						// Turn user text input black
+						usernameTextField.setForeground(Color.black);					
 					}
 
 					public void focusLost(FocusEvent e) 
 					{
-						textField.setForeground(Color.LIGHT_GRAY);				// Suggestive text in gray
+						// Suggestive text in gray
+						usernameTextField.setForeground(Color.lightGray);				
 					}
 				}
 		);
+	}
+	
+	// Check for valid username insertion
+	private boolean checkValidUsername()
+	{
+		return usernameTextField.getText().length() != 0 && 
+			   usernameTextField.getText() != null;
 	}
 }

@@ -22,39 +22,39 @@ public class Pacman extends Rectangle
 {
 	private static final long serialVersionUID = 1L;
 	
-	public static int dir     = 1;
+	public static int dir = 1;
 	public static int lastDir = 1;
 	
 	public static int right = 1;
-	public static int left  = 2;
-	public static int up    = 3;
-	public static int down  = 4;
+	public static int left = 2;
+	public static int up = 3;
+	public static int down = 4;
 
-	public static int energizerTime       = 0;
+	public static int energizerTime	= 0;
 	public static int energizerTargetTime = 60*8; 
 	public static int energizerFlashTime  = 60*5;
 	
-	public static boolean energizerFlash  = false;
+	public static boolean energizerFlash = false;
 	public static boolean energizerStatus = false;
 	public static boolean soundOn = false;
 	
 	private int speed = 2;
 
 	// Animation timing variables
-	private int time 				  = 0;	
-	private int targetTime 			  = 8;
-	private int imageIndex            = 0;
+	private int time = 0;	
+	private int targetTime = 8;
+	private int imageIndex = 0;
 	public static int imageIndexFlash = 0;
 	
-	private int bonusScoreTime			= 0;
-	private int bonusScoreTargetTime 	= 10;
-	public static int imageIndex2 	= 0;	
-	public static int imageIndex4 	= 0;
-	public static int imageIndex8 	= 0;
-	public static int imageIndex16 	= 0;
+	private int bonusScoreTime = 0;
+	private int bonusScoreTargetTime = 10;
+	public static int imageIndex2 = 0;	
+	public static int imageIndex4 = 0;
+	public static int imageIndex8 = 0;
+	public static int imageIndex16 = 0;
 	
-	public static int lives 		  = 3;
-	private int ghostsEaten 		  = 0;
+	public static int lives = 3;
+	private int ghostsEaten = 0;
 	
 	public static int bonusScore = -1;
 	public static int score2 = 200;
@@ -75,16 +75,26 @@ public class Pacman extends Rectangle
 	public void render(Graphics g)
 	{
 		if(imageIndex == 3)
+		{
 			imageIndex = 0;
+		}
 		
 		if(lastDir == right)
-			g.drawImage(Texture.player[imageIndex], x, y, width, height, null);			// Make pacman look right
+		{
+			g.drawImage(Texture.pacmanLookRight[imageIndex], x, y, width, height, null);	// Make pacman look right
+		}
 		else if(lastDir == left)
-			g.drawImage(Texture.player[imageIndex], x+32, y, -width, height, null);		// Make pacman look left
+		{
+			g.drawImage(Texture.pacmanLookLeft[imageIndex], x, y, width, height, null);		// Make pacman look left
+		}
 		else if(lastDir == up)
-			g.drawImage(Texture.player1[imageIndex], x, y+32, width, -height, null);	// Make pacman look up
+		{
+			g.drawImage(Texture.pacmanLookUp[imageIndex], x, y, width, height, null);		// Make pacman look up
+		}
 		else if(lastDir == down)
-			g.drawImage(Texture.player1[imageIndex], x, y, width, height, null);		// Make pacman look down
+		{
+			g.drawImage(Texture.pacmanLookDown[imageIndex], x, y, width, height, null);		// Make pacman look down
+		}
 		
 		if(bonusScore != -1)
 		{
@@ -104,7 +114,7 @@ public class Pacman extends Rectangle
 							imageIndex2 = 0;
 							timesScoreFlashed++;
 						}
-						g.drawImage(Texture.two_hundred[imageIndex2], Game.xEvent, Game.yEvent, width, height, null);
+						g.drawImage(Texture.bonusScore200[imageIndex2], Game.xEvent, Game.yEvent, width, height, null);
 					
 						break;
 						
@@ -115,7 +125,7 @@ public class Pacman extends Rectangle
 							imageIndex4 = 0;
 							timesScoreFlashed++;
 						}
-						g.drawImage(Texture.four_hundred[imageIndex4], Game.xEvent, Game.yEvent, width, height, null);
+						g.drawImage(Texture.bonusScore400[imageIndex4], Game.xEvent, Game.yEvent, width, height, null);
 						
 						break;
 						
@@ -126,7 +136,7 @@ public class Pacman extends Rectangle
 							imageIndex8 = 0;
 							timesScoreFlashed++;
 						}
-						g.drawImage(Texture.eight_hundred[imageIndex8], Game.xEvent, Game.yEvent, width, height, null);
+						g.drawImage(Texture.bonusScore800[imageIndex8], Game.xEvent, Game.yEvent, width, height, null);
 					
 						break;
 						
@@ -137,10 +147,10 @@ public class Pacman extends Rectangle
 							imageIndex16 = 0;
 							timesScoreFlashed++;
 						}
-						g.drawImage(Texture.sixteen_hundred[imageIndex16], Game.xEvent, Game.yEvent, width, height, null);
+						g.drawImage(Texture.bonusScore1600[imageIndex16], Game.xEvent, Game.yEvent, width, height, null);
 					
 						break;
-					}
+				}
 			}
 		}
 	}
@@ -149,7 +159,9 @@ public class Pacman extends Rectangle
 	public static void playSound(String filepath)
 	{
 		if(soundOn)
+		{
 			new Sounds(filepath);
+		}
 	}
 	
 	

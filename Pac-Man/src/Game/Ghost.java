@@ -140,7 +140,9 @@ public class Ghost extends Rectangle
 	private void move(int dir)
 	{
 		if(canMove(dir))
+		{
 			setDirection(dir);
+		}
 	}
 	
 	private boolean canMove(int dir)
@@ -904,14 +906,14 @@ public class Ghost extends Rectangle
 		return false;
 	}
 	
-	private void flash(Graphics g)
+	private void flashGhost(Graphics g)
 	{
-		g.drawImage(Texture.flash[Pacman.imageIndexFlash], x, y, width, height, null);
+		g.drawImage(Texture.flashGhost[Pacman.imageIndexFlash], x, y, width, height, null);
 	}
 	
 	private void stay_blue(Graphics g)
 	{
-		g.drawImage(Texture.blueghost[imageIndexEnemy], x, y, width, height, null);
+		g.drawImage(Texture.blueGhost[imageIndexEnemy], x, y, width, height, null);
 	}
 	
 	private void look(int where, Graphics g)
@@ -922,10 +924,10 @@ public class Ghost extends Rectangle
 				
 				switch(this.enemyID)
 				{
-					case 0: g.drawImage(Texture.blinkyR[imageIndexEnemy], x, y, width, height, null); break;
-					case 1: g.drawImage(Texture.inkyR[imageIndexEnemy], x, y, width, height, null); break;
-					case 2: g.drawImage(Texture.pinkyR[imageIndexEnemy], x, y, width, height, null); break;
-					case 3: g.drawImage(Texture.clydeR[imageIndexEnemy], x, y, width, height, null); break;
+					case 0: g.drawImage(Texture.blinkyLookRight[imageIndexEnemy], x, y, width, height, null); break;
+					case 1: g.drawImage(Texture.inkyLookRight[imageIndexEnemy], x, y, width, height, null); break;
+					case 2: g.drawImage(Texture.pinkyLookRight[imageIndexEnemy], x, y, width, height, null); break;
+					case 3: g.drawImage(Texture.clydeLookRight[imageIndexEnemy], x, y, width, height, null); break;
 				}
 				
 				break;
@@ -934,10 +936,10 @@ public class Ghost extends Rectangle
 				
 				switch(enemyID)
 				{
-					case 0: g.drawImage(Texture.blinkyL[imageIndexEnemy], x, y, width, height, null); break;
-					case 1: g.drawImage(Texture.inkyL[imageIndexEnemy], x, y, width, height, null); break;
-					case 2: g.drawImage(Texture.pinkyL[imageIndexEnemy], x, y, width, height, null); break;
-					case 3: g.drawImage(Texture.clydeL[imageIndexEnemy], x, y, width, height, null); break;
+					case 0: g.drawImage(Texture.blinkyLookLeft[imageIndexEnemy], x, y, width, height, null); break;
+					case 1: g.drawImage(Texture.inkyLookLeft[imageIndexEnemy], x, y, width, height, null); break;
+					case 2: g.drawImage(Texture.pinkyLookLeft[imageIndexEnemy], x, y, width, height, null); break;
+					case 3: g.drawImage(Texture.clydeLookLeft[imageIndexEnemy], x, y, width, height, null); break;
 				}
 				
 				break;
@@ -946,10 +948,10 @@ public class Ghost extends Rectangle
 				
 				switch(enemyID)
 				{
-					case 0: g.drawImage(Texture.blinkyU[imageIndexEnemy], x, y, width, height, null); break;
-					case 1: g.drawImage(Texture.inkyU[imageIndexEnemy], x, y, width, height, null); break;
-					case 2: g.drawImage(Texture.pinkyU[imageIndexEnemy], x, y, width, height, null); break;
-					case 3: g.drawImage(Texture.clydeU[imageIndexEnemy], x, y, width, height, null); break;
+					case 0: g.drawImage(Texture.blinkyLookUp[imageIndexEnemy], x, y, width, height, null); break;
+					case 1: g.drawImage(Texture.inkyLookUp[imageIndexEnemy], x, y, width, height, null); break;
+					case 2: g.drawImage(Texture.pinkyLookUp[imageIndexEnemy], x, y, width, height, null); break;
+					case 3: g.drawImage(Texture.clydeLookUp[imageIndexEnemy], x, y, width, height, null); break;
 				}
 				
 				break;
@@ -958,10 +960,10 @@ public class Ghost extends Rectangle
 				
 				switch(enemyID)
 				{
-					case 0: g.drawImage(Texture.blinkyD[imageIndexEnemy], x, y, width, height, null); break;
-					case 1: g.drawImage(Texture.inkyD[imageIndexEnemy], x, y, width, height, null); break;
-					case 2: g.drawImage(Texture.pinkyD[imageIndexEnemy], x, y, width, height, null); break;
-					case 3: g.drawImage(Texture.clydeD[imageIndexEnemy], x, y, width, height, null); break;
+					case 0: g.drawImage(Texture.blinkyLookDown[imageIndexEnemy], x, y, width, height, null); break;
+					case 1: g.drawImage(Texture.inkyLookDown[imageIndexEnemy], x, y, width, height, null); break;
+					case 2: g.drawImage(Texture.pinkyLookDown[imageIndexEnemy], x, y, width, height, null); break;
+					case 3: g.drawImage(Texture.clydeLookDown[imageIndexEnemy], x, y, width, height, null); break;
 				}
 				
 				break;
@@ -1032,7 +1034,7 @@ public class Ghost extends Rectangle
 			if(!Pacman.energizerFlash)
 				stay_blue(g);
 			else if(Pacman.energizerFlash)
-				flash(g);
+				flashGhost(g);
 		}
 	}
 	

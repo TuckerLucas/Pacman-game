@@ -1,7 +1,7 @@
 /**************************************************************
 * Created by: Lucas Tucker (tucker.lucas.1404@gmail.com)
 * 
-* File: Sound.java
+* File: Sounds.java
 * 
 * Description: 
 * 
@@ -18,15 +18,17 @@ import javax.sound.sampled.Clip;
 
 public class Sounds
 {
-	public static Clip clip;
+	private Clip clip;
 	
+	// Constructor
 	public Sounds(String sound)
 	{
 		try 
 		{
 			File path = new File(sound);
-			clip = AudioSystem.getClip();
 			AudioInputStream audio = AudioSystem.getAudioInputStream(path);
+			
+			clip = AudioSystem.getClip();
 			clip.open(audio);
 			clip.start();
 			clip.setFramePosition(0);

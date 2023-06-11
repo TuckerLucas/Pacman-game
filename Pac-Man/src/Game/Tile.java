@@ -6,11 +6,12 @@
 * Description: 
 * 
 * This file contains the implementation for the Tiles
-* displayed in the game map.
+* that compose the game map.
 * 
 /**************************************************************/
 
 package Game;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -19,14 +20,16 @@ public class Tile extends Rectangle
 {
 	private static final long serialVersionUID = 1L;
 
+	// Constructor
 	public Tile(int x, int y)
 	{
 		setBounds(x,y,32,32);
 	}
 	
+	// Render object
 	public void render(Graphics g)
 	{
-		g.setColor(new Color(50,0,255));
+		g.setColor(Color.blue);
 		g.fillRect(x, y, width, height);
 	}
 }
