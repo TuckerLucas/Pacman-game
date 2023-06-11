@@ -113,7 +113,7 @@ public class Game extends Canvas implements Runnable, KeyListener
     	try
 		{
 			BufferedReader reader;
-			reader = new BufferedReader(new FileReader("Scores.txt"));
+			reader = new BufferedReader(new FileReader("res/Files/Scores.txt"));
 			String line = reader.readLine();
 			int integer = Integer.parseInt(line);
 	        reader.close();
@@ -211,7 +211,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 					loadCharacters();
 					energizer = new Energizer(Game.WIDTH/2, Game.HEIGHT/2);
 					door = new Door(Game.WIDTH/2, Game.HEIGHT/2);
-					level = new Level("/map/map.png");
+					level = new Level("/Images/map.png");
 					gameStatus = play;
 				}
 				
@@ -233,7 +233,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				{
 					enter = false;
 					loadCharacters();
-					level = new Level("/map/map.png");
+					level = new Level("/Images/map.png");
 					gameStatus = play;
 				}
 				
@@ -262,7 +262,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 					score = 0;
 					enter = false;
 					loadCharacters();
-					level  = new Level("/map/map.png");
+					level  = new Level("/Images/map.png");
 					gameStatus = play;
 				}
 				
@@ -270,7 +270,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				{
 					score = 0;
 					loadCharacters();
-					level = new Level("/map/map.png");
+					level = new Level("/Images/map.png");
 					gameStatus = init;
 					CLayout.cardLayout.show(CLayout.panelContainer, "Home");
 					space = false;

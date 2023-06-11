@@ -96,7 +96,7 @@ public class Texture
 	{
 		try
 		{
-			spritesheet = ImageIO.read(getClass().getResource("/sprites/spritesheet.png"));
+			spritesheet = ImageIO.read(getClass().getResource("/Images/spritesheet.png"));
 		}
 		catch(IOException e)
 		{
