@@ -53,7 +53,7 @@ public class ProjectInfoPanel extends JPanel
 		try
 		{
 			BufferedReader ProjectInfoReader;
-			ProjectInfoReader = new BufferedReader(new FileReader("ProjectInfo.txt"));
+			ProjectInfoReader = new BufferedReader(new FileReader("res/Files/ProjectInfo.txt"));
 			String ProjectInfoLine = ProjectInfoReader.readLine();
 			
 			ProjectInfoReader.close();

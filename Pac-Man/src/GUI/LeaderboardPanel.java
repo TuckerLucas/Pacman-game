@@ -52,8 +52,8 @@ public class LeaderboardPanel extends JPanel
 		try
 		{
 			BufferedReader scoreReader, usernameReader;
-			scoreReader = new BufferedReader(new FileReader("Scores.txt"));
-			usernameReader = new BufferedReader(new FileReader("Usernames.txt"));
+			scoreReader = new BufferedReader(new FileReader("res/Files/Scores.txt"));
+			usernameReader = new BufferedReader(new FileReader("res/Files/Usernames.txt"));
 			String scoreLine = scoreReader.readLine();
 			String usernameLine = usernameReader.readLine();
 			
@@ -112,8 +112,8 @@ public class LeaderboardPanel extends JPanel
 		try
 		{
 			BufferedWriter scoreWriter, usernameWriter = null;
-			scoreWriter = new BufferedWriter(new FileWriter("Scores.txt"));
-			usernameWriter = new BufferedWriter(new FileWriter("Usernames.txt"));
+			scoreWriter = new BufferedWriter(new FileWriter("res/Files/Scores.txt"));
+			usernameWriter = new BufferedWriter(new FileWriter("res/Files/Usernames.txt"));
 			String string;
 			
 			for(int i = 0; i < N_SUPPORTED_USERNAMES; i++)

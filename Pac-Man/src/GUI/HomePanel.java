@@ -28,7 +28,7 @@ public class HomePanel extends JPanel
 	private static final long serialVersionUID = 1L;
 	
 	// Pacman logo variables
-	public static String pacmanLogoPath = "res\\Pacman\\PacManLogo.png";
+	public static String pacmanLogoPath = "res/Images/PacManLogo.png";
 	public static int logoWidth = 405;
 	public static int logoHeight = 216;
 	public static int logoHorizontalPos = 137;
