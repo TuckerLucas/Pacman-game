@@ -40,9 +40,8 @@ public class PlayPanel extends JPanel
 	public PlayPanel()
 	{
 		// Insert pacman logo image on the home panel
-		JLabel labelImage = new JLabel("New label");
-		labelImage.setBounds(HomePanel.logoHorizontalPos, HomePanel.logoVerticalPos, 
-				HomePanel.logoWidth, HomePanel.logoHeight);
+		JLabel labelImage = new JLabel("Pacman Logo");
+		labelImage.setBounds(HomePanel.logoHorizontalPos, HomePanel.logoVerticalPos, HomePanel.logoWidth, HomePanel.logoHeight);
 		ImageIcon pacmanLogoImageIcon = new ImageIcon(HomePanel.pacmanLogoPath); 
 		labelImage.setIcon(pacmanLogoImageIcon);
 		add(labelImage);
@@ -50,8 +49,7 @@ public class PlayPanel extends JPanel
 		// Insert author information on the home panel
 		JLabel labelID = new JLabel("Created by: Lucas Tucker\n");
 		labelID.setHorizontalAlignment(SwingConstants.CENTER);
-		labelID.setBounds(HomePanel.componentHorizontalPos, HomePanel.authorInforVerticalPos, 
-				HomePanel.componentWidth, HomePanel.componentHeight);
+		labelID.setBounds(HomePanel.componentHorizontalPos, HomePanel.authorInforVerticalPos, HomePanel.componentWidth, HomePanel.componentHeight);
 		labelID.setFont(new Font("Calibri Light", Font.PLAIN, 18));
 		labelID.setForeground(Color.black);
 		add(labelID);

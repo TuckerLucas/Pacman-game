@@ -22,13 +22,13 @@ public class Pacman extends Rectangle
 {
 	private static final long serialVersionUID = 1L;
 	
-	public static int dir = 1;
-	public static int lastDir = 1;
-	
 	public static int right = 1;
 	public static int left = 2;
 	public static int up = 3;
 	public static int down = 4;
+	
+	public static int dir;
+	public static int lastDir;
 
 	public static int energizerTime	= 0;
 	public static int energizerTargetTime = 60*8; 
@@ -39,6 +39,8 @@ public class Pacman extends Rectangle
 	public static boolean soundOn = false;
 	
 	private int speed = 2;
+	private boolean crossingLeftPortal = false;
+	private boolean crossingRightPortal = false;
 
 	// Animation timing variables
 	private int time = 0;	
@@ -69,6 +71,30 @@ public class Pacman extends Rectangle
 	
 	public Pacman(int x, int y)
 	{
+		if(crossingLeftPortal == true)
+		{
+			crossingLeftPortal = false;
+			
+			while(x > 480)
+			{
+				dir = right;
+			}
+		}
+		else if(crossingRightPortal == true)
+		{
+			crossingRightPortal = false;
+			
+			while(x < 160)
+			{
+				dir = right;
+			}
+		}
+		else
+		{
+			dir = right;
+			lastDir = right;
+		}
+		
 		setBounds(x,y,32,32);
 	}
 
@@ -570,10 +596,17 @@ public class Pacman extends Rectangle
 	
 	public void positioning()
 	{
-		if(x == 0 && y == 320)						// Pacman going through the left portal	
+		// Pacman going through the left portal
+		if(x == 0 && y == 320)	
+		{
 			Game.pacman = new Pacman(640, 320);		// Spawn pacman on the right side of the map
-		else if(x == 640 && y == 320)				// Pacman going through the right portal	
+			
+		}
+		// Pacman going through the right portal
+		else if(x == 640 && y == 320)			
+		{
 			Game.pacman = new Pacman(0, 320);		// Spawn pacman on the left side of the map
+		}
 	}
 	
 	public void animation()
@@ -586,9 +619,13 @@ public class Pacman extends Rectangle
 			imageIndex ++;
 			
 			if(imageIndexFlash == 3)
+			{
 				imageIndexFlash = 0;
+			}
 			else
+			{
 				imageIndexFlash ++;
+			}
 		}
 		
 		bonusScoreTime ++;

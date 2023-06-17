@@ -43,15 +43,16 @@ public class HomePanel extends JPanel
 	public static int authorInforVerticalPos = 250;
 	private int playButtonVerticalPos = 325;
 	private int lbButtonVerticalPos = 375;
-	private int settingsButtonVerticalPos = 425;
-	private int projectInfoButtonVerticalPos = 475;
-	private int exitButtonVerticalPos = 525;
+	private int htpButtonVerticalPos = 425;
+	private int settingsButtonVerticalPos = 475;
+	private int projectInfoButtonVerticalPos = 525;
+	private int exitButtonVerticalPos = 600;
 	
 	// Constructor
 	public HomePanel() 
 	{
 		// Insert pacman logo image on the home panel
-		JLabel labelImage = new JLabel("New label");
+		JLabel labelImage = new JLabel("Pacman Logo");
 		labelImage.setBounds(logoHorizontalPos, logoVerticalPos, logoWidth, logoHeight);
 		ImageIcon pacmanLogoImageIcon = new ImageIcon(pacmanLogoPath); 
 		labelImage.setIcon(pacmanLogoImageIcon);
@@ -72,6 +73,7 @@ public class HomePanel extends JPanel
 		// Buttons present on the Home panel
 		JButton PlayButton = new JButton("PLAY");
 		JButton LeaderboardButton = new JButton("LEADERBOARD");
+		JButton HowToPlayButton = new JButton("HOW TO PLAY");
 		JButton SettingsButton = new JButton("SETTINGS");
 		JButton ProjectInfoButton = new JButton("PROJECT INFO");
 		JButton ExitButton = new JButton("EXIT");
@@ -79,6 +81,7 @@ public class HomePanel extends JPanel
 		// Button's bounds and placement on the home panel
 		PlayButton.setBounds(componentHorizontalPos, playButtonVerticalPos, componentWidth, componentHeight);
 		LeaderboardButton.setBounds(componentHorizontalPos, lbButtonVerticalPos, componentWidth, componentHeight);
+		HowToPlayButton.setBounds(componentHorizontalPos, htpButtonVerticalPos, componentWidth, componentHeight);
 		SettingsButton.setBounds(componentHorizontalPos, settingsButtonVerticalPos, componentWidth, componentHeight);
 		ProjectInfoButton.setBounds(componentHorizontalPos, projectInfoButtonVerticalPos, componentWidth, componentHeight);
 		ExitButton.setBounds(componentHorizontalPos, exitButtonVerticalPos, componentWidth, componentHeight);
@@ -86,6 +89,7 @@ public class HomePanel extends JPanel
 		// Add the buttons to the home panel
 		add(PlayButton);
 		add(LeaderboardButton);
+		add(HowToPlayButton);
 		add(SettingsButton);
 		add(ProjectInfoButton);
 		add(ExitButton);
@@ -109,6 +113,17 @@ public class HomePanel extends JPanel
                 public void actionPerformed(ActionEvent e) 
                 {  
                 	CLayout.cardLayout.show(CLayout.panelContainer, "Leaderboard");                	
+                }  
+            }  
+        );
+		
+		HowToPlayButton.addActionListener  
+        (  
+            new ActionListener() 
+            {  
+                public void actionPerformed(ActionEvent e) 
+                {  
+                	CLayout.cardLayout.show(CLayout.panelContainer, "HowToPlay");                	
                 }  
             }  
         );

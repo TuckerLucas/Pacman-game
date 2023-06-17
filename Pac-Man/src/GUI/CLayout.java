@@ -19,7 +19,7 @@ import javax.swing.*;
 import Game.Game;
 
 public class CLayout
-{	
+{		
 	// Card layout JFrame to include container
 	JFrame CLayout = new JFrame("Pacman Java Game");
 	
@@ -33,6 +33,7 @@ public class CLayout
 	HomePanel panelHome = new HomePanel();
 	PlayPanel panelPlay = new PlayPanel();
 	LeaderboardPanel panelLeaderboard = new LeaderboardPanel();
+	HowToPlayPanel panelHowToPlay = new HowToPlayPanel();
 	SettingsPanel panelSettings = new SettingsPanel();
 	ProjectInfoPanel panelProjectInfo = new ProjectInfoPanel();
 	
@@ -59,6 +60,7 @@ public class CLayout
 		panelContainer.add(panelHome, "Home");
 		panelContainer.add(panelPlay, "Play");
 		panelContainer.add(panelLeaderboard, "Leaderboard");
+		panelContainer.add(panelHowToPlay, "HowToPlay");
 		panelContainer.add(panelSettings, "Settings");
 		panelContainer.add(panelProjectInfo, "ProjectInfo");
     	panelContainer.add(GamePanel, "Game");

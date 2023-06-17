@@ -36,7 +36,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 
 	// Game dimension variables
 	public static final int WIDTH = 672;
-	public static final int	HEIGHT = 900;	
+	public static final int	HEIGHT = 800;	
 	
 	// Game difficulty variable
 	public static int difficulty = 1;
@@ -102,6 +102,9 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static int xEvent;
 	public static int yEvent;
 	
+	// Path to map image
+	String mapPath = "/Images/map.png";
+			
 	public Game()
 	{
 		addKeyListener(this);
@@ -115,9 +118,8 @@ public class Game extends Canvas implements Runnable, KeyListener
 			BufferedReader reader;
 			reader = new BufferedReader(new FileReader("res/Files/Scores.txt"));
 			String line = reader.readLine();
-			int integer = Integer.parseInt(line);
+			highscore = Integer.parseInt(line);
 	        reader.close();
-	        highscore = integer;
 		}
 		catch(IOException e)
 		{
@@ -233,7 +235,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				{
 					enter = false;
 					loadCharacters();
-					level = new Level("/Images/map.png");
+					level = new Level(mapPath);
 					gameStatus = play;
 				}
 				
@@ -243,8 +245,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 				Pacman.bonusScore = -1;
 				
-				if(score >= highscore) 
+				if(score >= highscore)
+				{
 	        		highscore = score;
+				}
 				
 				time++;
 			
@@ -262,7 +266,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 					score = 0;
 					enter = false;
 					loadCharacters();
-					level  = new Level("/Images/map.png");
+					level = new Level(mapPath);
 					gameStatus = play;
 				}
 				
@@ -270,7 +274,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				{
 					score = 0;
 					loadCharacters();
-					level = new Level("/Images/map.png");
+					level = new Level(mapPath);
 					gameStatus = init;
 					CLayout.cardLayout.show(CLayout.panelContainer, "Home");
 					space = false;
@@ -375,7 +379,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 		requestFocus();					
 		
 		long lastTime = System.nanoTime();
-		double targetTick = 65.0; 				// Game speed
+		double targetTick = 60.0; 				// Game speed
 		double delta = 0;
 		double ns = 1000000000 / targetTick; 	// Time interval between ticks
 				
