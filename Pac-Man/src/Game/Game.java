@@ -235,7 +235,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 				{
 					enter = false;
 					loadCharacters();
+<<<<<<< HEAD
 					level = new Level(mapPath);
+=======
+					level = new Level("/Images/map.png");
+>>>>>>> branch 'main' of https://github.com/TuckerLucas/Pacman-Java
 					gameStatus = play;
 				}
 				
@@ -266,7 +270,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 					score = 0;
 					enter = false;
 					loadCharacters();
+<<<<<<< HEAD
 					level = new Level(mapPath);
+=======
+					level  = new Level("/Images/map.png");
+>>>>>>> branch 'main' of https://github.com/TuckerLucas/Pacman-Java
 					gameStatus = play;
 				}
 				
@@ -274,7 +282,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 				{
 					score = 0;
 					loadCharacters();
+<<<<<<< HEAD
 					level = new Level(mapPath);
+=======
+					level = new Level("/Images/map.png");
+>>>>>>> branch 'main' of https://github.com/TuckerLucas/Pacman-Java
 					gameStatus = init;
 					CLayout.cardLayout.show(CLayout.panelContainer, "Home");
 					space = false;

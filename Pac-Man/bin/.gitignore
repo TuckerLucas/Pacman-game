@@ -1,3 +1,11 @@
 /GUI/
+<<<<<<< HEAD
 /Game/
 /Files/
+=======
+/Files/
+/Images/
+/Pacman/
+/map/
+/sprites/
+>>>>>>> branch 'main' of https://github.com/TuckerLucas/Pacman-Java
