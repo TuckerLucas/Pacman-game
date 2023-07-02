@@ -84,6 +84,7 @@ public class Ghost extends Rectangle
 	public int spawnX;
 	public int spawnY;
 	
+	// Constructor
 	public Ghost(int x, int y, int ID, int ld, int cm)
 	{	
 		setBounds(x,y,32,32);
@@ -131,9 +132,9 @@ public class Ghost extends Rectangle
 		switch(dir)
 		{
 			case right: x+=spd; lastDir = right; break;
-			case left: x-=spd; lastDir = left; break;
-			case up: y-=spd; lastDir = up; break;
-			case down: y+=spd; lastDir = down; break;
+			case left: 	x-=spd; lastDir = left; break;
+			case up: 	y-=spd; lastDir = up; break;
+			case down: 	y+=spd; lastDir = down; break;
 		}
 	}
 	
@@ -226,11 +227,17 @@ public class Ghost extends Rectangle
 	private void getToZone(int dir1, int dir2)
 	{
 		if(canMove(dir1))
+		{
 			move(dir1);
+		}
 		else if(canMove(dir2))
+		{
 			move(dir2);
+		}
 		else
+		{
 			ghostMovement = find_path;
+		}
 	}
 	
 	
@@ -467,7 +474,9 @@ public class Ghost extends Rectangle
 				case up:
 					
 					if(randomMovement(up))
+					{
 						break;
+					}
 					else							
 					{
 						if(lastDir == left && canMove(left))

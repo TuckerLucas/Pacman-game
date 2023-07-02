@@ -29,7 +29,8 @@ public class Texture
 	public static BufferedImage[] pacmanLookRight;						
 	public static BufferedImage[] pacmanLookLeft;
 	public static BufferedImage[] pacmanLookUp;	
-	public static BufferedImage[] pacmanLookDown;			
+	public static BufferedImage[] pacmanLookDown;
+	public static BufferedImage[] pacmanLookSomewhere;
 	
 	// Blinky ghost arrays for sprite animations
 	public static BufferedImage[] blinkyLookRight;

@@ -34,6 +34,9 @@ public class Game extends Canvas implements Runnable, KeyListener
 	private static boolean isRunning = false;	
 	private static Thread thread;
 
+	public static boolean pacmanCrossingLeftPortal = false;
+	public static boolean pacmanCrossingRightPortal = false;
+
 	// Game dimension variables
 	public static final int WIDTH = 672;
 	public static final int	HEIGHT = 800;	
@@ -104,7 +107,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 	
 	// Path to map image
 	String mapPath = "/Images/map.png";
-			
+		
+	// Path to scores file
+	String scoresPath = "res/Files/Scores.txt";
+	
+	// Constructor
 	public Game()
 	{
 		addKeyListener(this);
@@ -116,7 +123,7 @@ public class Game extends Canvas implements Runnable, KeyListener
     	try
 		{
 			BufferedReader reader;
-			reader = new BufferedReader(new FileReader("res/Files/Scores.txt"));
+			reader = new BufferedReader(new FileReader(scoresPath));
 			String line = reader.readLine();
 			highscore = Integer.parseInt(line);
 	        reader.close();
@@ -203,7 +210,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 				if(time == targetFrames)
 				{
 					time = 0;
-					
 					checkShowText();
 				}
 				
@@ -305,7 +311,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 		g.setFont(new Font(font, Font.BOLD, fontSize)); 
 	}
 	
-	
 	private void drawWinScreen(Graphics g)
 	{		
 		setLetteringStyle(g, Color.white, Font.DIALOG_INPUT, 26);
@@ -315,7 +320,9 @@ public class Game extends Canvas implements Runnable, KeyListener
 		g.drawString("CURRENT SCORE: ", 180, 150);
 		g.drawString(String.valueOf(score), 280, 195);
 		if(showText)
+		{
 			g.drawString("ENTER", 60, 350);
+		}
 		g.drawString("PRESS       TO CONTINUE GAME", 60, 350);
 	}
 	
@@ -342,7 +349,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 	{	
 		setLetteringStyle(g, Color.white, Font.DIALOG_INPUT, 26);
 		
-		// Displayed text
 		if(showText)
 		{
 			g.drawString("ENTER", 266, 350); 
@@ -351,7 +357,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 		g.drawString("PRESS       TO START!", 170, 350); 
 	}
 
-	
 	private void render()
 	{
 		BufferStrategy bs = getBufferStrategy();
@@ -414,6 +419,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 		{
 			case play: 
 				
+				// Read game keys
 				switch(e.getKeyCode())
 				{
 					case KeyEvent.VK_D:	// fall through
