@@ -37,8 +37,8 @@ public class Ghost extends Rectangle
 	private int dir 	= -1;
 	private int lastDir = -1;
 	
-	private int smart_time			= 0;
-	private int smart_targetTime; 
+	private int smartTime			= 0;
+	private int smartTargetTime; 
 	private boolean coolDown		= false;
 	private int coolDownTime    	= 0;
 	private int coolDownTargetTime	= 60*3; 
@@ -96,19 +96,19 @@ public class Ghost extends Rectangle
 		{
 			case 1:
 				radius = 80;
-				smart_targetTime = 60 * 5;
+				smartTargetTime = 60 * 5;
 				break;
 			case 2:
 				radius = 100;
-				smart_targetTime = 60 * 8;
+				smartTargetTime = 60 * 8;
 				break;
 			case 3:
 				radius = 120;
-				smart_targetTime = 60 * 12;
+				smartTargetTime = 60 * 12;
 				break;
 			case 4:
 				radius = 150;
-				smart_targetTime = 60 * 20;
+				smartTargetTime = 60 * 20;
 				break;
 		}
 		
@@ -179,21 +179,21 @@ public class Ghost extends Rectangle
 		return true;
 	}
 	
-	private void update_zone(int currentZone)
+	private void updateZone(int currentZone)
 	{
-		reset_zones();
+		resetZones();
 		
 		switch(currentZone)
 		{
-			case 1: zone1 = true; break;
-			case 2: zone2 = true; break;
-			case 3: zone3 = true; break;
-			case 4: zone4 = true; break;
-			case 5: zone5 = true; break;
-			case 6: zone6 = true; break;
-			case 7: zone7 = true; break;
-			case 8: zone8 = true; break;
-			case 9: zone9 = true; break;
+			case 1:  zone1  = true; break;
+			case 2:  zone2  = true; break;
+			case 3:  zone3  = true; break;
+			case 4:  zone4  = true; break;
+			case 5:  zone5  = true; break;
+			case 6:  zone6  = true; break;
+			case 7:  zone7  = true; break;
+			case 8:  zone8  = true; break;
+			case 9:  zone9  = true; break;
 			case 10: zone10 = true; break;
 			case 11: zone11 = true; break;
 			case 12: zone12 = true; break;
@@ -204,7 +204,7 @@ public class Ghost extends Rectangle
 		}
 	}
 	
-	private void reset_zones()
+	private void resetZones()
 	{
 		zone1 	= false;
 		zone2 	= false;
@@ -241,9 +241,9 @@ public class Ghost extends Rectangle
 	}
 	
 	
-	private void move_to_zone(int zone)
+	private void moveToZone(int zone)
 	{
-		update_zone(zone);
+		updateZone(zone);
 		
 		switch(zone)
 		{
@@ -365,7 +365,7 @@ public class Ghost extends Rectangle
 		return false;
 	}
 	
-	private void move_randomly()
+	private void moveRandomly()
 	{
 		difx = x - Game.pacman.x;
 		dify = y - Game.pacman.y;
@@ -443,7 +443,6 @@ public class Ghost extends Rectangle
 					}
 					
 					break;
-					
 					
 				case left:
 					
@@ -536,7 +535,7 @@ public class Ghost extends Rectangle
 		return false;
 	}
 	
-	private void move_smartly()
+	private void moveSmartly()
 	{
 		difx = x - Game.pacman.x;
 		dify = y - Game.pacman.y;
@@ -585,93 +584,93 @@ public class Ghost extends Rectangle
 			{
 				if(difx > 0 && dify > 0 && difx > dify)			//Zona 1
 				{
-					move_to_zone(1);
+					moveToZone(1);
 				}
 				else if(difx > 0 && dify > 0 && difx == dify)	//Zona 2				
 				{
-					move_to_zone(2);
+					moveToZone(2);
 				}
 				else if(difx > 0 && dify > 0 && dify > difx)	//Zona 3					
 				{
-					move_to_zone(3);
+					moveToZone(3);
 				}
 				else if(difx == 0 && dify > 0)					//Zona 4				
 				{
-					move_to_zone(4);
+					moveToZone(4);
 				}
 				else if(difx < 0 && dify > 0 && dify > -difx)	//Zona 5					
 				{
-					move_to_zone(5);
+					moveToZone(5);
 				}
 				else if(difx < 0 && dify > 0 && -difx == dify)	//Zona 6					
 				{
-					move_to_zone(6);
+					moveToZone(6);
 				}
 				else if(difx < 0 && dify > 0 && -difx > dify)	//Zona 7					
 				{
-					move_to_zone(7);
+					moveToZone(7);
 				}
 				else if(difx > 0 && dify == 0)					//Zona 8					
 				{
-					move_to_zone(8);
+					moveToZone(8);
 				}
 				else if(difx < 0 && dify == 0)					//Zona 9					
 				{
-					move_to_zone(9);
+					moveToZone(9);
 				}
 				else if(difx > 0 && dify < 0 && difx > -dify)	//Zona 10 					
 				{
-					move_to_zone(10);
+					moveToZone(10);
 				}
 				else if(difx > 0 && dify < 0 && difx == -dify)	//Zona 11 					
 				{
-					move_to_zone(11);
+					moveToZone(11);
 				}
 				else if(difx > 0 && dify < 0 && -dify > difx)	//Zona 12					
 				{
-					move_to_zone(12);
+					moveToZone(12);
 				}
 				else if(difx == 0 && dify < 0)					//Zona 13					
 				{
-					move_to_zone(13);
+					moveToZone(13);
 				}
 				else if(difx < 0 && dify < 0 && -dify > -difx)	//Zona 14					
 				{
-					move_to_zone(14);
+					moveToZone(14);
 				}
 				else if(difx < 0 && dify < 0 && -dify == -difx)	//Zona 15					
 				{
-					move_to_zone(15);
+					moveToZone(15);
 				}
 				else if(difx < 0 && dify < 0 && -difx > -dify)	//Zona 16					
 				{
-					move_to_zone(16);
+					moveToZone(16);
 				}
 			}
 		}
-		smart_time++;								
+		smartTime++;								
 		
-		if(smart_time == smart_targetTime) 				
+		if(smartTime == smartTargetTime) 				
 		{
 			coolDown = true;
 			ghostMovement = random;							
-			smart_time = 0;						
+			smartTime = 0;						
 		}
 	}
 
-	private void finding_path()
+	private void findingPath()
 	{
 		if(zone1)
 		{
-			move_until(down, left);
+			moveUntil(down, left);
 		}
 		else if(zone2)
 		{
-			move_until(right, up);
+			moveUntil(right, up);
 		}
 		else if(zone3)
 		{
-			move_until(right, up);
+			moveUntil(right, up);
 		}
 		else if(zone4)
 		{
@@ -679,40 +678,40 @@ public class Ghost extends Rectangle
 			{
 				if(canMove(left))
 				{
-					move_until(left, up);
+					moveUntil(left, up);
 				}
 				else
 				{
 					left4 = false;
 					zone4 = false;
-					move_until(-1, -1);
+					moveUntil(-1, -1);
 				}
 			}
 			else if(right4 == true)
 			{
 				if(canMove(right))
 				{
-					move_until(right, up);
+					moveUntil(right, up);
 				}
 				else
 				{
 					right4 = false;
 					zone4 = false;
-					move_until(-1, -1);
+					moveUntil(-1, -1);
 				}
 			}
 		}
 		else if(zone5)
 		{
-			move_until(left, up);
+			moveUntil(left, up);
 		}
 		else if(zone6)
 		{
-			move_until(left, up);
+			moveUntil(left, up);
 		}
 		else if(zone7)
 		{
-			move_until(down, right);
+			moveUntil(down, right);
 		}
 		else if(zone8)
 		{
@@ -720,26 +719,26 @@ public class Ghost extends Rectangle
 			{
 				if(canMove(up))
 				{
-					move_until(up, left);
+					moveUntil(up, left);
 				}
 				else
 				{
 					up8 = false;
 					zone8 = false;
-					move_until(-1,-1);
+					moveUntil(-1,-1);
 				}
 			}
 			else if(down8 == true)
 			{
 				if(canMove(down))
 				{
-					move_until(down, left);
+					moveUntil(down, left);
 				}
 				else
 				{
 					down8 = false;
 					zone8 = false;
-					move_until(-1,-1);
+					moveUntil(-1,-1);
 				}
 			}
 		}
@@ -749,40 +748,40 @@ public class Ghost extends Rectangle
 			{
 				if(canMove(up))
 				{
-					move_until(up, right);
+					moveUntil(up, right);
 				}
 				else
 				{
 					up9 = false;
 					zone9 = false;
-					move_until(-1,-1);
+					moveUntil(-1,-1);
 				}
 			}
 			else if(down9 == true)
 			{
 				if(canMove(down))
 				{
-					move_until(down, right);
+					moveUntil(down, right);
 				}
 				else
 				{
 					down9 = false;
 					zone9 = false;
-					move_until(-1,-1);
+					moveUntil(-1,-1);
 				}
 			}
 		}
 		else if(zone10)
 		{
-			move_until(up, left);
+			moveUntil(up, left);
 		}
 		else if(zone11)
 		{
-			move_until(right, down);
+			moveUntil(right, down);
 		}
 		else if(zone12)
 		{
-			move_until(right, down);
+			moveUntil(right, down);
 		}
 		else if(zone13)
 		{
@@ -790,44 +789,44 @@ public class Ghost extends Rectangle
 			{
 				if(canMove(left))
 				{
-					move_until(left, down);
+					moveUntil(left, down);
 				}
 				else
 				{
 					zone13 = false;
 					left13 = false;
-					move_until(-1,-1);
+					moveUntil(-1,-1);
 				}
 			}
 			else if(right13 == true)
 			{
 				if(canMove(right))
 				{
-					move_until(right, down);
+					moveUntil(right, down);
 				}
 				else
 				{
 					zone13 = false;
 					right13 = false;
-					move_until(-1,-1);
+					moveUntil(-1,-1);
 				}
 			}
 		}
 		else if(zone14)
 		{
-			move_until(left, down);
+			moveUntil(left, down);
 		}
 		else if(zone15)
 		{
-			move_until(left, down);
+			moveUntil(left, down);
 		}
 		else if(zone16)
 		{
-			move_until(up, right);
+			moveUntil(up, right);
 		}
 	}
 
-	private void move_until(int allowed_direction, int desired_direction)
+	private void moveUntil(int allowed_direction, int desired_direction)
 	{
 		switch(allowed_direction)
 		{
@@ -909,10 +908,7 @@ public class Ghost extends Rectangle
 	
 	private boolean inBox()
 	{
-		if((x < 385 && x > 255) && (y < 385 && y > 255))
-			return true;
-		
-		return false;
+		return ((x < 385 && x > 255) && (y < 385 && y > 255)) ? true : false;
 	}
 	
 	private void flashGhost(Graphics g)
@@ -920,7 +916,7 @@ public class Ghost extends Rectangle
 		g.drawImage(Texture.flashGhost[Pacman.imageIndexFlash], x, y, width, height, null);
 	}
 	
-	private void stay_blue(Graphics g)
+	private void stayBlue(Graphics g)
 	{
 		g.drawImage(Texture.blueGhost[imageIndexEnemy], x, y, width, height, null);
 	}
@@ -969,7 +965,7 @@ public class Ghost extends Rectangle
 				
 				switch(enemyID)
 				{
-					case 0: g.drawImage(Texture.blinkyLookDown[imageIndexEnemy], x, y, width, height, null); break;
+					case 0:	g.drawImage(Texture.blinkyLookDown[imageIndexEnemy], x, y, width, height, null); break;
 					case 1: g.drawImage(Texture.inkyLookDown[imageIndexEnemy], x, y, width, height, null); break;
 					case 2: g.drawImage(Texture.pinkyLookDown[imageIndexEnemy], x, y, width, height, null); break;
 					case 3: g.drawImage(Texture.clydeLookDown[imageIndexEnemy], x, y, width, height, null); break;
@@ -979,13 +975,13 @@ public class Ghost extends Rectangle
 		}
 	}
 
-	private void enemy_movement()
+	private void ghostMovement()
 	{
 		switch(ghostMovement)
 		{
-			case random: move_randomly(); break;	// Move in a random fashion
-			case smart: move_smartly(); break;		// Chase pacman
-			case find_path: finding_path(); break;	// Find path to pacman when stuck
+			case random: 	moveRandomly(); break;	// Move in a random fashion
+			case smart: 	moveSmartly(); break;	// Chase pacman
+			case find_path: findingPath(); break;	// Find path to pacman when stuck
 		}			
 	}
 	
@@ -999,9 +995,9 @@ public class Ghost extends Rectangle
 			switch(enemyID)
 			{
 				case 0: Game.blinky = new Ghost(640, 320, 0, lastDir, crossmap); break;
-				case 1: Game.inky = new Ghost(640, 320, 1, lastDir, crossmap); break;
-				case 2: Game.pinky = new Ghost(640, 320, 2, lastDir, crossmap); break;
-				case 3: Game.clyde = new Ghost(640, 320, 3, lastDir, crossmap); break;
+				case 1: Game.inky 	= new Ghost(640, 320, 1, lastDir, crossmap); break;
+				case 2: Game.pinky 	= new Ghost(640, 320, 2, lastDir, crossmap); break;
+				case 3: Game.clyde 	= new Ghost(640, 320, 3, lastDir, crossmap); break;
 			}
 		}
 		else if(x == 640 && y == 320)
@@ -1012,9 +1008,9 @@ public class Ghost extends Rectangle
 			switch(enemyID)
 			{
 				case 0: Game.blinky = new Ghost(0, 320, 0, lastDir, crossmap); break;
-				case 1: Game.inky = new Ghost(0, 320, 1, lastDir, crossmap); break;
-				case 2: Game.pinky = new Ghost(0, 320, 2, lastDir, crossmap); break;
-				case 3: Game.clyde = new Ghost(0, 320, 3, lastDir, crossmap); break;
+				case 1: Game.inky 	= new Ghost(0, 320, 1, lastDir, crossmap); break;
+				case 2: Game.pinky 	= new Ghost(0, 320, 2, lastDir, crossmap); break;
+				case 3: Game.clyde 	= new Ghost(0, 320, 3, lastDir, crossmap); break;
 			}
 		}
 	}
@@ -1034,22 +1030,30 @@ public class Ghost extends Rectangle
 	public void render(Graphics g)
 	{
 		if(imageIndexEnemy == 2)
+		{
 			imageIndexEnemy = 0;
+		}
 
 		if(!Pacman.energizerStatus || eaten)
+		{
 			look(lastDir, g);
+		}
 		else
 		{
 			if(!Pacman.energizerFlash)
-				stay_blue(g);
+			{
+				stayBlue(g);
+			}
 			else if(Pacman.energizerFlash)
+			{
 				flashGhost(g);
+			}
 		}
 	}
 	
 	public void tick()
 	{			
-		enemy_movement();
+		ghostMovement();
 		positioning();
 		animation();
 	}

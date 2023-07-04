@@ -30,15 +30,17 @@ import GUI.CLayout;
 public class Game extends Canvas implements Runnable, KeyListener
 {
 	private static final long serialVersionUID = 1L;
-
-	private static boolean isRunning = false;	
+	
+	// 
 	private static Thread thread;
+	private static boolean isRunning = false;	
 
-	public static boolean pacmanCrossingLeftPortal = false;
+	// Pacman portal crossing flag variables
+	public static boolean pacmanCrossingLeftPortal  = false;
 	public static boolean pacmanCrossingRightPortal = false;
 
-	// Game dimension variables
-	public static final int WIDTH = 672;
+	// Game boundaries variables
+	public static final int WIDTH  = 672;
 	public static final int	HEIGHT = 800;	
 	
 	// Game difficulty variable
@@ -61,65 +63,62 @@ public class Game extends Canvas implements Runnable, KeyListener
 	// Ghost spawn coordinate variables
 	public static int blinkySpawnX = 320;
 	public static int blinkySpawnY = 256;
-	public static int inkySpawnX = 288;
-	public static int inkySpawnY = 320;
-	public static int pinkySpawnX = 320;
-	public static int pinkySpawnY = 320;
-	public static int clydeSpawnX = 352;
-	public static int clydeSpawnY = 320;
+	public static int inkySpawnX   = 288;
+	public static int inkySpawnY   = 320;
+	public static int pinkySpawnX  = 320;
+	public static int pinkySpawnY  = 320;
+	public static int clydeSpawnX  = 352;
+	public static int clydeSpawnY  = 320;
 	
-	// Ghost ID's
+	// Ghost identifiers
 	public static final int blinkyID = 0;
-	public static final int inkyID = 1;
-	public static final int pinkyID = 2;
-	public static final int clydeID = 3;
+	public static final int inkyID 	 = 1;
+	public static final int pinkyID  = 2;
+	public static final int clydeID  = 3;
 	
 	// Portal coordinate variables
-	public static final int leftPortalX = 0;
-	public static final int leftPortalY = 320;
+	public static final int leftPortalX	 = 0;
 	public static final int rightPortalX = 640;
-	public static final int rightPortalY = 320;
+	public static final int bothPortalsY = 320;
 	
 	// Game status variables
-	public static final int init = 0;		
-	public static final int play = 1;
-	public static final int win = 2;
-	public static final int lose = 3; 
-	public static final int lifeLost = 4;
-	public static int gameStatus = -1;
+	public static int gameStatus 	 = 0;
+	public static final int init 	 = 1;		
+	public static final int play 	 = 2;
+	public static final int win 	 = 3;
+	public static final int lose 	 = 4; 
+	public static final int lifeLost = 5;
 	
 	// Score variables
 	public static int score = 0;
 	public static int highscore;
 	
-	// Key flag variables
+	// Game key flag variables
 	public boolean enter = false;					
 	public boolean space = false;
 	
 	// Animation variables
-	private int time = 0;							
+	private int time 		 = 0;							
 	private int targetFrames = 30;
 	private boolean showText = true;
 	
-	// Map event coordinates variables
+	// Map coordinate variables to locate events
 	public static int xEvent;
 	public static int yEvent;
 	
-	// Path to map image
-	String mapPath = "/Images/map.png";
-		
-	// Path to scores file
+	// Paths to required resources
+	String mapPath    = "/Images/map.png";
 	String scoresPath = "res/Files/Scores.txt";
+	
 	
 	// Constructor
 	public Game()
 	{
 		addKeyListener(this);
-		
 		gameStatus = init;			
-		
 		new Texture();
 		
+		// Get game's highscore
     	try
 		{
 			BufferedReader reader;
@@ -134,25 +133,32 @@ public class Game extends Canvas implements Runnable, KeyListener
 		}
 	}
 
-	public synchronized void start()
+	
+	// Start a new game thread
+	public synchronized void startGame()
 	{
+		// Check if game is already running
 		if(isRunning)
 		{
 			return;
 		}
 			
+		// Start the game
 		isRunning = true;
 		thread = new Thread(this);
 		thread.start();
 	}
 	
-	public synchronized static void stop()
+	// Stop the running game thread
+	public synchronized static void stopGame()
 	{
+		// Check if game is running
 		if(!isRunning)
 		{
 			return;
 		}
 		
+		// Stop the game
 		isRunning = false;
 		
 		try
@@ -165,29 +171,96 @@ public class Game extends Canvas implements Runnable, KeyListener
 		}
 	}
 
-	private void loadCharacters()
-	{
-		pacman = new Pacman(pacmanSpawnX, pacmanSpawnY);
-		blinky = new Ghost(blinkySpawnX, blinkySpawnY, blinkyID, -1, -1); 			
-		inky = new Ghost(inkySpawnX, inkySpawnY, inkyID, -1, -1);
-		pinky = new Ghost(pinkySpawnX, pinkySpawnY, pinkyID, -1, -1);
-		clyde = new Ghost(clydeSpawnX, clydeSpawnY, clydeID, -1, -1);
-		
-		Pacman.lastDir = Pacman.right;
-		Pacman.dir = Pacman.right;
-	}
 	
-	private void checkShowText()
+	// Load the required game elements
+	private void loadGameElements()
+	{
+		// Load game characters
+		pacman 	= new Pacman(pacmanSpawnX, pacmanSpawnY);
+		blinky 	= new Ghost(blinkySpawnX, blinkySpawnY, blinkyID, -1, -1); 			
+		inky 	= new Ghost(inkySpawnX, inkySpawnY, inkyID, -1, -1);
+		pinky 	= new Ghost(pinkySpawnX, pinkySpawnY, pinkyID, -1, -1);
+		clyde 	= new Ghost(clydeSpawnX, clydeSpawnY, clydeID, -1, -1);
+		
+		// Load other game objects based on game status
+		switch(gameStatus)
+		{
+			case init:
+				
+				door 	  = new Door(0, 0);
+				energizer = new Energizer(0, 0);
+				
+				// fall through
+				
+			case win:
+				
+				// fall through
+				
+			case lose:
+				
+				level = new Level(mapPath); 
+				break;
+				
+			default: break;
+		}
+	}
+
+	
+	// Make game's screen text blink
+	private void blinkText()
 	{
 		if(showText)
 		{
 			showText = false;
 			return;
 		}
-		
 		showText = true;
 	}
+
+	// Set game's screen lettering style
+	public static void setLetteringStyle(Graphics g, Color color, String font, int fontSize)
+	{
+		// Lettering colour, size and font
+		g.setColor(color);												
+		g.setFont(new Font(font, Font.BOLD, fontSize)); 
+	}
 	
+	
+	// Draw game's initial screen
+	private void drawInitScreen(Graphics g)
+	{	
+		// Display text
+		if(showText)
+		{
+			g.drawString("ENTER", 266, 350); 
+		}
+		g.drawString("PRESS       TO START!", 170, 350); 
+	}
+
+	// Draw game's winning screen
+	private void drawWinScreen(Graphics g)
+	{		
+		// Display text
+		g.drawString("WELL DONE!", 210, 0);
+		g.drawString("PRESS       TO CONTINUE GAME", 60, 350);
+	}
+	
+	// Draw game's losing screen
+	private void drawLoseScreen(Graphics g)
+	{		
+		// Display text
+		g.drawString("BAD LUCK!", 270, 100);
+		if(showText)
+		{
+			g.drawString("ENTER", 156, 350);
+			g.drawString("SPACE", 156, 400);
+		}
+		g.drawString("PRESS       TO RESTART GAME", 60, 350);
+		g.drawString("PRESS       TO GO HOME", 60, 400);
+	}
+
+	
+	// Manage game's different states
 	private void tick()
 	{
 		switch(gameStatus)
@@ -210,16 +283,13 @@ public class Game extends Canvas implements Runnable, KeyListener
 				if(time == targetFrames)
 				{
 					time = 0;
-					checkShowText();
+					blinkText();
 				}
 				
 				if(enter)
 				{
 					enter = false;
-					loadCharacters();
-					energizer = new Energizer(Game.WIDTH/2, Game.HEIGHT/2);
-					door = new Door(Game.WIDTH/2, Game.HEIGHT/2);
-					level = new Level("/Images/map.png");
+					loadGameElements();
 					gameStatus = play;
 				}
 				
@@ -234,16 +304,13 @@ public class Game extends Canvas implements Runnable, KeyListener
 				if(time == targetFrames)
 				{
 					time = 0;
-					
-					checkShowText();
+					blinkText();
 				}
+				
 				if(enter)
 				{
 					enter = false;
-					loadCharacters();
-
-					level = new Level(mapPath);
-
+					loadGameElements();
 					gameStatus = play;
 				}
 				
@@ -252,6 +319,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 			case lose:
 				
 				Pacman.bonusScore = -1;
+				Pacman.lives = 3;
 				
 				if(score >= highscore)
 				{
@@ -259,37 +327,27 @@ public class Game extends Canvas implements Runnable, KeyListener
 				}
 				
 				time++;
-			
-				Pacman.lives = 3;
 				
 				if(time == targetFrames)
 				{
 					time = 0;
-					
-					checkShowText(); 
+					blinkText(); 
 				}
 				
-				if(enter)
+				if(enter == true)
 				{
-					score = 0;
 					enter = false;
-					loadCharacters();
-
-					level = new Level(mapPath);
-
+					score = 0;
+					loadGameElements();
 					gameStatus = play;
 				}
 				
-				if(space)
+				if(space == true)
 				{
-					score = 0;
-					loadCharacters();
-
-					level = new Level(mapPath);
-
-					gameStatus = init;
-					CLayout.cardLayout.show(CLayout.panelContainer, "Home");
 					space = false;
+					score = 0;
+					CLayout.cardLayout.show(CLayout.panelContainer, "Home");
+					gameStatus = init;
 				}
 				
 				break;
@@ -297,66 +355,14 @@ public class Game extends Canvas implements Runnable, KeyListener
 			case lifeLost:
 				
 				Pacman.bonusScore = -1;
-				loadCharacters();
+				loadGameElements();
 				gameStatus = play;
 				
 				break;
 		}
 	}
 	
-	public static void setLetteringStyle(Graphics g, Color color, String font, int fontSize)
-	{
-		// Lettering colour, size and font
-		g.setColor(color);												
-		g.setFont(new Font(font, Font.BOLD, fontSize)); 
-	}
-	
-	private void drawWinScreen(Graphics g)
-	{		
-		setLetteringStyle(g, Color.white, Font.DIALOG_INPUT, 26);
-		
-		// Displayed text
-		g.drawString("WELL DONE!", 210, 0);
-		g.drawString("CURRENT SCORE: ", 180, 150);
-		g.drawString(String.valueOf(score), 280, 195);
-		if(showText)
-		{
-			g.drawString("ENTER", 60, 350);
-		}
-		g.drawString("PRESS       TO CONTINUE GAME", 60, 350);
-	}
-	
-	private void drawLoseScreen(Graphics g)
-	{		
-		setLetteringStyle(g, Color.white, Font.DIALOG_INPUT, 26);
-		
-		// Displayed text
-		g.drawString("BAD LUCK!", 270, 100);
-		g.drawString("YOU SCORED: ", 255, 180);
-		g.drawString(String.valueOf(score), 270, 220);
-		
-		if(showText)
-		{
-			g.drawString("ENTER", 156, 350);
-			g.drawString("SPACE", 156, 400);
-		}
-		
-		g.drawString("PRESS       TO RESTART GAME", 60, 350);
-		g.drawString("PRESS       TO GO HOME", 60, 400);
-	}
-	
-	private void drawInitScreen(Graphics g)
-	{	
-		setLetteringStyle(g, Color.white, Font.DIALOG_INPUT, 26);
-		
-		if(showText)
-		{
-			g.drawString("ENTER", 266, 350); 
-		}
-		
-		g.drawString("PRESS       TO START!", 170, 350); 
-	}
-
+	// Render/draw game's screens based on game status 
 	private void render()
 	{
 		BufferStrategy bs = getBufferStrategy();
@@ -368,50 +374,57 @@ public class Game extends Canvas implements Runnable, KeyListener
 		}
 		
 		Graphics g = bs.getDrawGraphics();
+		
+		// Configure screen background and lettering
 		g.setColor(Color.black);
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+		setLetteringStyle(g, Color.white, Font.DIALOG_INPUT, 26);
 		
+		// Render screens based on status of the game
 		switch(gameStatus)
 		{
-			case play: Level.render(g); break;
-			case init: drawInitScreen(g); break;
-			case win: drawWinScreen(g); break;
-			case lose: drawLoseScreen(g); break;
-			case lifeLost: pacman.render(g); break;			
+			case init: 		drawInitScreen(g); 	break;
+			case win: 		drawWinScreen(g); 	break;
+			case lose: 		drawLoseScreen(g); 	break;
+			case play: 		Level.render(g); 	break;
+			case lifeLost: 	pacman.render(g); 	break;			
 		}
 		
 		g.dispose();
 		bs.show();
 	}
 	
+	// Manage game's timing
 	@Override
 	public void run() 
 	{
 		requestFocus();					
 		
-		long lastTime = System.nanoTime();
+		long lastTime = System.nanoTime();		// Previous game instant
 		double targetTick = 60.0; 				// Game speed
-		double delta = 0;
+		double delta = 0;						// Time difference between game instants
 		double ns = 1000000000 / targetTick; 	// Time interval between ticks
 				
 		// Game loop
 		while(isRunning)				
 		{	
-			long now = System.nanoTime();
-			delta += (now - lastTime) / ns;
-			lastTime = now;
+			long now = System.nanoTime();		// This game instant
+			delta += (now - lastTime) / ns;		// Calculate time difference between instants
+			lastTime = now;						// Update previous game instant
 			
-			while(delta >= 1)
+			while(delta >= 1)					// Check if enough time has elapsed	to justify updating the game		
 			{
-				tick();
-				render();
-				delta--;		
+				tick();							// Check for in game character positions and collisions			
+				render();						// Render game components
+				delta--;						// Update time difference between instants
 			}
 		}
-		stop();							
+		
+		stopGame();							
 	}
 
 	
+	// Listen for pressed keys
 	@Override
 	public void keyPressed(KeyEvent e)
 	{
@@ -458,12 +471,14 @@ public class Game extends Canvas implements Runnable, KeyListener
 		}
 	}
 
+	// Unimplemented method
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
 
 	}
 	
+	// Unimplemented method
 	@Override
 	public void keyTyped(KeyEvent e)
 	{

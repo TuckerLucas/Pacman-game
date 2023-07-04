@@ -22,10 +22,10 @@ public class Pacman extends Rectangle
 {
 	private static final long serialVersionUID = 1L;
 	
-	public static int right = 1;
-	public static int left = 2;
-	public static int up = 3;
-	public static int down = 4;
+	public static final int right = 1;
+	public static final int left = 2;
+	public static final int up = 3;
+	public static final int down = 4;
 	
 	public static int dir;
 	public static int lastDir;
@@ -191,11 +191,11 @@ public class Pacman extends Rectangle
 		
 		switch(direction)
 		{
-			case 1: nextx = x+speed; nexty = y; break;
-			case 2:	nextx = x-speed; nexty = y; break;
-			case 3: nextx = x; nexty = y-speed; break;
-			case 4: if(x == 320 && y == 256) {return false;}
-					nextx = x; nexty = y+speed; break;
+			case right: nextx = x+speed; nexty = y; break;
+			case left:	nextx = x-speed; nexty = y; break;
+			case up: 	nextx = x; nexty = y-speed; break;
+			case down: 	if(x == 320 && y == 256) {return false;}
+						nextx = x; nexty = y+speed; break;
 		}
 		
 		Rectangle bounds = new Rectangle(nextx, nexty, width, height);
@@ -357,7 +357,7 @@ public class Pacman extends Rectangle
 	
 	public void ghostColision()
 	{
-		if(energizerStatus)
+		if(energizerStatus == true)
 		{
 			if(energizerTime == energizerTargetTime)		// Energizer time over
 			{

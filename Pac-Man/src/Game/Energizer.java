@@ -46,7 +46,7 @@ public class Energizer extends Rectangle
 	// Render object
 	public void render(Graphics g)
 	{
-		if(spriteFrame == spriteTargetFrame)
+		if(spriteFrame >= spriteTargetFrame)
 		{
 			spriteFrame = 0;
 		}

@@ -86,7 +86,7 @@ public class PlayPanel extends JPanel
                 	if(checkValidUsername())
                 	{
                 		// Start and show game
-                		CLayout.game.start();												
+                		CLayout.game.startGame();												
                     	CLayout.cardLayout.show(CLayout.panelContainer, "Game");				
                 		Game.gameStatus = Game.init;	
                 		
