@@ -69,6 +69,13 @@ public class Texture
 	public static BufferedImage[] bonusScore800;
 	public static BufferedImage[] bonusScore1600;
 	
+	public static int animationPhasePacman = 0;
+	
+	public static int animationPhase200  = 0;	
+	public static int animationPhase400  = 0;
+	public static int animationPhase800  = 0;
+	public static int animationPhase1600 = 0;
+	
 	// Spritesheet columns
 	private int spriteColumn1 = 0;
 	private int spriteColumn2 = spriteSize*1;

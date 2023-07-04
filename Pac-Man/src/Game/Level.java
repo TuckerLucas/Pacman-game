@@ -182,7 +182,7 @@ public class Level
 		g.drawString("LIVES:", livesStrX, gameDataY);
 		
 		// Draw life symbols depending on number of user lives left
-		for(int i = 0; i < Pacman.lives; i++)
+		for(int i = 0; i < Game.lives; i++)
 		{
 			g.drawImage(Texture.getSprite(32, 0, 16, 16), livesSymbolsX[i], 
 					livesSymbolsY, 32, 32, null);

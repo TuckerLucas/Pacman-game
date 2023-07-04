@@ -31,7 +31,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 {
 	private static final long serialVersionUID = 1L;
 	
-	// 
+	// Game running variables
 	private static Thread thread;
 	private static boolean isRunning = false;	
 
@@ -45,6 +45,15 @@ public class Game extends Canvas implements Runnable, KeyListener
 	
 	// Game difficulty variable
 	public static int difficulty = 1;
+	
+	// Game characters direction variables
+	public static final int right = 1;
+	public static final int left  = 2;
+	public static final int up    = 3;
+	public static final int down  = 4;
+	
+	// Game speed variable
+	public static int speed = 2;
 	
 	// Game object variables
 	public static Pacman pacman;			
@@ -69,6 +78,9 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static int pinkySpawnY  = 320;
 	public static int clydeSpawnX  = 352;
 	public static int clydeSpawnY  = 320;
+
+	// 
+	public static int lives = 3;
 	
 	// Ghost identifiers
 	public static final int blinkyID = 0;
@@ -98,7 +110,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public boolean space = false;
 	
 	// Animation variables
-	private int time 		 = 0;							
+	private int blinkTime 		 = 0;							
 	private int targetFrames = 30;
 	private boolean showText = true;
 	
@@ -110,6 +122,15 @@ public class Game extends Canvas implements Runnable, KeyListener
 	String mapPath    = "/Images/map.png";
 	String scoresPath = "res/Files/Scores.txt";
 	
+	// Animation timing variables
+	public static int pacmanAnimationTime = 0;	
+	public static int pacmanAnimationTargetTime = 6;
+	public static int imageIndexFlash = 0;
+	public static int bonusScore = -1;
+	public static int bonusScoreAnimationTime = 0;
+	public static int bonusScoreAnimationTargetTime = 10;
+	public static boolean stopBonusScore = false;
+	public static int timesScoreFlashed = 0;
 	
 	// Constructor
 	public Game()
@@ -278,11 +299,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 			case init:
 				
-				time++;
+				blinkTime++;
 				
-				if(time == targetFrames)
+				if(blinkTime == targetFrames)
 				{
-					time = 0;
+					blinkTime = 0;
 					blinkText();
 				}
 				
@@ -297,13 +318,13 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 			case win:
 				
-				Pacman.bonusScore = -1;
+				bonusScore = -1;
 				
-				time++;
+				blinkTime++;
 				
-				if(time == targetFrames)
+				if(blinkTime == targetFrames)
 				{
-					time = 0;
+					blinkTime = 0;
 					blinkText();
 				}
 				
@@ -318,19 +339,19 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 			case lose:
 				
-				Pacman.bonusScore = -1;
-				Pacman.lives = 3;
+				bonusScore = -1;
+				lives = 3;
 				
 				if(score >= highscore)
 				{
 	        		highscore = score;
 				}
 				
-				time++;
+				blinkTime++;
 				
-				if(time == targetFrames)
+				if(blinkTime == targetFrames)
 				{
-					time = 0;
+					blinkTime = 0;
 					blinkText(); 
 				}
 				
@@ -354,7 +375,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 			case lifeLost:
 				
-				Pacman.bonusScore = -1;
+				bonusScore = -1;
 				loadGameElements();
 				gameStatus = play;
 				
@@ -436,13 +457,13 @@ public class Game extends Canvas implements Runnable, KeyListener
 				switch(e.getKeyCode())
 				{
 					case KeyEvent.VK_D:	// fall through
-					case KeyEvent.VK_RIGHT: Pacman.dir = Pacman.right; break;
+					case KeyEvent.VK_RIGHT: Pacman.dir = right; break;
 					case KeyEvent.VK_A:	// fall through
-					case KeyEvent.VK_LEFT: Pacman.dir = Pacman.left; break;
+					case KeyEvent.VK_LEFT: Pacman.dir = left; break;
 					case KeyEvent.VK_W:	// fall through
-					case KeyEvent.VK_UP: Pacman.dir = Pacman.up; break;
+					case KeyEvent.VK_UP: Pacman.dir = up; break;
 					case KeyEvent.VK_S:	// fall through
-					case KeyEvent.VK_DOWN: Pacman.dir = Pacman.down; break;
+					case KeyEvent.VK_DOWN: Pacman.dir = down; break;
 				}
 				
 				break;

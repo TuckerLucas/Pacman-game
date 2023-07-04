@@ -23,7 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import Game.Pacman;
+import Game.Sounds;
 
 public class SettingsPanel extends JPanel
 {
@@ -73,14 +73,14 @@ public class SettingsPanel extends JPanel
         	{
         		public void actionPerformed(ActionEvent e) 
         		{
-        			if(Pacman.soundOn)
+        			if(Sounds.soundOn == true)
         			{
-        				Pacman.soundOn = false;
+        				Sounds.soundOn = false;
         				SoundButton.setText("GAME SOUNDS: OFF");
         			}
-        			else if(!Pacman.soundOn)
+        			else if(Sounds.soundOn == false)
         			{	
-        				Pacman.soundOn = true;
+        				Sounds.soundOn = true;
         				SoundButton.setText("GAME SOUNDS: ON ");
         			}
         		}

@@ -384,7 +384,7 @@ public class Ghost extends Rectangle
 		{
 			if((difx < radius && difx > -radius) && (dify < radius && dify > -radius))
 			{
-				if(Pacman.energizerStatus == false && !inBox())
+				if(Energizer.status == false && !inBox())
 				{
 					ghostMovement = smart;
 				}
@@ -540,7 +540,7 @@ public class Ghost extends Rectangle
 		difx = x - Game.pacman.x;
 		dify = y - Game.pacman.y;
 
-		if(Pacman.energizerStatus == true || inBox())
+		if(Energizer.status == true || inBox())
 		{
 			ghostMovement = random;
 		}
@@ -913,7 +913,7 @@ public class Ghost extends Rectangle
 	
 	private void flashGhost(Graphics g)
 	{
-		g.drawImage(Texture.flashGhost[Pacman.imageIndexFlash], x, y, width, height, null);
+		g.drawImage(Texture.flashGhost[Game.imageIndexFlash], x, y, width, height, null);
 	}
 	
 	private void stayBlue(Graphics g)
@@ -1034,17 +1034,17 @@ public class Ghost extends Rectangle
 			imageIndexEnemy = 0;
 		}
 
-		if(!Pacman.energizerStatus || eaten)
+		if(!Energizer.status || eaten)
 		{
 			look(lastDir, g);
 		}
 		else
 		{
-			if(!Pacman.energizerFlash)
+			if(!Energizer.flash)
 			{
 				stayBlue(g);
 			}
-			else if(Pacman.energizerFlash)
+			else if(Energizer.flash)
 			{
 				flashGhost(g);
 			}

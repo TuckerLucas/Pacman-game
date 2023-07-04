@@ -25,6 +25,13 @@ public class Energizer extends Rectangle
 	private static int spriteFrame = 0;	// Array index of frame being displayed
 	private int spriteTargetFrame = 2;	// Array index of last frame of the animation 
 	
+	public static int time	      = 0; 
+	public static int flashTime  = 60*5;
+	public static int targetTime = 60*8;
+	
+	public static boolean flash = false;
+	public static boolean status = false;
+	
 	// Constructor
 	public Energizer(int x, int y)
 	{

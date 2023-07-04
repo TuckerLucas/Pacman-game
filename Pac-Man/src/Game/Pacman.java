@@ -22,68 +22,41 @@ public class Pacman extends Rectangle
 {
 	private static final long serialVersionUID = 1L;
 	
-	public static final int right = 1;
-	public static final int left = 2;
-	public static final int up = 3;
-	public static final int down = 4;
-	
+	// Pacman movement variables
+	private int lastDir;
 	public static int dir;
-	public static int lastDir;
+	
+	// Counter variable for number of eaten ghosts
+	private int nEatenGhosts = 0;
+	
+	// Direction variables (for ease of reading)
+	private final int right = Game.right;
+	private final int left  = Game.left;
+	private final int up    = Game.up;
+	private final int down  = Game.down;
+	
 
-	public static int energizerTime	= 0;
-	public static int energizerTargetTime = 60*8; 
-	public static int energizerFlashTime  = 60*5;
-	
-	public static boolean energizerFlash = false;
-	public static boolean energizerStatus = false;
-	public static boolean soundOn = false;
-	
-	private int speed = 2;
-
-	// Animation timing variables
-	private int time = 0;	
-	private int targetTime = 8;
-	private int imageIndex = 0;
-	public static int imageIndexFlash = 0;
-	
-	private int bonusScoreTime = 0;
-	private int bonusScoreTargetTime = 10;
-	public static int imageIndex2 = 0;	
-	public static int imageIndex4 = 0;
-	public static int imageIndex8 = 0;
-	public static int imageIndex16 = 0;
-	
-	public static int lives = 3;
-	private int ghostsEaten = 0;
-	
-	public static int bonusScore = -1;
-	public static int score2 = 200;
-	public static int score4 = 400;
-	public static int score8 = 800;
-	public static int score16 = 1600;
-	public static boolean stopBonusScore = false;
-	
-	private int timesScoreFlashed = 0;
-	
-	public int currentScore;
-	
+	// Constructor
 	public Pacman(int x, int y)
 	{
+		// Check if pacman has crossed left portal
 		if(Game.pacmanCrossingLeftPortal == true)
 		{
 			Game.pacmanCrossingLeftPortal = false;
 			
 			dir = left;
 		}
+		// Check if pacman has crossed right portal 
 		else if(Game.pacmanCrossingRightPortal == true)
 		{
 			Game.pacmanCrossingRightPortal = false;
 			
 			dir = right;
 		}
+		// Pacman was not crossing a portal, spawn normally
 		else
 		{
-			dir = right;
+			dir     = right;
 			lastDir = right;
 		}
 		
@@ -92,82 +65,82 @@ public class Pacman extends Rectangle
 
 	public void render(Graphics g)
 	{
-		if(imageIndex == 3)
+		if(Texture.animationPhasePacman == 3)
 		{
-			imageIndex = 0;
+			Texture.animationPhasePacman = 0;
 		}
 		
 		switch(lastDir)
 		{
-			case 1:
+			case right:
 				// Make pacman look right
-				g.drawImage(Texture.pacmanLookRight[imageIndex], x, y, width, height, null);
+				g.drawImage(Texture.pacmanLookRight[Texture.animationPhasePacman], x, y, width, height, null);
 				break;
-			case 2:
+			case left:
 				// Make pacman look left
-				g.drawImage(Texture.pacmanLookLeft[imageIndex], x, y, width, height, null);
+				g.drawImage(Texture.pacmanLookLeft[Texture.animationPhasePacman], x, y, width, height, null);
 				break;
-			case 3:
+			case up:
 				// Make pacman look up
-				g.drawImage(Texture.pacmanLookUp[imageIndex], x, y, width, height, null);
+				g.drawImage(Texture.pacmanLookUp[Texture.animationPhasePacman], x, y, width, height, null);
 				break;
-			case 4:
+			case down:
 				// Make pacman look down
-				g.drawImage(Texture.pacmanLookDown[imageIndex], x, y, width, height, null);
+				g.drawImage(Texture.pacmanLookDown[Texture.animationPhasePacman], x, y, width, height, null);
 				break;
 		}
 		
-		if(bonusScore != -1)
+		if(Game.bonusScore != -1)
 		{
-			if(timesScoreFlashed == 3)
+			if(Game.timesScoreFlashed == 3)
 			{
-				timesScoreFlashed = 0;
-				bonusScore = -1;
+				Game.timesScoreFlashed = 0;
+				Game.bonusScore = -1;
 			}
 			else 
 			{
-				switch(bonusScore)
+				switch(Game.bonusScore)
 				{
 					case 200: 
-						if(imageIndex2 >= 10)
+						if(Texture.animationPhase200 >= 10)
 						{
-							imageIndex2 = 0;
-							timesScoreFlashed++;
+							Texture.animationPhase200 = 0;
+							Game.timesScoreFlashed++;
 						}
-						g.drawImage(Texture.bonusScore200[imageIndex2], Game.xEvent, Game.yEvent, width, height, null);
+						g.drawImage(Texture.bonusScore200[Texture.animationPhase200], Game.xEvent, Game.yEvent, width, height, null);
 					
 						break;
 						
 					case 400:
 						
-						if(imageIndex4 >= 10)
+						if(Texture.animationPhase400 >= 10)
 						{
-							imageIndex4 = 0;
-							timesScoreFlashed++;
+							Texture.animationPhase400 = 0;
+							Game.timesScoreFlashed++;
 						}
-						g.drawImage(Texture.bonusScore400[imageIndex4], Game.xEvent, Game.yEvent, width, height, null);
+						g.drawImage(Texture.bonusScore400[Texture.animationPhase400], Game.xEvent, Game.yEvent, width, height, null);
 						
 						break;
 						
 					case 800:
 						
-						if(imageIndex8 >= 10)
+						if(Texture.animationPhase800 >= 10)
 						{
-							imageIndex8 = 0;
-							timesScoreFlashed++;
+							Texture.animationPhase800 = 0;
+							Game.timesScoreFlashed++;
 						}
-						g.drawImage(Texture.bonusScore800[imageIndex8], Game.xEvent, Game.yEvent, width, height, null);
+						g.drawImage(Texture.bonusScore800[Texture.animationPhase800], Game.xEvent, Game.yEvent, width, height, null);
 					
 						break;
 						
 					case 1600:
 						
-						if(imageIndex16 >= 10)
+						if(Texture.animationPhase1600 >= 10)
 						{
-							imageIndex16 = 0;
-							timesScoreFlashed++;
+							Texture.animationPhase1600 = 0;
+							Game.timesScoreFlashed++;
 						}
-						g.drawImage(Texture.bonusScore1600[imageIndex16], Game.xEvent, Game.yEvent, width, height, null);
+						g.drawImage(Texture.bonusScore1600[Texture.animationPhase1600], Game.xEvent, Game.yEvent, width, height, null);
 					
 						break;
 				}
@@ -175,27 +148,17 @@ public class Pacman extends Rectangle
 		}
 	}
 	
-
-	public static void playSound(String filepath)
-	{
-		if(soundOn)
-		{
-			new Sounds(filepath);
-		}
-	}
-	
-	
 	private boolean canMove(int direction)
 	{
 		int nextx = 0, nexty = 0;
 		
 		switch(direction)
 		{
-			case right: nextx = x+speed; nexty = y; break;
-			case left:	nextx = x-speed; nexty = y; break;
-			case up: 	nextx = x; nexty = y-speed; break;
+			case right: nextx = x + Game.speed; nexty = y; break;
+			case left:	nextx = x - Game.speed; nexty = y; break;
+			case up: 	nextx = x; nexty = y - Game.speed; break;
 			case down: 	if(x == 320 && y == 256) {return false;}
-						nextx = x; nexty = y+speed; break;
+						nextx = x; nexty = y + Game.speed; break;
 		}
 		
 		Rectangle bounds = new Rectangle(nextx, nexty, width, height);
@@ -220,10 +183,10 @@ public class Pacman extends Rectangle
 	{
 		switch(dir)
 		{
-			case 1: x+=speed; lastDir = right; break;
-			case 2: x-=speed; lastDir = left; break;
-			case 3: y-=speed; lastDir = up; break;
-			case 4: y+=speed; lastDir = down; break;
+			case right: x += Game.speed; lastDir = right; break;
+			case left:  x -= Game.speed; lastDir = left;  break;
+			case up:    y -= Game.speed; lastDir = up;    break;
+			case down:  y += Game.speed; lastDir = down;  break;
 		}
 	}
 	
@@ -237,47 +200,71 @@ public class Pacman extends Rectangle
 		
 		switch(dir)
 		{
-			case 1:
+			case right:
 				
 				if(lastDir == left && canMove(left))
-					x-=speed;
+				{
+					x -= Game.speed;
+				}
 				if(lastDir == up && canMove(up))
-					y-=speed;
+				{
+					y -= Game.speed;
+				}
 				if(lastDir == down && canMove(down))
-					y+=speed;
+				{
+					y += Game.speed;
+				}
 			
 				break;
 					
-			case 2: 
+			case left: 
 				
 				if(lastDir == right && canMove(right))
-					x+=speed;
+				{
+					x += Game.speed;
+				}
 				if(lastDir == up && canMove(up))
-					y-=speed;
+				{
+					y -= Game.speed;
+				}
 				if(lastDir == down && canMove(down))
-					y+=speed;
+				{
+					y += Game.speed;
+				}
 					
 				break;
 					
-			case 3:
+			case up:
 				
 				if(lastDir == left && canMove(left))
-					x-=speed;
+				{
+					x -= Game.speed;
+				}
 				if(lastDir == right && canMove(right))
-					x+=speed;
+				{
+					x += Game.speed;
+				}
 				if(lastDir == down && canMove(down))
-					y+=speed;
+				{
+					y += Game.speed;
+				}
 				
 				break;
 			
-			case 4:
+			case down:
 					
 				if(lastDir == left && canMove(left))
-					x-=speed;
+				{
+					x -= Game.speed;
+				}
 				if(lastDir == up && canMove(up))
-					y-=speed;
+				{
+					y -= Game.speed;
+				}
 				if(lastDir == right && canMove(right))
-					x+=speed;
+				{
+					x += Game.speed;
+				}
 				
 				break;
 		}
@@ -286,41 +273,41 @@ public class Pacman extends Rectangle
 	private void resetEatenGhosts()
 	{
 		Game.blinky.eaten = false;													
-		Game.inky.eaten = false;
-		Game.pinky.eaten = false;
-		Game.clyde.eaten = false;
+		Game.inky.eaten   = false;
+		Game.pinky.eaten  = false;
+		Game.clyde.eaten  = false;
 	}
 	
 	public void foodColision()
 	{
+		// No food left
 		if(Level.food.size() == 0 && Level.energizers.size() == 0)	
 		{
 			Game.gameStatus = Game.win;	
 			
-			energizerStatus = false;				
+			Energizer.status = false;				
 
 			resetEatenGhosts();
 			
-			energizerTime = 0;	
+			Energizer.time = 0;	
 			return;
 		}
 		
 		// Collision with food
 		for(int i = 0; i < Level.food.size(); i++) 		
-		{
-			String filepath = "res\\Sounds\\PacMan Eating.wav";
-            
+		{            
 			if(this.intersects(Level.food.get(i)))							
 			{
-				playSound(filepath);
+				new Sounds(Sounds.pacmanEatingSoundPath);
 				
 				Level.food.remove(i);		
-				Game.score+=10;
+				Game.score += 10;
 				
 				if(Game.score >= Game.highscore)
 				{
 					Game.highscore = Game.score;
 				}
+				
 				break;
 			}
 			
@@ -328,12 +315,10 @@ public class Pacman extends Rectangle
 		
 		// Collision with energizer
 		for(int i = 0; i < Level.energizers.size(); i++) 	
-		{
-			String filepath = "res\\Sounds\\Energizer.wav";
-			
+		{			
 			if(this.intersects(Level.energizers.get(i)))						
 			{
-				playSound(filepath);
+				new Sounds(Sounds.energizerSoundPath);
 				
 				Level.energizers.remove(i);
 				
@@ -344,8 +329,8 @@ public class Pacman extends Rectangle
 					Game.highscore = Game.score;
 				}
 				
-				energizerStatus = true;						// Energizer status activated
-				energizerTime = 0;							// Reset the energizer timer
+				Energizer.status = true;					// Energizer status activated
+				Energizer.time = 0;							// Reset the energizer timer
 				
 				// No ghosts eaten
 				resetEatenGhosts();
@@ -357,27 +342,27 @@ public class Pacman extends Rectangle
 	
 	public void ghostColision()
 	{
-		if(energizerStatus == true)
+		if(Energizer.status == true)
 		{
-			if(energizerTime == energizerTargetTime)		// Energizer time over
+			if(Energizer.time == Energizer.targetTime)		// Energizer time over
 			{
 				energizerNotActive();									
 			}
-			else if(energizerTime < energizerTargetTime)	// Energizer time not over yet
+			else if(Energizer.time < Energizer.targetTime)	// Energizer time not over yet
 			{
 				energizerActive();								 			
 			}
 		}
-		else if(!energizerStatus)
+		else if(!Energizer.status)
 		{
-			if(Game.blinky.intersects(this) || Game.inky.intersects(this) || Game.pinky.intersects(this) || Game.clyde.intersects(this))										
+			if(Game.blinky.intersects(this) || Game.inky.intersects(this) || 
+			   Game.pinky.intersects(this) || Game.clyde.intersects(this))										
 			{
-				String filepath = "res\\Sounds\\PacMan Death.wav";
-				playSound(filepath);
+				new Sounds(Sounds.pacmanDeathSoundPath);
 				
-				lives = lives - 1;
+				Game.lives = Game.lives - 1;
 			
-				if(lives == 0)
+				if(Game.lives == 0)
 				{
 					LeaderboardPanel.read_from_file();
 					LeaderboardPanel.swap_values();
@@ -395,13 +380,13 @@ public class Pacman extends Rectangle
 	
 	public void energizerNotActive()
 	{
-		energizerStatus = false;
+		Energizer.status = false;
 		
 		resetEatenGhosts();
 		
-		energizerTime = 0;	
+		Energizer.time = 0;	
 
-		ghostsEaten = 0;
+		nEatenGhosts = 0;
 	}
 	
 	public void isGhostEaten(Ghost ghost)
@@ -410,12 +395,11 @@ public class Pacman extends Rectangle
 		{
 			if(ghost.eaten)
 			{
-				String filepath = "res\\Sounds\\PacMan Death.wav";
-				playSound(filepath);
+				new Sounds(Sounds.pacmanDeathSoundPath);
 				
-				lives = lives - 1;
+				Game.lives = Game.lives - 1;
 				
-				if(lives == 0)
+				if(Game.lives == 0)
 				{
 					LeaderboardPanel.read_from_file();
 					LeaderboardPanel.swap_values();
@@ -423,32 +407,34 @@ public class Pacman extends Rectangle
 					Game.gameStatus = Game.lose;
 				}
 				else 
+				{
 					Game.gameStatus = Game.lifeLost;
+				}
 				
-				energizerStatus = false;				
+				Energizer.status = false;				
 
 				resetEatenGhosts();
 				
-				energizerTime = 0;	
+				Energizer.time = 0;	
 				
-				bonusScore = -1;
+				Game.bonusScore = -1;
 			}
 			else
 			{
-				String filepath = "res\\Sounds\\Ghost Eaten.wav";
-				playSound(filepath);
-				++ghostsEaten;
+				new Sounds(Sounds.ghostEatenSoundPath);
+				
+				++nEatenGhosts;
 				
 				Game.xEvent = x;
 				Game.yEvent = y;
-				stopBonusScore = false;
+				Game.stopBonusScore = false;
 				
-				switch(ghostsEaten)
+				switch(nEatenGhosts)
 				{
-					case 1: Game.score = Game.score + 200; bonusScore = 200; break;
-					case 2: Game.score = Game.score + 400; bonusScore = 400; break;
-					case 3: Game.score = Game.score + 800; bonusScore = 800; break;
-					case 4: Game.score = Game.score + 1600; bonusScore = 1600; break;
+					case 1: Game.score = Game.score + 200; Game.bonusScore = 200; break;
+					case 2: Game.score = Game.score + 400; Game.bonusScore = 400; break;
+					case 3: Game.score = Game.score + 800; Game.bonusScore = 800; break;
+					case 4: Game.score = Game.score + 1600; Game.bonusScore = 1600; break;
 				}
 			
 				switch(ghost.enemyID)
@@ -495,18 +481,18 @@ public class Pacman extends Rectangle
 	
 	public void energizerActive()
 	{
-		if(energizerTime >= energizerFlashTime)
+		if(Energizer.time >= Energizer.flashTime)
 		{
-			energizerFlash = true;
+			Energizer.flash = true;
 		}
-		else if(energizerTime < energizerFlashTime)
+		else if(Energizer.time < Energizer.flashTime)
 		{
-			energizerFlash = false;
+			Energizer.flash = false;
 		}
 			
 		checkEatenGhosts();
 		
-		energizerTime ++;	
+		Energizer.time++;	
 	}
 
 	
@@ -514,52 +500,52 @@ public class Pacman extends Rectangle
 	public void positioning()
 	{
 		// Pacman going through the left portal
-		if(x == 0 && y == 320)	
+		if(x == Game.leftPortalX && y == Game.bothPortalsY)	
 		{
 			Game.pacmanCrossingLeftPortal = true;
-			Game.pacman = new Pacman(640, 320);		// Spawn pacman on the right side of the map
+			Game.pacman = new Pacman(Game.rightPortalX, Game.bothPortalsY);		// Spawn pacman on the right side of the map
 		}
 		
 		// Pacman going through the right portal
-		if(x == 640 && y == 320)			
+		if(x == Game.rightPortalX && y == Game.bothPortalsY)			
 		{
 			Game.pacmanCrossingRightPortal = true;
-			Game.pacman = new Pacman(0, 320);		// Spawn pacman on the left side of the map
+			Game.pacman = new Pacman(Game.leftPortalX, Game.bothPortalsY);		// Spawn pacman on the left side of the map
 		}
 	}
 	
 	
 	public void animation()
 	{
-		time ++;
+		Game.pacmanAnimationTime++;
 		
-		if(time == targetTime)
+		if(Game.pacmanAnimationTime == Game.pacmanAnimationTargetTime)
 		{
-			time = 0;
-			imageIndex ++;
+			Game.pacmanAnimationTime = 0;
+			Texture.animationPhasePacman++;	
 			
-			if(imageIndexFlash == 3)
+			if(Game.imageIndexFlash == 3)
 			{
-				imageIndexFlash = 0;
+				Game.imageIndexFlash = 0;
 			}
 			else
 			{
-				imageIndexFlash ++;
+				Game.imageIndexFlash++;
 			}
 		}
 		
-		bonusScoreTime ++;
+		Game.bonusScoreAnimationTime++;
 		
-		if(bonusScoreTime == bonusScoreTargetTime)
+		if(Game.bonusScoreAnimationTime == Game.bonusScoreAnimationTargetTime)
 		{
-			bonusScoreTime = 0;
+			Game.bonusScoreAnimationTime = 0;
 
-			switch(bonusScore)
+			switch(Game.bonusScore)
 			{
-				case 200: imageIndex2++; break;
-				case 400: imageIndex4++; break;
-				case 800: imageIndex8++; break;
-				case 1600: imageIndex16++; break;
+				case 200:  Texture.animationPhase200++;  break;
+				case 400:  Texture.animationPhase400++;  break;
+				case 800:  Texture.animationPhase800++;  break;
+				case 1600: Texture.animationPhase1600++; break;
 			}
 		}
 	}
