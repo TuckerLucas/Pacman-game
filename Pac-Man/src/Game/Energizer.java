@@ -25,17 +25,36 @@ public class Energizer extends Rectangle
 	private static int spriteFrame = 0;	// Array index of frame being displayed
 	private int spriteTargetFrame = 2;	// Array index of last frame of the animation 
 	
-	public static int time	      = 0; 
-	public static int flashTime  = 60*5;
-	public static int targetTime = 60*8;
+	public static int activeTime = 0; 
+	public static int activeTargetTime = 60*8;
 	
 	public static boolean flash = false;
-	public static boolean status = false;
+	public static boolean isActive = false;
 	
 	// Constructor
 	public Energizer(int x, int y)
 	{
 		setBounds(x+2,y+2,28,28);
+	}
+	
+	public static void active()
+	{
+		if(activeTime >= Ghost.flashTime)
+		{
+			flash = true;
+		}
+		else if(activeTime < Ghost.flashTime)
+		{
+			flash = false;
+		}
+		
+		activeTime++;	
+	}
+	
+	public static void notActive()
+	{
+		activeTime = 0;
+		isActive = false;
 	}
 	
 	// Manage animation time

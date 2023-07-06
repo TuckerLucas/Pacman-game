@@ -18,6 +18,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
@@ -79,7 +80,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static int clydeSpawnX  = 352;
 	public static int clydeSpawnY  = 320;
 
-	// 
+	// Pacman lives variable
 	public static int lives = 3;
 	
 	// Ghost identifiers
@@ -110,7 +111,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public boolean space = false;
 	
 	// Animation variables
-	private int blinkTime 		 = 0;							
+	private int blinkTime 	 = 0;							
 	private int targetFrames = 30;
 	private boolean showText = true;
 	
@@ -122,15 +123,19 @@ public class Game extends Canvas implements Runnable, KeyListener
 	String mapPath    = "/Images/map.png";
 	String scoresPath = "res/Files/Scores.txt";
 	
-	// Animation timing variables
+	// Pacman animation variables
 	public static int pacmanAnimationTime = 0;	
 	public static int pacmanAnimationTargetTime = 6;
-	public static int imageIndexFlash = 0;
-	public static int bonusScore = -1;
-	public static int bonusScoreAnimationTime = 0;
+	
+	public static int flashAnimationTime = 0;
+	public static int flashAnimationTargetTime = 20;
+	
+	// Bonus score animation variables
+	public static boolean showBonusScore 			= false;
+	public static int bonusScoreAnimationTime       = 0;
 	public static int bonusScoreAnimationTargetTime = 10;
-	public static boolean stopBonusScore = false;
-	public static int timesScoreFlashed = 0;
+	public static int bonusScoreFlashes 			= 0;
+	public static int bonusScoreTargetFlashes		= 3;
 	
 	// Constructor
 	public Game()
@@ -263,6 +268,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 	{		
 		// Display text
 		g.drawString("WELL DONE!", 210, 0);
+		if(showText)
+		{
+			g.drawString("ENTER", 156, 350);
+		}
 		g.drawString("PRESS       TO CONTINUE GAME", 60, 350);
 	}
 	
@@ -280,7 +289,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 		g.drawString("PRESS       TO GO HOME", 60, 400);
 	}
 
-	
 	// Manage game's different states
 	private void tick()
 	{
@@ -294,7 +302,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				pinky.tick();
 				clyde.tick();
 				energizer.tick();
-				
+
 				break;
 				
 			case init:
@@ -318,7 +326,13 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 			case win:
 				
-				bonusScore = -1;
+				showBonusScore = false;
+				
+				Energizer.isActive = false;				
+
+				Pacman.resetEatenGhosts();
+				
+				Energizer.activeTime = 0;
 				
 				blinkTime++;
 				
@@ -339,7 +353,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 			case lose:
 				
-				bonusScore = -1;
+				showBonusScore = false;
 				lives = 3;
 				
 				if(score >= highscore)
@@ -375,11 +389,19 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 			case lifeLost:
 				
-				bonusScore = -1;
+				showBonusScore = false;
 				loadGameElements();
 				gameStatus = play;
 				
 				break;
+		}
+					
+		Game.bonusScoreAnimationTime++;
+		
+		if(Game.bonusScoreAnimationTime == Game.bonusScoreAnimationTargetTime)
+		{
+			Game.bonusScoreAnimationTime = 0;
+			Texture.animationPhaseBonusScore++;
 		}
 	}
 	
@@ -492,6 +514,36 @@ public class Game extends Canvas implements Runnable, KeyListener
 		}
 	}
 
+	public static boolean canMove(int direction, int x, int y, int width, int height)
+	{
+		int nextx = 0, nexty = 0;
+		
+		switch(direction)
+		{
+			case right: nextx = x + Game.speed; nexty = y; break;
+			case left:	nextx = x - Game.speed; nexty = y; break;
+			case up: 	nextx = x; nexty = y - Game.speed; break;
+			case down: 	if(x == 320 && y == 256) {return false;}
+						nextx = x; nexty = y + Game.speed; break;
+		}
+		
+		Rectangle bounds = new Rectangle(nextx, nexty, width, height);
+
+		for(int xx = 0; xx < Level.tiles.length; xx++)
+		{
+			for(int yy = 0; yy < Level.tiles[0].length; yy++)
+			{
+				if(Level.tiles[xx][yy] != null)								
+				{
+					if(bounds.intersects(Level.tiles[xx][yy]))						
+					{
+						return false;								
+					}
+				}
+			}
+		}
+		return true;
+	}
 	// Unimplemented method
 	@Override
 	public void keyReleased(KeyEvent e)

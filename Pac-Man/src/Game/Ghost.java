@@ -28,6 +28,7 @@ public class Ghost extends Rectangle
 	public static final int smart  		= 1;
 	public static final int find_path 	= 2;
 	private int ghostMovement = random; 
+	public static int flashTime  = 60*5;
 	
 	public static final int right = 0; 
 	public static final int left  = 1;
@@ -384,7 +385,7 @@ public class Ghost extends Rectangle
 		{
 			if((difx < radius && difx > -radius) && (dify < radius && dify > -radius))
 			{
-				if(Energizer.status == false && !inBox())
+				if(Energizer.isActive == false && !inBox())
 				{
 					ghostMovement = smart;
 				}
@@ -540,7 +541,7 @@ public class Ghost extends Rectangle
 		difx = x - Game.pacman.x;
 		dify = y - Game.pacman.y;
 
-		if(Energizer.status == true || inBox())
+		if(Energizer.isActive == true || inBox())
 		{
 			ghostMovement = random;
 		}
@@ -913,7 +914,7 @@ public class Ghost extends Rectangle
 	
 	private void flashGhost(Graphics g)
 	{
-		g.drawImage(Texture.flashGhost[Game.imageIndexFlash], x, y, width, height, null);
+		g.drawImage(Texture.flashGhost[Texture.animationPhaseFlash], x, y, width, height, null);
 	}
 	
 	private void stayBlue(Graphics g)
@@ -1024,6 +1025,22 @@ public class Ghost extends Rectangle
 			timeImage = 0;
 			imageIndexEnemy ++;
 		}
+		
+		Game.flashAnimationTime++;
+		
+		if(Game.flashAnimationTime == Game.flashAnimationTargetTime)
+		{
+			Game.flashAnimationTime = 0;
+			
+			if(Texture.animationPhaseFlash == 3)
+			{
+				Texture.animationPhaseFlash = 0;
+			}
+			else
+			{
+				Texture.animationPhaseFlash++;
+			}
+		}
 	}
 	
 	
@@ -1034,7 +1051,7 @@ public class Ghost extends Rectangle
 			imageIndexEnemy = 0;
 		}
 
-		if(!Energizer.status || eaten)
+		if(!Energizer.isActive || eaten)
 		{
 			look(lastDir, g);
 		}

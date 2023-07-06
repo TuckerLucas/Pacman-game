@@ -23,7 +23,7 @@ public class Texture
 	public static BufferedImage spritesheet;
 	
 	// Size of one sprite (16x16)
-	private int spriteSize = 16;
+	public static int spriteSize = 16;
 	
 	// Pacman arrays for sprite animations 
 	public static BufferedImage[] pacmanLookRight;						
@@ -63,40 +63,36 @@ public class Texture
 	// Energizer array for sprite animations
 	public static BufferedImage[] energizer;
 	
-	// Bonus score arrays for sprite animations
-	public static BufferedImage[] bonusScore200;
-	public static BufferedImage[] bonusScore400;
-	public static BufferedImage[] bonusScore800;
-	public static BufferedImage[] bonusScore1600;
+	// Bonus score array for sprite animations
+	public static BufferedImage[] bonusScore;
 	
 	public static int animationPhasePacman = 0;
+
+	public static int animationPhaseBonusScore = 0;
 	
-	public static int animationPhase200  = 0;	
-	public static int animationPhase400  = 0;
-	public static int animationPhase800  = 0;
-	public static int animationPhase1600 = 0;
+	public static int animationPhaseFlash = 0;
 	
 	// Spritesheet columns
-	private int spriteColumn1 = 0;
-	private int spriteColumn2 = spriteSize*1;
-	private int spriteColumn3 = spriteSize*2;
-	private int spriteColumn4 = spriteSize*3;
-	private int spriteColumn5 = spriteSize*4;
-	private int spriteColumn6 = spriteSize*5;
-	private int spriteColumn7 = spriteSize*6;
-	private int spriteColumn8 = spriteSize*7;
-	private int spriteColumn9 = spriteSize*8;
+	public static int spriteColumn1 = 0;
+	public static int spriteColumn2 = spriteSize*1;
+	public static int spriteColumn3 = spriteSize*2;
+	public static int spriteColumn4 = spriteSize*3;
+	public static int spriteColumn5 = spriteSize*4;
+	public static int spriteColumn6 = spriteSize*5;
+	public static int spriteColumn7 = spriteSize*6;
+	public static int spriteColumn8 = spriteSize*7;
+	public static int spriteColumn9 = spriteSize*8;
 	
 	// Spritesheet lines
-	private int spriteLine1 = 0;
-	private int spriteLine2 = spriteSize*1;
-	private int spriteLine3 = spriteSize*2;
-	private int spriteLine4 = spriteSize*3;
-	private int spriteLine5 = spriteSize*4;
-	private int spriteLine6 = spriteSize*5;
-	private int spriteLine7 = spriteSize*6;
-	private int spriteLine8 = spriteSize*7;
-	private int spriteLine9 = spriteSize*8;
+	public static int spriteLine1 = 0;
+	public static int spriteLine2 = spriteSize*1;
+	public static int spriteLine3 = spriteSize*2;
+	public static int spriteLine4 = spriteSize*3;
+	public static int spriteLine5 = spriteSize*4;
+	public static int spriteLine6 = spriteSize*5;
+	public static int spriteLine7 = spriteSize*6;
+	public static int spriteLine8 = spriteSize*7;
+	public static int spriteLine9 = spriteSize*8;
 	
 	// Constructor
 	public Texture()
@@ -216,39 +212,8 @@ public class Texture
 		energizer[0] = getSprite(spriteColumn1, spriteLine7, spriteSize, spriteSize);
 		energizer[1] = getSprite(spriteColumn2, spriteLine7, spriteSize, spriteSize);
 		
-		// Bonus score sprite animation arrays
-		bonusScore200 = new BufferedImage[10];
-		bonusScore400 = new BufferedImage[10];
-		bonusScore800 = new BufferedImage[10];
-		bonusScore1600 = new BufferedImage[10];
-		
-		// Load bonus score sprite animation arrays
-		bonusScore200[0] = getSprite(spriteColumn9, spriteLine2, 32, spriteSize);
-		bonusScore200[1] = getSprite(spriteColumn9, spriteLine6, 32, spriteSize);
-		bonusScore400[0] = getSprite(spriteColumn9, spriteLine3, 32, spriteSize);
-		bonusScore400[1] = getSprite(spriteColumn9, spriteLine7, 32, spriteSize);
-		bonusScore800[0] = getSprite(spriteColumn9, spriteLine4, 32, spriteSize);
-		bonusScore800[1] = getSprite(spriteColumn9, spriteLine8, 32, spriteSize);
-		bonusScore1600[0] = getSprite(spriteColumn9, spriteLine5, 32, spriteSize);
-		bonusScore1600[1] = getSprite(spriteColumn9, spriteLine9, 32, spriteSize);
-		
-		for(int i = 2; i < 10; i++)
-		{
-			if(i % 2 == 0)
-			{
-				bonusScore200[i] = bonusScore200[0];
-				bonusScore400[i] = bonusScore400[0];
-				bonusScore800[i] = bonusScore800[0];
-				bonusScore1600[i] = bonusScore1600[0];
-			}
-			else
-			{
-				bonusScore200[i] = bonusScore200[1];
-				bonusScore400[i] = bonusScore400[1];
-				bonusScore800[i] = bonusScore800[1];
-				bonusScore1600[i] = bonusScore1600[1];
-			}
-		}
+		// Bonus score sprite animation array
+		bonusScore = new BufferedImage[10];
 	}
 	
 	// Get sprite from the spritesheet
