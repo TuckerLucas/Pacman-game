@@ -329,8 +329,6 @@ public class Pacman extends Rectangle
 	
 	public void render(Graphics g)
 	{
-		// Character rendering
-		/********************************************************/
 		if(Texture.animationPhasePacman == 3)
 		{
 			Texture.animationPhasePacman = 0;

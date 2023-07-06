@@ -205,9 +205,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 		pinky 	= new Ghost(pinkySpawnX, pinkySpawnY, pinkyID, -1, -1);
 		clyde 	= new Ghost(clydeSpawnX, clydeSpawnY, clydeID, -1, -1);
 		
-		// Load bonus score object
-		bonusScore = new BonusScore(0, 0);
-		
 		// Load other game objects based on game status
 		switch(gameStatus)
 		{
@@ -223,6 +220,9 @@ public class Game extends Canvas implements Runnable, KeyListener
 				// fall through
 				
 			case lose:
+				
+				// Load bonus score object
+				bonusScore = new BonusScore(0, 0);
 				
 				level = new Level(mapPath); 
 				break;

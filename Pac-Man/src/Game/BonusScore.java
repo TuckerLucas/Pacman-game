@@ -20,11 +20,11 @@ public class BonusScore extends Rectangle
 	private static final long serialVersionUID = 1L;
 	
 	// Bonus score animation variables
-	public static boolean display  		  = false;
 	public static int animationTime       = 0;
 	public static int animationTargetTime = 10;
 	public static int nFlashes 			  = 0;
-	public static int targetFlashes		  = 3;
+	public static int nTargetFlashes	  = 3;
+	public static boolean display  		  = false;
 	
 	// Constructor 
 	public BonusScore(int x, int y)
@@ -38,12 +38,12 @@ public class BonusScore extends Rectangle
 		if(display == true)
 		{
 			// Check if bonus score has flashed the target amount of times
-			if(nFlashes == targetFlashes)
+			if(nFlashes == nTargetFlashes)
 			{
 				nFlashes = 0;
 				display = false;
 			}
-			else if(nFlashes < targetFlashes)
+			else if(nFlashes < nTargetFlashes)
 			{
 				if(Texture.animationPhaseBonusScore >= Texture.bonusScore.length)
 				{
