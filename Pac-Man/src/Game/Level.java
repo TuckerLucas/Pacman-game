@@ -224,6 +224,7 @@ public class Level
 		Game.pinky.render(g);
 		Game.clyde.render(g);
 		Game.door.render(g);
+		Game.bonusScore.render(g);
 		
 		drawData(g);
 	}

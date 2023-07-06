@@ -27,6 +27,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import GUI.CLayout;
+import GUI.LeaderboardPanel;
 
 public class Game extends Canvas implements Runnable, KeyListener
 {
@@ -64,6 +65,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static Ghost clyde;				// Orange ghost
 	public static Energizer energizer;
 	public static Door door;
+	public static BonusScore bonusScore;
 	public static Level level;
 	
 	// Pacman spawn coordinate variables
@@ -103,8 +105,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static final int lifeLost = 5;
 	
 	// Score variables
-	public static int score = 0;
 	public static int highscore;
+	public static int score 		 = 0;
+	public static int foodScore 	 = 10;
+	public static int energizerScore = 50;
 	
 	// Game key flag variables
 	public boolean enter = false;					
@@ -129,13 +133,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 	
 	public static int flashAnimationTime = 0;
 	public static int flashAnimationTargetTime = 20;
-	
-	// Bonus score animation variables
-	public static boolean showBonusScore 			= false;
-	public static int bonusScoreAnimationTime       = 0;
-	public static int bonusScoreAnimationTargetTime = 10;
-	public static int bonusScoreFlashes 			= 0;
-	public static int bonusScoreTargetFlashes		= 3;
 	
 	// Constructor
 	public Game()
@@ -207,6 +204,9 @@ public class Game extends Canvas implements Runnable, KeyListener
 		inky 	= new Ghost(inkySpawnX, inkySpawnY, inkyID, -1, -1);
 		pinky 	= new Ghost(pinkySpawnX, pinkySpawnY, pinkyID, -1, -1);
 		clyde 	= new Ghost(clydeSpawnX, clydeSpawnY, clydeID, -1, -1);
+		
+		// Load bonus score object
+		bonusScore = new BonusScore(0, 0);
 		
 		// Load other game objects based on game status
 		switch(gameStatus)
@@ -326,7 +326,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 			case win:
 				
-				showBonusScore = false;
+				BonusScore.display = false;
 				
 				Energizer.isActive = false;				
 
@@ -353,7 +353,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 			case lose:
 				
-				showBonusScore = false;
+				LeaderboardPanel.read_from_file();
+				LeaderboardPanel.swap_values();
+				LeaderboardPanel.write_to_file();
+				
+				BonusScore.display = false;
 				lives = 3;
 				
 				if(score >= highscore)
@@ -389,18 +393,18 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 			case lifeLost:
 				
-				showBonusScore = false;
+				BonusScore.display = false;
 				loadGameElements();
 				gameStatus = play;
 				
 				break;
 		}
 					
-		Game.bonusScoreAnimationTime++;
+		BonusScore.animationTime++;
 		
-		if(Game.bonusScoreAnimationTime == Game.bonusScoreAnimationTargetTime)
+		if(BonusScore.animationTime == BonusScore.animationTargetTime)
 		{
-			Game.bonusScoreAnimationTime = 0;
+			BonusScore.animationTime = 0;
 			Texture.animationPhaseBonusScore++;
 		}
 	}

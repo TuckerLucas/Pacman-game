@@ -13,8 +13,6 @@
 
 package Game;
 
-import GUI.LeaderboardPanel;
-
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -60,23 +58,33 @@ public class Pacman extends Rectangle
 		setBounds(x,y,32,32);
 	}
 
-	// Set all ghosts to not eaten
+	// Reset all ghost's eaten state
 	public static void resetEatenGhosts()
 	{
 		Game.blinky.eaten = false;													
 		Game.inky.eaten   = false;
 		Game.pinky.eaten  = false;
 		Game.clyde.eaten  = false;
+		
+		nEatenGhosts = 0;
+	}
+	
+	// Check for eaten ghosts
+	public void checkEatenGhosts()
+	{
+		isGhostEaten(Game.blinky);
+		isGhostEaten(Game.inky);
+		isGhostEaten(Game.pinky);
+		isGhostEaten(Game.clyde);
 	}
 	
 	// Manage pacman collisions with food & energizers
 	public void foodCollision()
 	{
-		// All food/energizers eaten
+		// All food and energizers eaten
 		if(Level.food.size() == 0 && Level.energizers.size() == 0)	
 		{
 			Game.gameStatus = Game.win;	
-				
 			return;
 		}
 		
@@ -87,8 +95,9 @@ public class Pacman extends Rectangle
 			{
 				new Sounds(Sounds.pacmanEatingSoundPath);
 				
-				Level.food.remove(i);		
-				Game.score += 10;
+				Level.food.remove(i);	
+				
+				Game.score += Game.foodScore;
 				
 				if(Game.score >= Game.highscore)
 				{
@@ -103,14 +112,12 @@ public class Pacman extends Rectangle
 		for(int i = 0; i < Level.energizers.size(); i++) 	
 		{			
 			if(this.intersects(Level.energizers.get(i)))						
-			{
-				nEatenGhosts = 0;
-				
+			{	
 				new Sounds(Sounds.energizerSoundPath);
 				
 				Level.energizers.remove(i);
 				
-				Game.score += 50;							// Add energizer points to the player's score
+				Game.score += Game.energizerScore;							// Add energizer points to the player's score
 				
 				if(Game.score >= Game.highscore)
 				{
@@ -139,7 +146,6 @@ public class Pacman extends Rectangle
 			{
 				Energizer.notActive();
 				resetEatenGhosts();
-				nEatenGhosts = 0;
 			}
 			// Energizer time not over yet
 			else if(Energizer.activeTime < Energizer.activeTargetTime)	
@@ -156,14 +162,10 @@ public class Pacman extends Rectangle
 			{
 				new Sounds(Sounds.pacmanDeathSoundPath);
 				
-				Game.lives = Game.lives - 1;
+				Game.lives--;
 			
 				if(Game.lives == 0)
 				{
-					LeaderboardPanel.read_from_file();
-					LeaderboardPanel.swap_values();
-					LeaderboardPanel.write_to_file();
-					
 					Game.gameStatus = Game.lose;
 				}
 				else 
@@ -182,13 +184,10 @@ public class Pacman extends Rectangle
 			{
 				new Sounds(Sounds.pacmanDeathSoundPath);
 				
-				Game.lives = Game.lives - 1;
+				Game.lives--;
 				
 				if(Game.lives == 0)
 				{
-					LeaderboardPanel.read_from_file();
-					LeaderboardPanel.swap_values();
-					LeaderboardPanel.write_to_file();
 					Game.gameStatus = Game.lose;
 				}
 				else 
@@ -202,17 +201,17 @@ public class Pacman extends Rectangle
 				
 				Energizer.activeTime = 0;	
 				
-				Game.showBonusScore = false;
+				BonusScore.display = false;
 			}
 			else
 			{
 				new Sounds(Sounds.ghostEatenSoundPath);
 				
-				++nEatenGhosts;
+				nEatenGhosts++;
 				
 				Game.xEvent = x;
 				Game.yEvent = y;
-				Game.showBonusScore = true;
+				BonusScore.display = true;
 				
 				switch(nEatenGhosts)
 				{
@@ -291,14 +290,6 @@ public class Pacman extends Rectangle
 			}
 		}
 	}
-	
-	public void checkEatenGhosts()
-	{
-		isGhostEaten(Game.blinky);
-		isGhostEaten(Game.inky);
-		isGhostEaten(Game.pinky);
-		isGhostEaten(Game.clyde);
-	}
 		
 	public void portalCrossing()
 	{
@@ -319,8 +310,10 @@ public class Pacman extends Rectangle
 		}
 	}
 	
+	// Manage pacman animation
 	public void eatingAnimation()
 	{
+		// Increase current animation phase time
 		Game.pacmanAnimationTime++;
 		
 		// Check if time for animation phase is complete
@@ -362,29 +355,6 @@ public class Pacman extends Rectangle
 				g.drawImage(Texture.pacmanLookDown[Texture.animationPhasePacman], x, y, width, height, null);
 				break;
 		}
-		/********************************************************/
-		
-		// Bonus score rendering
-		/********************************************************/
-		if(Game.showBonusScore == true)
-		{
-			// Check if bonus score has flashed the target amount of times
-			if(Game.bonusScoreFlashes == Game.bonusScoreTargetFlashes)
-			{
-				Game.bonusScoreFlashes = 0;
-				Game.showBonusScore = false;
-			}
-			else if(Game.bonusScoreFlashes < Game.bonusScoreTargetFlashes)
-			{
-				if(Texture.animationPhaseBonusScore >= Texture.bonusScore.length)
-				{
-					Texture.animationPhaseBonusScore = 0;
-					Game.bonusScoreFlashes++;
-				}
-				g.drawImage(Texture.bonusScore[Texture.animationPhaseBonusScore], Game.xEvent, Game.yEvent, width, height, null);
-			}
-		}
-		/********************************************************/
 	}
 	
 	private boolean canMove(int direction)

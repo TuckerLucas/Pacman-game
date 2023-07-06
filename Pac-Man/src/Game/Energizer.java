@@ -54,7 +54,7 @@ public class Energizer extends Rectangle
 	public static void notActive()
 	{
 		activeTime = 0;
-		isActive = false;
+		isActive   = false;
 	}
 	
 	// Manage animation time
