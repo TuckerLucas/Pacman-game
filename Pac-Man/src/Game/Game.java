@@ -59,10 +59,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 	
 	// Game object variables
 	public static Pacman pacman;			
-	//public static Ghost blinky;				// Red ghost
-	//public static Ghost inky;				// Blue ghost
-	//public static Ghost pinky;				// Pink ghost
-	//public static Ghost clyde;				// Orange ghost
 	public static Ghost[] ghostArray = new Ghost[4];
 	public static Energizer energizer;
 	public static Door door;
@@ -141,11 +137,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 		addKeyListener(this);
 		gameStatus = init;			
 		new Texture();
+		
 		ghostArray[0] = new Ghost(blinkySpawnX, blinkySpawnY, blinkyID, -1, -1);
 		ghostArray[1] = new Ghost(inkySpawnX, inkySpawnY, inkyID, -1, -1);
 		ghostArray[2] = new Ghost(pinkySpawnX, pinkySpawnY, pinkyID, -1, -1);
 		ghostArray[3] = new Ghost(clydeSpawnX, clydeSpawnY, clydeID, -1, -1); 
-		
 		
 		// Get game's highscore
     	try
@@ -205,7 +201,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	private void loadGameElements()
 	{
 		// Load game characters
-		pacman 	= new Pacman(pacmanSpawnX, pacmanSpawnY);
+		pacman 			= new Pacman(pacmanSpawnX, pacmanSpawnY);
 		ghostArray[0] 	= new Ghost(blinkySpawnX, blinkySpawnY, blinkyID, -1, -1); 			
 		ghostArray[1] 	= new Ghost(inkySpawnX, inkySpawnY, inkyID, -1, -1);
 		ghostArray[2]	= new Ghost(pinkySpawnX, pinkySpawnY, pinkyID, -1, -1);

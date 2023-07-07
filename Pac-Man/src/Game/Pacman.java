@@ -109,7 +109,7 @@ public class Pacman extends Rectangle
 				
 				// Activate energizer
 				Energizer.isActive = true;					
-				Energizer.activeTime = 0;						
+				Energizer.activeTime = 0;	
 				
 				// No ghosts eaten
 				resetEatenGhosts();
@@ -119,65 +119,51 @@ public class Pacman extends Rectangle
 		}
 	}
 	
+	// Check if pacman and a ghost have intersected
 	public boolean intersectedWithGhost()
 	{
+		// Iterate through the ghost array
 		for(int i = 0; i < Game.ghostArray.length; i++)
 		{
+			// Check for intersection between ghost and pacman
 			if(Game.ghostArray[i].intersects(this))
 			{
+				// Identify the intersected ghost
 				intersectedGhost = i;
+				
 				return true;
 			}
 		}
 		
 		return false;
 	}
+	
 	// Manage pacman collisions with ghosts
 	public void ghostCollision()
 	{
 		if(intersectedWithGhost() == true)								
 		{
+			/*
+			if(Game.ghostArray[intersectedGhost].eaten == true)
+			{
+				eatGhost(intersectedGhost);
+			}
+			else if(Game.ghostArray[intersectedGhost].eaten == false)
+			{
+				die()
+			}
+			*/
+			
 			if(Energizer.isActive == true)
 			{
 				isGhostEaten(Game.ghostArray[intersectedGhost]);
 			}
 			else if(Energizer.isActive == false)
 			{
-				death();
+				die();
 			}
 		}
 	}
-		
-	/*
-	// Manage pacman collisions with ghosts
-	public void ghostCollision()
-	{
-		// Energizer is active
-		if(Energizer.isActive == true)
-		{
-			// Energizer time over
-			if(Energizer.activeTime == Energizer.activeTargetTime)		
-			{
-				Energizer.notActive();
-				resetEatenGhosts();
-			}
-			// Energizer time not over yet
-			else if(Energizer.activeTime < Energizer.activeTargetTime)	
-			{
-				Energizer.active();		
-				checkEatenGhosts();
-			}
-		}
-		// Energizer is not active
-		else if(Energizer.isActive == false)
-		{
-			if(Game.ghostArray[0].intersects(this) || Game.ghostArray[1].intersects(this) || 
-			   Game.ghostArray[2].intersects(this) || Game.ghostArray[3].intersects(this))										
-			{
-				death();	
-			}
-		}
-	}*/
 	
 	// Reset all ghost's eaten state
 	public static void resetEatenGhosts()
@@ -192,215 +178,78 @@ public class Pacman extends Rectangle
 	
 	public void isGhostEaten(Ghost ghost)
 	{
-		if(ghost.intersects(this))
+		if(ghost.eaten == true)
 		{
-			if(ghost.eaten == true)
-			{
-				death();
-				
-				Energizer.isActive = false;				
-	
-				resetEatenGhosts();
-				
-				Energizer.activeTime = 0;	
-				
-				BonusScore.display = false;
-			}
-			else
-			{
-				new Sounds(Sounds.ghostEatenSoundPath);
-				
-				nEatenGhosts++;
-				
-				Game.xEvent = x;
-				Game.yEvent = y;
-				BonusScore.display = true;
-				
-				switch(nEatenGhosts)
-				{
-					case 1: 
-							Game.score = Game.score + 200;
-							Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine2, 
-							32, Texture.spriteSize);
-							Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine6, 
-							32, Texture.spriteSize);
-							break;
-					case 2: 
-							Game.score = Game.score + 400; 
-							Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine3, 
-							32, Texture.spriteSize);
-							Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine7, 
-							32, Texture.spriteSize);
-							break;
-					case 3: 
-							Game.score = Game.score + 800;  
-							Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine4, 
-							32, Texture.spriteSize);
-							Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine8, 
-							32, Texture.spriteSize);
-							break;
-					case 4: 
-							Game.score = Game.score + 1600; 
-							Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine5, 
-							32, Texture.spriteSize);
-							Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine9, 
-							32, Texture.spriteSize);
-							break;
-				}
+			die();
 			
-				for(int i = 2; i < Texture.bonusScore.length; i++)
-				{
-					if(i % 2 == 0)
-					{
-						Texture.bonusScore[i] = Texture.bonusScore[0];
-					}
-					else
-					{
-						Texture.bonusScore[i] = Texture.bonusScore[1];
-					}
-				}
-				
-				switch(ghost.enemyID)
-				{
-					case Game.blinkyID:
-												
-						Game.ghostArray[0] = new Ghost(Game.blinkySpawnX, Game.blinkySpawnY, ghost.enemyID, -1, -1);
-						Game.ghostArray[0].eaten = true;
-						
-						break;
-						
-					case Game.inkyID:
-											
-						Game.ghostArray[1] = new Ghost(Game.inkySpawnX, Game.inkySpawnY, ghost.enemyID, -1, -1);
-						Game.ghostArray[1].eaten = true;
-						
-						break;
-						
-					case Game.pinkyID:	
-						
-						Game.ghostArray[2] = new Ghost(Game.pinkySpawnX, Game.pinkySpawnY, ghost.enemyID, -1, -1);
-						Game.ghostArray[2].eaten = true;
-						
-						break;
-						
-					case Game.clydeID:
-												
-						Game.ghostArray[3] = new Ghost(Game.clydeSpawnX, Game.clydeSpawnY, ghost.enemyID, -1, -1);
-						Game.ghostArray[3].eaten = true;
-						
-						break;
-				}
-			}
+			Energizer.isActive = false;				
+
+			resetEatenGhosts();
+			
+			Energizer.activeTime = 0;	
+			
+			BonusScore.display = false;
 		}
-	}
+		else
+		{
+			new Sounds(Sounds.ghostEatenSoundPath);
+			
+			nEatenGhosts++;
+			
+			Game.xEvent = x;
+			Game.yEvent = y;
+			BonusScore.display = true;
+
+			switch(Pacman.nEatenGhosts)
+			{
+				case 1: 
+						Game.score = Game.score + 200;
+						Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine2, 
+						32, Texture.spriteSize);
+						Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine6, 
+						32, Texture.spriteSize);
+						break;
+				case 2: 
+						Game.score = Game.score + 400; 
+						Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine3, 
+						32, Texture.spriteSize);
+						Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine7, 
+						32, Texture.spriteSize);
+						break;
+				case 3: 
+						Game.score = Game.score + 800;  
+						Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine4, 
+						32, Texture.spriteSize);
+						Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine8, 
+						32, Texture.spriteSize);
+						break;
+				case 4: 
+						Game.score = Game.score + 1600; 
+						Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine5, 
+						32, Texture.spriteSize);
+						Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine9, 
+						32, Texture.spriteSize);
+						break;
+			}
 		
-
-	/*
-	public void isGhostEaten(Ghost ghost)
-	{
-		if(ghost.intersects(this))
-		{
-			if(ghost.eaten)
+			for(int i = 2; i < Texture.bonusScore.length; i++)
 			{
-				death();
-				
-				Energizer.isActive = false;				
-
-				resetEatenGhosts();
-				
-				Energizer.activeTime = 0;	
-				
-				BonusScore.display = false;
-			}
-			else
-			{
-				new Sounds(Sounds.ghostEatenSoundPath);
-				
-				nEatenGhosts++;
-				
-				Game.xEvent = x;
-				Game.yEvent = y;
-				BonusScore.display = true;
-				
-				switch(nEatenGhosts)
+				if(i % 2 == 0)
 				{
-					case 1: 
-							Game.score = Game.score + 200;
-							Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine2, 
-							32, Texture.spriteSize);
-							Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine6, 
-							32, Texture.spriteSize);
-							break;
-					case 2: 
-							Game.score = Game.score + 400; 
-							Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine3, 
-							32, Texture.spriteSize);
-							Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine7, 
-							32, Texture.spriteSize);
-							break;
-					case 3: 
-							Game.score = Game.score + 800;  
-							Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine4, 
-							32, Texture.spriteSize);
-							Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine8, 
-							32, Texture.spriteSize);
-							break;
-					case 4: 
-							Game.score = Game.score + 1600; 
-							Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine5, 
-							32, Texture.spriteSize);
-							Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine9, 
-							32, Texture.spriteSize);
-							break;
+					Texture.bonusScore[i] = Texture.bonusScore[0];
 				}
+				else
+				{
+					Texture.bonusScore[i] = Texture.bonusScore[1];
+				}
+			}
 			
-				for(int i = 2; i < Texture.bonusScore.length; i++)
-				{
-					if(i % 2 == 0)
-					{
-						Texture.bonusScore[i] = Texture.bonusScore[0];
-					}
-					else
-					{
-						Texture.bonusScore[i] = Texture.bonusScore[1];
-					}
-				}
-				
-				switch(ghost.enemyID)
-				{
-					case Game.ghostArray[0]ID:
-												
-						Game.ghostArray[0] = new Ghost(Game.ghostArray[0]SpawnX, Game.ghostArray[0]SpawnY, ghost.enemyID, -1, -1);
-						Game.ghostArray[0].eaten = true;
-						
-						break;
-						
-					case Game.ghostArray[1]ID:
-											
-						Game.ghostArray[1] = new Ghost(Game.ghostArray[1]SpawnX, Game.ghostArray[1]SpawnY, ghost.enemyID, -1, -1);
-						Game.ghostArray[1].eaten = true;
-						
-						break;
-						
-					case Game.ghostArray[2]ID:	
-						
-						Game.ghostArray[2] = new Ghost(Game.ghostArray[2]SpawnX, Game.ghostArray[2]SpawnY, ghost.enemyID, -1, -1);
-						Game.ghostArray[2].eaten = true;
-						
-						break;
-						
-					case Game.ghostArray[3]ID:
-												
-						Game.ghostArray[3] = new Ghost(Game.ghostArray[3]SpawnX, Game.ghostArray[3]SpawnY, ghost.enemyID, -1, -1);
-						Game.ghostArray[3].eaten = true;
-						
-						break;
-				}
-			}
+			Game.ghostArray[intersectedGhost] = new Ghost(ghost.spawnX, ghost.spawnY, ghost.enemyID, -1, -1);
+			Game.ghostArray[intersectedGhost].eaten = true;
 		}
 	}
-	*/	
-	public void death()
+
+	public void die()
 	{
 		new Sounds(Sounds.pacmanDeathSoundPath);
 		

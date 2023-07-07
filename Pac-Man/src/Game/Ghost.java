@@ -126,6 +126,8 @@ public class Ghost extends Rectangle
 		dir = randomGen.nextInt(4);
 			
 		enemyID = ID;
+		spawnX = x;
+		spawnY = y;
 	}
 	
 	private void setDirection(int dir)
