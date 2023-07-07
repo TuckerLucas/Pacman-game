@@ -99,29 +99,29 @@ public class Level
 							
 						case red:			
 							
-							Game.blinky.x = x*32;
-							Game.blinky.y = y*32;
+							Game.ghostArray[0].x = x*32;
+							Game.ghostArray[0].y = y*32;
 							
 							break;
 							
 						case cyan:			
 							
-							Game.inky.x = x*32;
-							Game.inky.y = y*32;
+							Game.ghostArray[1].x = x*32;
+							Game.ghostArray[1].y = y*32;
 							
 							break;
 							
 						case purple:
 							
-							Game.pinky.x = x*32;
-							Game.pinky.y = y*32;
+							Game.ghostArray[2].x = x*32;
+							Game.ghostArray[2].y = y*32;
 							
 							break;
 							
 						case orange:
 							
-							Game.clyde.x = x*32;
-							Game.clyde.y = y*32;
+							Game.ghostArray[3].x = x*32;
+							Game.ghostArray[3].y = y*32;
 							
 							break;
 							
@@ -219,10 +219,10 @@ public class Level
 		
 		// Render game characters
 		Game.pacman.render(g);
-		Game.blinky.render(g);
-		Game.inky.render(g);
-		Game.pinky.render(g);
-		Game.clyde.render(g);
+		Game.ghostArray[0].render(g);
+		Game.ghostArray[1].render(g);
+		Game.ghostArray[2].render(g);
+		Game.ghostArray[3].render(g);
 		Game.door.render(g);
 		Game.bonusScore.render(g);
 		

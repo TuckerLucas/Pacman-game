@@ -59,10 +59,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 	
 	// Game object variables
 	public static Pacman pacman;			
-	public static Ghost blinky;				// Red ghost
-	public static Ghost inky;				// Blue ghost
-	public static Ghost pinky;				// Pink ghost
-	public static Ghost clyde;				// Orange ghost
+	//public static Ghost blinky;				// Red ghost
+	//public static Ghost inky;				// Blue ghost
+	//public static Ghost pinky;				// Pink ghost
+	//public static Ghost clyde;				// Orange ghost
+	public static Ghost[] ghostArray = new Ghost[4];
 	public static Energizer energizer;
 	public static Door door;
 	public static BonusScore bonusScore;
@@ -140,6 +141,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 		addKeyListener(this);
 		gameStatus = init;			
 		new Texture();
+		ghostArray[0] = new Ghost(blinkySpawnX, blinkySpawnY, blinkyID, -1, -1);
+		ghostArray[1] = new Ghost(inkySpawnX, inkySpawnY, inkyID, -1, -1);
+		ghostArray[2] = new Ghost(pinkySpawnX, pinkySpawnY, pinkyID, -1, -1);
+		ghostArray[3] = new Ghost(clydeSpawnX, clydeSpawnY, clydeID, -1, -1); 
+		
 		
 		// Get game's highscore
     	try
@@ -200,10 +206,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 	{
 		// Load game characters
 		pacman 	= new Pacman(pacmanSpawnX, pacmanSpawnY);
-		blinky 	= new Ghost(blinkySpawnX, blinkySpawnY, blinkyID, -1, -1); 			
-		inky 	= new Ghost(inkySpawnX, inkySpawnY, inkyID, -1, -1);
-		pinky 	= new Ghost(pinkySpawnX, pinkySpawnY, pinkyID, -1, -1);
-		clyde 	= new Ghost(clydeSpawnX, clydeSpawnY, clydeID, -1, -1);
+		ghostArray[0] 	= new Ghost(blinkySpawnX, blinkySpawnY, blinkyID, -1, -1); 			
+		ghostArray[1] 	= new Ghost(inkySpawnX, inkySpawnY, inkyID, -1, -1);
+		ghostArray[2]	= new Ghost(pinkySpawnX, pinkySpawnY, pinkyID, -1, -1);
+		ghostArray[3] 	= new Ghost(clydeSpawnX, clydeSpawnY, clydeID, -1, -1);
 		
 		// Load other game objects based on game status
 		switch(gameStatus)
@@ -297,10 +303,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 			case play:
 				
 				pacman.tick();
-				blinky.tick(); 					
-				inky.tick();
-				pinky.tick();
-				clyde.tick();
+				ghostArray[0].tick(); 					
+				ghostArray[1].tick();
+				ghostArray[2].tick();
+				ghostArray[3].tick();
 				energizer.tick();
 
 				break;

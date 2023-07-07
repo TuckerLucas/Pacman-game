@@ -67,6 +67,22 @@ public class Energizer extends Rectangle
 			frameTime = 0;
 			spriteFrame++;
 		}
+		
+		// Energizer is active
+		if(Energizer.isActive == true)
+		{
+			// Energizer time over
+			if(Energizer.activeTime == Energizer.activeTargetTime)		
+			{
+				Energizer.notActive();
+				Pacman.resetEatenGhosts();
+			}
+			// Energizer time not over yet
+			else if(Energizer.activeTime < Energizer.activeTargetTime)	
+			{
+				Energizer.active();
+			}
+		}
 	}
 	
 	// Render object

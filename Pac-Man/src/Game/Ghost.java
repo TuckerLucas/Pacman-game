@@ -995,10 +995,10 @@ public class Ghost extends Rectangle
 			
 			switch(enemyID)
 			{
-				case 0: Game.blinky = new Ghost(640, 320, 0, lastDir, crossmap); break;
-				case 1: Game.inky 	= new Ghost(640, 320, 1, lastDir, crossmap); break;
-				case 2: Game.pinky 	= new Ghost(640, 320, 2, lastDir, crossmap); break;
-				case 3: Game.clyde 	= new Ghost(640, 320, 3, lastDir, crossmap); break;
+				case 0: Game.ghostArray[0] = new Ghost(640, 320, 0, lastDir, crossmap); break;
+				case 1: Game.ghostArray[1] 	= new Ghost(640, 320, 1, lastDir, crossmap); break;
+				case 2: Game.ghostArray[2] 	= new Ghost(640, 320, 2, lastDir, crossmap); break;
+				case 3: Game.ghostArray[3] 	= new Ghost(640, 320, 3, lastDir, crossmap); break;
 			}
 		}
 		else if(x == 640 && y == 320)
@@ -1008,10 +1008,10 @@ public class Ghost extends Rectangle
 
 			switch(enemyID)
 			{
-				case 0: Game.blinky = new Ghost(0, 320, 0, lastDir, crossmap); break;
-				case 1: Game.inky 	= new Ghost(0, 320, 1, lastDir, crossmap); break;
-				case 2: Game.pinky 	= new Ghost(0, 320, 2, lastDir, crossmap); break;
-				case 3: Game.clyde 	= new Ghost(0, 320, 3, lastDir, crossmap); break;
+				case 0: Game.ghostArray[0] = new Ghost(0, 320, 0, lastDir, crossmap); break;
+				case 1: Game.ghostArray[1] 	= new Ghost(0, 320, 1, lastDir, crossmap); break;
+				case 2: Game.ghostArray[2] 	= new Ghost(0, 320, 2, lastDir, crossmap); break;
+				case 3: Game.ghostArray[3] 	= new Ghost(0, 320, 3, lastDir, crossmap); break;
 			}
 		}
 	}
