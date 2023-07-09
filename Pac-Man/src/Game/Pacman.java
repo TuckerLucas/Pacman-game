@@ -33,7 +33,6 @@ public class Pacman extends Rectangle
 	private final int up    = Game.up;
 	private final int down  = Game.down;
 	
-	
 	// Constructor
 	public Pacman(int x, int y)
 	{
@@ -135,6 +134,22 @@ public class Pacman extends Rectangle
 		}
 	}
 	
+	// Check if pacman and a ghost have intersected
+		public boolean intersectedWithGhost()
+		{
+			// Iterate through the ghost array
+			for(int i = 0; i < Game.ghostArray.length; i++)
+			{
+				// Check for intersection between ghost and pacman
+				if(Game.ghostArray[i].intersects(this))
+				{	
+					return true;
+				}
+			}
+			
+			return false;
+		}
+		
 	// Manage pacman collisions with ghosts
 	public void ghostCollision()
 	{
@@ -157,8 +172,7 @@ public class Pacman extends Rectangle
 		// Energizer is not active
 		else if(Energizer.isActive == false)
 		{
-			if(Game.ghostArray[0].intersects(this) || Game.ghostArray[1].intersects(this) || 
-			   Game.ghostArray[2].intersects(this) || Game.ghostArray[3].intersects(this))										
+			if(intersectedWithGhost() == true)										
 			{
 				die();	
 			}
