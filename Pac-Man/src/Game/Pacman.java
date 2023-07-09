@@ -160,19 +160,24 @@ public class Pacman extends Rectangle
 			if(Game.ghostArray[0].intersects(this) || Game.ghostArray[1].intersects(this) || 
 			   Game.ghostArray[2].intersects(this) || Game.ghostArray[3].intersects(this))										
 			{
-				new Sounds(Sounds.pacmanDeathSoundPath);
-				
-				Game.lives--;
-			
-				if(Game.lives == 0)
-				{
-					Game.gameStatus = Game.lose;
-				}
-				else 
-				{
-					Game.gameStatus = Game.lifeLost;
-				}	
+				die();	
 			}
+		}
+	}
+	
+	private void die()
+	{
+		new Sounds(Sounds.pacmanDeathSoundPath);
+		
+		Game.lives--;
+	
+		if(Game.lives == 0)
+		{
+			Game.gameStatus = Game.lose;
+		}
+		else 
+		{
+			Game.gameStatus = Game.lifeLost;
 		}
 	}
 	
@@ -182,18 +187,7 @@ public class Pacman extends Rectangle
 		{
 			if(ghost.eaten)
 			{
-				new Sounds(Sounds.pacmanDeathSoundPath);
-				
-				Game.lives--;
-				
-				if(Game.lives == 0)
-				{
-					Game.gameStatus = Game.lose;
-				}
-				else 
-				{
-					Game.gameStatus = Game.lifeLost;
-				}
+				die();
 				
 				Energizer.isActive = false;				
 
