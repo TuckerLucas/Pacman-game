@@ -27,8 +27,6 @@ public class Pacman extends Rectangle
 	// Counter variable for number of eaten ghosts
 	public static int nEatenGhosts = 0;
 	
-	public static int intersectedGhost = -1;
-	
 	// Direction variables (for ease of reading)
 	private final int right = Game.right;
 	private final int left  = Game.left;
@@ -58,6 +56,26 @@ public class Pacman extends Rectangle
 		}
 		
 		setBounds(x,y,32,32);
+	}
+
+	// Reset all ghost's eaten state
+	public static void resetEatenGhosts()
+	{
+		Game.ghostArray[0].eaten = false;													
+		Game.ghostArray[1].eaten   = false;
+		Game.ghostArray[2].eaten  = false;
+		Game.ghostArray[3].eaten  = false;
+		
+		nEatenGhosts = 0;
+	}
+	
+	// Check for eaten ghosts
+	public void checkEatenGhosts()
+	{
+		isGhostEaten(Game.ghostArray[0]);
+		isGhostEaten(Game.ghostArray[1]);
+		isGhostEaten(Game.ghostArray[2]);
+		isGhostEaten(Game.ghostArray[3]);
 	}
 	
 	// Manage pacman collisions with food & energizers
@@ -99,17 +117,15 @@ public class Pacman extends Rectangle
 				
 				Level.energizers.remove(i);
 				
-				// Add energizer points to the score
-				Game.score += Game.energizerScore;							
+				Game.score += Game.energizerScore;							// Add energizer points to the player's score
 				
 				if(Game.score >= Game.highscore)
 				{
 					Game.highscore = Game.score;
 				}
 				
-				// Activate energizer
-				Energizer.isActive = true;					
-				Energizer.activeTime = 0;	
+				Energizer.isActive = true;					// Energizer status activated
+				Energizer.activeTime = 0;							// Reset the energizer timer
 				
 				// No ghosts eaten
 				resetEatenGhosts();
@@ -119,152 +135,162 @@ public class Pacman extends Rectangle
 		}
 	}
 	
-	// Check if pacman and a ghost have intersected
-	public boolean intersectedWithGhost()
-	{
-		// Iterate through the ghost array
-		for(int i = 0; i < Game.ghostArray.length; i++)
-		{
-			// Check for intersection between ghost and pacman
-			if(Game.ghostArray[i].intersects(this))
-			{
-				// Identify the intersected ghost
-				intersectedGhost = i;
-				
-				return true;
-			}
-		}
-		
-		return false;
-	}
-	
 	// Manage pacman collisions with ghosts
 	public void ghostCollision()
 	{
-		if(intersectedWithGhost() == true)								
+		// Energizer is active
+		if(Energizer.isActive == true)
 		{
-			/*
-			if(Game.ghostArray[intersectedGhost].eaten == true)
+			// Energizer time over
+			if(Energizer.activeTime == Energizer.activeTargetTime)		
 			{
-				eatGhost(intersectedGhost);
+				Energizer.notActive();
+				resetEatenGhosts();
 			}
-			else if(Game.ghostArray[intersectedGhost].eaten == false)
+			// Energizer time not over yet
+			else if(Energizer.activeTime < Energizer.activeTargetTime)	
 			{
-				die()
+				Energizer.active();		
+				checkEatenGhosts();
 			}
-			*/
+		}
+		// Energizer is not active
+		else if(Energizer.isActive == false)
+		{
+			if(Game.ghostArray[0].intersects(this) || Game.ghostArray[1].intersects(this) || 
+			   Game.ghostArray[2].intersects(this) || Game.ghostArray[3].intersects(this))										
+			{
+				new Sounds(Sounds.pacmanDeathSoundPath);
+				
+				Game.lives--;
 			
-			if(Energizer.isActive == true)
-			{
-				isGhostEaten(Game.ghostArray[intersectedGhost]);
-			}
-			else if(Energizer.isActive == false)
-			{
-				die();
+				if(Game.lives == 0)
+				{
+					Game.gameStatus = Game.lose;
+				}
+				else 
+				{
+					Game.gameStatus = Game.lifeLost;
+				}	
 			}
 		}
-	}
-	
-	// Reset all ghost's eaten state
-	public static void resetEatenGhosts()
-	{
-		for(int i = 0; i < Game.ghostArray.length; i++)
-		{
-			Game.ghostArray[i].eaten = false;
-		}
-		
-		nEatenGhosts = 0;
 	}
 	
 	public void isGhostEaten(Ghost ghost)
 	{
-		if(ghost.eaten == true)
+		if(ghost.intersects(this))
 		{
-			die();
-			
-			Energizer.isActive = false;				
-
-			resetEatenGhosts();
-			
-			Energizer.activeTime = 0;	
-			
-			BonusScore.display = false;
-		}
-		else
-		{
-			new Sounds(Sounds.ghostEatenSoundPath);
-			
-			nEatenGhosts++;
-			
-			Game.xEvent = x;
-			Game.yEvent = y;
-			BonusScore.display = true;
-
-			switch(Pacman.nEatenGhosts)
+			if(ghost.eaten)
 			{
-				case 1: 
-						Game.score = Game.score + 200;
-						Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine2, 
-						32, Texture.spriteSize);
-						Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine6, 
-						32, Texture.spriteSize);
-						break;
-				case 2: 
-						Game.score = Game.score + 400; 
-						Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine3, 
-						32, Texture.spriteSize);
-						Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine7, 
-						32, Texture.spriteSize);
-						break;
-				case 3: 
-						Game.score = Game.score + 800;  
-						Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine4, 
-						32, Texture.spriteSize);
-						Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine8, 
-						32, Texture.spriteSize);
-						break;
-				case 4: 
-						Game.score = Game.score + 1600; 
-						Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine5, 
-						32, Texture.spriteSize);
-						Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine9, 
-						32, Texture.spriteSize);
-						break;
+				new Sounds(Sounds.pacmanDeathSoundPath);
+				
+				Game.lives--;
+				
+				if(Game.lives == 0)
+				{
+					Game.gameStatus = Game.lose;
+				}
+				else 
+				{
+					Game.gameStatus = Game.lifeLost;
+				}
+				
+				Energizer.isActive = false;				
+
+				resetEatenGhosts();
+				
+				Energizer.activeTime = 0;	
+				
+				BonusScore.display = false;
 			}
-		
-			for(int i = 2; i < Texture.bonusScore.length; i++)
+			else
 			{
-				if(i % 2 == 0)
+				new Sounds(Sounds.ghostEatenSoundPath);
+				
+				nEatenGhosts++;
+				
+				Game.xEvent = x;
+				Game.yEvent = y;
+				BonusScore.display = true;
+				
+				switch(nEatenGhosts)
 				{
-					Texture.bonusScore[i] = Texture.bonusScore[0];
+					case 1: 
+							Game.score = Game.score + 200;
+							Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine2, 
+							32, Texture.spriteSize);
+							Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine6, 
+							32, Texture.spriteSize);
+							break;
+					case 2: 
+							Game.score = Game.score + 400; 
+							Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine3, 
+							32, Texture.spriteSize);
+							Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine7, 
+							32, Texture.spriteSize);
+							break;
+					case 3: 
+							Game.score = Game.score + 800;  
+							Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine4, 
+							32, Texture.spriteSize);
+							Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine8, 
+							32, Texture.spriteSize);
+							break;
+					case 4: 
+							Game.score = Game.score + 1600; 
+							Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine5, 
+							32, Texture.spriteSize);
+							Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine9, 
+							32, Texture.spriteSize);
+							break;
 				}
-				else
+			
+				for(int i = 2; i < Texture.bonusScore.length; i++)
 				{
-					Texture.bonusScore[i] = Texture.bonusScore[1];
+					if(i % 2 == 0)
+					{
+						Texture.bonusScore[i] = Texture.bonusScore[0];
+					}
+					else
+					{
+						Texture.bonusScore[i] = Texture.bonusScore[1];
+					}
+				}
+				
+				switch(ghost.enemyID)
+				{
+					case Game.blinkyID:
+												
+						Game.ghostArray[0] = new Ghost(Game.blinkySpawnX, Game.blinkySpawnY, ghost.enemyID, -1, -1);
+						Game.ghostArray[0].eaten = true;
+						
+						break;
+						
+					case Game.inkyID:
+											
+						Game.ghostArray[1] = new Ghost(Game.inkySpawnX, Game.inkySpawnY, ghost.enemyID, -1, -1);
+						Game.ghostArray[1].eaten = true;
+						
+						break;
+						
+					case Game.pinkyID:	
+						
+						Game.ghostArray[2] = new Ghost(Game.pinkySpawnX, Game.pinkySpawnY, ghost.enemyID, -1, -1);
+						Game.ghostArray[2].eaten = true;
+						
+						break;
+						
+					case Game.clydeID:
+												
+						Game.ghostArray[3] = new Ghost(Game.clydeSpawnX, Game.clydeSpawnY, ghost.enemyID, -1, -1);
+						Game.ghostArray[3].eaten = true;
+						
+						break;
 				}
 			}
-			
-			Game.ghostArray[intersectedGhost] = new Ghost(ghost.spawnX, ghost.spawnY, ghost.enemyID, -1, -1);
-			Game.ghostArray[intersectedGhost].eaten = true;
 		}
 	}
-
-	public void die()
-	{
-		new Sounds(Sounds.pacmanDeathSoundPath);
 		
-		Game.lives--;
-	
-		if(Game.lives == 0)
-		{
-			Game.gameStatus = Game.lose;
-		}
-		else 
-		{
-			Game.gameStatus = Game.lifeLost;
-		}
-	}
-	
 	public void portalCrossing()
 	{
 		// Pacman going through the left portal
