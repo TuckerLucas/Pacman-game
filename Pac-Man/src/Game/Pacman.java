@@ -60,10 +60,10 @@ public class Pacman extends Rectangle
 	// Reset all ghost's eaten state
 	public static void resetEatenGhosts()
 	{
-		Game.ghostArray[0].eaten = false;													
-		Game.ghostArray[1].eaten   = false;
-		Game.ghostArray[2].eaten  = false;
-		Game.ghostArray[3].eaten  = false;
+		for(int i = 0; i < Game.ghostArray.length; i++)
+		{
+			Game.ghostArray[i].eaten = false;
+		}
 		
 		nEatenGhosts = 0;
 	}
@@ -135,20 +135,20 @@ public class Pacman extends Rectangle
 	}
 	
 	// Check if pacman and a ghost have intersected
-		public boolean intersectedWithGhost()
+	public boolean intersectedWithGhost()
+	{
+		// Iterate through the ghost array
+		for(int i = 0; i < Game.ghostArray.length; i++)
 		{
-			// Iterate through the ghost array
-			for(int i = 0; i < Game.ghostArray.length; i++)
-			{
-				// Check for intersection between ghost and pacman
-				if(Game.ghostArray[i].intersects(this))
-				{	
-					return true;
-				}
+			// Check for intersection between ghost and pacman
+			if(Game.ghostArray[i].intersects(this))
+			{	
+				return true;
 			}
-			
-			return false;
 		}
+		
+		return false;
+	}
 		
 	// Manage pacman collisions with ghosts
 	public void ghostCollision()
