@@ -71,10 +71,10 @@ public class Pacman extends Rectangle
 	// Check for eaten ghosts
 	public void checkEatenGhosts()
 	{
-		isGhostEaten(Game.ghostArray[0]);
-		isGhostEaten(Game.ghostArray[1]);
-		isGhostEaten(Game.ghostArray[2]);
-		isGhostEaten(Game.ghostArray[3]);
+		for(int i = 0; i < Game.ghostArray.length; i++)
+		{
+			isGhostEaten(Game.ghostArray[i]);
+		}
 	}
 	
 	// Manage pacman collisions with food & energizers
