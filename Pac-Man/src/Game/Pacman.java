@@ -33,6 +33,8 @@ public class Pacman extends Rectangle
 	private final int up    = Game.up;
 	private final int down  = Game.down;
 	
+	private int intersectedGhost = -1;
+	
 	// Constructor
 	public Pacman(int x, int y)
 	{
@@ -143,6 +145,7 @@ public class Pacman extends Rectangle
 			// Check for intersection between ghost and pacman
 			if(Game.ghostArray[i].intersects(this))
 			{	
+				intersectedGhost = i;
 				return true;
 			}
 		}
@@ -153,30 +156,33 @@ public class Pacman extends Rectangle
 	// Manage pacman collisions with ghosts
 	public void ghostCollision()
 	{
-		// Energizer is active
-		if(Energizer.isActive == true)
+		// Check for collision between pacman and ghost
+		if(intersectedWithGhost() == true)
 		{
-			// Energizer time over
-			if(Energizer.activeTime == Energizer.activeTargetTime)		
+			// Check if energizer is active
+			if(Energizer.isActive == true)
 			{
-				Energizer.notActive();
-				resetEatenGhosts();
+				// Check if ghost ha
+				if(Game.ghostArray[intersectedGhost].eaten == true)
+				{
+					die();
+				}
+				else if(Game.ghostArray[intersectedGhost].eaten == false)
+				{
+					eatGhost();
+				}
 			}
-			// Energizer time not over yet
-			else if(Energizer.activeTime < Energizer.activeTargetTime)	
+			else if(Energizer.isActive == false)
 			{
-				Energizer.active();		
-				checkEatenGhosts();
+				die();
 			}
 		}
-		// Energizer is not active
-		else if(Energizer.isActive == false)
-		{
-			if(intersectedWithGhost() == true)										
-			{
-				die();	
-			}
-		}
+	}
+	
+	private void eatGhost()
+	{
+		Game.ghostArray[intersectedGhost] = new Ghost(Game.blinkySpawnX, Game.blinkySpawnY, intersectedGhost, -1, -1);
+		Game.ghostArray[intersectedGhost].eaten = true;
 	}
 	
 	private void die()
@@ -193,6 +199,14 @@ public class Pacman extends Rectangle
 		{
 			Game.gameStatus = Game.lifeLost;
 		}
+		
+		Energizer.isActive = false;				
+
+		resetEatenGhosts();
+		
+		Energizer.activeTime = 0;	
+		
+		BonusScore.display = false;
 	}
 	
 	public void isGhostEaten(Ghost ghost)
@@ -202,14 +216,6 @@ public class Pacman extends Rectangle
 			if(ghost.eaten)
 			{
 				die();
-				
-				Energizer.isActive = false;				
-
-				resetEatenGhosts();
-				
-				Energizer.activeTime = 0;	
-				
-				BonusScore.display = false;
 			}
 			else
 			{
