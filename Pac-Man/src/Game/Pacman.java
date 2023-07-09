@@ -70,15 +70,6 @@ public class Pacman extends Rectangle
 		nEatenGhosts = 0;
 	}
 	
-	// Check for eaten ghosts
-	public void checkEatenGhosts()
-	{
-		for(int i = 0; i < Game.ghostArray.length; i++)
-		{
-			isGhostEaten(Game.ghostArray[i]);
-		}
-	}
-	
 	// Manage pacman collisions with food & energizers
 	public void foodCollision()
 	{
@@ -181,6 +172,58 @@ public class Pacman extends Rectangle
 	
 	private void eatGhost()
 	{
+		new Sounds(Sounds.ghostEatenSoundPath);
+		
+		nEatenGhosts++;
+		
+		Game.xEvent = x;
+		Game.yEvent = y;
+		BonusScore.display = true;
+		
+		switch(nEatenGhosts)
+		{
+			case 1: 
+					Game.score = Game.score + 200;
+					Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine2, 
+					32, Texture.spriteSize);
+					Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine6, 
+					32, Texture.spriteSize);
+					break;
+			case 2: 
+					Game.score = Game.score + 400; 
+					Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine3, 
+					32, Texture.spriteSize);
+					Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine7, 
+					32, Texture.spriteSize);
+					break;
+			case 3: 
+					Game.score = Game.score + 800;  
+					Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine4, 
+					32, Texture.spriteSize);
+					Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine8, 
+					32, Texture.spriteSize);
+					break;
+			case 4: 
+					Game.score = Game.score + 1600; 
+					Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine5, 
+					32, Texture.spriteSize);
+					Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine9, 
+					32, Texture.spriteSize);
+					break;
+		}
+	
+		for(int i = 2; i < Texture.bonusScore.length; i++)
+		{
+			if(i % 2 == 0)
+			{
+				Texture.bonusScore[i] = Texture.bonusScore[0];
+			}
+			else
+			{
+				Texture.bonusScore[i] = Texture.bonusScore[1];
+			}
+		}
+		
 		Game.ghostArray[intersectedGhost] = new Ghost(Game.blinkySpawnX, Game.blinkySpawnY, intersectedGhost, -1, -1);
 		Game.ghostArray[intersectedGhost].eaten = true;
 	}
@@ -209,101 +252,7 @@ public class Pacman extends Rectangle
 		BonusScore.display = false;
 	}
 	
-	public void isGhostEaten(Ghost ghost)
-	{
-		if(ghost.intersects(this))
-		{
-			if(ghost.eaten)
-			{
-				die();
-			}
-			else
-			{
-				new Sounds(Sounds.ghostEatenSoundPath);
-				
-				nEatenGhosts++;
-				
-				Game.xEvent = x;
-				Game.yEvent = y;
-				BonusScore.display = true;
-				
-				switch(nEatenGhosts)
-				{
-					case 1: 
-							Game.score = Game.score + 200;
-							Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine2, 
-							32, Texture.spriteSize);
-							Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine6, 
-							32, Texture.spriteSize);
-							break;
-					case 2: 
-							Game.score = Game.score + 400; 
-							Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine3, 
-							32, Texture.spriteSize);
-							Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine7, 
-							32, Texture.spriteSize);
-							break;
-					case 3: 
-							Game.score = Game.score + 800;  
-							Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine4, 
-							32, Texture.spriteSize);
-							Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine8, 
-							32, Texture.spriteSize);
-							break;
-					case 4: 
-							Game.score = Game.score + 1600; 
-							Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine5, 
-							32, Texture.spriteSize);
-							Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine9, 
-							32, Texture.spriteSize);
-							break;
-				}
-			
-				for(int i = 2; i < Texture.bonusScore.length; i++)
-				{
-					if(i % 2 == 0)
-					{
-						Texture.bonusScore[i] = Texture.bonusScore[0];
-					}
-					else
-					{
-						Texture.bonusScore[i] = Texture.bonusScore[1];
-					}
-				}
-				
-				switch(ghost.enemyID)
-				{
-					case Game.blinkyID:
-												
-						Game.ghostArray[0] = new Ghost(Game.blinkySpawnX, Game.blinkySpawnY, ghost.enemyID, -1, -1);
-						Game.ghostArray[0].eaten = true;
-						
-						break;
-						
-					case Game.inkyID:
-											
-						Game.ghostArray[1] = new Ghost(Game.inkySpawnX, Game.inkySpawnY, ghost.enemyID, -1, -1);
-						Game.ghostArray[1].eaten = true;
-						
-						break;
-						
-					case Game.pinkyID:	
-						
-						Game.ghostArray[2] = new Ghost(Game.pinkySpawnX, Game.pinkySpawnY, ghost.enemyID, -1, -1);
-						Game.ghostArray[2].eaten = true;
-						
-						break;
-						
-					case Game.clydeID:
-												
-						Game.ghostArray[3] = new Ghost(Game.clydeSpawnX, Game.clydeSpawnY, ghost.enemyID, -1, -1);
-						Game.ghostArray[3].eaten = true;
-						
-						break;
-				}
-			}
-		}
-	}
+	
 		
 	public void portalCrossing()
 	{
