@@ -153,20 +153,17 @@ public class Pacman extends Rectangle
 			// Check if energizer is active
 			if(Energizer.isActive == true)
 			{
-				// Check if ghost ha
-				if(Game.ghostArray[intersectedGhost].eaten == true)
+				// Check if ghost hasn't been eaten yet
+				if(Game.ghostArray[intersectedGhost].eaten == false)
 				{
-					die();
-				}
-				else if(Game.ghostArray[intersectedGhost].eaten == false)
-				{
+					// Eat the ghost
 					eatGhost();
+					
+					return;
 				}
 			}
-			else if(Energizer.isActive == false)
-			{
-				die();
-			}
+			
+			die();
 		}
 	}
 	
@@ -174,10 +171,14 @@ public class Pacman extends Rectangle
 	{
 		new Sounds(Sounds.ghostEatenSoundPath);
 		
+		Game.ghostArray[intersectedGhost] = new Ghost(Game.blinkySpawnX, Game.blinkySpawnY, intersectedGhost, -1, -1);
+		Game.ghostArray[intersectedGhost].eaten = true;
+		
 		nEatenGhosts++;
 		
 		Game.xEvent = x;
 		Game.yEvent = y;
+		
 		BonusScore.display = true;
 		
 		switch(nEatenGhosts)
@@ -211,7 +212,7 @@ public class Pacman extends Rectangle
 					32, Texture.spriteSize);
 					break;
 		}
-	
+		
 		for(int i = 2; i < Texture.bonusScore.length; i++)
 		{
 			if(i % 2 == 0)
@@ -223,9 +224,6 @@ public class Pacman extends Rectangle
 				Texture.bonusScore[i] = Texture.bonusScore[1];
 			}
 		}
-		
-		Game.ghostArray[intersectedGhost] = new Ghost(Game.blinkySpawnX, Game.blinkySpawnY, intersectedGhost, -1, -1);
-		Game.ghostArray[intersectedGhost].eaten = true;
 	}
 	
 	private void die()
