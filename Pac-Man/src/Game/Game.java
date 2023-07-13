@@ -138,10 +138,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 		gameStatus = init;			
 		new Texture();
 		
-		ghostArray[0] = new Ghost(blinkySpawnX, blinkySpawnY, blinkyID, -1, -1);
-		ghostArray[1] = new Ghost(inkySpawnX, inkySpawnY, inkyID, -1, -1);
-		ghostArray[2] = new Ghost(pinkySpawnX, pinkySpawnY, pinkyID, -1, -1);
-		ghostArray[3] = new Ghost(clydeSpawnX, clydeSpawnY, clydeID, -1, -1);
+		ghostArray[0] = new Ghost(blinkySpawnX, blinkySpawnY, blinkyID, -1, -1, false);
+		ghostArray[1] = new Ghost(inkySpawnX, inkySpawnY, inkyID, -1, -1, false);
+		ghostArray[2] = new Ghost(pinkySpawnX, pinkySpawnY, pinkyID, -1, -1, false);
+		ghostArray[3] = new Ghost(clydeSpawnX, clydeSpawnY, clydeID, -1, -1, false);
 		
 		// Get game's highscore
     	try
@@ -201,11 +201,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 	private void loadGameElements()
 	{
 		// Load game characters
-		pacman 	= new Pacman(pacmanSpawnX, pacmanSpawnY);
-		ghostArray[0] 	= new Ghost(blinkySpawnX, blinkySpawnY, blinkyID, -1, -1); 			
-		ghostArray[1] 	= new Ghost(inkySpawnX, inkySpawnY, inkyID, -1, -1);
-		ghostArray[2] 	= new Ghost(pinkySpawnX, pinkySpawnY, pinkyID, -1, -1);
-		ghostArray[3] 	= new Ghost(clydeSpawnX, clydeSpawnY, clydeID, -1, -1);
+		pacman 			= new Pacman(pacmanSpawnX, pacmanSpawnY);
+		ghostArray[0] 	= new Ghost(blinkySpawnX, blinkySpawnY, blinkyID, -1, -1, false); 			
+		ghostArray[1] 	= new Ghost(inkySpawnX, inkySpawnY, inkyID, -1, -1, false);
+		ghostArray[2] 	= new Ghost(pinkySpawnX, pinkySpawnY, pinkyID, -1, -1, false);
+		ghostArray[3] 	= new Ghost(clydeSpawnX, clydeSpawnY, clydeID, -1, -1, false);
 		
 		// Load other game objects based on game status
 		switch(gameStatus)
@@ -332,7 +332,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 				Energizer.isActive = false;				
 
-				Pacman.resetEatenGhosts();
+				Pacman.makeGhostsVulnerable();
 				
 				Energizer.activeTime = 0;
 				
@@ -408,6 +408,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 		{
 			BonusScore.animationTime = 0;
 			Texture.animationPhaseBonusScore++;
+		}
+		
+		if(Game.score >= Game.highscore)
+		{
+			Game.highscore = Game.score;
 		}
 	}
 	

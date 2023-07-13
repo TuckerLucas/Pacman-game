@@ -60,11 +60,11 @@ public class Pacman extends Rectangle
 	}
 
 	// Reset all ghost's eaten state
-	public static void resetEatenGhosts()
+	public static void makeGhostsVulnerable()
 	{
 		for(int i = 0; i < Game.ghostArray.length; i++)
 		{
-			Game.ghostArray[i].eaten = false;
+			Game.ghostArray[i].isVulnerable = true;
 		}
 		
 		nEatenGhosts = 0;
@@ -85,16 +85,7 @@ public class Pacman extends Rectangle
 		{            
 			if(this.intersects(Level.food.get(i)))							
 			{
-				new Sounds(Sounds.pacmanEatingSoundPath);
-				
-				Level.food.remove(i);	
-				
-				Game.score += Game.foodScore;
-				
-				if(Game.score >= Game.highscore)
-				{
-					Game.highscore = Game.score;
-				}
+				Food.eaten(i);
 				
 				break;
 			}
@@ -105,22 +96,8 @@ public class Pacman extends Rectangle
 		{			
 			if(this.intersects(Level.energizers.get(i)))						
 			{	
-				new Sounds(Sounds.energizerSoundPath);
-				
-				Level.energizers.remove(i);
-				
-				Game.score += Game.energizerScore;							// Add energizer points to the player's score
-				
-				if(Game.score >= Game.highscore)
-				{
-					Game.highscore = Game.score;
-				}
-				
-				Energizer.isActive = true;					// Energizer status activated
-				Energizer.activeTime = 0;							// Reset the energizer timer
-				
-				// No ghosts eaten
-				resetEatenGhosts();
+				// Activate the energizer
+				Energizer.activate(i);							
 				
 				break;
 			}
@@ -154,7 +131,7 @@ public class Pacman extends Rectangle
 			if(Energizer.isActive == true)
 			{
 				// Check if ghost hasn't been eaten yet
-				if(Game.ghostArray[intersectedGhost].eaten == false)
+				if(Game.ghostArray[intersectedGhost].isVulnerable == true)
 				{
 					// Eat the ghost
 					eatGhost();
@@ -171,15 +148,14 @@ public class Pacman extends Rectangle
 	{
 		new Sounds(Sounds.ghostEatenSoundPath);
 		
-		Game.ghostArray[intersectedGhost] = new Ghost(Game.blinkySpawnX, Game.blinkySpawnY, intersectedGhost, -1, -1);
-		Game.ghostArray[intersectedGhost].eaten = true;
-		
-		nEatenGhosts++;
+		Game.ghostArray[intersectedGhost] = new Ghost(Game.blinkySpawnX, Game.blinkySpawnY, intersectedGhost, -1, -1, false);
 		
 		Game.xEvent = x;
 		Game.yEvent = y;
 		
 		BonusScore.display = true;
+		
+		nEatenGhosts++;
 		
 		switch(nEatenGhosts)
 		{
@@ -210,6 +186,7 @@ public class Pacman extends Rectangle
 					32, Texture.spriteSize);
 					Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn9, Texture.spriteLine9, 
 					32, Texture.spriteSize);
+					Energizer.deactivate();
 					break;
 		}
 		
@@ -242,8 +219,6 @@ public class Pacman extends Rectangle
 		}
 		
 		Energizer.isActive = false;				
-
-		resetEatenGhosts();
 		
 		Energizer.activeTime = 0;	
 		

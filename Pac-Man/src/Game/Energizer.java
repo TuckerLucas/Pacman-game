@@ -26,7 +26,7 @@ public class Energizer extends Rectangle
 	private int spriteTargetFrame = 2;	// Array index of last frame of the animation 
 	
 	public static int activeTime = 0; 
-	public static int activeTargetTime = 60*8;
+	public static int activeTargetTime = 60*200;
 	
 	public static boolean flash = false;
 	public static boolean isActive = false;
@@ -37,24 +37,24 @@ public class Energizer extends Rectangle
 		setBounds(x+2,y+2,28,28);
 	}
 	
-	public static void active()
+	public static void activate(int energizer)
 	{
-		if(activeTime >= Ghost.flashTime)
-		{
-			flash = true;
-		}
-		else if(activeTime < Ghost.flashTime)
-		{
-			flash = false;
-		}
+		new Sounds(Sounds.energizerSoundPath);
 		
-		activeTime++;	
+		Energizer.isActive = true;					
+		Energizer.activeTime = 0;
+		
+		Level.energizers.remove(energizer);
+		
+		Game.score += Game.energizerScore;
+		
+		// Make ghosts vulnerable
+		Pacman.makeGhostsVulnerable();
 	}
 	
-	public static void notActive()
+	public static void deactivate()
 	{
-		activeTime = 0;
-		isActive   = false;
+		Energizer.isActive = false;
 	}
 	
 	// Manage animation time
@@ -74,13 +74,22 @@ public class Energizer extends Rectangle
 			// Energizer time over
 			if(Energizer.activeTime == Energizer.activeTargetTime)		
 			{
-				Energizer.notActive();
-				Pacman.resetEatenGhosts();
+				activeTime = 0;
+				isActive   = false;
 			}
 			// Energizer time not over yet
 			else if(Energizer.activeTime < Energizer.activeTargetTime)	
 			{
-				Energizer.active();
+				if(activeTime >= Ghost.flashTime)
+				{
+					flash = true;
+				}
+				else if(activeTime < Ghost.flashTime)
+				{
+					flash = false;
+				}
+				
+				activeTime++;
 			}
 		}
 	}

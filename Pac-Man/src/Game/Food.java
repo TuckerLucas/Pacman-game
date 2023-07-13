@@ -26,6 +26,15 @@ public class Food extends Rectangle
 		setBounds(x+12,y+12,8,8);			
 	}
 	
+	public static void eaten(int food)
+	{
+		new Sounds(Sounds.pacmanEatingSoundPath);
+		
+		Level.food.remove(food);	
+		
+		Game.score += Game.foodScore;
+	}
+	
 	// Render object
 	public void render(Graphics g)
 	{
