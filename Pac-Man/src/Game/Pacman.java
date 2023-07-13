@@ -140,7 +140,6 @@ public class Pacman extends Rectangle
 				}
 			}
 			
-			// Pacman dead
 			die();
 		}
 	}
