@@ -41,7 +41,7 @@ public class Energizer extends Rectangle
 	{
 		new Sounds(Sounds.energizerSoundPath);
 		
-		Energizer.isActive = true;					
+		Energizer.isActive = true;	
 		Energizer.activeTime = 0;
 		
 		Level.energizers.remove(energizer);
@@ -54,6 +54,7 @@ public class Energizer extends Rectangle
 	
 	public static void deactivate()
 	{
+		Energizer.activeTime = 0;
 		Energizer.isActive = false;
 	}
 	
@@ -74,8 +75,7 @@ public class Energizer extends Rectangle
 			// Energizer time over
 			if(Energizer.activeTime == Energizer.activeTargetTime)		
 			{
-				activeTime = 0;
-				isActive   = false;
+				deactivate();
 			}
 			// Energizer time not over yet
 			else if(Energizer.activeTime < Energizer.activeTargetTime)	

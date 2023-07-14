@@ -218,9 +218,7 @@ public class Pacman extends Rectangle
 			Game.gameStatus = Game.lifeLost;
 		}
 		
-		Energizer.isActive = false;				
-		
-		Energizer.activeTime = 0;	
+		Energizer.deactivate();		
 		
 		BonusScore.display = false;
 	}

@@ -386,7 +386,7 @@ public class Ghost extends Rectangle
 		{
 			if((difx < radius && difx > -radius) && (dify < radius && dify > -radius))
 			{
-				if(Energizer.isActive == false && !inBox())
+				if(isVulnerable == false && !inBox())
 				{
 					ghostMovement = smart;
 				}
