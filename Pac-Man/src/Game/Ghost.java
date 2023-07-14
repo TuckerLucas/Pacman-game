@@ -20,6 +20,16 @@ public class Ghost extends Rectangle
 {
 	private static final long serialVersionUID = 1L;
 
+	// Ghost spawn coordinate variables
+	public static int blinkySpawnX = 320;
+	public static int blinkySpawnY = 256;
+	public static int inkySpawnX   = 288;
+	public static int inkySpawnY   = 320;
+	public static int pinkySpawnX  = 320;
+	public static int pinkySpawnY  = 320;
+	public static int clydeSpawnX  = 352;
+	public static int clydeSpawnY  = 320;
+	
 	private int spd = 2;
 	
 	private Random randomGen;
@@ -86,12 +96,47 @@ public class Ghost extends Rectangle
 	public int spawnY;
 	
 	// Constructor
-	public Ghost(int x, int y, int ID, int ld, int cm, boolean iV)
+	public Ghost(int ID, int ld, int cm, boolean iV)
 	{	
-		setBounds(x,y,32,32);
+		crossmap = cm;
+		enemyID = ID;
+
+		if(crossmap == -1)
+		{
+			switch(enemyID)
+			{
+				case 0:
+					spawnX = blinkySpawnX;
+					spawnY = blinkySpawnY;
+					break;
+				case 1:
+					spawnX = inkySpawnX;
+					spawnY = inkySpawnY;
+					break;
+				case 2:
+					spawnX = pinkySpawnX;
+					spawnY = pinkySpawnY;
+					break;
+				case 3:
+					spawnX = clydeSpawnX;
+					spawnY = clydeSpawnY;
+					break;
+			}
+			
+			setBounds(spawnX,spawnY,32,32);
+		}
+		else if(crossmap == left)
+		{
+			setBounds(640,320,32,32);
+		}
+		else if(crossmap == right)
+		{
+			setBounds(0,320,32,32);
+		}
+
 		
 		lastDir = ld;
-		crossmap = cm;
+		
 		isVulnerable = iV;
 		
 		switch(Game.difficulty)
@@ -126,7 +171,7 @@ public class Ghost extends Rectangle
 		randomGen = new Random();
 		dir = randomGen.nextInt(4);
 			
-		enemyID = ID;
+		
 	}
 	
 	private void setDirection(int dir)
@@ -996,10 +1041,10 @@ public class Ghost extends Rectangle
 			
 			switch(enemyID)
 			{
-				case 0: Game.ghostArray[0] = new Ghost(640, 320, 0, lastDir, crossmap, isVulnerable); break;
-				case 1: Game.ghostArray[1] 	= new Ghost(640, 320, 1, lastDir, crossmap, isVulnerable); break;
-				case 2: Game.ghostArray[2] 	= new Ghost(640, 320, 2, lastDir, crossmap, isVulnerable); break;
-				case 3: Game.ghostArray[3] 	= new Ghost(640, 320, 3, lastDir, crossmap, isVulnerable); break;
+				case 0: Game.ghostArray[0] = new Ghost(0, lastDir, crossmap, isVulnerable); break;
+				case 1: Game.ghostArray[1] 	= new Ghost(1, lastDir, crossmap, isVulnerable); break;
+				case 2: Game.ghostArray[2] 	= new Ghost(2, lastDir, crossmap, isVulnerable); break;
+				case 3: Game.ghostArray[3] 	= new Ghost(3, lastDir, crossmap, isVulnerable); break;
 			}
 		}
 		else if(x == 640 && y == 320)
@@ -1009,10 +1054,10 @@ public class Ghost extends Rectangle
 
 			switch(enemyID)
 			{
-				case 0: Game.ghostArray[0] = new Ghost(0, 320, 0, lastDir, crossmap, isVulnerable); break;
-				case 1: Game.ghostArray[1] 	= new Ghost(0, 320, 1, lastDir, crossmap, isVulnerable); break;
-				case 2: Game.ghostArray[2] 	= new Ghost(0, 320, 2, lastDir, crossmap, isVulnerable); break;
-				case 3: Game.ghostArray[3] 	= new Ghost(0, 320, 3, lastDir, crossmap, isVulnerable); break;
+				case 0: Game.ghostArray[0] = new Ghost(0, lastDir, crossmap, isVulnerable); break;
+				case 1: Game.ghostArray[1] 	= new Ghost(1, lastDir, crossmap, isVulnerable); break;
+				case 2: Game.ghostArray[2] 	= new Ghost(2, lastDir, crossmap, isVulnerable); break;
+				case 3: Game.ghostArray[3] 	= new Ghost(3, lastDir, crossmap, isVulnerable); break;
 			}
 		}
 	}

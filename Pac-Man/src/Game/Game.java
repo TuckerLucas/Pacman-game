@@ -68,16 +68,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 	// Pacman spawn coordinate variables
 	public static int pacmanSpawnX = 192;
 	public static int pacmanSpawnY = 512;
-	
-	// Ghost spawn coordinate variables
-	public static int blinkySpawnX = 320;
-	public static int blinkySpawnY = 256;
-	public static int inkySpawnX   = 288;
-	public static int inkySpawnY   = 320;
-	public static int pinkySpawnX  = 320;
-	public static int pinkySpawnY  = 320;
-	public static int clydeSpawnX  = 352;
-	public static int clydeSpawnY  = 320;
 
 	// Pacman lives variable
 	public static int lives = 3;
@@ -138,10 +128,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 		gameStatus = init;			
 		new Texture();
 		
-		ghostArray[0] = new Ghost(blinkySpawnX, blinkySpawnY, blinkyID, -1, -1, false);
-		ghostArray[1] = new Ghost(inkySpawnX, inkySpawnY, inkyID, -1, -1, false);
-		ghostArray[2] = new Ghost(pinkySpawnX, pinkySpawnY, pinkyID, -1, -1, false);
-		ghostArray[3] = new Ghost(clydeSpawnX, clydeSpawnY, clydeID, -1, -1, false);
+		ghostArray[0] = new Ghost(0, -1, -1, false);
+		ghostArray[1] = new Ghost(1, -1, -1, false);
+		ghostArray[2] = new Ghost(2, -1, -1, false);
+		ghostArray[3] = new Ghost(3, -1, -1, false);
 		
 		// Get game's highscore
     	try
@@ -202,10 +192,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 	{
 		// Load game characters
 		pacman 			= new Pacman(pacmanSpawnX, pacmanSpawnY);
-		ghostArray[0] 	= new Ghost(blinkySpawnX, blinkySpawnY, blinkyID, -1, -1, false); 			
-		ghostArray[1] 	= new Ghost(inkySpawnX, inkySpawnY, inkyID, -1, -1, false);
-		ghostArray[2] 	= new Ghost(pinkySpawnX, pinkySpawnY, pinkyID, -1, -1, false);
-		ghostArray[3] 	= new Ghost(clydeSpawnX, clydeSpawnY, clydeID, -1, -1, false);
+		ghostArray[0] 	= new Ghost(0, -1, -1, false); 			
+		ghostArray[1] 	= new Ghost(1, -1, -1, false);
+		ghostArray[2] 	= new Ghost(2, -1, -1, false);
+		ghostArray[3] 	= new Ghost(3, -1, -1, false);
 		
 		// Load other game objects based on game status
 		switch(gameStatus)
@@ -360,6 +350,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				LeaderboardPanel.write_to_file();
 				
 				BonusScore.display = false;
+				
 				lives = 3;
 				
 				if(score >= highscore)
@@ -398,6 +389,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				BonusScore.display = false;
 				loadGameElements();
 				gameStatus = play;
+				Energizer.deactivate();
 				
 				break;
 		}

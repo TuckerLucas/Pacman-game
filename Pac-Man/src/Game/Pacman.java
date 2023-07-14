@@ -59,7 +59,7 @@ public class Pacman extends Rectangle
 		setBounds(x,y,32,32);
 	}
 
-	// Reset all ghost's eaten state
+	// Turn all ghosts vulnerable
 	public static void makeGhostsVulnerable()
 	{
 		for(int i = 0; i < Game.ghostArray.length; i++)
@@ -143,18 +143,23 @@ public class Pacman extends Rectangle
 			die();
 		}
 	}
-	
+
+	// Make pacman eat intersected ghost
 	private void eatGhost()
 	{
 		new Sounds(Sounds.ghostEatenSoundPath);
 		
-		Game.ghostArray[intersectedGhost] = new Ghost(Game.blinkySpawnX, Game.blinkySpawnY, intersectedGhost, -1, -1, false);
+		// Respawn eaten ghost
+		Game.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, -1, -1, false);
 		
-		Game.xEvent = x;
+		// Capture the event coordinates
+		Game.xEvent = x; 
 		Game.yEvent = y;
 		
+		// Display bonus score 
 		BonusScore.display = true;
 		
+		// Increment the number of eaten ghosts
 		nEatenGhosts++;
 		
 		switch(nEatenGhosts)
@@ -216,11 +221,7 @@ public class Pacman extends Rectangle
 		else 
 		{
 			Game.gameStatus = Game.lifeLost;
-		}
-		
-		Energizer.deactivate();		
-		
-		BonusScore.display = false;
+		}		
 	}
 	
 	
