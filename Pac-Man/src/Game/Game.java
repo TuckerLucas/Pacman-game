@@ -18,7 +18,6 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
@@ -48,11 +47,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	// Game difficulty variable
 	public static int difficulty = 1;
 	
-	// Game characters direction variables
-	public static final int right = 1;
-	public static final int left  = 2;
-	public static final int up    = 3;
-	public static final int down  = 4;
+
 	
 	// Game speed variable
 	public static int speed = 2;
@@ -128,10 +123,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 		gameStatus = init;			
 		texture = new Texture();
 		
-		ghostArray[0] = new Ghost(0, -1, false);
-		ghostArray[1] = new Ghost(1, -1, false);
-		ghostArray[2] = new Ghost(2, -1, false);
-		ghostArray[3] = new Ghost(3, -1, false);
+		ghostArray[0] = new Ghost(0, Ghost.spawnInBox, false);
+		ghostArray[1] = new Ghost(1, Ghost.spawnInBox, false);
+		ghostArray[2] = new Ghost(2, Ghost.spawnInBox, false);
+		ghostArray[3] = new Ghost(3, Ghost.spawnInBox, false);
 		
 		// Get game's highscore
     	try
@@ -192,10 +187,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 	{
 		// Load game characters
 		pacman 			= new Pacman(Pacman.spawnNormal);
-		ghostArray[0] 	= new Ghost(0, -1, false); 			
-		ghostArray[1] 	= new Ghost(1, -1, false);
-		ghostArray[2] 	= new Ghost(2, -1, false);
-		ghostArray[3] 	= new Ghost(3, -1, false);
+		ghostArray[0] 	= new Ghost(0, Ghost.spawnInBox, false); 			
+		ghostArray[1] 	= new Ghost(1, Ghost.spawnInBox, false);
+		ghostArray[2] 	= new Ghost(2, Ghost.spawnInBox, false);
+		ghostArray[3] 	= new Ghost(3, Ghost.spawnInBox, false);
 		
 		// Load other game objects based on game status
 		switch(gameStatus)
@@ -485,13 +480,13 @@ public class Game extends Canvas implements Runnable, KeyListener
 				switch(e.getKeyCode())
 				{
 					case KeyEvent.VK_D:	// fall through
-					case KeyEvent.VK_RIGHT: Pacman.dir = right; break;
+					case KeyEvent.VK_RIGHT: Pacman.dir = Pacman.right; break;
 					case KeyEvent.VK_A:	// fall through
-					case KeyEvent.VK_LEFT: Pacman.dir = left; break;
+					case KeyEvent.VK_LEFT: Pacman.dir = Pacman.left; break;
 					case KeyEvent.VK_W:	// fall through
-					case KeyEvent.VK_UP: Pacman.dir = up; break;
+					case KeyEvent.VK_UP: Pacman.dir = Pacman.up; break;
 					case KeyEvent.VK_S:	// fall through
-					case KeyEvent.VK_DOWN: Pacman.dir = down; break;
+					case KeyEvent.VK_DOWN: Pacman.dir = Pacman.down; break;
 				}
 				
 				break;
@@ -520,36 +515,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 		}
 	}
 
-	public static boolean canMove(int direction, int x, int y, int width, int height)
-	{
-		int nextx = 0, nexty = 0;
-		
-		switch(direction)
-		{
-			case right: nextx = x + Game.speed; nexty = y; break;
-			case left:	nextx = x - Game.speed; nexty = y; break;
-			case up: 	nextx = x; nexty = y - Game.speed; break;
-			case down: 	if(x == 320 && y == 256) {return false;}
-						nextx = x; nexty = y + Game.speed; break;
-		}
-		
-		Rectangle bounds = new Rectangle(nextx, nexty, width, height);
-
-		for(int xx = 0; xx < Level.tiles.length; xx++)
-		{
-			for(int yy = 0; yy < Level.tiles[0].length; yy++)
-			{
-				if(Level.tiles[xx][yy] != null)								
-				{
-					if(bounds.intersects(Level.tiles[xx][yy]))						
-					{
-						return false;								
-					}
-				}
-			}
-		}
-		return true;
-	}
 	// Unimplemented method
 	@Override
 	public void keyReleased(KeyEvent e)

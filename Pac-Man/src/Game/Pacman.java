@@ -28,10 +28,10 @@ public class Pacman extends Rectangle
 	public static int nEatenGhosts = 0;
 	
 	// Direction variables (for ease of reading)
-	private final int right = Game.right;
-	private final int left  = Game.left;
-	private final int up    = Game.up;
-	private final int down  = Game.down;
+	public static final int right = 0;
+	public static final int left  = 1;
+	public static final int up    = 2;
+	public static final int down  = 3;
 	
 	// Intersected ghost variable
 	private int intersectedGhost = -1;
@@ -136,7 +136,7 @@ public class Pacman extends Rectangle
 		new Sounds(Sounds.ghostEatenSoundPath);
 		
 		// Respawn eaten ghost
-		Game.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, -1, false);
+		Game.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, Ghost.spawnInBox, false);
 		
 		// Capture the event coordinates
 		Game.xEvent = x; 

@@ -24,10 +24,13 @@ public class Ghost extends Rectangle
 	
 	private Random randomGen;
 	
+	// Type of movement variables
+	private int movementType;
+	
 	private final int random 		= 0;
 	private final int smart  		= 1;
 	private final int find_path 	= 2;
-	private int movementType = random; 
+	
 	public static int flashTime  = 60*5;
 	
 	public static final int right = 0; 
@@ -76,7 +79,13 @@ public class Ghost extends Rectangle
 	private int dify;
 	private int radius;
 	
-	private int crossmap = -1;
+	private int spawn;
+	
+	// Spawn variables
+	public static final int spawnInBox = 0;
+	private static final int spawnRight = 1;
+	private static final int spawnLeft 	= 2;
+	
 	private int imageIndexEnemy = 0;
 	
 	public boolean isVulnerable = false;
@@ -84,28 +93,30 @@ public class Ghost extends Rectangle
 	public int enemyID;
 	
 	// Constructor
-	public Ghost(int ID, int cm, boolean iV)
+	public Ghost(int ID, int spawnPoint, boolean IV)
 	{	
-		crossmap = cm;
-		enemyID = ID;
-
-		if(crossmap == -1)
-		{
-			setBounds(320,320,32,32);
-		}
-		else if(crossmap == left)
-		{
-			setBounds(640,320,32,32);
-			move(left);
-		}
-		else if(crossmap == right)
-		{
-			setBounds(0,320,32,32);
-			move(right);
-		}
-
-		isVulnerable = iV;
+		// Set default ghost movement type
+		movementType = random;
 		
+		spawn 			= spawnPoint;
+		enemyID  		= ID;
+		isVulnerable 	= IV;
+		
+		switch(spawn)
+		{
+			case spawnInBox:
+				setBounds(320,320,32,32);
+				break;
+			case spawnLeft:
+				setBounds(640,320,32,32);
+				move(left);
+				break;
+			case spawnRight:
+				setBounds(0,320,32,32);
+				move(right);
+				break;
+		}
+
 		switch(Game.difficulty)
 		{
 			case 1:
@@ -128,7 +139,6 @@ public class Ghost extends Rectangle
 		
 		randomGen = new Random();
 		dir = randomGen.nextInt(4);
-			
 	}
 	
 	private void updateZone(int currentZone)
@@ -167,7 +177,7 @@ public class Ghost extends Rectangle
 		zone7 	= false;
 		zone8 	= false;
 		zone9 	= false;
-		zone10 	= false;
+		zone10	= false;
 		zone11 	= false;
 		zone12 	= false;
 		zone13 	= false;
@@ -342,7 +352,7 @@ public class Ghost extends Rectangle
 				}
 			}
 		}
-		if(crossmap == left)
+		if(spawn == spawnLeft)
 		{
 			lastDir = left;
 			
@@ -350,10 +360,10 @@ public class Ghost extends Rectangle
 			
 			if(x == 480 && y == 320)
 			{
-				crossmap = -1;
+				spawn = spawnInBox;
 			}
 		}
-		else if(crossmap == right)
+		else if(spawn == spawnRight)
 		{
 			lastDir = right;
 			
@@ -361,10 +371,10 @@ public class Ghost extends Rectangle
 			
 			if(x == 160 && y == 320)
 			{
-				crossmap = -1;
+				spawn = spawnInBox;
 			}
 		}
-		else if(crossmap == -1)
+		else if(spawn == spawnInBox)
 		{
 			switch(dir)
 			{
@@ -374,7 +384,6 @@ public class Ghost extends Rectangle
 						break;
 					else							
 					{
-						
 						if(lastDir == left && canMove(left))
 						{
 							move(left);
@@ -496,39 +505,39 @@ public class Ghost extends Rectangle
 			movementType = random;
 		}
 		
-		if(crossmap == left)
+		if(spawn == spawnLeft)
 		{
 			lastDir = left;
 			x-=spd;
 			
 			if(x == 480 && y == 320)
 			{
-				crossmap = -1;
+				spawn = spawnInBox;
 			}
 		}
-		else if(crossmap == right)
+		else if(spawn == spawnRight)
 		{
 			lastDir = right;
 			x+=spd;
 			
 			if(x == 160 && y == 320)
 			{
-				crossmap = -1;
+				spawn = spawnInBox;
 			}
 		}
-		else if(crossmap == -1)
+		else if(spawn == spawnInBox)
 		{
 			// Ghost in right portal moving right
 			if(inPortal() && lastDir == right)
 			{
 				// Ensure ghost crosses portal to the other side of the map
-				crossmap = right;
+				spawn = spawnRight;
 			}
 			// Ghost in left portal moving left
 			else if(inPortal() && lastDir == left)
 			{
 				// Ensure ghost crosses portal to the other side of the map
-				crossmap = left;
+				spawn = spawnLeft;
 			}
 			// Ghost not in a portal
 			else
@@ -943,27 +952,27 @@ public class Ghost extends Rectangle
 		if(x == 0 && y == 320)								
 		{
 			lastDir = left;
-			crossmap = left;
+			spawn = spawnLeft;
 			
 			switch(enemyID)
 			{
-				case 0: Game.ghostArray[0] = new Ghost(0, crossmap, isVulnerable); break;
-				case 1: Game.ghostArray[1] = new Ghost(1, crossmap, isVulnerable); break;
-				case 2: Game.ghostArray[2] = new Ghost(2, crossmap, isVulnerable); break;
-				case 3: Game.ghostArray[3] = new Ghost(3, crossmap, isVulnerable); break;
+				case 0: Game.ghostArray[0] = new Ghost(0, spawn, isVulnerable); break;
+				case 1: Game.ghostArray[1] = new Ghost(1, spawn, isVulnerable); break;
+				case 2: Game.ghostArray[2] = new Ghost(2, spawn, isVulnerable); break;
+				case 3: Game.ghostArray[3] = new Ghost(3, spawn, isVulnerable); break;
 			}
 		}
 		else if(x == 640 && y == 320)
 		{
 			lastDir = right;
-			crossmap = right;
+			spawn = spawnRight;
 
 			switch(enemyID)
 			{
-				case 0: Game.ghostArray[0] = new Ghost(0, crossmap, isVulnerable); break;
-				case 1: Game.ghostArray[1] = new Ghost(1, crossmap, isVulnerable); break;
-				case 2: Game.ghostArray[2] = new Ghost(2, crossmap, isVulnerable); break;
-				case 3: Game.ghostArray[3] = new Ghost(3, crossmap, isVulnerable); break;
+				case 0: Game.ghostArray[0] = new Ghost(0, spawn, isVulnerable); break;
+				case 1: Game.ghostArray[1] = new Ghost(1, spawn, isVulnerable); break;
+				case 2: Game.ghostArray[2] = new Ghost(2, spawn, isVulnerable); break;
+				case 3: Game.ghostArray[3] = new Ghost(3, spawn, isVulnerable); break;
 			}
 		}
 	}
