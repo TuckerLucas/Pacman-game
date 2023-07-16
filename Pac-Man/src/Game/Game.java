@@ -128,10 +128,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 		gameStatus = init;			
 		new Texture();
 		
-		ghostArray[0] = new Ghost(0, -1, -1, false);
-		ghostArray[1] = new Ghost(1, -1, -1, false);
-		ghostArray[2] = new Ghost(2, -1, -1, false);
-		ghostArray[3] = new Ghost(3, -1, -1, false);
+		ghostArray[0] = new Ghost(0, -1, false);
+		ghostArray[1] = new Ghost(1, -1, false);
+		ghostArray[2] = new Ghost(2, -1, false);
+		ghostArray[3] = new Ghost(3, -1, false);
 		
 		// Get game's highscore
     	try
@@ -191,11 +191,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 	private void loadGameElements()
 	{
 		// Load game characters
-		pacman 			= new Pacman(pacmanSpawnX, pacmanSpawnY);
-		ghostArray[0] 	= new Ghost(0, -1, -1, false); 			
-		ghostArray[1] 	= new Ghost(1, -1, -1, false);
-		ghostArray[2] 	= new Ghost(2, -1, -1, false);
-		ghostArray[3] 	= new Ghost(3, -1, -1, false);
+		pacman 			= new Pacman();
+		ghostArray[0] 	= new Ghost(0, -1, false); 			
+		ghostArray[1] 	= new Ghost(1, -1, false);
+		ghostArray[2] 	= new Ghost(2, -1, false);
+		ghostArray[3] 	= new Ghost(3, -1, false);
 		
 		// Load other game objects based on game status
 		switch(gameStatus)

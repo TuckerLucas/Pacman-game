@@ -36,27 +36,30 @@ public class Pacman extends Rectangle
 	private int intersectedGhost = -1;
 	
 	// Constructor
-	public Pacman(int x, int y)
+	public Pacman()
 	{
 		// Check if pacman crossing left portal
 		if(Game.pacmanCrossingLeftPortal == true)
 		{
 			Game.pacmanCrossingLeftPortal = false;
 			dir = left;
+			setBounds(640,320,32,32);
 		}
 		// Check if pacman crossing right portal
 		else if(Game.pacmanCrossingRightPortal == true)
 		{
 			Game.pacmanCrossingRightPortal = false;
 			dir = right;
+			setBounds(0,320,32,32);
 		}
 		// Spawn pacman normally
 		else
 		{
 			dir = right;
+			setBounds(192,512,32,32);
 		}
 		
-		setBounds(x,y,32,32);
+		
 	}
 
 	// Turn all ghosts vulnerable
@@ -150,7 +153,7 @@ public class Pacman extends Rectangle
 		new Sounds(Sounds.ghostEatenSoundPath);
 		
 		// Respawn eaten ghost
-		Game.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, -1, -1, false);
+		Game.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, -1, false);
 		
 		// Capture the event coordinates
 		Game.xEvent = x; 
@@ -233,7 +236,7 @@ public class Pacman extends Rectangle
 		{
 			// Spawn pacman on the right side of the map
 			Game.pacmanCrossingLeftPortal = true;
-			Game.pacman = new Pacman(Game.rightPortalX, Game.bothPortalsY);
+			Game.pacman = new Pacman();
 		}
 		
 		// Pacman going through the right portal
@@ -241,7 +244,7 @@ public class Pacman extends Rectangle
 		{
 			// Spawn pacman on the left side of the map
 			Game.pacmanCrossingRightPortal = true;
-			Game.pacman = new Pacman(Game.leftPortalX, Game.bothPortalsY);		
+			Game.pacman = new Pacman();		
 		}
 	}
 	
