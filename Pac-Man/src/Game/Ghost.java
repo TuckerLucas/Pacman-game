@@ -24,10 +24,10 @@ public class Ghost extends Rectangle
 	
 	private Random randomGen;
 	
-	public static final int random 		= 0;
-	public static final int smart  		= 1;
-	public static final int find_path 	= 2;
-	private int ghostMovement = random; 
+	private final int random 		= 0;
+	private final int smart  		= 1;
+	private final int find_path 	= 2;
+	private int movementType = random; 
 	public static int flashTime  = 60*5;
 	
 	public static final int right = 0; 
@@ -104,8 +104,6 @@ public class Ghost extends Rectangle
 			move(right);
 		}
 
-		
-		
 		isVulnerable = iV;
 		
 		switch(Game.difficulty)
@@ -128,64 +126,9 @@ public class Ghost extends Rectangle
 				break;
 		}
 		
-		
-
 		randomGen = new Random();
 		dir = randomGen.nextInt(4);
 			
-		
-	}
-	
-	private void setDirection(int dir)
-	{
-		switch(dir)
-		{
-			case right: x+=spd; lastDir = right; break;
-			case left: 	x-=spd; lastDir = left; break;
-			case up: 	y-=spd; lastDir = up; break;
-			case down: 	y+=spd; lastDir = down; break;
-		}
-	}
-	
-	private void move(int dir)
-	{
-		if(canMove(dir))
-		{
-			setDirection(dir);
-		}
-	}
-	
-	private boolean canMove(int dir)
-	{
-		int nextx = 0, nexty = 0;
-		
-		switch(dir)
-		{
-			case right:	nextx = x+spd; nexty = y; break;
-			case left:	nextx = x-spd; nexty = y; break;
-			case up:	nextx = x; nexty = y-spd; break;
-			case down:	if(x == 320 && y == 256) {return false;}			// Prevent ghosts from reentering spawn box
-						nextx = x; nexty = y+spd; break;
-		}
-		
-		Rectangle bounds = new Rectangle(nextx, nexty, width, height);
-		
-		for(int xx = 0; xx < Level.tiles.length; xx++)
-		{
-			for(int yy = 0; yy < Level.tiles[0].length; yy++)
-			{
-				// If not null, we have intercepted a map wall
-				if(Level.tiles[xx][yy] != null)								
-				{
-					// Intercepted a map wall. Can no longer move in this direction
-					if(bounds.intersects(Level.tiles[xx][yy]))				
-					{
-						return false;								
-					}
-				}
-			}
-		}	
-		return true;
 	}
 	
 	private void updateZone(int currentZone)
@@ -245,7 +188,7 @@ public class Ghost extends Rectangle
 		}
 		else
 		{
-			ghostMovement = find_path;
+			movementType = find_path;
 		}
 	}
 	
@@ -273,12 +216,12 @@ public class Ghost extends Rectangle
 				else if(canMove(left))
 				{
 					left4 = true;
-					ghostMovement = find_path;
+					movementType = find_path;
 				}
 				else if(canMove(right))
 				{
 					right4 = true;
-					ghostMovement = find_path;
+					movementType = find_path;
 				}
 				break;
 				
@@ -299,12 +242,12 @@ public class Ghost extends Rectangle
 				else if(canMove(up))
 				{
 					up8 = true;
-					ghostMovement = find_path;
+					movementType = find_path;
 				}
 				else if(canMove(down))
 				{
 					down8 = true;
-					ghostMovement = find_path;
+					movementType = find_path;
 				}
 				break;
 				
@@ -316,12 +259,12 @@ public class Ghost extends Rectangle
 				else if(canMove(up))
 				{
 					up9 = true;
-					ghostMovement = find_path;
+					movementType = find_path;
 				}
 				else if(canMove(down))
 				{
 					down9 = true;
-					ghostMovement = find_path;
+					movementType = find_path;
 				}
 				break;
 				
@@ -342,12 +285,12 @@ public class Ghost extends Rectangle
 				else if(canMove(left))
 				{
 					left13 = true;
-					ghostMovement = find_path;
+					movementType = find_path;
 				}
 				else if(canMove(right))
 				{
 					right13 = true;
-					ghostMovement = find_path;
+					movementType = find_path;
 				}
 				break;
 				
@@ -395,7 +338,7 @@ public class Ghost extends Rectangle
 			{
 				if(isVulnerable == false && !inBox())
 				{
-					ghostMovement = smart;
+					movementType = smart;
 				}
 			}
 		}
@@ -536,10 +479,12 @@ public class Ghost extends Rectangle
 		}
 	}
 	
+	// Check if ghost is in a portal
 	private boolean inPortal()
 	{
 		return ((x < 160 || x > 480) && y == 320) ? true : false;
 	}
+	
 	
 	private void moveSmartly()
 	{
@@ -548,7 +493,7 @@ public class Ghost extends Rectangle
 
 		if(Energizer.isActive == true || inBox())
 		{
-			ghostMovement = random;
+			movementType = random;
 		}
 		
 		if(crossmap == left)
@@ -659,7 +604,7 @@ public class Ghost extends Rectangle
 		if(smartTime == smartTargetTime) 				
 		{
 			coolDown = true;
-			ghostMovement = random;							
+			movementType = random;							
 			smartTime = 0;						
 		}
 	}
@@ -843,12 +788,12 @@ public class Ghost extends Rectangle
 				if(desired_direction == up && canMove(up))
 				{
 					right4 = false;
-					ghostMovement = smart;
+					movementType = smart;
 				}
 				else if(desired_direction == down && canMove(down))
 				{
 					right13 = false;
-					ghostMovement = smart;
+					movementType = smart;
 				}
 				
 				break;
@@ -860,12 +805,12 @@ public class Ghost extends Rectangle
 				if(desired_direction == up && canMove(up))
 				{
 					left4 = false;
-					ghostMovement = smart;
+					movementType = smart;
 				}
 				else if(desired_direction == down && canMove(down))
 				{
 					left13 = false;
-					ghostMovement = smart;
+					movementType = smart;
 				}
 				
 				break;
@@ -877,12 +822,12 @@ public class Ghost extends Rectangle
 				if(desired_direction == right && canMove(right))
 				{
 					up9 = false;
-					ghostMovement = smart;
+					movementType = smart;
 				}
 				else if(desired_direction == left && canMove(left))
 				{
 					up8 = false;
-					ghostMovement = smart;
+					movementType = smart;
 				}
 				
 				break;
@@ -894,24 +839,25 @@ public class Ghost extends Rectangle
 				if(desired_direction == right && canMove(right))
 				{
 					down9 = false;
-					ghostMovement = smart;
+					movementType = smart;
 				}
 				else if(desired_direction == left && canMove(left))
 				{
 					down8 = false;
-					ghostMovement = smart;
+					movementType = smart;
 				}
 				
 				break;
 				
 			case -1:	
 				
-				ghostMovement = smart; 
+				movementType = smart; 
 			
 				break;
 		}
 	}
 	
+	// Check if ghost is in spawn box
 	private boolean inBox()
 	{
 		return ((x < 385 && x > 255) && (y < 385 && y > 255)) ? true : false;
@@ -981,17 +927,18 @@ public class Ghost extends Rectangle
 		}
 	}
 
+	// Manage ghost movement
 	private void ghostMovement()
 	{
-		switch(ghostMovement)
+		switch(movementType)
 		{
 			case random: 	moveRandomly(); break;	// Move in a random fashion
-			case smart: 	moveSmartly(); break;	// Chase pacman
-			case find_path: findingPath(); break;	// Find path to pacman when stuck
+			case smart: 	moveSmartly();  break;	// Chase pacman
+			case find_path: findingPath();  break;	// Find path to pacman when stuck
 		}			
 	}
 	
-	private void positioning()
+	private void portalCrossing()
 	{
 		if(x == 0 && y == 320)								
 		{
@@ -1001,9 +948,9 @@ public class Ghost extends Rectangle
 			switch(enemyID)
 			{
 				case 0: Game.ghostArray[0] = new Ghost(0, crossmap, isVulnerable); break;
-				case 1: Game.ghostArray[1] 	= new Ghost(1, crossmap, isVulnerable); break;
-				case 2: Game.ghostArray[2] 	= new Ghost(2, crossmap, isVulnerable); break;
-				case 3: Game.ghostArray[3] 	= new Ghost(3, crossmap, isVulnerable); break;
+				case 1: Game.ghostArray[1] = new Ghost(1, crossmap, isVulnerable); break;
+				case 2: Game.ghostArray[2] = new Ghost(2, crossmap, isVulnerable); break;
+				case 3: Game.ghostArray[3] = new Ghost(3, crossmap, isVulnerable); break;
 			}
 		}
 		else if(x == 640 && y == 320)
@@ -1014,9 +961,9 @@ public class Ghost extends Rectangle
 			switch(enemyID)
 			{
 				case 0: Game.ghostArray[0] = new Ghost(0, crossmap, isVulnerable); break;
-				case 1: Game.ghostArray[1] 	= new Ghost(1, crossmap, isVulnerable); break;
-				case 2: Game.ghostArray[2] 	= new Ghost(2, crossmap, isVulnerable); break;
-				case 3: Game.ghostArray[3] 	= new Ghost(3, crossmap, isVulnerable); break;
+				case 1: Game.ghostArray[1] = new Ghost(1, crossmap, isVulnerable); break;
+				case 2: Game.ghostArray[2] = new Ghost(2, crossmap, isVulnerable); break;
+				case 3: Game.ghostArray[3] = new Ghost(3, crossmap, isVulnerable); break;
 			}
 		}
 	}
@@ -1076,8 +1023,60 @@ public class Ghost extends Rectangle
 	public void tick()
 	{			
 		ghostMovement();
-		positioning();
+		portalCrossing();
 		animation();
+	}
+	
+	private void setDirection(int dir)
+	{
+		switch(dir)
+		{
+			case right: x+=spd; lastDir = right; break;
+			case left: 	x-=spd; lastDir = left; break;
+			case up: 	y-=spd; lastDir = up; break;
+			case down: 	y+=spd; lastDir = down; break;
+		}
+	}
+	
+	private void move(int dir)
+	{
+		if(canMove(dir))
+		{
+			setDirection(dir);
+		}
+	}
+	
+	private boolean canMove(int dir)
+	{
+		int nextx = 0, nexty = 0;
+		
+		switch(dir)
+		{
+			case right:	nextx = x+spd; nexty = y; break;
+			case left:	nextx = x-spd; nexty = y; break;
+			case up:	nextx = x; nexty = y-spd; break;
+			case down:	if(x == 320 && y == 256) {return false;}			// Prevent ghosts from reentering spawn box
+						nextx = x; nexty = y+spd; break;
+		}
+		
+		Rectangle bounds = new Rectangle(nextx, nexty, width, height);
+		
+		for(int xx = 0; xx < Level.tiles.length; xx++)
+		{
+			for(int yy = 0; yy < Level.tiles[0].length; yy++)
+			{
+				// If not null, we have intercepted a map wall
+				if(Level.tiles[xx][yy] != null)								
+				{
+					// Intercepted a map wall. Can no longer move in this direction
+					if(bounds.intersects(Level.tiles[xx][yy]))				
+					{
+						return false;								
+					}
+				}
+			}
+		}	
+		return true;
 	}
 }
  

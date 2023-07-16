@@ -26,7 +26,7 @@ public class Food extends Rectangle
 		setBounds(x+12,y+12,8,8);			
 	}
 	
-	public static void eaten(int food)
+	public static void eat(int food)
 	{
 		new Sounds(Sounds.pacmanEatingSoundPath);
 		

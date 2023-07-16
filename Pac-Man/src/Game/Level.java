@@ -37,18 +37,18 @@ public class Level
 	public static List<Energizer> energizers; 	
 		
 	// Variables for object loading via colour identification
-	private final int black = 0xFF000000;
-	private final int pink = 0xFFFF00FF;
-	private final int blue = 0xFF0000FF;
-	private final int red = 0xFFFF0000;
-	private final int cyan = 0xFF00FFFF;
-	private final int orange = 0xFFFF8726;
-	private final int purple = 0xFFE7CCFF;
-	private final int white = 0xFFFFFFFF;
-	private final int yellow = 0xFFFFFF00;
+	private final int black 	= 0xFF000000;
+	private final int pink 		= 0xFFFF00FF;
+	private final int blue 		= 0xFF0000FF;
+	private final int red 		= 0xFFFF0000;
+	private final int cyan 		= 0xFF00FFFF;
+	private final int orange 	= 0xFFFF8726;
+	private final int purple 	= 0xFFE7CCFF;
+	private final int white 	= 0xFFFFFFFF;
+	private final int yellow 	= 0xFFFFFF00;
 	
 	// Constructor
-	public Level(String path)	
+	public Level()	
 	{
 		food = new ArrayList<>();
 		energizers = new ArrayList<>();
@@ -56,7 +56,7 @@ public class Level
 		try 
 		{
 			// Get map sketch image via the passed path
-			BufferedImage map = ImageIO.read(getClass().getResource(path));
+			BufferedImage map = ImageIO.read(getClass().getResource("/Images/map.png"));
 			
 			Level.gameWidth = map.getWidth();		// Get map width size
 			Level.gameHeight = map.getHeight();		// Get map height size
@@ -227,5 +227,14 @@ public class Level
 		Game.bonusScore.render(g);
 		
 		drawData(g);
+	}
+	
+	public void tick()
+	{
+		// Check if any food/energizers are left left
+		if(Level.food.size() == 0 && Level.energizers.size() == 0)
+		{
+			Game.gameStatus = Game.win;
+		}
 	}
 }

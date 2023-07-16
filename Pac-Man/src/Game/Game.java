@@ -64,6 +64,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static Door door;
 	public static BonusScore bonusScore;
 	public static Level level;
+	public static Texture texture;
 	
 	// Pacman spawn coordinate variables
 	public static int pacmanSpawnX = 192;
@@ -111,7 +112,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static int yEvent;
 	
 	// Paths to required resources
-	String mapPath    = "/Images/map.png";
 	String scoresPath = "res/Files/Scores.txt";
 	
 	// Pacman animation variables
@@ -126,7 +126,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	{
 		addKeyListener(this);
 		gameStatus = init;			
-		new Texture();
+		texture = new Texture();
 		
 		ghostArray[0] = new Ghost(0, -1, false);
 		ghostArray[1] = new Ghost(1, -1, false);
@@ -191,7 +191,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	private void loadGameElements()
 	{
 		// Load game characters
-		pacman 			= new Pacman();
+		pacman 			= new Pacman(Pacman.spawnNormal);
 		ghostArray[0] 	= new Ghost(0, -1, false); 			
 		ghostArray[1] 	= new Ghost(1, -1, false);
 		ghostArray[2] 	= new Ghost(2, -1, false);
@@ -214,9 +214,9 @@ public class Game extends Canvas implements Runnable, KeyListener
 			case lose:
 				
 				// Load bonus score object
-				bonusScore = new BonusScore(0, 0);
+				bonusScore = new BonusScore();
 				
-				level = new Level(mapPath); 
+				level = new Level(); 
 				break;
 				
 			default: break;
@@ -293,7 +293,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 				ghostArray[1].tick();
 				ghostArray[2].tick();
 				ghostArray[3].tick();
+				bonusScore.tick();
 				energizer.tick();
+				level.tick();
+				texture.tick();
 
 				break;
 				

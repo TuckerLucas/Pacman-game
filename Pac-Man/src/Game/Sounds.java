@@ -37,6 +37,7 @@ public class Sounds
 			return;
 		}
 		
+		// Play sound
 		try 
 		{
 			File path = new File(sound);

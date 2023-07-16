@@ -25,11 +25,12 @@ public class BonusScore extends Rectangle
 	public static int nFlashes 			  = 0;
 	public static int nTargetFlashes	  = 3;
 	public static boolean display  		  = false;
+	public static int bonusScore;
 	
 	// Constructor 
-	public BonusScore(int x, int y)
+	public BonusScore()
 	{
-		setBounds(x,y,32,32);
+		setBounds(64,32,32,32);
 	}
 	
 	// Render object
@@ -52,6 +53,29 @@ public class BonusScore extends Rectangle
 				}
 				g.drawImage(Texture.bonusScore[Texture.animationPhaseBonusScore], Game.xEvent, Game.yEvent, width, height, null);
 			}
+		}
+	}
+	
+	public void tick()
+	{
+		switch(Pacman.nEatenGhosts)
+		{
+			case 1: 
+					bonusScore = 200;
+
+					break;
+			case 2: 
+					bonusScore = 400; 
+					
+					break;
+			case 3: 
+					bonusScore = 800;  
+					
+					break;
+			case 4: 
+					bonusScore = 1600; 
+					Energizer.deactivate();
+					break;
 		}
 	}
 }
