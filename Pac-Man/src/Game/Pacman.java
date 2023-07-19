@@ -46,6 +46,10 @@ public class Pacman extends Rectangle
 	public static int lastDir;
 	public static int dir;
 	
+	// Pacman animation variables
+	public static int animationTime 		= 0;	
+	public static int animationTargetTime = 6;
+	
 	
 	// Constructor
 	public Pacman(int spawnType)
@@ -374,13 +378,13 @@ public class Pacman extends Rectangle
 	public void eatingAnimation()
 	{
 		// Increase current animation phase time
-		Game.pacmanAnimationTime++;
+		animationTime++;
 		
 		// Check if time for animation phase is complete
-		if(Game.pacmanAnimationTime == Game.pacmanAnimationTargetTime)
+		if(animationTime == animationTargetTime)
 		{
 			// Reset timer for animation phase
-			Game.pacmanAnimationTime = 0;
+			animationTime = 0;
 			
 			// Move to the next animation phase
 			Texture.pacmanAnimationPhase++;

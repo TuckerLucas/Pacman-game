@@ -36,18 +36,12 @@ public class Game extends Canvas implements Runnable, KeyListener
 	private static Thread thread;
 	private static boolean isRunning = false;	
 
-	// Pacman portal crossing flag variables
-	public static boolean pacmanCrossingLeftPortal  = false;
-	public static boolean pacmanCrossingRightPortal = false;
-
 	// Game boundaries variables
 	public static final int WIDTH  = 672;
 	public static final int	HEIGHT = 800;	
 	
 	// Game difficulty variable
 	public static int difficulty = 1;
-	
-
 	
 	// Game speed variable
 	public static int speed = 2;
@@ -75,6 +69,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static int leftPortalY  = 320;
 	public static int rightPortalX = 640;
 	public static int rightPortalY = 320;
+	
+	// Center box coordinate variables
+	public static int centerBoxX = 320;
+	public static int centerBoxY = 320;
 
 	// Game status variables
 	public static int gameStatus 	 = 0;
@@ -105,10 +103,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 	
 	// Paths to required resources
 	String scoresPath = "res/Files/Scores.txt";
-	
-	// Pacman animation variables
-	public static int pacmanAnimationTime = 0;	
-	public static int pacmanAnimationTargetTime = 6;
 	
 	public static int flashAnimationTime = 0;
 	public static int flashAnimationTargetTime = 20;
