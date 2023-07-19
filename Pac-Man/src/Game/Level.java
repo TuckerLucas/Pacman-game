@@ -23,7 +23,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-public class Level 
+public class Level
 {
 	// Variables for game size
 	private static int gameWidth;
@@ -191,7 +191,7 @@ public class Level
 	}
 	
 	// Render the game objects
-	public static void render(Graphics g)
+	public void render(Graphics g)
 	{
 		// Render game tiles (walls)
 		for(int x = 0; x < gameWidth; x++)

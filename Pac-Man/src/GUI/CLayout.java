@@ -17,6 +17,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import Game.Game;
+import Game.Sounds;
 
 public class CLayout
 {		
@@ -77,6 +78,8 @@ public class CLayout
 		CLayout.setSize(windowWidth, windowHeight);						// Set JFrame width and height
 		CLayout.setLocationRelativeTo(null);							// Make JFrame appear in the centre of monitor
 		CLayout.setVisible(true); 
+		
+		new Sounds(Sounds.introMusicSoundPath);
 	}
 	
 	// main function

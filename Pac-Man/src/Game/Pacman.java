@@ -200,14 +200,14 @@ public class Pacman extends Rectangle
 	public void portalCrossing()
 	{
 		// Pacman going through the left portal
-		if(x == Game.leftPortalX && y == Game.bothPortalsY)	
+		if(x == Game.leftPortalX && y == Game.leftPortalY)	
 		{
 			// Spawn pacman on the right side of the map
 			Game.pacman = new Pacman(spawnRight);
 		}
 		
 		// Pacman going through the right portal
-		if(x == Game.rightPortalX && y == Game.bothPortalsY)			
+		if(x == Game.rightPortalX && y == Game.rightPortalY)			
 		{
 			// Spawn pacman on the left side of the map
 			Game.pacman = new Pacman(spawnLeft);		

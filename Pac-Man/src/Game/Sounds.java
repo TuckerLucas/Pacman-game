@@ -18,7 +18,7 @@ import javax.sound.sampled.Clip;
 
 public class Sounds
 {
-	private Clip clip;
+	public static Clip clip;
 	
 	public static boolean soundOn = false;
 	
@@ -27,6 +27,8 @@ public class Sounds
 	public static String energizerSoundPath    = "res/Sounds/Energizer.wav";
 	public static String pacmanDeathSoundPath  = "res/Sounds/PacmanDeath.wav";
 	public static String ghostEatenSoundPath   = "res/Sounds/GhostEaten.wav";
+	public static String introMusicSoundPath   = "res/Sounds/IntroMusic.wav";
+	public static String sirenSoundPath        = "res/Sounds/Siren.wav";
 	
 	// Constructor
 	public Sounds(String sound)
@@ -47,6 +49,29 @@ public class Sounds
 			clip.open(audio);
 			clip.start();
 			clip.setFramePosition(0);
+		}
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}	
+	}
+	
+	public static void loop(String sound)
+	{
+		// Check if sound is on
+		if(soundOn == false)
+		{
+			return;
+		}
+		
+		try 
+		{
+			File path = new File(sound);
+			AudioInputStream audio = AudioSystem.getAudioInputStream(path);
+			
+			clip = AudioSystem.getClip();
+			clip.open(audio);
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
 		}
 		catch(Exception e) 
 		{

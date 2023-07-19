@@ -89,7 +89,8 @@ public class Ghost extends Rectangle
 	private int imageIndexEnemy = 0;
 	
 	public boolean isVulnerable = false;
-
+	public static boolean isFlashing = false;
+	
 	public int enemyID;
 	
 	// Constructor
@@ -871,70 +872,6 @@ public class Ghost extends Rectangle
 	{
 		return ((x < 385 && x > 255) && (y < 385 && y > 255)) ? true : false;
 	}
-	
-	private void flashGhost(Graphics g)
-	{
-		g.drawImage(Texture.flashGhost[Texture.animationPhaseFlash], x, y, width, height, null);
-	}
-	
-	private void stayBlue(Graphics g)
-	{
-		g.drawImage(Texture.blueGhost[imageIndexEnemy], x, y, width, height, null);
-	}
-	
-	private void look(int where, Graphics g)
-	{
-		switch(where)
-		{
-			case right: 
-				
-				switch(this.enemyID)
-				{
-					case 0: g.drawImage(Texture.blinkyLookRight[imageIndexEnemy], x, y, width, height, null); break;
-					case 1: g.drawImage(Texture.inkyLookRight[imageIndexEnemy], x, y, width, height, null); break;
-					case 2: g.drawImage(Texture.pinkyLookRight[imageIndexEnemy], x, y, width, height, null); break;
-					case 3: g.drawImage(Texture.clydeLookRight[imageIndexEnemy], x, y, width, height, null); break;
-				}
-				
-				break;
-				
-			case left:
-				
-				switch(enemyID)
-				{
-					case 0: g.drawImage(Texture.blinkyLookLeft[imageIndexEnemy], x, y, width, height, null); break;
-					case 1: g.drawImage(Texture.inkyLookLeft[imageIndexEnemy], x, y, width, height, null); break;
-					case 2: g.drawImage(Texture.pinkyLookLeft[imageIndexEnemy], x, y, width, height, null); break;
-					case 3: g.drawImage(Texture.clydeLookLeft[imageIndexEnemy], x, y, width, height, null); break;
-				}
-				
-				break;
-				
-			case up:
-				
-				switch(enemyID)
-				{
-					case 0: g.drawImage(Texture.blinkyLookUp[imageIndexEnemy], x, y, width, height, null); break;
-					case 1: g.drawImage(Texture.inkyLookUp[imageIndexEnemy], x, y, width, height, null); break;
-					case 2: g.drawImage(Texture.pinkyLookUp[imageIndexEnemy], x, y, width, height, null); break;
-					case 3: g.drawImage(Texture.clydeLookUp[imageIndexEnemy], x, y, width, height, null); break;
-				}
-				
-				break;
-				
-			case down:
-				
-				switch(enemyID)
-				{
-					case 0:	g.drawImage(Texture.blinkyLookDown[imageIndexEnemy], x, y, width, height, null); break;
-					case 1: g.drawImage(Texture.inkyLookDown[imageIndexEnemy], x, y, width, height, null); break;
-					case 2: g.drawImage(Texture.pinkyLookDown[imageIndexEnemy], x, y, width, height, null); break;
-					case 3: g.drawImage(Texture.clydeLookDown[imageIndexEnemy], x, y, width, height, null); break;
-				}
-				
-				break;
-		}
-	}
 
 	// Manage ghost movement
 	private void ghostMovement()
@@ -1005,6 +942,70 @@ public class Ghost extends Rectangle
 	}
 	
 	
+	private void flashGhost(Graphics g)
+	{
+		g.drawImage(Texture.flashGhost[Texture.animationPhaseFlash], x, y, width, height, null);
+	}
+	
+	private void stayBlue(Graphics g)
+	{
+		g.drawImage(Texture.blueGhost[imageIndexEnemy], x, y, width, height, null);
+	}
+	
+	private void look(int where, Graphics g)
+	{
+		switch(where)
+		{
+			case right: 
+				
+				switch(this.enemyID)
+				{
+					case 0: g.drawImage(Texture.blinkyLookRight[imageIndexEnemy], x, y, width, height, null); break;
+					case 1: g.drawImage(Texture.inkyLookRight[imageIndexEnemy], x, y, width, height, null);   break;
+					case 2: g.drawImage(Texture.pinkyLookRight[imageIndexEnemy], x, y, width, height, null);  break;
+					case 3: g.drawImage(Texture.clydeLookRight[imageIndexEnemy], x, y, width, height, null);  break;
+				}
+				
+				break;
+				
+			case left:
+				
+				switch(enemyID)
+				{
+					case 0: g.drawImage(Texture.blinkyLookLeft[imageIndexEnemy], x, y, width, height, null); break;
+					case 1: g.drawImage(Texture.inkyLookLeft[imageIndexEnemy], x, y, width, height, null);   break;
+					case 2: g.drawImage(Texture.pinkyLookLeft[imageIndexEnemy], x, y, width, height, null);  break;
+					case 3: g.drawImage(Texture.clydeLookLeft[imageIndexEnemy], x, y, width, height, null);  break;
+				}
+				
+				break;
+				
+			case up:
+				
+				switch(enemyID)
+				{
+					case 0: g.drawImage(Texture.blinkyLookUp[imageIndexEnemy], x, y, width, height, null); break;
+					case 1: g.drawImage(Texture.inkyLookUp[imageIndexEnemy], x, y, width, height, null);   break;
+					case 2: g.drawImage(Texture.pinkyLookUp[imageIndexEnemy], x, y, width, height, null);  break;
+					case 3: g.drawImage(Texture.clydeLookUp[imageIndexEnemy], x, y, width, height, null);  break;
+				}
+				
+				break;
+				
+			case down:
+				
+				switch(enemyID)
+				{
+					case 0:	g.drawImage(Texture.blinkyLookDown[imageIndexEnemy], x, y, width, height, null); break;
+					case 1: g.drawImage(Texture.inkyLookDown[imageIndexEnemy], x, y, width, height, null);   break;
+					case 2: g.drawImage(Texture.pinkyLookDown[imageIndexEnemy], x, y, width, height, null);  break;
+					case 3: g.drawImage(Texture.clydeLookDown[imageIndexEnemy], x, y, width, height, null);  break;
+				}
+				
+				break;
+		}
+	}
+
 	public void render(Graphics g)
 	{
 		if(imageIndexEnemy == 2)
@@ -1018,13 +1019,13 @@ public class Ghost extends Rectangle
 		}
 		else
 		{
-			if(!Energizer.flash)
-			{
-				stayBlue(g);
-			}
-			else if(Energizer.flash)
+			if(isFlashing)
 			{
 				flashGhost(g);
+			}
+			else if(!isFlashing)
+			{
+				stayBlue(g);
 			}
 		}
 	}

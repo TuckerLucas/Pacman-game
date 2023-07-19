@@ -29,6 +29,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import Game.Game;
+import Game.Sounds;
 
 public class PlayPanel extends JPanel
 {
@@ -88,7 +89,7 @@ public class PlayPanel extends JPanel
                 		// Start and show game
                 		CLayout.game.startGame();												
                     	CLayout.cardLayout.show(CLayout.panelContainer, "Game");				
-                		Game.gameStatus = Game.init;	
+                		Game.gameStatus = Game.init;
                 		
                 		// Save username
                 		LeaderboardPanel.username = usernameTextField.getText();                

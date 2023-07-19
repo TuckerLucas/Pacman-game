@@ -28,8 +28,7 @@ public class Energizer extends Rectangle
 	public static int activeTime = 0; 
 	public static int activeTargetTime = 60*200;
 	
-	public static boolean flash = false;
-	public static boolean isActive = false;
+	public static boolean isActive   = false;
 	
 	// Constructor
 	public Energizer(int x, int y)
@@ -58,9 +57,10 @@ public class Energizer extends Rectangle
 		Energizer.isActive = false;
 	}
 	
+	
 	// Manage animation time
 	public void tick()
-	{
+	{	
 		frameTime++;
 		
 		if(frameTime == frameTargetTime)
@@ -82,11 +82,11 @@ public class Energizer extends Rectangle
 			{
 				if(activeTime >= Ghost.flashTime)
 				{
-					flash = true;
+					Ghost.isFlashing = true;
 				}
 				else if(activeTime < Ghost.flashTime)
 				{
-					flash = false;
+					Ghost.isFlashing = false;
 				}
 				
 				activeTime++;

@@ -76,8 +76,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 	
 	// Portal coordinate variables
 	public static final int leftPortalX	 = 0;
+	public static final int leftPortalY  = 320;
 	public static final int rightPortalX = 640;
-	public static final int bothPortalsY = 320;
+	public static final int rightPortalY = 320;
+
 	
 	// Game status variables
 	public static int gameStatus 	 = 0;
@@ -282,7 +284,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 		switch(gameStatus)
 		{
 			case play:
-				
 				pacman.tick();
 				ghostArray[0].tick(); 					
 				ghostArray[1].tick();
@@ -310,6 +311,8 @@ public class Game extends Canvas implements Runnable, KeyListener
 					enter = false;
 					loadGameElements();
 					gameStatus = play;
+
+            		Sounds.loop(Sounds.sirenSoundPath);
 				}
 				
 				break;
@@ -427,11 +430,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 		// Render screens based on status of the game
 		switch(gameStatus)
 		{
-			case init: 		drawInitScreen(g); 	break;
-			case win: 		drawWinScreen(g); 	break;
-			case lose: 		drawLoseScreen(g); 	break;
-			case play: 		Level.render(g); 	break;
-			case lifeLost: 	pacman.render(g); 	break;			
+			case init: 	drawInitScreen(g); 	break;
+			case win: 	drawWinScreen(g); 	break;
+			case lose: 	drawLoseScreen(g);  break;
+			case play: 	level.render(g); 	break;
 		}
 		
 		g.dispose();
