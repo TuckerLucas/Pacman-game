@@ -46,12 +46,12 @@ public class BonusScore extends Rectangle
 			}
 			else if(nFlashes < nTargetFlashes)
 			{
-				if(Texture.animationPhaseBonusScore >= Texture.bonusScore.length)
+				if(Texture.bonusScoreAnimationPhase >= Texture.bonusScore.length)
 				{
-					Texture.animationPhaseBonusScore = 0;
+					Texture.bonusScoreAnimationPhase = 0;
 					nFlashes++;
 				}
-				g.drawImage(Texture.bonusScore[Texture.animationPhaseBonusScore], Game.xEvent, Game.yEvent, width, height, null);
+				g.drawImage(Texture.bonusScore[Texture.bonusScoreAnimationPhase], Game.xEvent, Game.yEvent, width, height, null);
 			}
 		}
 	}

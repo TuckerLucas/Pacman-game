@@ -930,13 +930,13 @@ public class Ghost extends Rectangle
 		{
 			Game.flashAnimationTime = 0;
 			
-			if(Texture.animationPhaseFlash == 3)
+			if(Texture.flashAnimationPhase == 3)
 			{
-				Texture.animationPhaseFlash = 0;
+				Texture.flashAnimationPhase = 0;
 			}
 			else
 			{
-				Texture.animationPhaseFlash++;
+				Texture.flashAnimationPhase++;
 			}
 		}
 	}
@@ -944,7 +944,7 @@ public class Ghost extends Rectangle
 	
 	private void flashGhost(Graphics g)
 	{
-		g.drawImage(Texture.flashGhost[Texture.animationPhaseFlash], x, y, width, height, null);
+		g.drawImage(Texture.flashGhost[Texture.flashAnimationPhase], x, y, width, height, null);
 	}
 	
 	private void stayBlue(Graphics g)

@@ -22,8 +22,12 @@ public class Texture
 	// Sheet containing all game sprites
 	public static BufferedImage spritesheet;
 	
-	// Size of one sprite (16x16)
+	// Sprite dimensions (16x16)
 	public static int spriteSize = 16;
+	
+	// Game objects dimensions (32x32)
+	public static int objectWidth  = 32;
+	public static int objectHeight = 32;
 	
 	// Pacman arrays for sprite animations 
 	public static BufferedImage[] pacmanLookRight;						
@@ -66,12 +70,11 @@ public class Texture
 	// Bonus score array for sprite animations
 	public static BufferedImage[] bonusScore;
 	
-	public static int animationPhasePacman = 0;
+	// Animation phase variables
+	public static int pacmanAnimationPhase     = 0;
+	public static int flashAnimationPhase      = 0;
+	public static int bonusScoreAnimationPhase = 0;
 
-	public static int animationPhaseBonusScore = 0;
-	
-	public static int animationPhaseFlash = 0;
-	
 	// Spritesheet columns
 	public static int spriteColumn1 = 0;
 	public static int spriteColumn2 = spriteSize*1;

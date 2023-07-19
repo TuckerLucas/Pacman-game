@@ -60,10 +60,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static BonusScore bonusScore;
 	public static Level level;
 	public static Texture texture;
-	
-	// Pacman spawn coordinate variables
-	public static int pacmanSpawnX = 192;
-	public static int pacmanSpawnY = 512;
 
 	// Pacman lives variable
 	public static int lives = 3;
@@ -75,12 +71,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static final int clydeID  = 3;
 	
 	// Portal coordinate variables
-	public static final int leftPortalX	 = 0;
-	public static final int leftPortalY  = 320;
-	public static final int rightPortalX = 640;
-	public static final int rightPortalY = 320;
+	public static int leftPortalX  = 0;
+	public static int leftPortalY  = 320;
+	public static int rightPortalX = 640;
+	public static int rightPortalY = 320;
 
-	
 	// Game status variables
 	public static int gameStatus 	 = 0;
 	public static final int init 	 = 1;		
@@ -220,7 +215,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 		}
 	}
 
-	
 	// Make game's screen text blink
 	private void blinkText()
 	{
@@ -278,12 +272,13 @@ public class Game extends Canvas implements Runnable, KeyListener
 		g.drawString("PRESS       TO GO HOME", 60, 400);
 	}
 
-	// Manage game's different states
+	// Tick function
 	private void tick()
 	{
 		switch(gameStatus)
 		{
 			case play:
+				
 				pacman.tick();
 				ghostArray[0].tick(); 					
 				ghostArray[1].tick();
@@ -400,7 +395,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 		if(BonusScore.animationTime == BonusScore.animationTargetTime)
 		{
 			BonusScore.animationTime = 0;
-			Texture.animationPhaseBonusScore++;
+			Texture.bonusScoreAnimationPhase++;
 		}
 		
 		if(Game.score >= Game.highscore)

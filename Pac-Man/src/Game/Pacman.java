@@ -20,51 +20,206 @@ public class Pacman extends Rectangle
 {
 	private static final long serialVersionUID = 1L;
 	
-	// Movement variables
-	private int lastDir;
-	public static int dir;
+	// Intersected ghost variable
+	private int intersectedGhost = -1;
 	
 	// Counter variable for number of eaten ghosts
 	public static int nEatenGhosts = 0;
 	
-	// Direction variables (for ease of reading)
-	public static final int right = 0;
-	public static final int left  = 1;
-	public static final int up    = 2;
-	public static final int down  = 3;
-	
-	// Intersected ghost variable
-	private int intersectedGhost = -1;
+	// Pacman spawn coordinate variables
+	public static int spawnX = 192;
+	public static int spawnY = 512;
 	
 	// Spawn variables
 	public static final int spawnNormal = 0;
-	private static final int spawnRight = 1;
-	private static final int spawnLeft 	= 2;
+	public static final int spawnRight  = 1;
+	public static final int spawnLeft 	= 2;
+	
+	// Direction variables
+	public static final int stopped = -1;
+	public static final int right 	= 0;
+	public static final int left  	= 1;
+	public static final int up    	= 2;
+	public static final int down  	= 3;
+	
+	// Movement variables
+	public static int lastDir;
+	public static int dir;
+	
 	
 	// Constructor
-	public Pacman(int spawnPoint)
+	public Pacman(int spawnType)
 	{
 		// Check where to spawn pacman
-		switch(spawnPoint)
+		switch(spawnType)
 		{
 			// Normal spawn
 			case spawnNormal:
-				dir = right;
-				setBounds(192,512,32,32);
+				
+				// Spawn pacman normally
+				spawnPacman(spawnX, spawnY);
+				
+				// Wait for user to input direction
+				dir = stopped;
+				
+				// Make pacman look right on start-up
+				lastDir = right;
+				
 				break;
-			// Spawn in the right portal
+				
+			// Right portal spawn
 			case spawnRight:
+				
+				// Spawn pacman at the right portal
+				spawnPacman(Game.rightPortalX, Game.rightPortalY);
+				
+				// Keep pacman moving left
 				dir = left;
-				setBounds(640,320,32,32);
+				
 				break;
-			// Spawn in the left portal
+				
+			// Left portal spawn
 			case spawnLeft:
+				
+				// Spawn pacman at the left portal
+				spawnPacman(Game.leftPortalX, Game.leftPortalY);
+				
+				// Keep pacman moving right
 				dir = right;
-				setBounds(0,320,32,32);
+				
 				break;
 		}
 	}
 
+	
+	// Spawn pacman at the given coordinates
+	private void spawnPacman(int xCoordinate, int yCoordinate)
+	{
+		setBounds(xCoordinate, yCoordinate, Texture.objectWidth,Texture.objectHeight);
+	}
+	
+	// Make pacman move in given direction
+	public void move(int direction)
+	{
+		// Check if pacman can move in given direction
+		if(canMove(direction))
+		{
+			// Make pacman move
+			switch(direction)
+			{
+				case right: x += Game.speed; lastDir = right; break;
+				case left:  x -= Game.speed; lastDir = left;  break;
+				case up:    y -= Game.speed; lastDir = up;    break;
+				case down:  y += Game.speed; lastDir = down;  break;
+			}
+			return;
+		}
+		
+		// Continue moving in last direction until direction change is possible
+		switch(direction)
+		{
+			case right:
+				
+				if(lastDir == left && canMove(left))
+				{
+					x -= Game.speed;
+				}
+				if(lastDir == up && canMove(up))
+				{
+					y -= Game.speed;
+				}
+				if(lastDir == down && canMove(down))
+				{
+					y += Game.speed;
+				}
+			
+				break;
+					
+			case left: 
+				
+				if(lastDir == right && canMove(right))
+				{
+					x += Game.speed;
+				}
+				if(lastDir == up && canMove(up))
+				{
+					y -= Game.speed;
+				}
+				if(lastDir == down && canMove(down))
+				{
+					y += Game.speed;
+				}
+					
+				break;
+					
+			case up:
+				
+				if(lastDir == left && canMove(left))
+				{
+					x -= Game.speed;
+				}
+				if(lastDir == right && canMove(right))
+				{
+					x += Game.speed;
+				}
+				if(lastDir == down && canMove(down))
+				{
+					y += Game.speed;
+				}
+				
+				break;
+			
+			case down:
+					
+				if(lastDir == left && canMove(left))
+				{
+					x -= Game.speed;
+				}
+				if(lastDir == up && canMove(up))
+				{
+					y -= Game.speed;
+				}
+				if(lastDir == right && canMove(right))
+				{
+					x += Game.speed;
+				}
+				
+				break;
+		}
+	}
+
+	// Check if pacman can move in given direction
+	private boolean canMove(int direction)
+	{
+		int nextx = 0, nexty = 0;
+		
+		switch(direction)
+		{
+			case right: nextx = x + Game.speed; nexty = y; break;
+			case left:	nextx = x - Game.speed; nexty = y; break;
+			case up: 	nextx = x; nexty = y - Game.speed; break;
+			case down: 	if(x == 320 && y == 256) {return false;}
+						nextx = x; nexty = y + Game.speed; break;
+		}
+		
+		Rectangle bounds = new Rectangle(nextx, nexty, width, height);
+
+		for(int xx = 0; xx < Level.tiles.length; xx++)
+		{
+			for(int yy = 0; yy < Level.tiles[0].length; yy++)
+			{
+				if(Level.tiles[xx][yy] != null)								
+				{
+					if(bounds.intersects(Level.tiles[xx][yy]))						
+					{
+						return false;								
+					}
+				}
+			}
+		}
+		return true;
+	}
+	
 	
 	// Manage pacman collisions with food
 	private void foodCollision()
@@ -215,7 +370,7 @@ public class Pacman extends Rectangle
 	}
 	
 	
-	// Manage pacman animation
+	// Manage pacman animation timing
 	public void eatingAnimation()
 	{
 		// Increase current animation phase time
@@ -228,40 +383,43 @@ public class Pacman extends Rectangle
 			Game.pacmanAnimationTime = 0;
 			
 			// Move to the next animation phase
-			Texture.animationPhasePacman++;
+			Texture.pacmanAnimationPhase++;
 		}
 	}
 	
 	// Render object
 	public void render(Graphics g)
 	{
-		if(Texture.animationPhasePacman == 3)
+		// Check if animation is in the last phase
+		if(Texture.pacmanAnimationPhase == 3)
 		{
-			Texture.animationPhasePacman = 0;
+			// Restart animation
+			Texture.pacmanAnimationPhase = 0;
 		}
 		
+		// Manage pacman animation rendering
 		switch(lastDir)
 		{
 			case right:
 				// Look right
-				g.drawImage(Texture.pacmanLookRight[Texture.animationPhasePacman], x, y, width, height, null);
+				g.drawImage(Texture.pacmanLookRight[Texture.pacmanAnimationPhase], x, y, width, height, null);
 				break;
 			case left:
 				// Look left
-				g.drawImage(Texture.pacmanLookLeft[Texture.animationPhasePacman], x, y, width, height, null);
+				g.drawImage(Texture.pacmanLookLeft[Texture.pacmanAnimationPhase], x, y, width, height, null);
 				break;
 			case up:
 				// Look up
-				g.drawImage(Texture.pacmanLookUp[Texture.animationPhasePacman], x, y, width, height, null);
+				g.drawImage(Texture.pacmanLookUp[Texture.pacmanAnimationPhase], x, y, width, height, null);
 				break;
 			case down:
 				// Look down
-				g.drawImage(Texture.pacmanLookDown[Texture.animationPhasePacman], x, y, width, height, null);
+				g.drawImage(Texture.pacmanLookDown[Texture.pacmanAnimationPhase], x, y, width, height, null);
 				break;
 		}
 	}
 
-	
+	// Tick function
 	public void tick()
 	{	
 		move(dir);
@@ -270,127 +428,5 @@ public class Pacman extends Rectangle
 		energizerCollision();
 		ghostCollision();
 		eatingAnimation();
-	}
-	
-	private void setDirection(int dir)
-	{
-		switch(dir)
-		{
-			case right: x += Game.speed; lastDir = right; break;
-			case left:  x -= Game.speed; lastDir = left;  break;
-			case up:    y -= Game.speed; lastDir = up;    break;
-			case down:  y += Game.speed; lastDir = down;  break;
-		}
-	}
-	
-	public void move(int dir)
-	{
-		if(canMove(dir))
-		{
-			setDirection(dir);
-			return;
-		}
-		
-		switch(dir)
-		{
-			case right:
-				
-				if(lastDir == left && canMove(left))
-				{
-					x -= Game.speed;
-				}
-				if(lastDir == up && canMove(up))
-				{
-					y -= Game.speed;
-				}
-				if(lastDir == down && canMove(down))
-				{
-					y += Game.speed;
-				}
-			
-				break;
-					
-			case left: 
-				
-				if(lastDir == right && canMove(right))
-				{
-					x += Game.speed;
-				}
-				if(lastDir == up && canMove(up))
-				{
-					y -= Game.speed;
-				}
-				if(lastDir == down && canMove(down))
-				{
-					y += Game.speed;
-				}
-					
-				break;
-					
-			case up:
-				
-				if(lastDir == left && canMove(left))
-				{
-					x -= Game.speed;
-				}
-				if(lastDir == right && canMove(right))
-				{
-					x += Game.speed;
-				}
-				if(lastDir == down && canMove(down))
-				{
-					y += Game.speed;
-				}
-				
-				break;
-			
-			case down:
-					
-				if(lastDir == left && canMove(left))
-				{
-					x -= Game.speed;
-				}
-				if(lastDir == up && canMove(up))
-				{
-					y -= Game.speed;
-				}
-				if(lastDir == right && canMove(right))
-				{
-					x += Game.speed;
-				}
-				
-				break;
-		}
-	}
-	
-	private boolean canMove(int direction)
-	{
-		int nextx = 0, nexty = 0;
-		
-		switch(direction)
-		{
-			case right: nextx = x + Game.speed; nexty = y; break;
-			case left:	nextx = x - Game.speed; nexty = y; break;
-			case up: 	nextx = x; nexty = y - Game.speed; break;
-			case down: 	if(x == 320 && y == 256) {return false;}
-						nextx = x; nexty = y + Game.speed; break;
-		}
-		
-		Rectangle bounds = new Rectangle(nextx, nexty, width, height);
-
-		for(int xx = 0; xx < Level.tiles.length; xx++)
-		{
-			for(int yy = 0; yy < Level.tiles[0].length; yy++)
-			{
-				if(Level.tiles[xx][yy] != null)								
-				{
-					if(bounds.intersects(Level.tiles[xx][yy]))						
-					{
-						return false;								
-					}
-				}
-			}
-		}
-		return true;
 	}
 }
