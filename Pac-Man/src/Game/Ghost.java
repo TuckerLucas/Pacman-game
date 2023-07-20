@@ -109,14 +109,14 @@ public class Ghost extends Rectangle
 		switch(spawn)
 		{
 			case spawnInBox:
-				setBounds(320,320,32,32);
+				spawnGhost(Game.centerBoxX,Game.centerBoxY);
 				break;
 			case spawnLeft:
-				setBounds(640,320,32,32);
+				spawnGhost(Game.rightPortalX,Game.rightPortalY);
 				move(left);
 				break;
 			case spawnRight:
-				setBounds(0,320,32,32);
+				spawnGhost(Game.leftPortalX,Game.leftPortalY);
 				move(right);
 				break;
 		}
@@ -143,6 +143,11 @@ public class Ghost extends Rectangle
 		
 		randomGen = new Random();
 		dir = randomGen.nextInt(4);
+	}
+	
+	private void spawnGhost(int xCoordinate, int yCoordinate)
+	{
+		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
 	}
 	
 	private void updateZone(int currentZone)
