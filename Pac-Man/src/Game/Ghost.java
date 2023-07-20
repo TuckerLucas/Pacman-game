@@ -84,6 +84,13 @@ public class Ghost extends Rectangle
 	class Zone
 	{
 		boolean isActive = false;
+		
+		int smartDir1;
+		int smartDir2;
+		
+		int findDir1;
+		int findDir2;
+		
 	}
 	
 	// Constructor
@@ -93,6 +100,8 @@ public class Ghost extends Rectangle
 		{
 			ZonesArray[i] = new Zone();
 		}
+		
+		initZones();
 		
 		// Set default ghost movement type
 		movementType = random;
@@ -145,6 +154,128 @@ public class Ghost extends Rectangle
 		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
 	}
 	
+	private void initZones()
+	{
+		for(int zone = 0; zone < ZonesArray.length; zone++)
+		{
+			switch(zone)
+			{
+				case 0: 
+					ZonesArray[zone].smartDir1 = left;
+					ZonesArray[zone].smartDir2 = up;
+					ZonesArray[zone].findDir1  = down;
+					ZonesArray[zone].findDir2  = left;
+					
+					break;
+				case 1:
+					ZonesArray[zone].smartDir1 = up;
+					ZonesArray[zone].smartDir2 = left;
+					ZonesArray[zone].findDir1  = right;
+					ZonesArray[zone].findDir2  = up;
+					
+					break;
+				case 2:
+					ZonesArray[zone].smartDir1 = up;
+					ZonesArray[zone].smartDir2 = left;
+					ZonesArray[zone].findDir1  = right;
+					ZonesArray[zone].findDir2  = up;
+					
+					break;
+				case 3:
+					ZonesArray[zone].smartDir1 = up;
+					ZonesArray[zone].smartDir2 = -1;
+					ZonesArray[zone].findDir1  = left;
+					ZonesArray[zone].findDir2  = up;
+					
+					break;
+				case 4:
+					ZonesArray[zone].smartDir1 = up;
+					ZonesArray[zone].smartDir2 = right;
+					ZonesArray[zone].findDir1  = left;
+					ZonesArray[zone].findDir2  = up;
+					
+					break;
+				case 5:
+					ZonesArray[zone].smartDir1 = up;
+					ZonesArray[zone].smartDir2 = right;
+					ZonesArray[zone].findDir1  = left;
+					ZonesArray[zone].findDir2  = up;
+					
+					break;
+				case 6:
+					ZonesArray[zone].smartDir1 = right;
+					ZonesArray[zone].smartDir2 = up;
+					ZonesArray[zone].findDir1  = down;
+					ZonesArray[zone].findDir2  = right;
+					
+					break;
+				case 7:
+					ZonesArray[zone].smartDir1 = left;
+					ZonesArray[zone].smartDir2 = -1;
+					ZonesArray[zone].findDir1  = -2;
+					ZonesArray[zone].findDir2  = -2;
+					
+					break;
+				case 8:
+					ZonesArray[zone].smartDir1 = right;
+					ZonesArray[zone].smartDir2 = -1;
+					ZonesArray[zone].findDir1  = -2;
+					ZonesArray[zone].findDir2  = -2;
+					
+					break;
+				case 9:
+					ZonesArray[zone].smartDir1 = left;
+					ZonesArray[zone].smartDir2 = down;
+					ZonesArray[zone].findDir1  = up;
+					ZonesArray[zone].findDir2  = left;
+					
+					break;
+				case 10:
+					ZonesArray[zone].smartDir1 = down;
+					ZonesArray[zone].smartDir2 = left;
+					ZonesArray[zone].findDir1  = right;
+					ZonesArray[zone].findDir2  = down;
+					
+					break;
+				case 11:
+					ZonesArray[zone].smartDir1 = down;
+					ZonesArray[zone].smartDir2 = left;
+					ZonesArray[zone].findDir1  = right;
+					ZonesArray[zone].findDir2  = down;
+					
+					break;
+				case 12:
+					ZonesArray[zone].smartDir1 = down;
+					ZonesArray[zone].smartDir2 = -1;
+					ZonesArray[zone].findDir1  = -2;
+					ZonesArray[zone].findDir2  = -2;
+					
+					break;
+				case 13:
+					ZonesArray[zone].smartDir1 = down;
+					ZonesArray[zone].smartDir2 = right;
+					ZonesArray[zone].findDir1  = left;
+					ZonesArray[zone].findDir2  = down;
+					
+					break;
+				case 14:
+					ZonesArray[zone].smartDir1 = down;
+					ZonesArray[zone].smartDir2 = right;
+					ZonesArray[zone].findDir1  = left;
+					ZonesArray[zone].findDir2  = down;
+					
+					break;
+				case 15:
+					ZonesArray[zone].smartDir1 = right;
+					ZonesArray[zone].smartDir2 = down;
+					ZonesArray[zone].findDir1  = up;
+					ZonesArray[zone].findDir2  = right;
+					
+					break;
+			}
+		}
+	}
+	
 	private void updateZone(int currentZone)
 	{
 		resetZones();
@@ -163,15 +294,15 @@ public class Ghost extends Rectangle
 		}
 	}
 
-	private void getToZone(int dir1, int dir2)
+	private void getToZone(int zone)
 	{
-		if(canMove(dir1))
+		if(canMove(ZonesArray[zone-1].smartDir1))
 		{
-			move(dir1);
+			move(ZonesArray[zone-1].smartDir1);
 		}
-		else if(canMove(dir2))
+		else if(canMove(ZonesArray[zone-1].smartDir2))
 		{
-			move(dir2);
+			move(ZonesArray[zone-1].smartDir2);
 		}
 		else
 		{
@@ -186,13 +317,13 @@ public class Ghost extends Rectangle
 		
 		switch(zone)
 		{
-			case 1: getToZone(left, up);
+			case 1: getToZone(1);
 					break;
 					
-			case 2: getToZone(up, left);
+			case 2: getToZone(2);
 					break;
 				
-			case 3: getToZone(up, left);
+			case 3: getToZone(3);
 					break;
 					
 			case 4: 
@@ -212,13 +343,13 @@ public class Ghost extends Rectangle
 				}
 				break;
 				
-			case 5: getToZone(up, right);
+			case 5: getToZone(5);
 					break;
 
-			case 6: getToZone(up, right);
+			case 6: getToZone(6);
 					break;
 					
-			case 7: getToZone(right, up);
+			case 7: getToZone(7);
 					break;
 					
 			case 8: 
@@ -255,13 +386,13 @@ public class Ghost extends Rectangle
 				}
 				break;
 				
-			case 10: getToZone(left, down);
+			case 10: getToZone(10);
 					 break;
 
-			case 11: getToZone(down, left);
+			case 11: getToZone(11);
 					 break;
 					 
-			case 12: getToZone(down, left);
+			case 12: getToZone(12);
 					 break;
 					 
 			case 13: 
@@ -281,13 +412,13 @@ public class Ghost extends Rectangle
 				}
 				break;
 				
-			case 14: getToZone(down, right);
+			case 14: getToZone(14);
 					 break;
 					
-			case 15: getToZone(down, right);
+			case 15: getToZone(15);
 					 break;
 					 
-			case 16: getToZone(right, down);
+			case 16: getToZone(16);
 					 break;
 		}
 	}
@@ -439,7 +570,9 @@ public class Ghost extends Rectangle
 				case down:
 					
 					if(randomMovement(down))
+					{
 						break;
+					}
 					else							
 					{
 						if(lastDir == left && canMove(left))
