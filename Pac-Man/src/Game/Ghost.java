@@ -49,7 +49,22 @@ public class Ghost extends Rectangle
 	private int timeImage 			= 0;		
 	private int targetTimeImage 	= 4;
 	
-	private static boolean ZonesArray[];
+	private boolean zone1 	= false;
+	private boolean zone2 	= false;
+	private boolean zone3 	= false;
+	private boolean zone4 	= false;
+	private boolean zone5 	= false;
+	private boolean zone6 	= false;
+	private boolean zone7 	= false;
+	private boolean zone8 	= false;
+	private boolean zone9 	= false;
+	private boolean zone10 	= false;
+	private boolean zone11 	= false;
+	private boolean zone12 	= false;
+	private boolean zone13 	= false;
+	private boolean zone14 	= false;
+	private boolean zone15 	= false;
+	private boolean zone16 	= false;
 	
 	private boolean left4 	= false;
 	private boolean right4 	= false;
@@ -68,50 +83,49 @@ public class Ghost extends Rectangle
 	
 	// Spawn variables
 	public static final int spawnInBox = 0;
-	private static final int spawnRight = 1;
-	private static final int spawnLeft 	= 2;
+	public static final int spawnRight = 1;
+	public static final int spawnLeft  = 2;
 	
 	private int imageIndexEnemy = 0;
 	
-	public boolean isVulnerable = false;
+	public boolean isVulnerable      = false;
 	public static boolean isFlashing = false;
+	
+	public static int flashAnimationTime       = 0;
+	public static int flashAnimationTargetTime = 20;
 	
 	public int enemyID;
 	
 	// Constructor
-	public Ghost(int ID, int spawnType, boolean IV)
+	public Ghost(int ID, int spawnPoint, boolean IV)
 	{	
-		ZonesArray = new boolean[16];
-		
-		resetZones();
-		
 		// Set default ghost movement type
 		movementType = random;
 		
-		spawn 			= spawnType;
+		spawn 			= spawnPoint;
 		enemyID  		= ID;
 		isVulnerable 	= IV;
 		
-		switch(spawnType)
+		switch(spawn)
 		{
 			case spawnInBox:
-				spawnGhost(Game.centerBoxX, Game.centerBoxY);
-				break;
-			case spawnRight:
-				spawnGhost(Game.leftPortalX,Game.leftPortalY);
-				move(right);
+				setBounds(320,320,32,32);
 				break;
 			case spawnLeft:
-				spawnGhost(Game.rightPortalX, Game.rightPortalY);
+				setBounds(640,320,32,32);
 				move(left);
+				break;
+			case spawnRight:
+				setBounds(0,320,32,32);
+				move(right);
 				break;
 		}
 
 		switch(Game.difficulty)
 		{
 			case 1:
-				radius = 80;
-				smartTargetTime = 60 * 5;
+				radius = 300;
+				smartTargetTime = 60 * 300;
 				break;
 			case 2:
 				radius = 100;
@@ -131,26 +145,49 @@ public class Ghost extends Rectangle
 		dir = randomGen.nextInt(4);
 	}
 	
-	private void spawnGhost(int xCoordinate, int yCoordinate)
-	{
-		setBounds(xCoordinate, yCoordinate, Texture.objectHeight, Texture.objectWidth);
-	}
-	
 	private void updateZone(int currentZone)
 	{
-		// Reset all zones
 		resetZones();
 		
-		// Set the desired zone 
-		ZonesArray[currentZone-1] = true;
+		switch(currentZone)
+		{
+			case 1:  zone1  = true; break;
+			case 2:  zone2  = true; break;
+			case 3:  zone3  = true; break;
+			case 4:  zone4  = true; break;
+			case 5:  zone5  = true; break;
+			case 6:  zone6  = true; break;
+			case 7:  zone7  = true; break;
+			case 8:  zone8  = true; break;
+			case 9:  zone9  = true; break;
+			case 10: zone10 = true; break;
+			case 11: zone11 = true; break;
+			case 12: zone12 = true; break;
+			case 13: zone13 = true; break;
+			case 14: zone14 = true; break;
+			case 15: zone15 = true; break;
+			case 16: zone16 = true; break;
+		}
 	}
 	
 	private void resetZones()
 	{
-		for(int i = 0; i < ZonesArray.length; i++)
-		{
-			ZonesArray[i] = false;
-		}
+		zone1 	= false;
+		zone2 	= false;
+		zone3 	= false;
+		zone4 	= false;
+		zone5 	= false;
+		zone6 	= false;
+		zone7 	= false;
+		zone8 	= false;
+		zone9 	= false;
+		zone10	= false;
+		zone11 	= false;
+		zone12 	= false;
+		zone13 	= false;
+		zone14 	= false;
+		zone15 	= false;
+		zone16 	= false;
 	}
 
 	private void getToZone(int dir1, int dir2)
@@ -587,19 +624,19 @@ public class Ghost extends Rectangle
 
 	private void findingPath()
 	{
-		if(ZonesArray[0])
+		if(zone1)
 		{
 			moveUntil(down, left);
 		}
-		else if(ZonesArray[1])
+		else if(zone2)
 		{
 			moveUntil(right, up);
 		}
-		else if(ZonesArray[2])
+		else if(zone3)
 		{
 			moveUntil(right, up);
 		}
-		else if(ZonesArray[3])
+		else if(zone4)
 		{
 			if(left4 == true)
 			{
@@ -610,7 +647,7 @@ public class Ghost extends Rectangle
 				else
 				{
 					left4 = false;
-					ZonesArray[3] = false;
+					zone4 = false;
 					moveUntil(-1, -1);
 				}
 			}
@@ -623,24 +660,24 @@ public class Ghost extends Rectangle
 				else
 				{
 					right4 = false;
-					ZonesArray[3] = false;
+					zone4 = false;
 					moveUntil(-1, -1);
 				}
 			}
 		}
-		else if(ZonesArray[4])
+		else if(zone5)
 		{
 			moveUntil(left, up);
 		}
-		else if(ZonesArray[5])
+		else if(zone6)
 		{
 			moveUntil(left, up);
 		}
-		else if(ZonesArray[6])
+		else if(zone7)
 		{
 			moveUntil(down, right);
 		}
-		else if(ZonesArray[7])
+		else if(zone8)
 		{
 			if(up8 == true)
 			{
@@ -651,7 +688,7 @@ public class Ghost extends Rectangle
 				else
 				{
 					up8 = false;
-					ZonesArray[7] = false;
+					zone8 = false;
 					moveUntil(-1,-1);
 				}
 			}
@@ -664,12 +701,12 @@ public class Ghost extends Rectangle
 				else
 				{
 					down8 = false;
-					ZonesArray[7] = false;
+					zone8 = false;
 					moveUntil(-1,-1);
 				}
 			}
 		}
-		else if(ZonesArray[8])
+		else if(zone9)
 		{
 			if(up9 == true)
 			{
@@ -680,7 +717,7 @@ public class Ghost extends Rectangle
 				else
 				{
 					up9 = false;
-					ZonesArray[8] = false;
+					zone9 = false;
 					moveUntil(-1,-1);
 				}
 			}
@@ -693,24 +730,24 @@ public class Ghost extends Rectangle
 				else
 				{
 					down9 = false;
-					ZonesArray[8] = false;
+					zone9 = false;
 					moveUntil(-1,-1);
 				}
 			}
 		}
-		else if(ZonesArray[9])
+		else if(zone10)
 		{
 			moveUntil(up, left);
 		}
-		else if(ZonesArray[10])
+		else if(zone11)
 		{
 			moveUntil(right, down);
 		}
-		else if(ZonesArray[11])
+		else if(zone12)
 		{
 			moveUntil(right, down);
 		}
-		else if(ZonesArray[12])
+		else if(zone13)
 		{
 			if(left13 == true)
 			{
@@ -720,7 +757,7 @@ public class Ghost extends Rectangle
 				}
 				else
 				{
-					ZonesArray[12] = false;
+					zone13 = false;
 					left13 = false;
 					moveUntil(-1,-1);
 				}
@@ -733,21 +770,21 @@ public class Ghost extends Rectangle
 				}
 				else
 				{
-					ZonesArray[12] = false;
+					zone13 = false;
 					right13 = false;
 					moveUntil(-1,-1);
 				}
 			}
 		}
-		else if(ZonesArray[13])
+		else if(zone14)
 		{
 			moveUntil(left, down);
 		}
-		else if(ZonesArray[14])
+		else if(zone15)
 		{
 			moveUntil(left, down);
 		}
-		else if(ZonesArray[15])
+		else if(zone16)
 		{
 			moveUntil(up, right);
 		}
@@ -890,11 +927,11 @@ public class Ghost extends Rectangle
 			imageIndexEnemy ++;
 		}
 		
-		Game.flashAnimationTime++;
+		flashAnimationTime++;
 		
-		if(Game.flashAnimationTime == Game.flashAnimationTargetTime)
+		if(flashAnimationTime == flashAnimationTargetTime)
 		{
-			Game.flashAnimationTime = 0;
+			flashAnimationTime = 0;
 			
 			if(Texture.flashAnimationPhase == 3)
 			{

@@ -104,8 +104,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	// Paths to required resources
 	String scoresPath = "res/Files/Scores.txt";
 	
-	public static int flashAnimationTime = 0;
-	public static int flashAnimationTargetTime = 20;
+
 	
 	// Constructor
 	public Game()
