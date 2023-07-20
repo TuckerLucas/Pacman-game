@@ -49,22 +49,7 @@ public class Ghost extends Rectangle
 	private int timeImage 			= 0;		
 	private int targetTimeImage 	= 4;
 	
-	private boolean zone1 	= false;
-	private boolean zone2 	= false;
-	private boolean zone3 	= false;
-	private boolean zone4 	= false;
-	private boolean zone5 	= false;
-	private boolean zone6 	= false;
-	private boolean zone7 	= false;
-	private boolean zone8 	= false;
-	private boolean zone9 	= false;
-	private boolean zone10 	= false;
-	private boolean zone11 	= false;
-	private boolean zone12 	= false;
-	private boolean zone13 	= false;
-	private boolean zone14 	= false;
-	private boolean zone15 	= false;
-	private boolean zone16 	= false;
+	private boolean ZonesArray[] = new boolean[16];
 	
 	private boolean left4 	= false;
 	private boolean right4 	= false;
@@ -124,8 +109,8 @@ public class Ghost extends Rectangle
 		switch(Game.difficulty)
 		{
 			case 1:
-				radius = 300;
-				smartTargetTime = 60 * 300;
+				radius = 80;
+				smartTargetTime = 60 * 10;
 				break;
 			case 2:
 				radius = 100;
@@ -154,45 +139,18 @@ public class Ghost extends Rectangle
 	{
 		resetZones();
 		
-		switch(currentZone)
+		for(int i = 0; i < ZonesArray.length; i++)
 		{
-			case 1:  zone1  = true; break;
-			case 2:  zone2  = true; break;
-			case 3:  zone3  = true; break;
-			case 4:  zone4  = true; break;
-			case 5:  zone5  = true; break;
-			case 6:  zone6  = true; break;
-			case 7:  zone7  = true; break;
-			case 8:  zone8  = true; break;
-			case 9:  zone9  = true; break;
-			case 10: zone10 = true; break;
-			case 11: zone11 = true; break;
-			case 12: zone12 = true; break;
-			case 13: zone13 = true; break;
-			case 14: zone14 = true; break;
-			case 15: zone15 = true; break;
-			case 16: zone16 = true; break;
+			ZonesArray[currentZone-1] = true;
 		}
 	}
 	
 	private void resetZones()
 	{
-		zone1 	= false;
-		zone2 	= false;
-		zone3 	= false;
-		zone4 	= false;
-		zone5 	= false;
-		zone6 	= false;
-		zone7 	= false;
-		zone8 	= false;
-		zone9 	= false;
-		zone10	= false;
-		zone11 	= false;
-		zone12 	= false;
-		zone13 	= false;
-		zone14 	= false;
-		zone15 	= false;
-		zone16 	= false;
+		for(int i = 0; i < ZonesArray.length; i++)
+		{
+			ZonesArray[i] = false;
+		}
 	}
 
 	private void getToZone(int dir1, int dir2)
@@ -629,19 +587,19 @@ public class Ghost extends Rectangle
 
 	private void findingPath()
 	{
-		if(zone1)
+		if(ZonesArray[0])
 		{
 			moveUntil(down, left);
 		}
-		else if(zone2)
+		else if(ZonesArray[1])
 		{
 			moveUntil(right, up);
 		}
-		else if(zone3)
+		else if(ZonesArray[2])
 		{
 			moveUntil(right, up);
 		}
-		else if(zone4)
+		else if(ZonesArray[3])
 		{
 			if(left4 == true)
 			{
@@ -652,7 +610,7 @@ public class Ghost extends Rectangle
 				else
 				{
 					left4 = false;
-					zone4 = false;
+					ZonesArray[3] = false;
 					moveUntil(-1, -1);
 				}
 			}
@@ -665,24 +623,24 @@ public class Ghost extends Rectangle
 				else
 				{
 					right4 = false;
-					zone4 = false;
+					ZonesArray[3] = false;
 					moveUntil(-1, -1);
 				}
 			}
 		}
-		else if(zone5)
+		else if(ZonesArray[4])
 		{
 			moveUntil(left, up);
 		}
-		else if(zone6)
+		else if(ZonesArray[5])
 		{
 			moveUntil(left, up);
 		}
-		else if(zone7)
+		else if(ZonesArray[6])
 		{
 			moveUntil(down, right);
 		}
-		else if(zone8)
+		else if(ZonesArray[7])
 		{
 			if(up8 == true)
 			{
@@ -693,7 +651,7 @@ public class Ghost extends Rectangle
 				else
 				{
 					up8 = false;
-					zone8 = false;
+					ZonesArray[7] = false;
 					moveUntil(-1,-1);
 				}
 			}
@@ -706,12 +664,12 @@ public class Ghost extends Rectangle
 				else
 				{
 					down8 = false;
-					zone8 = false;
+					ZonesArray[7] = false;
 					moveUntil(-1,-1);
 				}
 			}
 		}
-		else if(zone9)
+		else if(ZonesArray[8])
 		{
 			if(up9 == true)
 			{
@@ -722,7 +680,7 @@ public class Ghost extends Rectangle
 				else
 				{
 					up9 = false;
-					zone9 = false;
+					ZonesArray[8] = false;
 					moveUntil(-1,-1);
 				}
 			}
@@ -735,24 +693,24 @@ public class Ghost extends Rectangle
 				else
 				{
 					down9 = false;
-					zone9 = false;
+					ZonesArray[8] = false;
 					moveUntil(-1,-1);
 				}
 			}
 		}
-		else if(zone10)
+		else if(ZonesArray[9])
 		{
 			moveUntil(up, left);
 		}
-		else if(zone11)
+		else if(ZonesArray[10])
 		{
 			moveUntil(right, down);
 		}
-		else if(zone12)
+		else if(ZonesArray[11])
 		{
 			moveUntil(right, down);
 		}
-		else if(zone13)
+		else if(ZonesArray[12])
 		{
 			if(left13 == true)
 			{
@@ -762,7 +720,7 @@ public class Ghost extends Rectangle
 				}
 				else
 				{
-					zone13 = false;
+					ZonesArray[12] = false;
 					left13 = false;
 					moveUntil(-1,-1);
 				}
@@ -775,21 +733,21 @@ public class Ghost extends Rectangle
 				}
 				else
 				{
-					zone13 = false;
+					ZonesArray[12] = false;
 					right13 = false;
 					moveUntil(-1,-1);
 				}
 			}
 		}
-		else if(zone14)
+		else if(ZonesArray[13])
 		{
 			moveUntil(left, down);
 		}
-		else if(zone15)
+		else if(ZonesArray[14])
 		{
 			moveUntil(left, down);
 		}
-		else if(zone16)
+		else if(ZonesArray[15])
 		{
 			moveUntil(up, right);
 		}
