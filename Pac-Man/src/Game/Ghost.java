@@ -95,12 +95,7 @@ public class Ghost extends Rectangle
 	
 	// Constructor
 	public Ghost(int ID, int spawnPoint, boolean IV)
-	{	
-		for(int i = 0; i < ZonesArray.length; i++)
-		{
-			ZonesArray[i] = new Zone();
-		}
-		
+	{			
 		initZones();
 		
 		// Set default ghost movement type
@@ -155,9 +150,11 @@ public class Ghost extends Rectangle
 	}
 	
 	private void initZones()
-	{
+	{	
 		for(int zone = 0; zone < ZonesArray.length; zone++)
 		{
+			ZonesArray[zone] = new Zone();
+			
 			switch(zone)
 			{
 				case 0: 
@@ -317,15 +314,6 @@ public class Ghost extends Rectangle
 		
 		switch(zone)
 		{
-			case 1: getToZone(1);
-					break;
-					
-			case 2: getToZone(2);
-					break;
-				
-			case 3: getToZone(3);
-					break;
-					
 			case 4: 
 				if(canMove(up))
 				{
@@ -341,16 +329,7 @@ public class Ghost extends Rectangle
 					right4 = true;
 					movementType = find_path;
 				}
-				break;
-				
-			case 5: getToZone(5);
-					break;
-
-			case 6: getToZone(6);
-					break;
-					
-			case 7: getToZone(7);
-					break;
+				return;
 					
 			case 8: 
 				if(canMove(left))
@@ -367,7 +346,7 @@ public class Ghost extends Rectangle
 					down8 = true;
 					movementType = find_path;
 				}
-				break;
+				return;
 				
 			case 9: 
 				if(canMove(right))
@@ -384,16 +363,7 @@ public class Ghost extends Rectangle
 					down9 = true;
 					movementType = find_path;
 				}
-				break;
-				
-			case 10: getToZone(10);
-					 break;
-
-			case 11: getToZone(11);
-					 break;
-					 
-			case 12: getToZone(12);
-					 break;
+				return;
 					 
 			case 13: 
 				if(canMove(down))
@@ -410,17 +380,10 @@ public class Ghost extends Rectangle
 					right13 = true;
 					movementType = find_path;
 				}
-				break;
-				
-			case 14: getToZone(14);
-					 break;
-					
-			case 15: getToZone(15);
-					 break;
-					 
-			case 16: getToZone(16);
-					 break;
+				return;
 		}
+		
+		getToZone(zone);
 	}
 
 	private boolean randomMovement(int direction)
@@ -466,7 +429,7 @@ public class Ghost extends Rectangle
 			
 			x -= spd;
 			
-			if(x == 480 && y == 320)
+			if(atPortalEntry(right))
 			{
 				spawn = spawnInBox;
 			}
@@ -477,7 +440,7 @@ public class Ghost extends Rectangle
 			
 			x += spd;
 			
-			if(x == 160 && y == 320)
+			if(atPortalEntry(left))
 			{
 				spawn = spawnInBox;
 			}
@@ -604,6 +567,17 @@ public class Ghost extends Rectangle
 		return ((x < 160 || x > 480) && y == 320) ? true : false;
 	}
 	
+	private boolean atPortalEntry(int portal)
+	{
+		switch(portal)
+		{
+			case left:  return (x == 160 && y == 320) ? true : false;
+				
+			case right: return (x == 480 && y == 320) ? true : false;
+		}
+		
+		return false;
+	}
 	
 	private void moveSmartly()
 	{
@@ -620,7 +594,7 @@ public class Ghost extends Rectangle
 			lastDir = left;
 			x-=spd;
 			
-			if(x == 480 && y == 320)
+			if(atPortalEntry(right))
 			{
 				spawn = spawnInBox;
 			}
@@ -630,7 +604,7 @@ public class Ghost extends Rectangle
 			lastDir = right;
 			x+=spd;
 			
-			if(x == 160 && y == 320)
+			if(atPortalEntry(left))
 			{
 				spawn = spawnInBox;
 			}
@@ -1011,15 +985,9 @@ public class Ghost extends Rectangle
 		else if(x == 640 && y == 320)
 		{
 			lastDir = right;
-			spawn = spawnRight;
+			spawn   = spawnRight;
 
-			switch(enemyID)
-			{
-				case 0: Game.ghostArray[0] = new Ghost(0, spawn, isVulnerable); break;
-				case 1: Game.ghostArray[1] = new Ghost(1, spawn, isVulnerable); break;
-				case 2: Game.ghostArray[2] = new Ghost(2, spawn, isVulnerable); break;
-				case 3: Game.ghostArray[3] = new Ghost(3, spawn, isVulnerable); break;
-			}
+			Game.ghostArray[enemyID] = new Ghost(enemyID, spawn, isVulnerable);
 		}
 	}
 	
