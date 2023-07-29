@@ -48,7 +48,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	
 	// Game object variables
 	public static Pacman pacman;			
-	public static Ghost[] ghostArray = new Ghost[4];
+	public static Ghost ghostArray[] = new Ghost[4];
 	public static Energizer energizer;
 	public static Door door;
 	public static BonusScore bonusScore;
@@ -101,6 +101,8 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static int xEvent;
 	public static int yEvent;
 	
+	public static int directionsArray[] = new int[4];
+	
 	// Paths to required resources
 	String scoresPath = "res/Files/Scores.txt";
 	
@@ -113,10 +115,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 		gameStatus = init;			
 		texture = new Texture();
 		
-		ghostArray[0] = new Ghost(0, Ghost.spawnInBox, false);
-		ghostArray[1] = new Ghost(1, Ghost.spawnInBox, false);
-		ghostArray[2] = new Ghost(2, Ghost.spawnInBox, false);
-		ghostArray[3] = new Ghost(3, Ghost.spawnInBox, false);
+		for(int i = 0; i < 4; i++)
+		{
+			directionsArray[i] = i;
+			ghostArray[i] = new Ghost(i, Ghost.spawnInBox, false);
+		}
 		
 		// Get game's highscore
     	try
