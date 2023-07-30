@@ -70,7 +70,8 @@ public class Ghost extends Rectangle
 	
 	class Zone
 	{
-		
+		int smartDir1 = left;
+		int smartDir2 = up;
 	}
 	
 	// Constructor
@@ -82,6 +83,8 @@ public class Ghost extends Rectangle
 		spawn 			= spawnPoint;
 		enemyID  		= ID;
 		isVulnerable 	= IV;
+		
+		initZones();
 		
 		switch(spawn)
 		{
@@ -102,14 +105,104 @@ public class Ghost extends Rectangle
 		dir = randomGen.nextInt(4);
 	}
 	
+	private void initZones()
+	{	
+		for(int zone = 0; zone < ZonesArray.length; zone++)
+		{
+			ZonesArray[zone] = new Zone();
+			
+			switch(zone)
+			{
+				case 0: 
+					ZonesArray[zone].smartDir1 = left;
+					ZonesArray[zone].smartDir2 = up;
+					
+					break;
+				case 1:
+					ZonesArray[zone].smartDir1 = up;
+					ZonesArray[zone].smartDir2 = left;
+					
+					break;
+				case 2:
+					ZonesArray[zone].smartDir1 = up;
+					ZonesArray[zone].smartDir2 = left;
+					
+					break;
+				case 3:
+					ZonesArray[zone].smartDir1 = up;
+					ZonesArray[zone].smartDir2 = -1;
+					
+					break;
+				case 4:
+					ZonesArray[zone].smartDir1 = up;
+					ZonesArray[zone].smartDir2 = right;
+					
+					break;
+				case 5:
+					ZonesArray[zone].smartDir1 = up;
+					ZonesArray[zone].smartDir2 = right;
+					
+					break;
+				case 6:
+					ZonesArray[zone].smartDir1 = right;
+					ZonesArray[zone].smartDir2 = up;
+					
+					break;
+				case 7:
+					ZonesArray[zone].smartDir1 = left;
+					ZonesArray[zone].smartDir2 = -1;
+					
+					break;
+				case 8:
+					ZonesArray[zone].smartDir1 = right;
+					ZonesArray[zone].smartDir2 = -1;
+					
+					break;
+				case 9:
+					ZonesArray[zone].smartDir1 = left;
+					ZonesArray[zone].smartDir2 = down;
+					
+					break;
+				case 10:
+					ZonesArray[zone].smartDir1 = down;
+					ZonesArray[zone].smartDir2 = left;
+					
+					break;
+				case 11:
+					ZonesArray[zone].smartDir1 = down;
+					ZonesArray[zone].smartDir2 = left;
+					
+					break;
+				case 12:
+					ZonesArray[zone].smartDir1 = down;
+					ZonesArray[zone].smartDir2 = -1;
+					
+					break;
+				case 13:
+					ZonesArray[zone].smartDir1 = down;
+					ZonesArray[zone].smartDir2 = right;
+					
+					break;
+				case 14:
+					ZonesArray[zone].smartDir1 = down;
+					ZonesArray[zone].smartDir2 = right;
+					
+					break;
+				case 15:
+					ZonesArray[zone].smartDir1 = right;
+					ZonesArray[zone].smartDir2 = down;
+					
+					break;
+			}
+		}
+	}
+	
 	private void spawnGhost(int xCoordinate, int yCoordinate)
 	{
 		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
 	}
 
-
 	
-
 	private boolean randomMovement(int direction)
 	{
 		if(canMove(direction))			
@@ -128,8 +221,21 @@ public class Ghost extends Rectangle
 		deltaY = y - Game.pacman.y;
 	}
 	
+	private boolean pacmanIsClose()
+	{
+		return ((deltaX < detectionRange && deltaX > -detectionRange) && 
+				(deltaY < detectionRange && deltaY > -detectionRange)) 
+				? true : false;
+	}
+	
 	private void moveRandomly()
 	{
+		if(pacmanIsClose() && !inSpawnBox() && !isVulnerable)
+		{
+			movementType = smartMovement;
+			return;
+		}
+		
 		if(spawn != spawnInBox)
 		{
 			return;
@@ -154,6 +260,110 @@ public class Ghost extends Rectangle
 		return;
 	}
 	
+	// Check if ghost is in the spawn box
+	private boolean inSpawnBox()
+	{
+		return ((x < 368 && x > 272) && (y < 336 && y > 304)) ? true : false;
+		//return ((x < 385 && x > 255) && (y < 385 && y > 255)) ? true : false;
+	}
+		
+	private int pacmanZone()
+	{	
+		if(deltaX > 0 && deltaY > 0 && deltaX > deltaY)			
+		{
+			return 1;
+		}
+		else if(deltaX > 0 && deltaY > 0 && deltaX == deltaY)					
+		{
+			return 2;
+		}
+		else if(deltaX > 0 && deltaY > 0 && deltaY > deltaX)						
+		{
+			return 3;
+		}
+		else if(deltaX == 0 && deltaY > 0)									
+		{
+			return 4;
+		}
+		else if(deltaX < 0 && deltaY > 0 && deltaY > -deltaX)						
+		{
+			return 5;
+		}
+		else if(deltaX < 0 && deltaY > 0 && -deltaX == deltaY)					
+		{
+			return 6;
+		}
+		else if(deltaX < 0 && deltaY > 0 && -deltaX > deltaY)						
+		{
+			return 7;
+		}
+		else if(deltaX > 0 && deltaY == 0)										
+		{
+			return 8;
+		}
+		else if(deltaX < 0 && deltaY == 0)										
+		{
+			return 9;
+		}
+		else if(deltaX > 0 && deltaY < 0 && deltaX > -deltaY)	 					
+		{
+			return 10;
+		}
+		else if(deltaX > 0 && deltaY < 0 && deltaX == -deltaY)	 					
+		{
+			return 11;
+		}
+		else if(deltaX > 0 && deltaY < 0 && -deltaY > deltaX)						
+		{
+			return 12;
+		}
+		else if(deltaX == 0 && deltaY < 0)										
+		{
+			return 13;
+		}
+		else if(deltaX < 0 && deltaY < 0 && -deltaY > -deltaX)						
+		{
+			return 14;
+		}
+		else if(deltaX < 0 && deltaY < 0 && -deltaY == -deltaX)						
+		{
+			return 15;
+		}
+		else if(deltaX < 0 && deltaY < 0 && -deltaX > -deltaY)						
+		{
+			return 16;
+		}
+		
+		return 1;
+	}
+	
+	private void moveToZone(int zone)
+	{
+		if(canMove(ZonesArray[zone-1].smartDir1))
+		{
+			move(ZonesArray[zone-1].smartDir1);
+		}
+		else if(canMove(ZonesArray[zone-1].smartDir2))
+		{
+			move(ZonesArray[zone-1].smartDir2);
+		}
+	}
+	
+	private void moveSmartly()
+	{
+		if(isVulnerable || inSpawnBox())
+		{
+			movementType = randomMovement;
+		}
+		
+		if(spawn != spawnInBox)
+		{
+			return;
+		}
+		
+		moveToZone(pacmanZone());
+	}
+	
 	private boolean atPortalEntry(int portal)
 	{
 		switch(portal)
@@ -169,7 +379,11 @@ public class Ghost extends Rectangle
 	// Manage ghost movement
 	private void ghostMovement()
 	{
-		moveRandomly();		
+		switch(movementType)
+		{
+			case randomMovement: moveRandomly(); break;
+			case smartMovement:  moveSmartly();  break;
+		}
 	}
 	
 	private void portalCrossing()
@@ -177,15 +391,9 @@ public class Ghost extends Rectangle
 		if(x == 0 && y == 320)								
 		{
 			lastDir = left;
-			spawn = spawnLeft;
+			spawn   = spawnLeft;
 			
-			switch(enemyID)
-			{
-				case 0: Game.ghostArray[0] = new Ghost(0, spawn, isVulnerable); break;
-				case 1: Game.ghostArray[1] = new Ghost(1, spawn, isVulnerable); break;
-				case 2: Game.ghostArray[2] = new Ghost(2, spawn, isVulnerable); break;
-				case 3: Game.ghostArray[3] = new Ghost(3, spawn, isVulnerable); break;
-			}
+			Game.ghostArray[enemyID] = new Ghost(enemyID, spawn, isVulnerable);
 		}
 		else if(x == 640 && y == 320)
 		{
