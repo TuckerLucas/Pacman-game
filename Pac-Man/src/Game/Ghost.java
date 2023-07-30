@@ -70,8 +70,11 @@ public class Ghost extends Rectangle
 	
 	class Zone
 	{
-		int smartDir1 = left;
-		int smartDir2 = up;
+		int smartDir1;
+		int smartDir2;
+		
+		int findDir1;
+		int findDir2;
 	}
 	
 	// Constructor
@@ -116,81 +119,97 @@ public class Ghost extends Rectangle
 				case 0: 
 					ZonesArray[zone].smartDir1 = left;
 					ZonesArray[zone].smartDir2 = up;
+					ZonesArray[zone].findDir1  = down;
 					
 					break;
 				case 1:
 					ZonesArray[zone].smartDir1 = up;
-					ZonesArray[zone].smartDir2 = left;
+					ZonesArray[zone].smartDir2 = right;
+					ZonesArray[zone].findDir1  = down;
 					
 					break;
 				case 2:
 					ZonesArray[zone].smartDir1 = up;
 					ZonesArray[zone].smartDir2 = left;
+					ZonesArray[zone].findDir1  = right;
 					
 					break;
 				case 3:
 					ZonesArray[zone].smartDir1 = up;
-					ZonesArray[zone].smartDir2 = -1;
+					ZonesArray[zone].smartDir2 = left;
+					ZonesArray[zone].findDir1  = right;
 					
 					break;
 				case 4:
 					ZonesArray[zone].smartDir1 = up;
 					ZonesArray[zone].smartDir2 = right;
+					ZonesArray[zone].findDir1  = left;
 					
 					break;
 				case 5:
 					ZonesArray[zone].smartDir1 = up;
 					ZonesArray[zone].smartDir2 = right;
+					ZonesArray[zone].findDir1  = left;
 					
 					break;
 				case 6:
 					ZonesArray[zone].smartDir1 = right;
 					ZonesArray[zone].smartDir2 = up;
+					ZonesArray[zone].findDir1  = down;
 					
 					break;
 				case 7:
 					ZonesArray[zone].smartDir1 = left;
-					ZonesArray[zone].smartDir2 = -1;
+					ZonesArray[zone].smartDir2 = up;
+					ZonesArray[zone].findDir1  = down;
 					
 					break;
 				case 8:
 					ZonesArray[zone].smartDir1 = right;
-					ZonesArray[zone].smartDir2 = -1;
+					ZonesArray[zone].smartDir2 = up;
+					ZonesArray[zone].findDir1  = down;
 					
 					break;
 				case 9:
 					ZonesArray[zone].smartDir1 = left;
 					ZonesArray[zone].smartDir2 = down;
+					ZonesArray[zone].findDir1  = up;
 					
 					break;
 				case 10:
 					ZonesArray[zone].smartDir1 = down;
 					ZonesArray[zone].smartDir2 = left;
+					ZonesArray[zone].findDir1  = right;
 					
 					break;
 				case 11:
 					ZonesArray[zone].smartDir1 = down;
 					ZonesArray[zone].smartDir2 = left;
+					ZonesArray[zone].findDir1  = right;
 					
 					break;
 				case 12:
 					ZonesArray[zone].smartDir1 = down;
-					ZonesArray[zone].smartDir2 = -1;
+					ZonesArray[zone].smartDir2 = left;
+					ZonesArray[zone].findDir1  = right;
 					
 					break;
 				case 13:
 					ZonesArray[zone].smartDir1 = down;
 					ZonesArray[zone].smartDir2 = right;
+					ZonesArray[zone].findDir1  = left;
 					
 					break;
 				case 14:
 					ZonesArray[zone].smartDir1 = down;
 					ZonesArray[zone].smartDir2 = right;
+					ZonesArray[zone].findDir1  = left;
 					
 					break;
 				case 15:
 					ZonesArray[zone].smartDir1 = right;
 					ZonesArray[zone].smartDir2 = down;
+					ZonesArray[zone].findDir1  = up;
 					
 					break;
 			}
@@ -264,7 +283,6 @@ public class Ghost extends Rectangle
 	private boolean inSpawnBox()
 	{
 		return ((x < 368 && x > 272) && (y < 336 && y > 304)) ? true : false;
-		//return ((x < 385 && x > 255) && (y < 385 && y > 255)) ? true : false;
 	}
 		
 	private int pacmanZone()
@@ -347,11 +365,15 @@ public class Ghost extends Rectangle
 		{
 			move(ZonesArray[zone-1].smartDir2);
 		}
+		else
+		{
+			movementType = findingPath;
+		}
 	}
 	
 	private void moveSmartly()
 	{
-		if(isVulnerable || inSpawnBox())
+		if(isVulnerable == true || inSpawnBox())
 		{
 			movementType = randomMovement;
 		}
@@ -362,6 +384,20 @@ public class Ghost extends Rectangle
 		}
 		
 		moveToZone(pacmanZone());
+	}
+	
+	private void findPath()
+	{
+		int zone = pacmanZone();
+		
+		if(!canMove(ZonesArray[zone-1].smartDir1))
+		{
+			move(ZonesArray[zone-1].findDir1);
+		}
+		else
+		{
+			movementType = smartMovement;
+		}
 	}
 	
 	private boolean atPortalEntry(int portal)
@@ -383,6 +419,7 @@ public class Ghost extends Rectangle
 		{
 			case randomMovement: moveRandomly(); break;
 			case smartMovement:  moveSmartly();  break;
+			case findingPath:	 findPath();	 break;
 		}
 	}
 	
