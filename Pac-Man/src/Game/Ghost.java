@@ -40,6 +40,7 @@ public class Ghost extends Rectangle
 	
 	private int dir 	= -1;
 	private int lastDir = -1;
+	private int findDir = -1;
 	
 	private int timeImage 			= 0;		
 	private int targetTimeImage 	= 4;
@@ -136,8 +137,9 @@ public class Ghost extends Rectangle
 					break;
 				case 3:
 					ZonesArray[zone].smartDir1 = up;
-					ZonesArray[zone].smartDir2 = left;
+					ZonesArray[zone].smartDir2 = -1;
 					ZonesArray[zone].findDir1  = right;
+					ZonesArray[zone].findDir2  = left;
 					
 					break;
 				case 4:
@@ -160,14 +162,16 @@ public class Ghost extends Rectangle
 					break;
 				case 7:
 					ZonesArray[zone].smartDir1 = left;
-					ZonesArray[zone].smartDir2 = up;
-					ZonesArray[zone].findDir1  = down;
+					ZonesArray[zone].smartDir2 = -1;
+					ZonesArray[zone].findDir1  = up;
+					ZonesArray[zone].findDir2  = down;
 					
 					break;
 				case 8:
 					ZonesArray[zone].smartDir1 = right;
-					ZonesArray[zone].smartDir2 = up;
-					ZonesArray[zone].findDir1  = down;
+					ZonesArray[zone].smartDir2 = -1;
+					ZonesArray[zone].findDir1  = up;
+					ZonesArray[zone].findDir2  = down;
 					
 					break;
 				case 9:
@@ -190,8 +194,9 @@ public class Ghost extends Rectangle
 					break;
 				case 12:
 					ZonesArray[zone].smartDir1 = down;
-					ZonesArray[zone].smartDir2 = left;
+					ZonesArray[zone].smartDir2 = -1;
 					ZonesArray[zone].findDir1  = right;
+					ZonesArray[zone].findDir2  = left;
 					
 					break;
 				case 13:
@@ -392,10 +397,23 @@ public class Ghost extends Rectangle
 		
 		if(!canMove(ZonesArray[zone-1].smartDir1))
 		{
-			move(ZonesArray[zone-1].findDir1);
+			if(findDir == -1)
+			{
+				if(canMove(ZonesArray[zone-1].findDir1))
+				{
+					findDir = ZonesArray[zone-1].findDir1;
+				}
+				else
+				{
+					findDir = ZonesArray[zone-1].findDir2;
+				}
+			}
+			
+			move(findDir);
 		}
 		else
 		{
+			findDir = -1;
 			movementType = smartMovement;
 		}
 	}
@@ -593,9 +611,9 @@ public class Ghost extends Rectangle
 		switch(dir)
 		{
 			case right: x+=spd; lastDir = right; break;
-			case left: 	x-=spd; lastDir = left; break;
-			case up: 	y-=spd; lastDir = up; break;
-			case down: 	y+=spd; lastDir = down; break;
+			case left: 	x-=spd; lastDir = left;  break;
+			case up: 	y-=spd; lastDir = up;    break;
+			case down: 	y+=spd; lastDir = down;  break;
 		}
 	}
 	
@@ -616,7 +634,7 @@ public class Ghost extends Rectangle
 			case right:	nextx = x+spd; nexty = y; break;
 			case left:	nextx = x-spd; nexty = y; break;
 			case up:	nextx = x; nexty = y-spd; break;
-			case down:	if(x == 320 && y == 256) {return false;}			// Prevent ghosts from reentering spawn box
+			case down:	if(x == 320 && y == 256) {return false;}	// Prevent ghosts from reentering spawn box
 						nextx = x; nexty = y+spd; break;
 		}
 		
