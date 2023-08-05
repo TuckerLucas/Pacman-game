@@ -68,7 +68,7 @@ public class Ghost extends Rectangle
 	public static int flashAnimationTargetTime = 20;
 	
 	public int enemyID;
-	
+	private int pacmanZone = 1;
 	class Zone
 	{
 		int smartDir1;
@@ -125,8 +125,8 @@ public class Ghost extends Rectangle
 					break;
 				case 1:
 					ZonesArray[zone].smartDir1 = up;
-					ZonesArray[zone].smartDir2 = right;
-					ZonesArray[zone].findDir1  = down;
+					ZonesArray[zone].smartDir2 = left;
+					ZonesArray[zone].findDir1  = right;
 					
 					break;
 				case 2:
@@ -290,89 +290,71 @@ public class Ghost extends Rectangle
 		return ((x < 368 && x > 272) && (y < 336 && y > 304)) ? true : false;
 	}
 		
-	private int pacmanZone()
+	private void pacmanZone()
 	{	
 		if(deltaX > 0 && deltaY > 0 && deltaX > deltaY)			
 		{
-			return 1;
+			pacmanZone = 1;
 		}
 		else if(deltaX > 0 && deltaY > 0 && deltaX == deltaY)					
 		{
-			return 2;
+			pacmanZone = 2;
 		}
 		else if(deltaX > 0 && deltaY > 0 && deltaY > deltaX)						
 		{
-			return 3;
+			pacmanZone = 3;
 		}
 		else if(deltaX == 0 && deltaY > 0)									
 		{
-			return 4;
+			pacmanZone = 4;
 		}
 		else if(deltaX < 0 && deltaY > 0 && deltaY > -deltaX)						
 		{
-			return 5;
+			pacmanZone = 5;
 		}
 		else if(deltaX < 0 && deltaY > 0 && -deltaX == deltaY)					
 		{
-			return 6;
+			pacmanZone = 6;
 		}
 		else if(deltaX < 0 && deltaY > 0 && -deltaX > deltaY)						
 		{
-			return 7;
+			pacmanZone = 7;
 		}
 		else if(deltaX > 0 && deltaY == 0)										
 		{
-			return 8;
+			pacmanZone = 8;
 		}
 		else if(deltaX < 0 && deltaY == 0)										
 		{
-			return 9;
+			pacmanZone = 9;
 		}
 		else if(deltaX > 0 && deltaY < 0 && deltaX > -deltaY)	 					
 		{
-			return 10;
+			pacmanZone = 10;
 		}
 		else if(deltaX > 0 && deltaY < 0 && deltaX == -deltaY)	 					
 		{
-			return 11;
+			pacmanZone = 11;
 		}
 		else if(deltaX > 0 && deltaY < 0 && -deltaY > deltaX)						
 		{
-			return 12;
+			pacmanZone = 12;
 		}
 		else if(deltaX == 0 && deltaY < 0)										
 		{
-			return 13;
+			pacmanZone = 13;
 		}
 		else if(deltaX < 0 && deltaY < 0 && -deltaY > -deltaX)						
 		{
-			return 14;
+			pacmanZone = 14;
 		}
 		else if(deltaX < 0 && deltaY < 0 && -deltaY == -deltaX)						
 		{
-			return 15;
+			pacmanZone = 15;
 		}
 		else if(deltaX < 0 && deltaY < 0 && -deltaX > -deltaY)						
 		{
-			return 16;
-		}
-		
-		return 1;
-	}
-	
-	private void moveToZone(int zone)
-	{
-		if(canMove(ZonesArray[zone-1].smartDir1))
-		{
-			move(ZonesArray[zone-1].smartDir1);
-		}
-		else if(canMove(ZonesArray[zone-1].smartDir2))
-		{
-			move(ZonesArray[zone-1].smartDir2);
-		}
-		else
-		{
-			movementType = findingPath;
+			pacmanZone = 16;
 		}
 	}
 	
@@ -388,24 +370,35 @@ public class Ghost extends Rectangle
 			return;
 		}
 		
-		moveToZone(pacmanZone());
+		pacmanZone();
+		
+		if(canMove(ZonesArray[pacmanZone-1].smartDir1))
+		{
+			move(ZonesArray[pacmanZone-1].smartDir1);
+		}
+		else if(canMove(ZonesArray[pacmanZone-1].smartDir2))
+		{
+			move(ZonesArray[pacmanZone-1].smartDir2);
+		}
+		else
+		{
+			movementType = findingPath;
+		}
 	}
 	
 	private void findPath()
-	{
-		int zone = pacmanZone();
-		
-		if(!canMove(ZonesArray[zone-1].smartDir1))
+	{	
+		if(!canMove(ZonesArray[pacmanZone-1].smartDir1))
 		{
 			if(findDir == -1)
 			{
-				if(canMove(ZonesArray[zone-1].findDir1))
+				if(canMove(ZonesArray[pacmanZone-1].findDir1))
 				{
-					findDir = ZonesArray[zone-1].findDir1;
+					findDir = ZonesArray[pacmanZone-1].findDir1;
 				}
 				else
 				{
-					findDir = ZonesArray[zone-1].findDir2;
+					findDir = ZonesArray[pacmanZone-1].findDir2;
 				}
 			}
 			

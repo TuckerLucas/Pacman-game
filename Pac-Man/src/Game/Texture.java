@@ -35,6 +35,8 @@ public class Texture
 	public static BufferedImage[] pacmanLookUp;	
 	public static BufferedImage[] pacmanLookDown;
 	
+	public static BufferedImage[] pacmanDie;
+	
 	// Blinky ghost arrays for sprite animations
 	public static BufferedImage[] blinkyLookRight;
 	public static BufferedImage[] blinkyLookLeft;
@@ -85,6 +87,7 @@ public class Texture
 	public static int spriteColumn7 = spriteSize*6;
 	public static int spriteColumn8 = spriteSize*7;
 	public static int spriteColumn9 = spriteSize*8;
+	public static int spriteColumn10 = spriteSize*9;
 	
 	// Spritesheet lines
 	public static int spriteLine1 = 0;
@@ -96,6 +99,7 @@ public class Texture
 	public static int spriteLine7 = spriteSize*6;
 	public static int spriteLine8 = spriteSize*7;
 	public static int spriteLine9 = spriteSize*8;
+	public static int spriteLine10 = spriteSize*9;
 	
 	// Constructor
 	public Texture()
@@ -115,6 +119,8 @@ public class Texture
 		pacmanLookUp 	= new BufferedImage[3];
 		pacmanLookDown 	= new BufferedImage[3];
 		
+		pacmanDie 	= new BufferedImage[12];
+		
 		// Load pacman sprite animation arrays
 		pacmanLookRight[0] 	= getSprite(spriteColumn1, spriteLine1, spriteSize, spriteSize);		
 		pacmanLookRight[1] 	= getSprite(spriteColumn2, spriteLine1, spriteSize, spriteSize);	
@@ -128,6 +134,19 @@ public class Texture
 		pacmanLookDown[0] 	= getSprite(spriteColumn1, spriteLine1, spriteSize, spriteSize);
 		pacmanLookDown[1] 	= getSprite(spriteColumn8, spriteLine1, spriteSize, spriteSize);
 		pacmanLookDown[2] 	= getSprite(spriteColumn9, spriteLine1, spriteSize, spriteSize);
+		
+		pacmanDie[0] = getSprite(spriteColumn1, spriteLine1, spriteSize, spriteSize);
+		pacmanDie[1] = getSprite(spriteColumn1, spriteLine10, spriteSize, spriteSize);
+		pacmanDie[2] = getSprite(spriteColumn2, spriteLine10, spriteSize, spriteSize);
+		pacmanDie[3] = getSprite(spriteColumn3, spriteLine10, spriteSize, spriteSize);
+		pacmanDie[4] = getSprite(spriteColumn4, spriteLine10, spriteSize, spriteSize);
+		pacmanDie[5] = getSprite(spriteColumn5, spriteLine10, spriteSize, spriteSize);
+		pacmanDie[6] = getSprite(spriteColumn6, spriteLine10, spriteSize, spriteSize);
+		pacmanDie[7] = getSprite(spriteColumn7, spriteLine10, spriteSize, spriteSize);
+		pacmanDie[8] = getSprite(spriteColumn8, spriteLine10, spriteSize, spriteSize);
+		pacmanDie[9] = getSprite(spriteColumn9, spriteLine10, spriteSize, spriteSize);
+		pacmanDie[10] = getSprite(spriteColumn1, spriteLine9, spriteSize, spriteSize);
+		pacmanDie[11] = getSprite(spriteColumn10, spriteLine10, spriteSize, spriteSize);
 		
 		// Blinky sprite sprite animation arrays
 		blinkyLookRight	= new BufferedImage[2];

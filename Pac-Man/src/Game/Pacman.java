@@ -27,7 +27,7 @@ public class Pacman extends Rectangle
 	public static int nEatenGhosts = 0;
 	
 	// Pacman spawn coordinate variables
-	public static int spawnX = 192;
+	public static int spawnX = 320;
 	public static int spawnY = 512;
 	
 	// Spawn variables
