@@ -40,7 +40,7 @@ public class Ghost extends Rectangle
 	
 	private int dir 	= -1;
 	private int lastDir = -1;
-	private int findDir = -1;
+	private boolean flag = false;
 	
 	private int timeImage 			= 0;		
 	private int targetTimeImage 	= 4;
@@ -163,8 +163,8 @@ public class Ghost extends Rectangle
 				case 7:
 					ZonesArray[zone].smartDir1 = left;
 					ZonesArray[zone].smartDir2 = -1;
-					ZonesArray[zone].findDir1  = up;
-					ZonesArray[zone].findDir2  = down;
+					ZonesArray[zone].findDir1  = down;
+					ZonesArray[zone].findDir2  = up;
 					
 					break;
 				case 8:
@@ -360,18 +360,22 @@ public class Ghost extends Rectangle
 	
 	private void moveSmartly()
 	{
+		// Do not activate smart movement if ghost is vulnerable or in the spawn box
 		if(isVulnerable == true || inSpawnBox())
 		{
 			movementType = randomMovement;
 		}
 		
+		// Wait for ghost to finish crossing portal
 		if(spawn != spawnInBox)
 		{
 			return;
 		}
 		
+		// Identify the zone pacman is in relative to the ghost
 		pacmanZone();
 		
+		// Move to pacman's zone
 		if(canMove(ZonesArray[pacmanZone-1].smartDir1))
 		{
 			move(ZonesArray[pacmanZone-1].smartDir1);
@@ -388,26 +392,28 @@ public class Ghost extends Rectangle
 	
 	private void findPath()
 	{	
-		if(!canMove(ZonesArray[pacmanZone-1].smartDir1))
+		if(canMove(ZonesArray[pacmanZone-1].smartDir1))
 		{
-			if(findDir == -1)
-			{
-				if(canMove(ZonesArray[pacmanZone-1].findDir1))
-				{
-					findDir = ZonesArray[pacmanZone-1].findDir1;
-				}
-				else
-				{
-					findDir = ZonesArray[pacmanZone-1].findDir2;
-				}
-			}
-			
-			move(findDir);
+			flag = false;
+			movementType = smartMovement;
 		}
 		else
 		{
-			findDir = -1;
-			movementType = smartMovement;
+			if(flag == false)
+			{
+				if(canMove(ZonesArray[pacmanZone-1].findDir1))
+				{
+					move(ZonesArray[pacmanZone-1].findDir1);
+				}
+				else
+				{
+					flag = true;
+				}
+			}
+			else if(flag == true)
+			{
+				move(ZonesArray[pacmanZone-1].findDir2);
+			}
 		}
 	}
 	
@@ -592,10 +598,10 @@ public class Ghost extends Rectangle
 	}
 	
 	public void tick()
-	{			
+	{	
+		portalCrossing();
 		updatePacmanLocation();
 		ghostMovement();
-		portalCrossing();
 		animation();
 	}
 	

@@ -180,7 +180,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	{
 		// Load game characters
 		pacman 			= new Pacman(Pacman.spawnNormal);
-		ghostArray[0] 	= new Ghost(0, Ghost.spawnInBox, false); 			
+		ghostArray[0] 	= new Ghost(0, Ghost.spawnInBox, false); 
 		ghostArray[1] 	= new Ghost(1, Ghost.spawnInBox, false);
 		ghostArray[2] 	= new Ghost(2, Ghost.spawnInBox, false);
 		ghostArray[3] 	= new Ghost(3, Ghost.spawnInBox, false);
@@ -276,7 +276,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 			case play:
 				
 				pacman.tick();
-				ghostArray[0].tick(); 					
+				ghostArray[0].tick(); 
 				ghostArray[1].tick();
 				ghostArray[2].tick();
 				ghostArray[3].tick();
