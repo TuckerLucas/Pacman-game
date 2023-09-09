@@ -27,9 +27,9 @@ public class Ghost extends Rectangle
 	// Type of movement variables
 	private int movementType;
 	
-	private final int randomMovement = 0;
-	private final int smartMovement  = 1;
-	private final int findingPath    = 2;
+	private final int random 		= 0;
+	private final int smart  		= 1;
+	private final int find_path 	= 2;
 	
 	public static int flashTime  = 60*5;
 	
@@ -40,17 +40,29 @@ public class Ghost extends Rectangle
 	
 	private int dir 	= -1;
 	private int lastDir = -1;
-	private boolean flag = false;
 	
+	private int smartTime			= 0;
+	private int smartTargetTime; 
+	private boolean coolDown		= false;
+	private int coolDownTime    	= 0;
+	private int coolDownTargetTime	= 60*3; 
 	private int timeImage 			= 0;		
 	private int targetTimeImage 	= 4;
 	
 	private Zone ZonesArray[] = new Zone[16];
-
-	private int deltaX;
-	private int deltaY;
 	
-	private int detectionRange = 80;
+	private boolean left4 	= false;
+	private boolean right4 	= false;
+	private boolean left13 	= false;
+	private boolean right13 = false;
+	private boolean up8 	= false;
+	private boolean down8 	= false;
+	private boolean up9 	= false;
+	private boolean down9 	= false;
+	
+	private int difx;
+	private int dify;
+	private int radius;
 	
 	private int spawn;
 	
@@ -68,27 +80,30 @@ public class Ghost extends Rectangle
 	public static int flashAnimationTargetTime = 20;
 	
 	public int enemyID;
-	private int pacmanZone = 1;
+	
 	class Zone
 	{
+		boolean isActive = false;
+		
 		int smartDir1;
 		int smartDir2;
 		
 		int findDir1;
 		int findDir2;
+		
 	}
 	
 	// Constructor
 	public Ghost(int ID, int spawnPoint, boolean IV)
 	{			
+		initZones();
+		
 		// Set default ghost movement type
-		movementType = randomMovement;
+		movementType = random;
 		
 		spawn 			= spawnPoint;
 		enemyID  		= ID;
 		isVulnerable 	= IV;
-		
-		initZones();
 		
 		switch(spawn)
 		{
@@ -104,9 +119,34 @@ public class Ghost extends Rectangle
 				move(right);
 				break;
 		}
+
+		switch(Game.difficulty)
+		{
+			case 1:
+				radius = 80;
+				smartTargetTime = 60 * 10;
+				break;
+			case 2:
+				radius = 100;
+				smartTargetTime = 60 * 15;
+				break;
+			case 3:
+				radius = 120;
+				smartTargetTime = 60 * 20;
+				break;
+			case 4:
+				radius = 150;
+				smartTargetTime = 60 * 25;
+				break;
+		}
 		
 		randomGen = new Random();
 		dir = randomGen.nextInt(4);
+	}
+	
+	private void spawnGhost(int xCoordinate, int yCoordinate)
+	{
+		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
 	}
 	
 	private void initZones()
@@ -121,112 +161,231 @@ public class Ghost extends Rectangle
 					ZonesArray[zone].smartDir1 = left;
 					ZonesArray[zone].smartDir2 = up;
 					ZonesArray[zone].findDir1  = down;
+					ZonesArray[zone].findDir2  = left;
 					
 					break;
 				case 1:
 					ZonesArray[zone].smartDir1 = up;
 					ZonesArray[zone].smartDir2 = left;
 					ZonesArray[zone].findDir1  = right;
+					ZonesArray[zone].findDir2  = up;
 					
 					break;
 				case 2:
 					ZonesArray[zone].smartDir1 = up;
 					ZonesArray[zone].smartDir2 = left;
 					ZonesArray[zone].findDir1  = right;
+					ZonesArray[zone].findDir2  = up;
 					
 					break;
 				case 3:
 					ZonesArray[zone].smartDir1 = up;
 					ZonesArray[zone].smartDir2 = -1;
-					ZonesArray[zone].findDir1  = right;
-					ZonesArray[zone].findDir2  = left;
+					ZonesArray[zone].findDir1  = left;
+					ZonesArray[zone].findDir2  = up;
 					
 					break;
 				case 4:
 					ZonesArray[zone].smartDir1 = up;
 					ZonesArray[zone].smartDir2 = right;
 					ZonesArray[zone].findDir1  = left;
+					ZonesArray[zone].findDir2  = up;
 					
 					break;
 				case 5:
 					ZonesArray[zone].smartDir1 = up;
 					ZonesArray[zone].smartDir2 = right;
 					ZonesArray[zone].findDir1  = left;
+					ZonesArray[zone].findDir2  = up;
 					
 					break;
 				case 6:
 					ZonesArray[zone].smartDir1 = right;
 					ZonesArray[zone].smartDir2 = up;
 					ZonesArray[zone].findDir1  = down;
+					ZonesArray[zone].findDir2  = right;
 					
 					break;
 				case 7:
 					ZonesArray[zone].smartDir1 = left;
 					ZonesArray[zone].smartDir2 = -1;
-					ZonesArray[zone].findDir1  = down;
-					ZonesArray[zone].findDir2  = up;
+					ZonesArray[zone].findDir1  = -2;
+					ZonesArray[zone].findDir2  = -2;
 					
 					break;
 				case 8:
 					ZonesArray[zone].smartDir1 = right;
 					ZonesArray[zone].smartDir2 = -1;
-					ZonesArray[zone].findDir1  = up;
-					ZonesArray[zone].findDir2  = down;
+					ZonesArray[zone].findDir1  = -2;
+					ZonesArray[zone].findDir2  = -2;
 					
 					break;
 				case 9:
 					ZonesArray[zone].smartDir1 = left;
 					ZonesArray[zone].smartDir2 = down;
 					ZonesArray[zone].findDir1  = up;
+					ZonesArray[zone].findDir2  = left;
 					
 					break;
 				case 10:
 					ZonesArray[zone].smartDir1 = down;
 					ZonesArray[zone].smartDir2 = left;
 					ZonesArray[zone].findDir1  = right;
+					ZonesArray[zone].findDir2  = down;
 					
 					break;
 				case 11:
 					ZonesArray[zone].smartDir1 = down;
 					ZonesArray[zone].smartDir2 = left;
 					ZonesArray[zone].findDir1  = right;
+					ZonesArray[zone].findDir2  = down;
 					
 					break;
 				case 12:
 					ZonesArray[zone].smartDir1 = down;
 					ZonesArray[zone].smartDir2 = -1;
-					ZonesArray[zone].findDir1  = right;
-					ZonesArray[zone].findDir2  = left;
+					ZonesArray[zone].findDir1  = -2;
+					ZonesArray[zone].findDir2  = -2;
 					
 					break;
 				case 13:
 					ZonesArray[zone].smartDir1 = down;
 					ZonesArray[zone].smartDir2 = right;
 					ZonesArray[zone].findDir1  = left;
+					ZonesArray[zone].findDir2  = down;
 					
 					break;
 				case 14:
 					ZonesArray[zone].smartDir1 = down;
 					ZonesArray[zone].smartDir2 = right;
 					ZonesArray[zone].findDir1  = left;
+					ZonesArray[zone].findDir2  = down;
 					
 					break;
 				case 15:
 					ZonesArray[zone].smartDir1 = right;
 					ZonesArray[zone].smartDir2 = down;
 					ZonesArray[zone].findDir1  = up;
+					ZonesArray[zone].findDir2  = right;
 					
 					break;
 			}
 		}
 	}
 	
-	private void spawnGhost(int xCoordinate, int yCoordinate)
+	private void updateZone(int currentZone)
 	{
-		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
+		resetZones();
+		
+		for(int i = 0; i < ZonesArray.length; i++)
+		{
+			ZonesArray[currentZone-1].isActive = true;
+		}
+	}
+	
+	private void resetZones()
+	{
+		for(int i = 0; i < ZonesArray.length; i++)
+		{
+			ZonesArray[i].isActive = false;
+		}
 	}
 
+	private void getToZone(int zone)
+	{
+		if(canMove(ZonesArray[zone-1].smartDir1))
+		{
+			move(ZonesArray[zone-1].smartDir1);
+		}
+		else if(canMove(ZonesArray[zone-1].smartDir2))
+		{
+			move(ZonesArray[zone-1].smartDir2);
+		}
+		else
+		{
+			movementType = find_path;
+		}
+	}
 	
+	
+	private void moveToZone(int zone)
+	{
+		updateZone(zone);
+		
+		switch(zone)
+		{
+			case 4: 
+				if(canMove(up))
+				{
+					move(up);
+				}
+				else if(canMove(left))
+				{
+					left4 = true;
+					movementType = find_path;
+				}
+				else if(canMove(right))
+				{
+					right4 = true;
+					movementType = find_path;
+				}
+				return;
+					
+			case 8: 
+				if(canMove(left))
+				{
+					move(left);
+				}
+				else if(canMove(up))
+				{
+					up8 = true;
+					movementType = find_path;
+				}
+				else if(canMove(down))
+				{
+					down8 = true;
+					movementType = find_path;
+				}
+				return;
+				
+			case 9: 
+				if(canMove(right))
+				{
+					move(right);
+				}
+				else if(canMove(up))
+				{
+					up9 = true;
+					movementType = find_path;
+				}
+				else if(canMove(down))
+				{
+					down9 = true;
+					movementType = find_path;
+				}
+				return;
+					 
+			case 13: 
+				if(canMove(down))
+				{
+					move(down);
+				}
+				else if(canMove(left))
+				{
+					left13 = true;
+					movementType = find_path;
+				}
+				else if(canMove(right))
+				{
+					right13 = true;
+					movementType = find_path;
+				}
+				return;
+		}
+		
+		getToZone(zone);
+	}
+
 	private boolean randomMovement(int direction)
 	{
 		if(canMove(direction))			
@@ -239,224 +398,31 @@ public class Ghost extends Rectangle
 		return false;
 	}
 	
-	private void updatePacmanLocation()
-	{
-		deltaX = x - Game.pacman.x;
-		deltaY = y - Game.pacman.y;
-	}
-	
-	private boolean pacmanIsClose()
-	{
-		return ((deltaX < detectionRange && deltaX > -detectionRange) && 
-				(deltaY < detectionRange && deltaY > -detectionRange)) 
-				? true : false;
-	}
-	
 	private void moveRandomly()
 	{
-		if(pacmanIsClose() && !inSpawnBox() && !isVulnerable)
-		{
-			movementType = smartMovement;
-			return;
-		}
+		difx = x - Game.pacman.x;
+		dify = y - Game.pacman.y;
 		
-		if(spawn != spawnInBox)
+		if(coolDown == true)
 		{
-			return;
-		}
-		
-		if(randomMovement(dir))
-		{
-			return;
-		}
-		
-		for(int direction = right; direction <= down; direction++)
-		{	
-			if(lastDir == direction && canMove(direction))
-			{
-				move(direction);
-				return;
-			}
-		}
-		
-		dir = randomGen.nextInt(4); 
-		
-		return;
-	}
-	
-	// Check if ghost is in the spawn box
-	private boolean inSpawnBox()
-	{
-		return ((x < 368 && x > 272) && (y < 336 && y > 304)) ? true : false;
-	}
-		
-	private void pacmanZone()
-	{	
-		if(deltaX > 0 && deltaY > 0 && deltaX > deltaY)			
-		{
-			pacmanZone = 1;
-		}
-		else if(deltaX > 0 && deltaY > 0 && deltaX == deltaY)					
-		{
-			pacmanZone = 2;
-		}
-		else if(deltaX > 0 && deltaY > 0 && deltaY > deltaX)						
-		{
-			pacmanZone = 3;
-		}
-		else if(deltaX == 0 && deltaY > 0)									
-		{
-			pacmanZone = 4;
-		}
-		else if(deltaX < 0 && deltaY > 0 && deltaY > -deltaX)						
-		{
-			pacmanZone = 5;
-		}
-		else if(deltaX < 0 && deltaY > 0 && -deltaX == deltaY)					
-		{
-			pacmanZone = 6;
-		}
-		else if(deltaX < 0 && deltaY > 0 && -deltaX > deltaY)						
-		{
-			pacmanZone = 7;
-		}
-		else if(deltaX > 0 && deltaY == 0)										
-		{
-			pacmanZone = 8;
-		}
-		else if(deltaX < 0 && deltaY == 0)										
-		{
-			pacmanZone = 9;
-		}
-		else if(deltaX > 0 && deltaY < 0 && deltaX > -deltaY)	 					
-		{
-			pacmanZone = 10;
-		}
-		else if(deltaX > 0 && deltaY < 0 && deltaX == -deltaY)	 					
-		{
-			pacmanZone = 11;
-		}
-		else if(deltaX > 0 && deltaY < 0 && -deltaY > deltaX)						
-		{
-			pacmanZone = 12;
-		}
-		else if(deltaX == 0 && deltaY < 0)										
-		{
-			pacmanZone = 13;
-		}
-		else if(deltaX < 0 && deltaY < 0 && -deltaY > -deltaX)						
-		{
-			pacmanZone = 14;
-		}
-		else if(deltaX < 0 && deltaY < 0 && -deltaY == -deltaX)						
-		{
-			pacmanZone = 15;
-		}
-		else if(deltaX < 0 && deltaY < 0 && -deltaX > -deltaY)						
-		{
-			pacmanZone = 16;
-		}
-	}
-	
-	private void moveSmartly()
-	{
-		// Do not activate smart movement if ghost is vulnerable or in the spawn box
-		if(isVulnerable == true || inSpawnBox())
-		{
-			movementType = randomMovement;
-		}
-		
-		// Wait for ghost to finish crossing portal
-		if(spawn != spawnInBox)
-		{
-			return;
-		}
-		
-		// Identify the zone pacman is in relative to the ghost
-		pacmanZone();
-		
-		// Move to pacman's zone
-		if(canMove(ZonesArray[pacmanZone-1].smartDir1))
-		{
-			move(ZonesArray[pacmanZone-1].smartDir1);
-		}
-		else if(canMove(ZonesArray[pacmanZone-1].smartDir2))
-		{
-			move(ZonesArray[pacmanZone-1].smartDir2);
-		}
-		else
-		{
-			movementType = findingPath;
-		}
-	}
-	
-	private void findPath()
-	{	
-		if(canMove(ZonesArray[pacmanZone-1].smartDir1))
-		{
-			flag = false;
-			movementType = smartMovement;
-		}
-		else
-		{
-			if(flag == false)
-			{
-				if(canMove(ZonesArray[pacmanZone-1].findDir1))
-				{
-					move(ZonesArray[pacmanZone-1].findDir1);
-				}
-				else
-				{
-					flag = true;
-				}
-			}
-			else if(flag == true)
-			{
-				move(ZonesArray[pacmanZone-1].findDir2);
-			}
-		}
-	}
-	
-	private boolean atPortalEntry(int portal)
-	{
-		switch(portal)
-		{
-			case left:  return (x == 160 && y == 320) ? true : false;
-				
-			case right: return (x == 480 && y == 320) ? true : false;
-		}
-		
-		return false;
-	}
-
-	// Manage ghost movement
-	private void ghostMovement()
-	{
-		switch(movementType)
-		{
-			case randomMovement: moveRandomly(); break;
-			case smartMovement:  moveSmartly();  break;
-			case findingPath:	 findPath();	 break;
-		}
-	}
-	
-	private void portalCrossing()
-	{
-		if(x == 0 && y == 320)								
-		{
-			lastDir = left;
-			spawn   = spawnLeft;
+			coolDownTime++;
 			
-			Game.ghostArray[enemyID] = new Ghost(enemyID, spawn, isVulnerable);
+			if(coolDownTime == coolDownTargetTime)
+			{
+				coolDown = false;
+				coolDownTime = 0;
+			}
 		}
-		else if(x == 640 && y == 320)
+		else if(coolDown == false)
 		{
-			lastDir = right;
-			spawn   = spawnRight;
-
-			Game.ghostArray[enemyID] = new Ghost(enemyID, spawn, isVulnerable);
+			if((difx < radius && difx > -radius) && (dify < radius && dify > -radius))
+			{
+				if(isVulnerable == false && !inBox())
+				{
+					movementType = smart;
+				}
+			}
 		}
-		
 		if(spawn == spawnLeft)
 		{
 			lastDir = left;
@@ -478,6 +444,550 @@ public class Ghost extends Rectangle
 			{
 				spawn = spawnInBox;
 			}
+		}
+		else if(spawn == spawnInBox)
+		{
+			switch(dir)
+			{
+				case right:
+					
+					if(randomMovement(right))
+						break;
+					else							
+					{
+						if(lastDir == left && canMove(left))
+						{
+							move(left);
+						}
+						else if(lastDir == up && canMove(up))
+						{
+							move(up);
+						}
+						else if(lastDir == down && canMove(down))
+						{
+							move(down);
+						}
+						else 
+						{
+							dir = randomGen.nextInt(4); 
+						}
+						
+					}
+					
+					break;
+					
+				case left:
+					
+					if(randomMovement(left))
+						break;
+					else							
+					{
+						if(lastDir == right && canMove(right))
+						{
+							x+=spd;
+						}
+						else if(lastDir == up && canMove(up))
+						{
+							y-=spd;
+						}
+						else if(lastDir == down && canMove(down))
+						{
+							y+=spd;
+						}
+						else 
+						{
+							dir = randomGen.nextInt(4); 
+						}
+					}
+								
+					break;
+					
+				case up:
+					
+					if(randomMovement(up))
+					{
+						break;
+					}
+					else							
+					{
+						if(lastDir == left && canMove(left))
+						{
+							x-=spd;
+						}
+						else if(lastDir == right && canMove(right))
+						{
+							x+=spd;
+						}
+						else if(lastDir == down && canMove(down))
+						{
+							y+=spd;
+						}
+						else 
+						{
+							dir = randomGen.nextInt(4);
+						}
+					}
+					
+					break;
+					
+				case down:
+					
+					if(randomMovement(down))
+					{
+						break;
+					}
+					else							
+					{
+						if(lastDir == left && canMove(left))
+						{
+							x-=spd;
+						}
+						else if(lastDir == up && canMove(up))
+						{
+							y-=spd;
+						}
+						else if(lastDir == right && canMove(right))
+						{
+							x+=spd;
+						}
+						else 
+						{
+							dir = randomGen.nextInt(4); 
+						}
+					}	
+					
+					break;
+			}
+		}
+	}
+	
+	// Check if ghost is in a portal
+	private boolean inPortal()
+	{
+		return ((x < 160 || x > 480) && y == 320) ? true : false;
+	}
+	
+	private boolean atPortalEntry(int portal)
+	{
+		switch(portal)
+		{
+			case left:  return (x == 160 && y == 320) ? true : false;
+				
+			case right: return (x == 480 && y == 320) ? true : false;
+		}
+		
+		return false;
+	}
+	
+	private void moveSmartly()
+	{
+		difx = x - Game.pacman.x;
+		dify = y - Game.pacman.y;
+
+		if(Energizer.isActive == true || inBox())
+		{
+			movementType = random;
+		}
+		
+		if(spawn == spawnLeft)
+		{
+			lastDir = left;
+			x-=spd;
+			
+			if(atPortalEntry(right))
+			{
+				spawn = spawnInBox;
+			}
+		}
+		else if(spawn == spawnRight)
+		{
+			lastDir = right;
+			x+=spd;
+			
+			if(atPortalEntry(left))
+			{
+				spawn = spawnInBox;
+			}
+		}
+		else if(spawn == spawnInBox)
+		{
+			// Ghost in right portal moving right
+			if(inPortal() && lastDir == right)
+			{
+				// Ensure ghost crosses portal to the other side of the map
+				spawn = spawnRight;
+			}
+			// Ghost in left portal moving left
+			else if(inPortal() && lastDir == left)
+			{
+				// Ensure ghost crosses portal to the other side of the map
+				spawn = spawnLeft;
+			}
+			// Ghost not in a portal
+			else
+			{
+				if(difx > 0 && dify > 0 && difx > dify)			//Zona 1
+				{
+					moveToZone(1);
+				}
+				else if(difx > 0 && dify > 0 && difx == dify)	//Zona 2				
+				{
+					moveToZone(2);
+				}
+				else if(difx > 0 && dify > 0 && dify > difx)	//Zona 3					
+				{
+					moveToZone(3);
+				}
+				else if(difx == 0 && dify > 0)					//Zona 4				
+				{
+					moveToZone(4);
+				}
+				else if(difx < 0 && dify > 0 && dify > -difx)	//Zona 5					
+				{
+					moveToZone(5);
+				}
+				else if(difx < 0 && dify > 0 && -difx == dify)	//Zona 6					
+				{
+					moveToZone(6);
+				}
+				else if(difx < 0 && dify > 0 && -difx > dify)	//Zona 7					
+				{
+					moveToZone(7);
+				}
+				else if(difx > 0 && dify == 0)					//Zona 8					
+				{
+					moveToZone(8);
+				}
+				else if(difx < 0 && dify == 0)					//Zona 9					
+				{
+					moveToZone(9);
+				}
+				else if(difx > 0 && dify < 0 && difx > -dify)	//Zona 10 					
+				{
+					moveToZone(10);
+				}
+				else if(difx > 0 && dify < 0 && difx == -dify)	//Zona 11 					
+				{
+					moveToZone(11);
+				}
+				else if(difx > 0 && dify < 0 && -dify > difx)	//Zona 12					
+				{
+					moveToZone(12);
+				}
+				else if(difx == 0 && dify < 0)					//Zona 13					
+				{
+					moveToZone(13);
+				}
+				else if(difx < 0 && dify < 0 && -dify > -difx)	//Zona 14					
+				{
+					moveToZone(14);
+				}
+				else if(difx < 0 && dify < 0 && -dify == -difx)	//Zona 15					
+				{
+					moveToZone(15);
+				}
+				else if(difx < 0 && dify < 0 && -difx > -dify)	//Zona 16					
+				{
+					moveToZone(16);
+				}
+			}
+		}
+		smartTime++;								
+		
+		if(smartTime == smartTargetTime) 				
+		{
+			coolDown = true;
+			movementType = random;							
+			smartTime = 0;						
+		}
+	}
+
+	private void findingPath()
+	{
+		if(ZonesArray[0].isActive)
+		{
+			moveUntil(down, left);
+		}
+		else if(ZonesArray[1].isActive)
+		{
+			moveUntil(right, up);
+		}
+		else if(ZonesArray[2].isActive)
+		{
+			moveUntil(right, up);
+		}
+		else if(ZonesArray[3].isActive)
+		{
+			if(left4 == true)
+			{
+				if(canMove(left))
+				{
+					moveUntil(left, up);
+				}
+				else
+				{
+					left4 = false;
+					ZonesArray[3].isActive = false;
+					moveUntil(-1, -1);
+				}
+			}
+			else if(right4 == true)
+			{
+				if(canMove(right))
+				{
+					moveUntil(right, up);
+				}
+				else
+				{
+					right4 = false;
+					ZonesArray[3].isActive = false;
+					moveUntil(-1, -1);
+				}
+			}
+		}
+		else if(ZonesArray[4].isActive)
+		{
+			moveUntil(left, up);
+		}
+		else if(ZonesArray[5].isActive)
+		{
+			moveUntil(left, up);
+		}
+		else if(ZonesArray[6].isActive)
+		{
+			moveUntil(down, right);
+		}
+		else if(ZonesArray[7].isActive)
+		{
+			if(up8 == true)
+			{
+				if(canMove(up))
+				{
+					moveUntil(up, left);
+				}
+				else
+				{
+					up8 = false;
+					ZonesArray[7].isActive = false;
+					moveUntil(-1,-1);
+				}
+			}
+			else if(down8 == true)
+			{
+				if(canMove(down))
+				{
+					moveUntil(down, left);
+				}
+				else
+				{
+					down8 = false;
+					ZonesArray[7].isActive = false;
+					moveUntil(-1,-1);
+				}
+			}
+		}
+		else if(ZonesArray[8].isActive)
+		{
+			if(up9 == true)
+			{
+				if(canMove(up))
+				{
+					moveUntil(up, right);
+				}
+				else
+				{
+					up9 = false;
+					ZonesArray[8].isActive = false;
+					moveUntil(-1,-1);
+				}
+			}
+			else if(down9 == true)
+			{
+				if(canMove(down))
+				{
+					moveUntil(down, right);
+				}
+				else
+				{
+					down9 = false;
+					ZonesArray[8].isActive = false;
+					moveUntil(-1,-1);
+				}
+			}
+		}
+		else if(ZonesArray[9].isActive)
+		{
+			moveUntil(up, left);
+		}
+		else if(ZonesArray[10].isActive)
+		{
+			moveUntil(right, down);
+		}
+		else if(ZonesArray[11].isActive)
+		{
+			moveUntil(right, down);
+		}
+		else if(ZonesArray[12].isActive)
+		{
+			if(left13 == true)
+			{
+				if(canMove(left))
+				{
+					moveUntil(left, down);
+				}
+				else
+				{
+					ZonesArray[12].isActive = false;
+					left13 = false;
+					moveUntil(-1,-1);
+				}
+			}
+			else if(right13 == true)
+			{
+				if(canMove(right))
+				{
+					moveUntil(right, down);
+				}
+				else
+				{
+					ZonesArray[12].isActive = false;
+					right13 = false;
+					moveUntil(-1,-1);
+				}
+			}
+		}
+		else if(ZonesArray[13].isActive)
+		{
+			moveUntil(left, down);
+		}
+		else if(ZonesArray[14].isActive)
+		{
+			moveUntil(left, down);
+		}
+		else if(ZonesArray[15].isActive)
+		{
+			moveUntil(up, right);
+		}
+	}
+
+	private void moveUntil(int allowed_direction, int desired_direction)
+	{
+		switch(allowed_direction)
+		{
+			case right:
+				
+				move(right);
+				
+				if(desired_direction == up && canMove(up))
+				{
+					right4 = false;
+					movementType = smart;
+				}
+				else if(desired_direction == down && canMove(down))
+				{
+					right13 = false;
+					movementType = smart;
+				}
+				
+				break;
+			
+			case left: 
+				
+				move(left);
+				
+				if(desired_direction == up && canMove(up))
+				{
+					left4 = false;
+					movementType = smart;
+				}
+				else if(desired_direction == down && canMove(down))
+				{
+					left13 = false;
+					movementType = smart;
+				}
+				
+				break;
+				
+			case up:
+				
+				move(up);
+				
+				if(desired_direction == right && canMove(right))
+				{
+					up9 = false;
+					movementType = smart;
+				}
+				else if(desired_direction == left && canMove(left))
+				{
+					up8 = false;
+					movementType = smart;
+				}
+				
+				break;
+				
+			case down:
+				
+				move(down);
+				
+				if(desired_direction == right && canMove(right))
+				{
+					down9 = false;
+					movementType = smart;
+				}
+				else if(desired_direction == left && canMove(left))
+				{
+					down8 = false;
+					movementType = smart;
+				}
+				
+				break;
+				
+			case -1:	
+				
+				movementType = smart; 
+			
+				break;
+		}
+	}
+	
+	// Check if ghost is in spawn box
+	private boolean inBox()
+	{
+		return ((x < 385 && x > 255) && (y < 385 && y > 255)) ? true : false;
+	}
+
+	// Manage ghost movement
+	private void ghostMovement()
+	{
+		switch(movementType)
+		{
+			case random: 	moveRandomly(); break;	// Move in a random fashion
+			case smart: 	moveSmartly();  break;	// Chase pacman
+			case find_path: findingPath();  break;	// Find path to pacman when stuck
+		}			
+	}
+	
+	private void portalCrossing()
+	{
+		if(x == 0 && y == 320)								
+		{
+			lastDir = left;
+			spawn = spawnLeft;
+			
+			switch(enemyID)
+			{
+				case 0: Game.ghostArray[0] = new Ghost(0, spawn, isVulnerable); break;
+				case 1: Game.ghostArray[1] = new Ghost(1, spawn, isVulnerable); break;
+				case 2: Game.ghostArray[2] = new Ghost(2, spawn, isVulnerable); break;
+				case 3: Game.ghostArray[3] = new Ghost(3, spawn, isVulnerable); break;
+			}
+		}
+		else if(x == 640 && y == 320)
+		{
+			lastDir = right;
+			spawn   = spawnRight;
+
+			Game.ghostArray[enemyID] = new Ghost(enemyID, spawn, isVulnerable);
 		}
 	}
 	
@@ -598,10 +1108,9 @@ public class Ghost extends Rectangle
 	}
 	
 	public void tick()
-	{	
-		portalCrossing();
-		updatePacmanLocation();
+	{			
 		ghostMovement();
+		portalCrossing();
 		animation();
 	}
 	
@@ -610,9 +1119,9 @@ public class Ghost extends Rectangle
 		switch(dir)
 		{
 			case right: x+=spd; lastDir = right; break;
-			case left: 	x-=spd; lastDir = left;  break;
-			case up: 	y-=spd; lastDir = up;    break;
-			case down: 	y+=spd; lastDir = down;  break;
+			case left: 	x-=spd; lastDir = left; break;
+			case up: 	y-=spd; lastDir = up; break;
+			case down: 	y+=spd; lastDir = down; break;
 		}
 	}
 	
@@ -633,7 +1142,7 @@ public class Ghost extends Rectangle
 			case right:	nextx = x+spd; nexty = y; break;
 			case left:	nextx = x-spd; nexty = y; break;
 			case up:	nextx = x; nexty = y-spd; break;
-			case down:	if(x == 320 && y == 256) {return false;}	// Prevent ghosts from reentering spawn box
+			case down:	if(x == 320 && y == 256) {return false;}			// Prevent ghosts from reentering spawn box
 						nextx = x; nexty = y+spd; break;
 		}
 		

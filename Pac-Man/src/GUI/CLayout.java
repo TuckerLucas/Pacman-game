@@ -33,7 +33,7 @@ public class CLayout
 	// JPanels supported by the application
 	HomePanel panelHome = new HomePanel();
 	PlayPanel panelPlay = new PlayPanel();
-	LeaderboardPanel panelLeaderboard = new LeaderboardPanel();
+	//LeaderboardPanel panelLeaderboard = new LeaderboardPanel();
 	HowToPlayPanel panelHowToPlay = new HowToPlayPanel();
 	SettingsPanel panelSettings = new SettingsPanel();
 	ProjectInfoPanel panelProjectInfo = new ProjectInfoPanel();
@@ -60,7 +60,7 @@ public class CLayout
 		// Add panels to the container
 		panelContainer.add(panelHome, "Home");
 		panelContainer.add(panelPlay, "Play");
-		panelContainer.add(panelLeaderboard, "Leaderboard");
+		//panelContainer.add(panelLeaderboard, "Leaderboard");
 		panelContainer.add(panelHowToPlay, "HowToPlay");
 		panelContainer.add(panelSettings, "Settings");
 		panelContainer.add(panelProjectInfo, "ProjectInfo");

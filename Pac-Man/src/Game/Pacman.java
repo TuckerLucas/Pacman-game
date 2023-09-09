@@ -268,6 +268,15 @@ public class Pacman extends Rectangle
 		
 		nEatenGhosts = 0;
 	}
+	
+	// Turn all ghosts vulnerable
+	public static void makeGhostsNormal()
+	{
+		for(int i = 0; i < Game.ghostArray.length; i++)
+		{
+			Game.ghostArray[i].isVulnerable = false;
+		}
+	}
 
 	// Check if pacman and a ghost have intersected
 	public boolean intersectedWithGhost()

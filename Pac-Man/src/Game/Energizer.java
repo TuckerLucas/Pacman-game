@@ -26,7 +26,7 @@ public class Energizer extends Rectangle
 	private int spriteTargetFrame = 2;	// Array index of last frame of the animation 
 	
 	public static int activeTime = 0; 
-	public static int activeTargetTime = 60*200;
+	public static int activeTargetTime = 60*8;
 	
 	public static boolean isActive   = false;
 	
@@ -55,6 +55,9 @@ public class Energizer extends Rectangle
 	{
 		Energizer.activeTime = 0;
 		Energizer.isActive = false;
+		
+		// Make ghosts normal
+		Pacman.makeGhostsNormal();
 	}
 	
 	
