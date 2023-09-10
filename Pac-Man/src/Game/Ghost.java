@@ -27,9 +27,9 @@ public class Ghost extends Rectangle
 	// Type of movement variables
 	private int movementType;
 	
-	private final int random 		= 0;
-	private final int smart  		= 1;
-	private final int find_path 	= 2;
+	private final int randomMovement = 0;
+	private final int smartMovement  = 1;
+	private final int findingPath	 = 2;
 	
 	public static int flashTime  = 60*5;
 	
@@ -100,7 +100,7 @@ public class Ghost extends Rectangle
 		initZones();
 		
 		// Set default ghost movement type
-		movementType = random;
+		movementType = randomMovement;
 		
 		spawn 			= spawnPoint;
 		enemyID  		= ID;
@@ -292,7 +292,7 @@ public class Ghost extends Rectangle
 		}
 		else
 		{
-			movementType = find_path;
+			movementType = findingPath;
 		}
 	}
 	
@@ -311,12 +311,12 @@ public class Ghost extends Rectangle
 				else if(canMove(left))
 				{
 					left4 = true;
-					movementType = find_path;
+					movementType = findingPath;
 				}
 				else if(canMove(right))
 				{
 					right4 = true;
-					movementType = find_path;
+					movementType = findingPath;
 				}
 				return;
 					
@@ -328,12 +328,12 @@ public class Ghost extends Rectangle
 				else if(canMove(up))
 				{
 					up8 = true;
-					movementType = find_path;
+					movementType = findingPath;
 				}
 				else if(canMove(down))
 				{
 					down8 = true;
-					movementType = find_path;
+					movementType = findingPath;
 				}
 				return;
 				
@@ -345,12 +345,12 @@ public class Ghost extends Rectangle
 				else if(canMove(up))
 				{
 					up9 = true;
-					movementType = find_path;
+					movementType = findingPath;
 				}
 				else if(canMove(down))
 				{
 					down9 = true;
-					movementType = find_path;
+					movementType = findingPath;
 				}
 				return;
 					 
@@ -362,12 +362,12 @@ public class Ghost extends Rectangle
 				else if(canMove(left))
 				{
 					left13 = true;
-					movementType = find_path;
+					movementType = findingPath;
 				}
 				else if(canMove(right))
 				{
 					right13 = true;
-					movementType = find_path;
+					movementType = findingPath;
 				}
 				return;
 		}
@@ -437,7 +437,7 @@ public class Ghost extends Rectangle
 		{
 			if(pacmanIsClose() && isVulnerable == false && !inSpawnBox())
 			{
-				movementType = smart;
+				movementType = smartMovement;
 			}
 		}
 		if(spawn == spawnLeft)
@@ -565,7 +565,7 @@ public class Ghost extends Rectangle
 
 		if(Energizer.isActive == true || inSpawnBox())
 		{
-			movementType = random;
+			movementType = randomMovement;
 		}
 		
 		if(spawn == spawnLeft)
@@ -615,7 +615,7 @@ public class Ghost extends Rectangle
 		if(smartTime == smartTargetTime) 				
 		{
 			coolDown = true;
-			movementType = random;							
+			movementType = randomMovement;							
 			smartTime = 0;						
 		}
 	}
@@ -799,12 +799,12 @@ public class Ghost extends Rectangle
 				if(desired_direction == up && canMove(up))
 				{
 					right4 = false;
-					movementType = smart;
+					movementType = smartMovement;
 				}
 				else if(desired_direction == down && canMove(down))
 				{
 					right13 = false;
-					movementType = smart;
+					movementType = smartMovement;
 				}
 				
 				break;
@@ -816,12 +816,12 @@ public class Ghost extends Rectangle
 				if(desired_direction == up && canMove(up))
 				{
 					left4 = false;
-					movementType = smart;
+					movementType = smartMovement;
 				}
 				else if(desired_direction == down && canMove(down))
 				{
 					left13 = false;
-					movementType = smart;
+					movementType = smartMovement;
 				}
 				
 				break;
@@ -833,12 +833,12 @@ public class Ghost extends Rectangle
 				if(desired_direction == right && canMove(right))
 				{
 					up9 = false;
-					movementType = smart;
+					movementType = smartMovement;
 				}
 				else if(desired_direction == left && canMove(left))
 				{
 					up8 = false;
-					movementType = smart;
+					movementType = smartMovement;
 				}
 				
 				break;
@@ -850,19 +850,19 @@ public class Ghost extends Rectangle
 				if(desired_direction == right && canMove(right))
 				{
 					down9 = false;
-					movementType = smart;
+					movementType = smartMovement;
 				}
 				else if(desired_direction == left && canMove(left))
 				{
 					down8 = false;
-					movementType = smart;
+					movementType = smartMovement;
 				}
 				
 				break;
 				
 			case -1:	
 				
-				movementType = smart; 
+				movementType = smartMovement; 
 			
 				break;
 		}
@@ -875,9 +875,9 @@ public class Ghost extends Rectangle
 	{
 		switch(movementType)
 		{
-			case random: 	moveRandomly(); break;	// Move in a random fashion
-			case smart: 	moveSmartly();  break;	// Chase pacman
-			case find_path: findingPath();  break;	// Find path to pacman when stuck
+			case randomMovement: 	moveRandomly(); break;	// Move in a random fashion
+			case smartMovement: 	moveSmartly();  break;	// Chase pacman
+			case findingPath: 	    findingPath();  break;	// Find path to pacman when stuck
 		}			
 	}
 	
