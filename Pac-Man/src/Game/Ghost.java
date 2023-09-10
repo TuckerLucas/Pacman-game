@@ -387,10 +387,35 @@ public class Ghost extends Rectangle
 		return false;
 	}
 	
-	private void moveRandomly()
+	
+	
+	// Check if ghost is in a portal
+	private boolean inPortal()
+	{
+		return ((x < 160 || x > 480) && y == 320) ? true : false;
+	}
+	
+	private boolean atPortalEntry(int portal)
+	{
+		switch(portal)
+		{
+			case left:  return (x == 160 && y == 320) ? true : false;
+				
+			case right: return (x == 480 && y == 320) ? true : false;
+		}
+		
+		return false;
+	}
+	
+	private void updateDistanceToPacman()
 	{
 		deltaX = x - Game.pacman.x;
 		deltaY = y - Game.pacman.y;
+	}
+	
+	private void moveRandomly()
+	{
+		updateDistanceToPacman();
 		
 		if(coolDown == true)
 		{
@@ -550,22 +575,78 @@ public class Ghost extends Rectangle
 		}
 	}
 	
-	// Check if ghost is in a portal
-	private boolean inPortal()
+	// Check if ghost is in spawn box
+	private boolean inSpawnBox()
 	{
-		return ((x < 160 || x > 480) && y == 320) ? true : false;
+		return ((x < 368 && x > 272) && (y < 336 && y > 304)) ? true : false;
 	}
-	
-	private boolean atPortalEntry(int portal)
-	{
-		switch(portal)
+
+	private void pacmanZone()
+	{	
+		if(deltaX > 0 && deltaY > 0 && deltaX > deltaY)			
 		{
-			case left:  return (x == 160 && y == 320) ? true : false;
-				
-			case right: return (x == 480 && y == 320) ? true : false;
+			pacmanZone = 1;
 		}
-		
-		return false;
+		else if(deltaX > 0 && deltaY > 0 && deltaX == deltaY)					
+		{
+			pacmanZone = 2;
+		}
+		else if(deltaX > 0 && deltaY > 0 && deltaY > deltaX)						
+		{
+			pacmanZone = 3;
+		}
+		else if(deltaX == 0 && deltaY > 0)									
+		{
+			pacmanZone = 4;
+		}
+		else if(deltaX < 0 && deltaY > 0 && deltaY > -deltaX)						
+		{
+			pacmanZone = 5;
+		}
+		else if(deltaX < 0 && deltaY > 0 && -deltaX == deltaY)					
+		{
+			pacmanZone = 6;
+		}
+		else if(deltaX < 0 && deltaY > 0 && -deltaX > deltaY)						
+		{
+			pacmanZone = 7;
+		}
+		else if(deltaX > 0 && deltaY == 0)										
+		{
+			pacmanZone = 8;
+		}
+		else if(deltaX < 0 && deltaY == 0)										
+		{
+			pacmanZone = 9;
+		}
+		else if(deltaX > 0 && deltaY < 0 && deltaX > -deltaY)	 					
+		{
+			pacmanZone = 10;
+		}
+		else if(deltaX > 0 && deltaY < 0 && deltaX == -deltaY)	 					
+		{
+			pacmanZone = 11;
+		}
+		else if(deltaX > 0 && deltaY < 0 && -deltaY > deltaX)						
+		{
+			pacmanZone = 12;
+		}
+		else if(deltaX == 0 && deltaY < 0)										
+		{
+			pacmanZone = 13;
+		}
+		else if(deltaX < 0 && deltaY < 0 && -deltaY > -deltaX)						
+		{
+			pacmanZone = 14;
+		}
+		else if(deltaX < 0 && deltaY < 0 && -deltaY == -deltaX)						
+		{
+			pacmanZone = 15;
+		}
+		else if(deltaX < 0 && deltaY < 0 && -deltaX > -deltaY)						
+		{
+			pacmanZone = 16;
+		}
 	}
 	
 	private void moveSmartly()
@@ -878,79 +959,7 @@ public class Ghost extends Rectangle
 		}
 	}
 	
-	// Check if ghost is in spawn box
-	private boolean inSpawnBox()
-	{
-		return ((x < 368 && x > 272) && (y < 336 && y > 304)) ? true : false;
-	}
 
-	private void pacmanZone()
-	{	
-		if(deltaX > 0 && deltaY > 0 && deltaX > deltaY)			
-		{
-			pacmanZone = 1;
-		}
-		else if(deltaX > 0 && deltaY > 0 && deltaX == deltaY)					
-		{
-			pacmanZone = 2;
-		}
-		else if(deltaX > 0 && deltaY > 0 && deltaY > deltaX)						
-		{
-			pacmanZone = 3;
-		}
-		else if(deltaX == 0 && deltaY > 0)									
-		{
-			pacmanZone = 4;
-		}
-		else if(deltaX < 0 && deltaY > 0 && deltaY > -deltaX)						
-		{
-			pacmanZone = 5;
-		}
-		else if(deltaX < 0 && deltaY > 0 && -deltaX == deltaY)					
-		{
-			pacmanZone = 6;
-		}
-		else if(deltaX < 0 && deltaY > 0 && -deltaX > deltaY)						
-		{
-			pacmanZone = 7;
-		}
-		else if(deltaX > 0 && deltaY == 0)										
-		{
-			pacmanZone = 8;
-		}
-		else if(deltaX < 0 && deltaY == 0)										
-		{
-			pacmanZone = 9;
-		}
-		else if(deltaX > 0 && deltaY < 0 && deltaX > -deltaY)	 					
-		{
-			pacmanZone = 10;
-		}
-		else if(deltaX > 0 && deltaY < 0 && deltaX == -deltaY)	 					
-		{
-			pacmanZone = 11;
-		}
-		else if(deltaX > 0 && deltaY < 0 && -deltaY > deltaX)						
-		{
-			pacmanZone = 12;
-		}
-		else if(deltaX == 0 && deltaY < 0)										
-		{
-			pacmanZone = 13;
-		}
-		else if(deltaX < 0 && deltaY < 0 && -deltaY > -deltaX)						
-		{
-			pacmanZone = 14;
-		}
-		else if(deltaX < 0 && deltaY < 0 && -deltaY == -deltaX)						
-		{
-			pacmanZone = 15;
-		}
-		else if(deltaX < 0 && deltaY < 0 && -deltaX > -deltaY)						
-		{
-			pacmanZone = 16;
-		}
-	}
 	
 	// Manage ghost movement
 	private void ghostMovement()
