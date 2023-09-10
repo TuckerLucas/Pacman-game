@@ -52,15 +52,6 @@ public class Ghost extends Rectangle
 	
 	private Zone ZonesArray[] = new Zone[16];
 	
-	private boolean left4 	= false;
-	private boolean right4 	= false;
-	private boolean left13 	= false;
-	private boolean right13 = false;
-	private boolean up8 	= false;
-	private boolean down8 	= false;
-	private boolean up9 	= false;
-	private boolean down9 	= false;
-	
 	private int deltaX;
 	private int deltaY;
 	private int detectionRange;
@@ -84,9 +75,7 @@ public class Ghost extends Rectangle
 	private int pacmanZone = 1;
 	
 	class Zone
-	{
-		boolean isActive = false;
-		
+	{	
 		int smartDir1;
 		int smartDir2;
 		
@@ -263,119 +252,8 @@ public class Ghost extends Rectangle
 		}
 	}
 	
-	private void updateZone(int currentZone)
-	{
-		resetZones();
-		
-		for(int i = 0; i < ZonesArray.length; i++)
-		{
-			ZonesArray[currentZone-1].isActive = true;
-		}
-	}
-	
-	private void resetZones()
-	{
-		for(int i = 0; i < ZonesArray.length; i++)
-		{
-			ZonesArray[i].isActive = false;
-		}
-	}
 
-	private void getToZone(int zone)
-	{
-		if(canMove(ZonesArray[zone-1].smartDir1))
-		{
-			move(ZonesArray[zone-1].smartDir1);
-		}
-		else if(canMove(ZonesArray[zone-1].smartDir2))
-		{
-			move(ZonesArray[zone-1].smartDir2);
-		}
-		else
-		{
-			movementType = findingPath;
-		}
-	}
-	
-	
-	private void moveToZone(int zone)
-	{
-		updateZone(zone);
-		
-		switch(zone)
-		{
-			case 4: 
-				if(canMove(up))
-				{
-					move(up);
-				}
-				else if(canMove(left))
-				{
-					left4 = true;
-					movementType = findingPath;
-				}
-				else if(canMove(right))
-				{
-					right4 = true;
-					movementType = findingPath;
-				}
-				return;
-					
-			case 8: 
-				if(canMove(left))
-				{
-					move(left);
-				}
-				else if(canMove(up))
-				{
-					up8 = true;
-					movementType = findingPath;
-				}
-				else if(canMove(down))
-				{
-					down8 = true;
-					movementType = findingPath;
-				}
-				return;
-				
-			case 9: 
-				if(canMove(right))
-				{
-					move(right);
-				}
-				else if(canMove(up))
-				{
-					up9 = true;
-					movementType = findingPath;
-				}
-				else if(canMove(down))
-				{
-					down9 = true;
-					movementType = findingPath;
-				}
-				return;
-					 
-			case 13: 
-				if(canMove(down))
-				{
-					move(down);
-				}
-				else if(canMove(left))
-				{
-					left13 = true;
-					movementType = findingPath;
-				}
-				else if(canMove(right))
-				{
-					right13 = true;
-					movementType = findingPath;
-				}
-				return;
-		}
-		
-		getToZone(zone);
-	}	
-	
+
 	
 	// Check if ghost is in a portal
 	private boolean inPortal()
@@ -568,7 +446,21 @@ public class Ghost extends Rectangle
 			{
 				pacmanZone();
 				
-				moveToZone(pacmanZone);
+				// Move to pacman's zone
+				if(canMove(ZonesArray[pacmanZone-1].smartDir1))
+				{
+					move(ZonesArray[pacmanZone-1].smartDir1);
+				}
+				else if(canMove(ZonesArray[pacmanZone-1].smartDir2))
+				{
+					move(ZonesArray[pacmanZone-1].smartDir2);
+				}
+				else
+				{
+					movementType = findingPath;
+				}
+				
+				//moveToZone(pacmanZone);
 			}
 		}
 		smartTime++;								
