@@ -80,6 +80,7 @@ public class Ghost extends Rectangle
 	public static int flashAnimationTargetTime = 20;
 	
 	public int enemyID;
+	private int pacmanZone = 1;
 	
 	class Zone
 	{
@@ -614,70 +615,9 @@ public class Ghost extends Rectangle
 			// Ghost not in a portal
 			else
 			{
-				if(deltaX > 0 && deltaY > 0 && deltaX > deltaY)			//Zona 1
-				{
-					moveToZone(1);
-				}
-				else if(deltaX > 0 && deltaY > 0 && deltaX == deltaY)	//Zona 2				
-				{
-					moveToZone(2);
-				}
-				else if(deltaX > 0 && deltaY > 0 && deltaY > deltaX)	//Zona 3					
-				{
-					moveToZone(3);
-				}
-				else if(deltaX == 0 && deltaY > 0)					//Zona 4				
-				{
-					moveToZone(4);
-				}
-				else if(deltaX < 0 && deltaY > 0 && deltaY > -deltaX)	//Zona 5					
-				{
-					moveToZone(5);
-				}
-				else if(deltaX < 0 && deltaY > 0 && -deltaX == deltaY)	//Zona 6					
-				{
-					moveToZone(6);
-				}
-				else if(deltaX < 0 && deltaY > 0 && -deltaX > deltaY)	//Zona 7					
-				{
-					moveToZone(7);
-				}
-				else if(deltaX > 0 && deltaY == 0)					//Zona 8					
-				{
-					moveToZone(8);
-				}
-				else if(deltaX < 0 && deltaY == 0)					//Zona 9					
-				{
-					moveToZone(9);
-				}
-				else if(deltaX > 0 && deltaY < 0 && deltaX > -deltaY)	//Zona 10 					
-				{
-					moveToZone(10);
-				}
-				else if(deltaX > 0 && deltaY < 0 && deltaX == -deltaY)	//Zona 11 					
-				{
-					moveToZone(11);
-				}
-				else if(deltaX > 0 && deltaY < 0 && -deltaY > deltaX)	//Zona 12					
-				{
-					moveToZone(12);
-				}
-				else if(deltaX == 0 && deltaY < 0)					//Zona 13					
-				{
-					moveToZone(13);
-				}
-				else if(deltaX < 0 && deltaY < 0 && -deltaY > -deltaX)	//Zona 14					
-				{
-					moveToZone(14);
-				}
-				else if(deltaX < 0 && deltaY < 0 && -deltaY == -deltaX)	//Zona 15					
-				{
-					moveToZone(15);
-				}
-				else if(deltaX < 0 && deltaY < 0 && -deltaX > -deltaY)	//Zona 16					
-				{
-					moveToZone(16);
-				}
+				pacmanZone();
+				
+				moveToZone(pacmanZone);
 			}
 		}
 		smartTime++;								
@@ -944,6 +884,74 @@ public class Ghost extends Rectangle
 		return ((x < 368 && x > 272) && (y < 336 && y > 304)) ? true : false;
 	}
 
+	private void pacmanZone()
+	{	
+		if(deltaX > 0 && deltaY > 0 && deltaX > deltaY)			
+		{
+			pacmanZone = 1;
+		}
+		else if(deltaX > 0 && deltaY > 0 && deltaX == deltaY)					
+		{
+			pacmanZone = 2;
+		}
+		else if(deltaX > 0 && deltaY > 0 && deltaY > deltaX)						
+		{
+			pacmanZone = 3;
+		}
+		else if(deltaX == 0 && deltaY > 0)									
+		{
+			pacmanZone = 4;
+		}
+		else if(deltaX < 0 && deltaY > 0 && deltaY > -deltaX)						
+		{
+			pacmanZone = 5;
+		}
+		else if(deltaX < 0 && deltaY > 0 && -deltaX == deltaY)					
+		{
+			pacmanZone = 6;
+		}
+		else if(deltaX < 0 && deltaY > 0 && -deltaX > deltaY)						
+		{
+			pacmanZone = 7;
+		}
+		else if(deltaX > 0 && deltaY == 0)										
+		{
+			pacmanZone = 8;
+		}
+		else if(deltaX < 0 && deltaY == 0)										
+		{
+			pacmanZone = 9;
+		}
+		else if(deltaX > 0 && deltaY < 0 && deltaX > -deltaY)	 					
+		{
+			pacmanZone = 10;
+		}
+		else if(deltaX > 0 && deltaY < 0 && deltaX == -deltaY)	 					
+		{
+			pacmanZone = 11;
+		}
+		else if(deltaX > 0 && deltaY < 0 && -deltaY > deltaX)						
+		{
+			pacmanZone = 12;
+		}
+		else if(deltaX == 0 && deltaY < 0)										
+		{
+			pacmanZone = 13;
+		}
+		else if(deltaX < 0 && deltaY < 0 && -deltaY > -deltaX)						
+		{
+			pacmanZone = 14;
+		}
+		else if(deltaX < 0 && deltaY < 0 && -deltaY == -deltaX)						
+		{
+			pacmanZone = 15;
+		}
+		else if(deltaX < 0 && deltaY < 0 && -deltaX > -deltaY)						
+		{
+			pacmanZone = 16;
+		}
+	}
+	
 	// Manage ghost movement
 	private void ghostMovement()
 	{
