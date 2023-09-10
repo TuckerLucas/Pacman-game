@@ -442,29 +442,7 @@ public class Ghost extends Rectangle
 			}
 		}
 		
-		if(spawn == spawnLeft)
-		{
-			lastDir = left;
-			
-			x -= spd;
-			
-			if(atPortalEntry(right))
-			{
-				spawn = spawnInBox;
-			}
-		}
-		else if(spawn == spawnRight)
-		{
-			lastDir = right;
-			
-			x += spd;
-			
-			if(atPortalEntry(left))
-			{
-				spawn = spawnInBox;
-			}
-		}
-		else if(spawn == spawnInBox)
+		if(spawn == spawnInBox)
 		{
 			if(randomMovement(dir))
 			{
@@ -570,27 +548,8 @@ public class Ghost extends Rectangle
 			movementType = randomMovement;
 		}
 		
-		if(spawn == spawnLeft)
-		{
-			lastDir = left;
-			x-=spd;
-			
-			if(atPortalEntry(right))
-			{
-				spawn = spawnInBox;
-			}
-		}
-		else if(spawn == spawnRight)
-		{
-			lastDir = right;
-			x+=spd;
-			
-			if(atPortalEntry(left))
-			{
-				spawn = spawnInBox;
-			}
-		}
-		else if(spawn == spawnInBox)
+
+		if(spawn == spawnInBox)
 		{
 			// Ghost in right portal moving right
 			if(inPortal() && lastDir == right)
@@ -663,6 +622,27 @@ public class Ghost extends Rectangle
 	
 	private void portalCrossing()
 	{
+		if(spawn == spawnLeft)
+		{
+			lastDir = left;
+			x-=spd;
+			
+			if(atPortalEntry(right))
+			{
+				spawn = spawnInBox;
+			}
+		}
+		else if(spawn == spawnRight)
+		{
+			lastDir = right;
+			x+=spd;
+			
+			if(atPortalEntry(left))
+			{
+				spawn = spawnInBox;
+			}
+		}
+		
 		if(x == 0 && y == 320)								
 		{
 			lastDir = left;
