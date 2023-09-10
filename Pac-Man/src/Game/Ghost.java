@@ -405,7 +405,7 @@ public class Ghost extends Rectangle
 		{
 			if((deltaX < radius && deltaX > -radius) && (deltaY < radius && deltaY > -radius))
 			{
-				if(isVulnerable == false && !inBox())
+				if(isVulnerable == false && !inSpawnBox())
 				{
 					movementType = smart;
 				}
@@ -572,7 +572,7 @@ public class Ghost extends Rectangle
 		deltaX = x - Game.pacman.x;
 		deltaY = y - Game.pacman.y;
 
-		if(Energizer.isActive == true || inBox())
+		if(Energizer.isActive == true || inSpawnBox())
 		{
 			movementType = random;
 		}
@@ -939,9 +939,9 @@ public class Ghost extends Rectangle
 	}
 	
 	// Check if ghost is in spawn box
-	private boolean inBox()
+	private boolean inSpawnBox()
 	{
-		return ((x < 385 && x > 255) && (y < 385 && y > 255)) ? true : false;
+		return ((x < 368 && x > 272) && (y < 336 && y > 304)) ? true : false;
 	}
 
 	// Manage ghost movement
