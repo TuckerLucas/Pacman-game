@@ -157,118 +157,106 @@ public class Ghost extends Rectangle
 			
 			switch(zone)
 			{
-				case 0: 
-					ZonesArray[zone].smartDir1 = left;
-					ZonesArray[zone].smartDir2 = up;
-					ZonesArray[zone].findDir1  = down;
-					ZonesArray[zone].findDir2  = left;
-					
-					break;
-				case 1:
-					ZonesArray[zone].smartDir1 = up;
-					ZonesArray[zone].smartDir2 = left;
-					ZonesArray[zone].findDir1  = right;
-					ZonesArray[zone].findDir2  = up;
-					
-					break;
-				case 2:
-					ZonesArray[zone].smartDir1 = up;
-					ZonesArray[zone].smartDir2 = left;
-					ZonesArray[zone].findDir1  = right;
-					ZonesArray[zone].findDir2  = up;
-					
-					break;
-				case 3:
-					ZonesArray[zone].smartDir1 = up;
-					ZonesArray[zone].smartDir2 = -1;
-					ZonesArray[zone].findDir1  = left;
-					ZonesArray[zone].findDir2  = up;
-					
-					break;
-				case 4:
-					ZonesArray[zone].smartDir1 = up;
-					ZonesArray[zone].smartDir2 = right;
-					ZonesArray[zone].findDir1  = left;
-					ZonesArray[zone].findDir2  = up;
-					
-					break;
-				case 5:
-					ZonesArray[zone].smartDir1 = up;
-					ZonesArray[zone].smartDir2 = right;
-					ZonesArray[zone].findDir1  = left;
-					ZonesArray[zone].findDir2  = up;
-					
-					break;
-				case 6:
-					ZonesArray[zone].smartDir1 = right;
-					ZonesArray[zone].smartDir2 = up;
-					ZonesArray[zone].findDir1  = down;
-					ZonesArray[zone].findDir2  = right;
-					
-					break;
-				case 7:
-					ZonesArray[zone].smartDir1 = left;
-					ZonesArray[zone].smartDir2 = -1;
-					ZonesArray[zone].findDir1  = -2;
-					ZonesArray[zone].findDir2  = -2;
-					
-					break;
-				case 8:
-					ZonesArray[zone].smartDir1 = right;
-					ZonesArray[zone].smartDir2 = -1;
-					ZonesArray[zone].findDir1  = -2;
-					ZonesArray[zone].findDir2  = -2;
-					
-					break;
-				case 9:
-					ZonesArray[zone].smartDir1 = left;
-					ZonesArray[zone].smartDir2 = down;
-					ZonesArray[zone].findDir1  = up;
-					ZonesArray[zone].findDir2  = left;
-					
-					break;
-				case 10:
-					ZonesArray[zone].smartDir1 = down;
-					ZonesArray[zone].smartDir2 = left;
-					ZonesArray[zone].findDir1  = right;
-					ZonesArray[zone].findDir2  = down;
-					
-					break;
-				case 11:
-					ZonesArray[zone].smartDir1 = down;
-					ZonesArray[zone].smartDir2 = left;
-					ZonesArray[zone].findDir1  = right;
-					ZonesArray[zone].findDir2  = down;
-					
-					break;
-				case 12:
-					ZonesArray[zone].smartDir1 = down;
-					ZonesArray[zone].smartDir2 = -1;
-					ZonesArray[zone].findDir1  = -2;
-					ZonesArray[zone].findDir2  = -2;
-					
-					break;
-				case 13:
-					ZonesArray[zone].smartDir1 = down;
-					ZonesArray[zone].smartDir2 = right;
-					ZonesArray[zone].findDir1  = left;
-					ZonesArray[zone].findDir2  = down;
-					
-					break;
-				case 14:
-					ZonesArray[zone].smartDir1 = down;
-					ZonesArray[zone].smartDir2 = right;
-					ZonesArray[zone].findDir1  = left;
-					ZonesArray[zone].findDir2  = down;
-					
-					break;
-				case 15:
-					ZonesArray[zone].smartDir1 = right;
-					ZonesArray[zone].smartDir2 = down;
-					ZonesArray[zone].findDir1  = up;
-					ZonesArray[zone].findDir2  = right;
-					
-					break;
+			case 0: 
+				ZonesArray[zone].smartDir1 = left;
+				ZonesArray[zone].smartDir2 = up;
+				ZonesArray[zone].findDir1  = down;
+				
+				break;
+			case 1:
+				ZonesArray[zone].smartDir1 = up;
+				ZonesArray[zone].smartDir2 = left;
+				ZonesArray[zone].findDir1  = right;
+				
+				break;
+			case 2:
+				ZonesArray[zone].smartDir1 = up;
+				ZonesArray[zone].smartDir2 = left;
+				ZonesArray[zone].findDir1  = right;
+				
+				break;
+			case 3:
+				ZonesArray[zone].smartDir1 = up;
+				ZonesArray[zone].smartDir2 = -1;
+				ZonesArray[zone].findDir1  = right;
+				ZonesArray[zone].findDir2  = left;
+				
+				break;
+			case 4:
+				ZonesArray[zone].smartDir1 = up;
+				ZonesArray[zone].smartDir2 = right;
+				ZonesArray[zone].findDir1  = left;
+				
+				break;
+			case 5:
+				ZonesArray[zone].smartDir1 = up;
+				ZonesArray[zone].smartDir2 = right;
+				ZonesArray[zone].findDir1  = left;
+				
+				break;
+			case 6:
+				ZonesArray[zone].smartDir1 = right;
+				ZonesArray[zone].smartDir2 = up;
+				ZonesArray[zone].findDir1  = down;
+				
+				break;
+			case 7:
+				ZonesArray[zone].smartDir1 = left;
+				ZonesArray[zone].smartDir2 = -1;
+				ZonesArray[zone].findDir1  = down;
+				ZonesArray[zone].findDir2  = up;
+				
+				break;
+			case 8:
+				ZonesArray[zone].smartDir1 = right;
+				ZonesArray[zone].smartDir2 = -1;
+				ZonesArray[zone].findDir1  = up;
+				ZonesArray[zone].findDir2  = down;
+				
+				break;
+			case 9:
+				ZonesArray[zone].smartDir1 = left;
+				ZonesArray[zone].smartDir2 = down;
+				ZonesArray[zone].findDir1  = up;
+				
+				break;
+			case 10:
+				ZonesArray[zone].smartDir1 = down;
+				ZonesArray[zone].smartDir2 = left;
+				ZonesArray[zone].findDir1  = right;
+				
+				break;
+			case 11:
+				ZonesArray[zone].smartDir1 = down;
+				ZonesArray[zone].smartDir2 = left;
+				ZonesArray[zone].findDir1  = right;
+				
+				break;
+			case 12:
+				ZonesArray[zone].smartDir1 = down;
+				ZonesArray[zone].smartDir2 = -1;
+				ZonesArray[zone].findDir1  = right;
+				ZonesArray[zone].findDir2  = left;
+				
+				break;
+			case 13:
+				ZonesArray[zone].smartDir1 = down;
+				ZonesArray[zone].smartDir2 = right;
+				ZonesArray[zone].findDir1  = left;
+				
+				break;
+			case 14:
+				ZonesArray[zone].smartDir1 = down;
+				ZonesArray[zone].smartDir2 = right;
+				ZonesArray[zone].findDir1  = left;
+				
+				break;
+			case 15:
+				ZonesArray[zone].smartDir1 = right;
+				ZonesArray[zone].smartDir2 = down;
+				ZonesArray[zone].findDir1  = up;
+				
+				break;
 			}
 		}
 	}
