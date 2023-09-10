@@ -40,6 +40,7 @@ public class Ghost extends Rectangle
 	
 	private int dir 	= -1;
 	private int lastDir = -1;
+	private boolean flag = false;
 	
 	private int smartTime			= 0;
 	private int smartTargetTime; 
@@ -440,6 +441,7 @@ public class Ghost extends Rectangle
 				movementType = smartMovement;
 			}
 		}
+		
 		if(spawn == spawnLeft)
 		{
 			lastDir = left;
@@ -622,252 +624,30 @@ public class Ghost extends Rectangle
 
 	private void findingPath()
 	{
-		if(ZonesArray[0].isActive)
+		if(canMove(ZonesArray[pacmanZone-1].smartDir1))
 		{
-			moveUntil(down, left);
+			flag = false;
+			movementType = smartMovement;
 		}
-		else if(ZonesArray[1].isActive)
+		else
 		{
-			moveUntil(right, up);
-		}
-		else if(ZonesArray[2].isActive)
-		{
-			moveUntil(right, up);
-		}
-		else if(ZonesArray[3].isActive)
-		{
-			if(left4 == true)
+			if(flag == false)
 			{
-				if(canMove(left))
+				if(canMove(ZonesArray[pacmanZone-1].findDir1))
 				{
-					moveUntil(left, up);
+					move(ZonesArray[pacmanZone-1].findDir1);
 				}
 				else
 				{
-					left4 = false;
-					ZonesArray[3].isActive = false;
-					moveUntil(-1, -1);
+					flag = true;
 				}
 			}
-			else if(right4 == true)
+			else if(flag == true)
 			{
-				if(canMove(right))
-				{
-					moveUntil(right, up);
-				}
-				else
-				{
-					right4 = false;
-					ZonesArray[3].isActive = false;
-					moveUntil(-1, -1);
-				}
+				move(ZonesArray[pacmanZone-1].findDir2);
 			}
-		}
-		else if(ZonesArray[4].isActive)
-		{
-			moveUntil(left, up);
-		}
-		else if(ZonesArray[5].isActive)
-		{
-			moveUntil(left, up);
-		}
-		else if(ZonesArray[6].isActive)
-		{
-			moveUntil(down, right);
-		}
-		else if(ZonesArray[7].isActive)
-		{
-			if(up8 == true)
-			{
-				if(canMove(up))
-				{
-					moveUntil(up, left);
-				}
-				else
-				{
-					up8 = false;
-					ZonesArray[7].isActive = false;
-					moveUntil(-1,-1);
-				}
-			}
-			else if(down8 == true)
-			{
-				if(canMove(down))
-				{
-					moveUntil(down, left);
-				}
-				else
-				{
-					down8 = false;
-					ZonesArray[7].isActive = false;
-					moveUntil(-1,-1);
-				}
-			}
-		}
-		else if(ZonesArray[8].isActive)
-		{
-			if(up9 == true)
-			{
-				if(canMove(up))
-				{
-					moveUntil(up, right);
-				}
-				else
-				{
-					up9 = false;
-					ZonesArray[8].isActive = false;
-					moveUntil(-1,-1);
-				}
-			}
-			else if(down9 == true)
-			{
-				if(canMove(down))
-				{
-					moveUntil(down, right);
-				}
-				else
-				{
-					down9 = false;
-					ZonesArray[8].isActive = false;
-					moveUntil(-1,-1);
-				}
-			}
-		}
-		else if(ZonesArray[9].isActive)
-		{
-			moveUntil(up, left);
-		}
-		else if(ZonesArray[10].isActive)
-		{
-			moveUntil(right, down);
-		}
-		else if(ZonesArray[11].isActive)
-		{
-			moveUntil(right, down);
-		}
-		else if(ZonesArray[12].isActive)
-		{
-			if(left13 == true)
-			{
-				if(canMove(left))
-				{
-					moveUntil(left, down);
-				}
-				else
-				{
-					ZonesArray[12].isActive = false;
-					left13 = false;
-					moveUntil(-1,-1);
-				}
-			}
-			else if(right13 == true)
-			{
-				if(canMove(right))
-				{
-					moveUntil(right, down);
-				}
-				else
-				{
-					ZonesArray[12].isActive = false;
-					right13 = false;
-					moveUntil(-1,-1);
-				}
-			}
-		}
-		else if(ZonesArray[13].isActive)
-		{
-			moveUntil(left, down);
-		}
-		else if(ZonesArray[14].isActive)
-		{
-			moveUntil(left, down);
-		}
-		else if(ZonesArray[15].isActive)
-		{
-			moveUntil(up, right);
 		}
 	}
-
-	private void moveUntil(int allowed_direction, int desired_direction)
-	{
-		switch(allowed_direction)
-		{
-			case right:
-				
-				move(right);
-				
-				if(desired_direction == up && canMove(up))
-				{
-					right4 = false;
-					movementType = smartMovement;
-				}
-				else if(desired_direction == down && canMove(down))
-				{
-					right13 = false;
-					movementType = smartMovement;
-				}
-				
-				break;
-			
-			case left: 
-				
-				move(left);
-				
-				if(desired_direction == up && canMove(up))
-				{
-					left4 = false;
-					movementType = smartMovement;
-				}
-				else if(desired_direction == down && canMove(down))
-				{
-					left13 = false;
-					movementType = smartMovement;
-				}
-				
-				break;
-				
-			case up:
-				
-				move(up);
-				
-				if(desired_direction == right && canMove(right))
-				{
-					up9 = false;
-					movementType = smartMovement;
-				}
-				else if(desired_direction == left && canMove(left))
-				{
-					up8 = false;
-					movementType = smartMovement;
-				}
-				
-				break;
-				
-			case down:
-				
-				move(down);
-				
-				if(desired_direction == right && canMove(right))
-				{
-					down9 = false;
-					movementType = smartMovement;
-				}
-				else if(desired_direction == left && canMove(left))
-				{
-					down8 = false;
-					movementType = smartMovement;
-				}
-				
-				break;
-				
-			case -1:	
-				
-				movementType = smartMovement; 
-			
-				break;
-		}
-	}
-	
 
 	
 	// Manage ghost movement
