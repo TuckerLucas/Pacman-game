@@ -62,7 +62,7 @@ public class Ghost extends Rectangle
 	
 	private int deltaX;
 	private int deltaY;
-	private int radius;
+	private int detectionRange;
 	
 	private int spawn;
 	
@@ -124,19 +124,19 @@ public class Ghost extends Rectangle
 		switch(Game.difficulty)
 		{
 			case 1:
-				radius = 80;
+				detectionRange = 80;
 				smartTargetTime = 60 * 10;
 				break;
 			case 2:
-				radius = 100;
+				detectionRange = 100;
 				smartTargetTime = 60 * 15;
 				break;
 			case 3:
-				radius = 120;
+				detectionRange = 120;
 				smartTargetTime = 60 * 20;
 				break;
 			case 4:
-				radius = 150;
+				detectionRange = 150;
 				smartTargetTime = 60 * 25;
 				break;
 		}
@@ -413,6 +413,13 @@ public class Ghost extends Rectangle
 		deltaY = y - Game.pacman.y;
 	}
 	
+	private boolean pacmanIsClose()
+	{
+		return ((deltaX < detectionRange && deltaX > -detectionRange) && 
+				(deltaY < detectionRange && deltaY > -detectionRange)) 
+				? true : false;
+	}
+	
 	private void moveRandomly()
 	{
 		updateDistanceToPacman();
@@ -429,7 +436,7 @@ public class Ghost extends Rectangle
 		}
 		else if(coolDown == false)
 		{
-			if((deltaX < radius && deltaX > -radius) && (deltaY < radius && deltaY > -radius))
+			if(pacmanIsClose())
 			{
 				if(isVulnerable == false && !inSpawnBox())
 				{
