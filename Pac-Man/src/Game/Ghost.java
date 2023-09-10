@@ -60,8 +60,8 @@ public class Ghost extends Rectangle
 	private boolean up9 	= false;
 	private boolean down9 	= false;
 	
-	private int difx;
-	private int dify;
+	private int deltaX;
+	private int deltaY;
 	private int radius;
 	
 	private int spawn;
@@ -400,8 +400,8 @@ public class Ghost extends Rectangle
 	
 	private void moveRandomly()
 	{
-		difx = x - Game.pacman.x;
-		dify = y - Game.pacman.y;
+		deltaX = x - Game.pacman.x;
+		deltaY = y - Game.pacman.y;
 		
 		if(coolDown == true)
 		{
@@ -415,7 +415,7 @@ public class Ghost extends Rectangle
 		}
 		else if(coolDown == false)
 		{
-			if((difx < radius && difx > -radius) && (dify < radius && dify > -radius))
+			if((deltaX < radius && deltaX > -radius) && (deltaY < radius && deltaY > -radius))
 			{
 				if(isVulnerable == false && !inBox())
 				{
@@ -581,8 +581,8 @@ public class Ghost extends Rectangle
 	
 	private void moveSmartly()
 	{
-		difx = x - Game.pacman.x;
-		dify = y - Game.pacman.y;
+		deltaX = x - Game.pacman.x;
+		deltaY = y - Game.pacman.y;
 
 		if(Energizer.isActive == true || inBox())
 		{
@@ -626,67 +626,67 @@ public class Ghost extends Rectangle
 			// Ghost not in a portal
 			else
 			{
-				if(difx > 0 && dify > 0 && difx > dify)			//Zona 1
+				if(deltaX > 0 && deltaY > 0 && deltaX > deltaY)			//Zona 1
 				{
 					moveToZone(1);
 				}
-				else if(difx > 0 && dify > 0 && difx == dify)	//Zona 2				
+				else if(deltaX > 0 && deltaY > 0 && deltaX == deltaY)	//Zona 2				
 				{
 					moveToZone(2);
 				}
-				else if(difx > 0 && dify > 0 && dify > difx)	//Zona 3					
+				else if(deltaX > 0 && deltaY > 0 && deltaY > deltaX)	//Zona 3					
 				{
 					moveToZone(3);
 				}
-				else if(difx == 0 && dify > 0)					//Zona 4				
+				else if(deltaX == 0 && deltaY > 0)					//Zona 4				
 				{
 					moveToZone(4);
 				}
-				else if(difx < 0 && dify > 0 && dify > -difx)	//Zona 5					
+				else if(deltaX < 0 && deltaY > 0 && deltaY > -deltaX)	//Zona 5					
 				{
 					moveToZone(5);
 				}
-				else if(difx < 0 && dify > 0 && -difx == dify)	//Zona 6					
+				else if(deltaX < 0 && deltaY > 0 && -deltaX == deltaY)	//Zona 6					
 				{
 					moveToZone(6);
 				}
-				else if(difx < 0 && dify > 0 && -difx > dify)	//Zona 7					
+				else if(deltaX < 0 && deltaY > 0 && -deltaX > deltaY)	//Zona 7					
 				{
 					moveToZone(7);
 				}
-				else if(difx > 0 && dify == 0)					//Zona 8					
+				else if(deltaX > 0 && deltaY == 0)					//Zona 8					
 				{
 					moveToZone(8);
 				}
-				else if(difx < 0 && dify == 0)					//Zona 9					
+				else if(deltaX < 0 && deltaY == 0)					//Zona 9					
 				{
 					moveToZone(9);
 				}
-				else if(difx > 0 && dify < 0 && difx > -dify)	//Zona 10 					
+				else if(deltaX > 0 && deltaY < 0 && deltaX > -deltaY)	//Zona 10 					
 				{
 					moveToZone(10);
 				}
-				else if(difx > 0 && dify < 0 && difx == -dify)	//Zona 11 					
+				else if(deltaX > 0 && deltaY < 0 && deltaX == -deltaY)	//Zona 11 					
 				{
 					moveToZone(11);
 				}
-				else if(difx > 0 && dify < 0 && -dify > difx)	//Zona 12					
+				else if(deltaX > 0 && deltaY < 0 && -deltaY > deltaX)	//Zona 12					
 				{
 					moveToZone(12);
 				}
-				else if(difx == 0 && dify < 0)					//Zona 13					
+				else if(deltaX == 0 && deltaY < 0)					//Zona 13					
 				{
 					moveToZone(13);
 				}
-				else if(difx < 0 && dify < 0 && -dify > -difx)	//Zona 14					
+				else if(deltaX < 0 && deltaY < 0 && -deltaY > -deltaX)	//Zona 14					
 				{
 					moveToZone(14);
 				}
-				else if(difx < 0 && dify < 0 && -dify == -difx)	//Zona 15					
+				else if(deltaX < 0 && deltaY < 0 && -deltaY == -deltaX)	//Zona 15					
 				{
 					moveToZone(15);
 				}
-				else if(difx < 0 && dify < 0 && -difx > -dify)	//Zona 16					
+				else if(deltaX < 0 && deltaY < 0 && -deltaX > -deltaY)	//Zona 16					
 				{
 					moveToZone(16);
 				}
