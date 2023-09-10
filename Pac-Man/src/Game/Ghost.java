@@ -373,20 +373,7 @@ public class Ghost extends Rectangle
 		}
 		
 		getToZone(zone);
-	}
-
-	private boolean randomMovement(int direction)
-	{
-		if(canMove(direction))			
-		{
-			move(direction);
-			dir = randomGen.nextInt(4);
-			return true;
-		}
-		
-		return false;
-	}
-	
+	}	
 	
 	
 	// Check if ghost is in a portal
@@ -402,6 +389,18 @@ public class Ghost extends Rectangle
 			case left:  return (x == 160 && y == 320) ? true : false;
 				
 			case right: return (x == 480 && y == 320) ? true : false;
+		}
+		
+		return false;
+	}
+	
+	private boolean randomMovement(int direction)
+	{
+		if(canMove(direction))			
+		{
+			move(direction);
+			dir = randomGen.nextInt(4);
+			return true;
 		}
 		
 		return false;
@@ -436,12 +435,9 @@ public class Ghost extends Rectangle
 		}
 		else if(coolDown == false)
 		{
-			if(pacmanIsClose())
+			if(pacmanIsClose() && isVulnerable == false && !inSpawnBox())
 			{
-				if(isVulnerable == false && !inSpawnBox())
-				{
-					movementType = smart;
-				}
+				movementType = smart;
 			}
 		}
 		if(spawn == spawnLeft)
@@ -468,117 +464,23 @@ public class Ghost extends Rectangle
 		}
 		else if(spawn == spawnInBox)
 		{
-			switch(dir)
+			if(randomMovement(dir))
 			{
-				case right:
-					
-					if(randomMovement(right))
-						break;
-					else							
-					{
-						if(lastDir == left && canMove(left))
-						{
-							move(left);
-						}
-						else if(lastDir == up && canMove(up))
-						{
-							move(up);
-						}
-						else if(lastDir == down && canMove(down))
-						{
-							move(down);
-						}
-						else 
-						{
-							dir = randomGen.nextInt(4); 
-						}
-						
-					}
-					
-					break;
-					
-				case left:
-					
-					if(randomMovement(left))
-						break;
-					else							
-					{
-						if(lastDir == right && canMove(right))
-						{
-							x+=spd;
-						}
-						else if(lastDir == up && canMove(up))
-						{
-							y-=spd;
-						}
-						else if(lastDir == down && canMove(down))
-						{
-							y+=spd;
-						}
-						else 
-						{
-							dir = randomGen.nextInt(4); 
-						}
-					}
-								
-					break;
-					
-				case up:
-					
-					if(randomMovement(up))
-					{
-						break;
-					}
-					else							
-					{
-						if(lastDir == left && canMove(left))
-						{
-							x-=spd;
-						}
-						else if(lastDir == right && canMove(right))
-						{
-							x+=spd;
-						}
-						else if(lastDir == down && canMove(down))
-						{
-							y+=spd;
-						}
-						else 
-						{
-							dir = randomGen.nextInt(4);
-						}
-					}
-					
-					break;
-					
-				case down:
-					
-					if(randomMovement(down))
-					{
-						break;
-					}
-					else							
-					{
-						if(lastDir == left && canMove(left))
-						{
-							x-=spd;
-						}
-						else if(lastDir == up && canMove(up))
-						{
-							y-=spd;
-						}
-						else if(lastDir == right && canMove(right))
-						{
-							x+=spd;
-						}
-						else 
-						{
-							dir = randomGen.nextInt(4); 
-						}
-					}	
-					
-					break;
+				return;
 			}
+			
+			for(int direction = right; direction <= down; direction++)
+			{	
+				if(lastDir == direction && canMove(direction))
+				{
+					move(direction);
+					return;
+				}
+			}
+			
+			dir = randomGen.nextInt(4); 
+			
+			return;
 		}
 	}
 	
