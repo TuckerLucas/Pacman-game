@@ -81,7 +81,6 @@ public class Ghost extends Rectangle
 		
 		int findDir1;
 		int findDir2;
-		
 	}
 	
 	// Constructor
@@ -252,9 +251,6 @@ public class Ghost extends Rectangle
 		}
 	}
 	
-
-
-	
 	// Check if ghost is in a portal
 	private boolean inPortal()
 	{
@@ -319,7 +315,6 @@ public class Ghost extends Rectangle
 				movementType = smartMovement;
 			}
 		}
-		
 		if(spawn == spawnInBox)
 		{
 			if(randomMovement(dir))
@@ -429,21 +424,8 @@ public class Ghost extends Rectangle
 
 		if(spawn == spawnInBox)
 		{
-			// Ghost in right portal moving right
-			if(inPortal() && lastDir == right)
-			{
-				// Ensure ghost crosses portal to the other side of the map
-				spawn = spawnRight;
-			}
-			// Ghost in left portal moving left
-			else if(inPortal() && lastDir == left)
-			{
-				// Ensure ghost crosses portal to the other side of the map
-				spawn = spawnLeft;
-			}
+			
 			// Ghost not in a portal
-			else
-			{
 				pacmanZone();
 				
 				// Move to pacman's zone
@@ -459,10 +441,9 @@ public class Ghost extends Rectangle
 				{
 					movementType = findingPath;
 				}
-				
-				//moveToZone(pacmanZone);
-			}
+			
 		}
+		
 		smartTime++;								
 		
 		if(smartTime == smartTargetTime) 				
@@ -514,6 +495,19 @@ public class Ghost extends Rectangle
 	
 	private void portalCrossing()
 	{
+		// Ghost in right portal moving right
+		if(inPortal() && lastDir == right)
+		{
+			// Ensure ghost crosses portal to the other side of the map
+			spawn = spawnRight;
+		}
+		// Ghost in left portal moving left
+		else if(inPortal() && lastDir == left)
+		{
+			// Ensure ghost crosses portal to the other side of the map
+			spawn = spawnLeft;
+		}
+					
 		if(spawn == spawnLeft)
 		{
 			lastDir = left;
