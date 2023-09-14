@@ -40,8 +40,8 @@ public class Ghost extends Rectangle
 	public static final int up 	  = 2;
 	public static final int down  = 3;
 	
-	private int dir 	= -1;
-	private int lastDir = -1;
+	private int nextDir 	= -1;
+	private int currentDir = -1;
 	
 	private int smartTime			= 0;
 	private int smartTargetTime; 
@@ -131,7 +131,7 @@ public class Ghost extends Rectangle
 		}
 		
 		randomGen = new Random();
-		dir = randomGen.nextInt(4);
+		nextDir = randomGen.nextInt(4);
 	}
 	
 	private void spawnGhost(int xCoordinate, int yCoordinate)
@@ -269,18 +269,6 @@ public class Ghost extends Rectangle
 		return false;
 	}
 	
-	private boolean randomMovement(int direction)
-	{
-		if(canMove(direction))			
-		{
-			move(direction);
-			dir = randomGen.nextInt(4);
-			return true;
-		}
-		
-		return false;
-	}
-	
 	private void updateDistanceToPacman()
 	{
 		deltaX = x - Game.pacman.x;
@@ -313,22 +301,26 @@ public class Ghost extends Rectangle
 				movementType = smartMovement;
 			}
 		}
-
-		if(randomMovement(dir))
+		
+		if(canMove(nextDir))			
 		{
+			move(nextDir);
+			nextDir = randomGen.nextInt(4);
 			return;
 		}
-		
-		for(int direction = right; direction <= down; direction++)
-		{	
-			if(lastDir == direction && canMove(direction))
-			{
-				move(direction);
-				return;
+		else
+		{
+			for(int direction = right; direction <= down; direction++)
+			{	
+				if(currentDir == direction && canMove(direction))
+				{
+					move(direction);
+					return;
+				}
 			}
 		}
 		
-		dir = randomGen.nextInt(4); 
+		nextDir = randomGen.nextInt(4);
 		
 		return;
 	}
@@ -484,13 +476,13 @@ public class Ghost extends Rectangle
 	private void portalCrossing()
 	{
 		// Ghost in right portal moving right
-		if(inPortal() && lastDir == right)
+		if(inPortal() && currentDir == right)
 		{
 			// Ensure ghost crosses portal to the other side of the map
 			portalCrossingStatus = crossingRightPortal;
 		}
 		// Ghost in left portal moving left
-		else if(inPortal() && lastDir == left)
+		else if(inPortal() && currentDir == left)
 		{
 			// Ensure ghost crosses portal to the other side of the map
 			portalCrossingStatus = crossingLeftPortal;
@@ -498,7 +490,7 @@ public class Ghost extends Rectangle
 					
 		if(portalCrossingStatus == crossingLeftPortal)
 		{
-			lastDir = left;
+			currentDir = left;
 			x-=spd;
 			
 			if(atPortalEntry(right))
@@ -508,7 +500,7 @@ public class Ghost extends Rectangle
 		}
 		else if(portalCrossingStatus == crossingRightPortal)
 		{
-			lastDir = right;
+			currentDir = right;
 			x+=spd;
 			
 			if(atPortalEntry(left))
@@ -519,7 +511,7 @@ public class Ghost extends Rectangle
 		
 		if(x == 0 && y == 320)								
 		{
-			lastDir = left;
+			currentDir = left;
 			portalCrossingStatus = crossingLeftPortal;
 			
 			switch(ghostID)
@@ -532,7 +524,7 @@ public class Ghost extends Rectangle
 		}
 		else if(x == 640 && y == 320)
 		{
-			lastDir = right;
+			currentDir = right;
 			portalCrossingStatus = crossingRightPortal;
 
 			Game.ghostArray[ghostID] = new Ghost(ghostID, portalCrossingStatus, isVulnerable);
@@ -640,7 +632,7 @@ public class Ghost extends Rectangle
 
 		if(isVulnerable == false)
 		{
-			look(lastDir, g);
+			look(currentDir, g);
 		}
 		else
 		{
@@ -671,10 +663,10 @@ public class Ghost extends Rectangle
 	{
 		switch(dir)
 		{
-			case right: x+=spd; lastDir = right; break;
-			case left: 	x-=spd; lastDir = left; break;
-			case up: 	y-=spd; lastDir = up; break;
-			case down: 	y+=spd; lastDir = down; break;
+			case right: x+=spd; currentDir = right; break;
+			case left: 	x-=spd; currentDir = left; break;
+			case up: 	y-=spd; currentDir = up; break;
+			case down: 	y+=spd; currentDir = down; break;
 		}
 	}
 	
