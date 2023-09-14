@@ -118,7 +118,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 		for(int i = 0; i < 4; i++)
 		{
 			directionsArray[i] = i;
-			ghostArray[i] = new Ghost(i, Ghost.spawnInBox, false);
+			ghostArray[i] = new Ghost(i, Ghost.notCrossingPortal, false);
 		}
 		
 		// Get game's highscore
@@ -180,10 +180,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 	{
 		// Load game characters
 		pacman 			= new Pacman(Pacman.spawnNormal);
-		ghostArray[0] 	= new Ghost(0, Ghost.spawnInBox, false); 
-		ghostArray[1] 	= new Ghost(1, Ghost.spawnInBox, false);
-		ghostArray[2] 	= new Ghost(2, Ghost.spawnInBox, false);
-		ghostArray[3] 	= new Ghost(3, Ghost.spawnInBox, false);
+		ghostArray[0] 	= new Ghost(0, Ghost.notCrossingPortal, false); 
+		ghostArray[1] 	= new Ghost(1, Ghost.notCrossingPortal, false);
+		ghostArray[2] 	= new Ghost(2, Ghost.notCrossingPortal, false);
+		ghostArray[3] 	= new Ghost(3, Ghost.notCrossingPortal, false);
 		
 		// Load other game objects based on game status
 		switch(gameStatus)

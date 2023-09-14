@@ -304,7 +304,7 @@ public class Pacman extends Rectangle
 		new Sounds(Sounds.ghostEatenSoundPath);
 		
 		// Respawn eaten ghost
-		Game.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, Ghost.spawnInBox, false);
+		Game.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, Ghost.notCrossingPortal, false);
 		
 		// Capture the event coordinates
 		Game.xEvent = x; 

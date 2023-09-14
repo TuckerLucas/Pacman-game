@@ -31,6 +31,8 @@ public class Ghost extends Rectangle
 	private final int smartMovement  = 1;
 	private final int findingPath	 = 2;
 	
+	private boolean findDir1Blocked = false;
+	
 	public static int flashTime  = 60*5;
 	
 	public static final int right = 0; 
@@ -40,7 +42,6 @@ public class Ghost extends Rectangle
 	
 	private int dir 	= -1;
 	private int lastDir = -1;
-	private boolean flag = false;
 	
 	private int smartTime			= 0;
 	private int smartTargetTime; 
@@ -56,12 +57,12 @@ public class Ghost extends Rectangle
 	private int deltaY;
 	private int detectionRange;
 	
-	private int spawn;
+	private int portalCrossingStatus;
 	
 	// Spawn variables
-	public static final int spawnInBox = 0;
-	public static final int spawnRight = 1;
-	public static final int spawnLeft  = 2;
+	public static final int notCrossingPortal   = 0;
+	public static final int crossingLeftPortal  = 1;
+	public static final int crossingRightPortal = 2;
 	
 	private int imageIndexEnemy = 0;
 	
@@ -71,40 +72,39 @@ public class Ghost extends Rectangle
 	public static int flashAnimationTime       = 0;
 	public static int flashAnimationTargetTime = 20;
 	
-	public int enemyID;
+	public int ghostID;
 	private int pacmanZone = 1;
 	
 	class Zone
 	{	
 		int smartDir1;
 		int smartDir2;
-		
 		int findDir1;
 		int findDir2;
 	}
 	
 	// Constructor
-	public Ghost(int ID, int spawnPoint, boolean IV)
+	public Ghost(int ID, int portalStatus, boolean vulnerabilityStatus)
 	{			
 		initZones();
 		
 		// Set default ghost movement type
 		movementType = randomMovement;
 		
-		spawn 			= spawnPoint;
-		enemyID  		= ID;
-		isVulnerable 	= IV;
+		portalCrossingStatus = portalStatus;
+		ghostID  		= ID;
+		isVulnerable 	= vulnerabilityStatus;
 		
-		switch(spawn)
+		switch(portalCrossingStatus)
 		{
-			case spawnInBox:
+			case notCrossingPortal:
 				spawnGhost(Game.centerBoxX,Game.centerBoxY);
 				break;
-			case spawnLeft:
+			case crossingLeftPortal:
 				spawnGhost(Game.rightPortalX,Game.rightPortalY);
 				move(left);
 				break;
-			case spawnRight:
+			case crossingRightPortal:
 				spawnGhost(Game.leftPortalX,Game.leftPortalY);
 				move(right);
 				break;
@@ -296,8 +296,6 @@ public class Ghost extends Rectangle
 	
 	private void moveRandomly()
 	{
-		updateDistanceToPacman();
-		
 		if(coolDown == true)
 		{
 			coolDownTime++;
@@ -315,26 +313,24 @@ public class Ghost extends Rectangle
 				movementType = smartMovement;
 			}
 		}
-		if(spawn == spawnInBox)
+
+		if(randomMovement(dir))
 		{
-			if(randomMovement(dir))
-			{
-				return;
-			}
-			
-			for(int direction = right; direction <= down; direction++)
-			{	
-				if(lastDir == direction && canMove(direction))
-				{
-					move(direction);
-					return;
-				}
-			}
-			
-			dir = randomGen.nextInt(4); 
-			
 			return;
 		}
+		
+		for(int direction = right; direction <= down; direction++)
+		{	
+			if(lastDir == direction && canMove(direction))
+			{
+				move(direction);
+				return;
+			}
+		}
+		
+		dir = randomGen.nextInt(4); 
+		
+		return;
 	}
 	
 	// Check if ghost is in spawn box
@@ -413,35 +409,25 @@ public class Ghost extends Rectangle
 	
 	private void moveSmartly()
 	{
-		deltaX = x - Game.pacman.x;
-		deltaY = y - Game.pacman.y;
-
 		if(Energizer.isActive == true || inSpawnBox())
 		{
 			movementType = randomMovement;
 		}
-		
 
-		if(spawn == spawnInBox)
+		pacmanZone();
+		
+		// Move to pacman's zone
+		if(canMove(ZonesArray[pacmanZone-1].smartDir1))
 		{
-			
-			// Ghost not in a portal
-				pacmanZone();
-				
-				// Move to pacman's zone
-				if(canMove(ZonesArray[pacmanZone-1].smartDir1))
-				{
-					move(ZonesArray[pacmanZone-1].smartDir1);
-				}
-				else if(canMove(ZonesArray[pacmanZone-1].smartDir2))
-				{
-					move(ZonesArray[pacmanZone-1].smartDir2);
-				}
-				else
-				{
-					movementType = findingPath;
-				}
-			
+			move(ZonesArray[pacmanZone-1].smartDir1);
+		}
+		else if(canMove(ZonesArray[pacmanZone-1].smartDir2))
+		{
+			move(ZonesArray[pacmanZone-1].smartDir2);
+		}
+		else
+		{
+			movementType = findingPath;
 		}
 		
 		smartTime++;								
@@ -458,12 +444,12 @@ public class Ghost extends Rectangle
 	{
 		if(canMove(ZonesArray[pacmanZone-1].smartDir1))
 		{
-			flag = false;
+			findDir1Blocked = false;
 			movementType = smartMovement;
 		}
 		else
 		{
-			if(flag == false)
+			if(findDir1Blocked == false)
 			{
 				if(canMove(ZonesArray[pacmanZone-1].findDir1))
 				{
@@ -471,10 +457,10 @@ public class Ghost extends Rectangle
 				}
 				else
 				{
-					flag = true;
+					findDir1Blocked = true;
 				}
 			}
-			else if(flag == true)
+			else if(findDir1Blocked == true)
 			{
 				move(ZonesArray[pacmanZone-1].findDir2);
 			}
@@ -485,6 +471,8 @@ public class Ghost extends Rectangle
 	// Manage ghost movement
 	private void ghostMovement()
 	{
+		updateDistanceToPacman();
+		
 		switch(movementType)
 		{
 			case randomMovement: 	moveRandomly(); break;	// Move in a random fashion
@@ -499,55 +487,55 @@ public class Ghost extends Rectangle
 		if(inPortal() && lastDir == right)
 		{
 			// Ensure ghost crosses portal to the other side of the map
-			spawn = spawnRight;
+			portalCrossingStatus = crossingRightPortal;
 		}
 		// Ghost in left portal moving left
 		else if(inPortal() && lastDir == left)
 		{
 			// Ensure ghost crosses portal to the other side of the map
-			spawn = spawnLeft;
+			portalCrossingStatus = crossingLeftPortal;
 		}
 					
-		if(spawn == spawnLeft)
+		if(portalCrossingStatus == crossingLeftPortal)
 		{
 			lastDir = left;
 			x-=spd;
 			
 			if(atPortalEntry(right))
 			{
-				spawn = spawnInBox;
+				portalCrossingStatus = notCrossingPortal;
 			}
 		}
-		else if(spawn == spawnRight)
+		else if(portalCrossingStatus == crossingRightPortal)
 		{
 			lastDir = right;
 			x+=spd;
 			
 			if(atPortalEntry(left))
 			{
-				spawn = spawnInBox;
+				portalCrossingStatus = notCrossingPortal;
 			}
 		}
 		
 		if(x == 0 && y == 320)								
 		{
 			lastDir = left;
-			spawn = spawnLeft;
+			portalCrossingStatus = crossingLeftPortal;
 			
-			switch(enemyID)
+			switch(ghostID)
 			{
-				case 0: Game.ghostArray[0] = new Ghost(0, spawn, isVulnerable); break;
-				case 1: Game.ghostArray[1] = new Ghost(1, spawn, isVulnerable); break;
-				case 2: Game.ghostArray[2] = new Ghost(2, spawn, isVulnerable); break;
-				case 3: Game.ghostArray[3] = new Ghost(3, spawn, isVulnerable); break;
+				case 0: Game.ghostArray[0] = new Ghost(0, portalCrossingStatus, isVulnerable); break;
+				case 1: Game.ghostArray[1] = new Ghost(1, portalCrossingStatus, isVulnerable); break;
+				case 2: Game.ghostArray[2] = new Ghost(2, portalCrossingStatus, isVulnerable); break;
+				case 3: Game.ghostArray[3] = new Ghost(3, portalCrossingStatus, isVulnerable); break;
 			}
 		}
 		else if(x == 640 && y == 320)
 		{
 			lastDir = right;
-			spawn   = spawnRight;
+			portalCrossingStatus = crossingRightPortal;
 
-			Game.ghostArray[enemyID] = new Ghost(enemyID, spawn, isVulnerable);
+			Game.ghostArray[ghostID] = new Ghost(ghostID, portalCrossingStatus, isVulnerable);
 		}
 	}
 	
@@ -595,7 +583,7 @@ public class Ghost extends Rectangle
 		{
 			case right: 
 				
-				switch(this.enemyID)
+				switch(this.ghostID)
 				{
 					case 0: g.drawImage(Texture.blinkyLookRight[imageIndexEnemy], x, y, width, height, null); break;
 					case 1: g.drawImage(Texture.inkyLookRight[imageIndexEnemy], x, y, width, height, null);   break;
@@ -607,7 +595,7 @@ public class Ghost extends Rectangle
 				
 			case left:
 				
-				switch(enemyID)
+				switch(ghostID)
 				{
 					case 0: g.drawImage(Texture.blinkyLookLeft[imageIndexEnemy], x, y, width, height, null); break;
 					case 1: g.drawImage(Texture.inkyLookLeft[imageIndexEnemy], x, y, width, height, null);   break;
@@ -619,7 +607,7 @@ public class Ghost extends Rectangle
 				
 			case up:
 				
-				switch(enemyID)
+				switch(ghostID)
 				{
 					case 0: g.drawImage(Texture.blinkyLookUp[imageIndexEnemy], x, y, width, height, null); break;
 					case 1: g.drawImage(Texture.inkyLookUp[imageIndexEnemy], x, y, width, height, null);   break;
@@ -631,7 +619,7 @@ public class Ghost extends Rectangle
 				
 			case down:
 				
-				switch(enemyID)
+				switch(ghostID)
 				{
 					case 0:	g.drawImage(Texture.blinkyLookDown[imageIndexEnemy], x, y, width, height, null); break;
 					case 1: g.drawImage(Texture.inkyLookDown[imageIndexEnemy], x, y, width, height, null);   break;
@@ -668,9 +656,14 @@ public class Ghost extends Rectangle
 	}
 	
 	public void tick()
-	{			
-		ghostMovement();
+	{		
 		portalCrossing();
+		
+		if(portalCrossingStatus == notCrossingPortal)
+		{
+			ghostMovement();
+		}
+		
 		animation();
 	}
 	
