@@ -659,7 +659,7 @@ public class Ghost extends Rectangle
 		animation();
 	}
 	
-	private void setDirection(int dir)
+	private void move(int dir)
 	{
 		switch(dir)
 		{
@@ -667,14 +667,6 @@ public class Ghost extends Rectangle
 			case left: 	x-=spd; currentDir = left; break;
 			case up: 	y-=spd; currentDir = up; break;
 			case down: 	y+=spd; currentDir = down; break;
-		}
-	}
-	
-	private void move(int dir)
-	{
-		if(canMove(dir))
-		{
-			setDirection(dir);
 		}
 	}
 	
