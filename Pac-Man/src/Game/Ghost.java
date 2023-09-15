@@ -302,27 +302,17 @@ public class Ghost extends Rectangle
 			}
 		}
 		
-		if(canMove(nextDir))			
+		if(canMove(nextDir))
 		{
 			move(nextDir);
-			nextDir = randomGen.nextInt(4);
-			return;
 		}
-		else
+		else if(canMove(currentDir))
 		{
-			for(int direction = right; direction <= down; direction++)
-			{	
-				if(currentDir == direction && canMove(direction))
-				{
-					move(direction);
-					return;
-				}
-			}
+			move(currentDir);
+			return;
 		}
 		
 		nextDir = randomGen.nextInt(4);
-		
-		return;
 	}
 	
 	// Check if ghost is in spawn box
@@ -331,7 +321,7 @@ public class Ghost extends Rectangle
 		return ((x < 368 && x > 272) && (y < 336 && y > 304)) ? true : false;
 	}
 
-	private void pacmanZone()
+	private void updatePacmanZone()
 	{	
 		if(deltaX > 0 && deltaY > 0 && deltaX > deltaY)			
 		{
@@ -406,7 +396,7 @@ public class Ghost extends Rectangle
 			movementType = randomMovement;
 		}
 
-		pacmanZone();
+		updatePacmanZone();
 		
 		// Move to pacman's zone
 		if(canMove(ZonesArray[pacmanZone-1].smartDir1))
@@ -488,6 +478,9 @@ public class Ghost extends Rectangle
 			portalCrossingStatus = crossingLeftPortal;
 		}
 					
+		
+		
+		/***********************************************/
 		if(portalCrossingStatus == crossingLeftPortal)
 		{
 			currentDir = left;
@@ -509,6 +502,8 @@ public class Ghost extends Rectangle
 			}
 		}
 		
+		// Instant
+		/******************************************/
 		if(x == 0 && y == 320)								
 		{
 			currentDir = left;
