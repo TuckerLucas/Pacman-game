@@ -282,39 +282,6 @@ public class Ghost extends Rectangle
 				? true : false;
 	}
 	
-	private void moveRandomly()
-	{
-		if(coolDown == true)
-		{
-			coolDownTime++;
-			
-			if(coolDownTime == coolDownTargetTime)
-			{
-				coolDown = false;
-				coolDownTime = 0;
-			}
-		}
-		else if(coolDown == false)
-		{
-			if(pacmanIsClose() && isVulnerable == false && !inSpawnBox())
-			{
-				movementType = smartMovement;
-			}
-		}
-		
-		if(canMove(nextDir))
-		{
-			move(nextDir);
-		}
-		else if(canMove(currentDir))
-		{
-			move(currentDir);
-			return;
-		}
-		
-		nextDir = randomGen.nextInt(4);
-	}
-	
 	// Check if ghost is in spawn box
 	private boolean inSpawnBox()
 	{
@@ -389,36 +356,83 @@ public class Ghost extends Rectangle
 		}
 	}
 	
+	private void moveRandomly()
+	{
+		updateDistanceToPacman();
+		
+		if(coolDown == true)
+		{
+			coolDownTime++;
+			
+			if(coolDownTime == coolDownTargetTime)
+			{
+				coolDown = false;
+				coolDownTime = 0;
+			}
+		}
+		else if(coolDown == false)
+		{
+			if(pacmanIsClose() && isVulnerable == false && !inSpawnBox())
+			{
+				movementType = smartMovement;
+			}
+		}
+		
+		if(canMove(nextDir))
+		{
+			move(nextDir);
+		}
+		else if(canMove(currentDir))
+		{
+			move(currentDir);
+			return;
+		}
+		
+		nextDir = randomGen.nextInt(4);
+	}
+	
 	private void moveSmartly()
 	{
+		updateDistanceToPacman();
+		
+		// Check if energizer is active or ghost is in the spawn box
 		if(Energizer.isActive == true || inSpawnBox())
 		{
+			// Change movement type to random
 			movementType = randomMovement;
 		}
 
+		// Update pacman's zone relative to the ghost
 		updatePacmanZone();
 		
-		// Move to pacman's zone
+		// Check if ghost can move in the first smart direction
 		if(canMove(ZonesArray[pacmanZone-1].smartDir1))
 		{
+			// Move in the first smart direction
 			move(ZonesArray[pacmanZone-1].smartDir1);
 		}
+		// Check if ghost can move in the second smart direction
 		else if(canMove(ZonesArray[pacmanZone-1].smartDir2))
 		{
+			// Move in the second smart direction
 			move(ZonesArray[pacmanZone-1].smartDir2);
 		}
+		// Cannot move in either smart direction
 		else
 		{
+			// Ghost is stuck, need to change movement type to find path back
 			movementType = findingPath;
 		}
 		
+		// Increase time that ghost has been moving smartly
 		smartTime++;								
 		
+		// Check if we have reached the target time for smart movement
 		if(smartTime == smartTargetTime) 				
-		{
-			coolDown = true;
-			movementType = randomMovement;							
-			smartTime = 0;						
+		{			
+			smartTime    = 0;			    // Reset counter for smart movement
+			coolDown 	 = true;			// Activate cool down period for smart movement
+			movementType = randomMovement;	// Return to random movement
 		}
 	}
 
@@ -451,78 +465,61 @@ public class Ghost extends Rectangle
 
 	
 	// Manage ghost movement
-	private void ghostMovement()
+	private void selectMovementType()
 	{
-		updateDistanceToPacman();
-		
 		switch(movementType)
 		{
-			case randomMovement: 	moveRandomly(); break;	// Move in a random fashion
-			case smartMovement: 	moveSmartly();  break;	// Chase pacman
-			case findingPath: 	    findingPath();  break;	// Find path to pacman when stuck
+			case randomMovement: moveRandomly(); break;	// Move in a random fashion
+			case smartMovement:  moveSmartly();  break;	// Chase pacman
+			case findingPath: 	 findingPath();  break;	// Find path to pacman when stuck
 		}			
 	}
 	
-	private void portalCrossing()
+	private void managePortalCrossing()
 	{
-		// Ghost in right portal moving right
-		if(inPortal() && currentDir == right)
+		// Check if ghost is crossing left portal
+		if(inPortal() && currentDir == left)
 		{
-			// Ensure ghost crosses portal to the other side of the map
-			portalCrossingStatus = crossingRightPortal;
-		}
-		// Ghost in left portal moving left
-		else if(inPortal() && currentDir == left)
-		{
-			// Ensure ghost crosses portal to the other side of the map
+			// Set portal crossing status flag
 			portalCrossingStatus = crossingLeftPortal;
-		}
-					
-		
-		
-		/***********************************************/
-		if(portalCrossingStatus == crossingLeftPortal)
-		{
-			currentDir = left;
-			x-=spd;
 			
+			// Keep moving left
+			move(left);
+			
+			// Check if ready to cross the left portal
+			if(x == 0 && y == 320)								
+			{	
+				Game.ghostArray[ghostID] = new Ghost(ghostID, portalCrossingStatus, isVulnerable);
+			}
+			
+			// Check if arrived at right portal entry
 			if(atPortalEntry(right))
 			{
+				// Left portal crossed successfully. Not crossing portal anymore.
 				portalCrossingStatus = notCrossingPortal;
 			}
 		}
-		else if(portalCrossingStatus == crossingRightPortal)
+		// Check if ghost is crossing right portal
+		else if(inPortal() && currentDir == right)
 		{
-			currentDir = right;
-			x+=spd;
+			// Set portal crossing status flag
+			portalCrossingStatus = crossingRightPortal;
 			
+			// Keep moving right
+			move(right);
+			
+			// Check if ready to cross the right portal
+			if(x == 640 && y == 320)
+			{
+				Game.ghostArray[ghostID] = new Ghost(ghostID, portalCrossingStatus, isVulnerable);
+			}
+			
+			// Check if arrived at left portal entry
 			if(atPortalEntry(left))
 			{
+				// Right portal crossed successfully. Not crossing portal anymore.
 				portalCrossingStatus = notCrossingPortal;
 			}
-		}
-		
-		// Instant
-		/******************************************/
-		if(x == 0 && y == 320)								
-		{
-			currentDir = left;
-			portalCrossingStatus = crossingLeftPortal;
-			
-			switch(ghostID)
-			{
-				case 0: Game.ghostArray[0] = new Ghost(0, portalCrossingStatus, isVulnerable); break;
-				case 1: Game.ghostArray[1] = new Ghost(1, portalCrossingStatus, isVulnerable); break;
-				case 2: Game.ghostArray[2] = new Ghost(2, portalCrossingStatus, isVulnerable); break;
-				case 3: Game.ghostArray[3] = new Ghost(3, portalCrossingStatus, isVulnerable); break;
-			}
-		}
-		else if(x == 640 && y == 320)
-		{
-			currentDir = right;
-			portalCrossingStatus = crossingRightPortal;
-
-			Game.ghostArray[ghostID] = new Ghost(ghostID, portalCrossingStatus, isVulnerable);
 		}
 	}
 	
@@ -644,11 +641,11 @@ public class Ghost extends Rectangle
 	
 	public void tick()
 	{		
-		portalCrossing();
+		managePortalCrossing();
 		
 		if(portalCrossingStatus == notCrossingPortal)
 		{
-			ghostMovement();
+			selectMovementType();
 		}
 		
 		animation();
