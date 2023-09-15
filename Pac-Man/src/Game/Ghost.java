@@ -28,7 +28,7 @@ public class Ghost extends Rectangle
 	private int movementType;
 	
 	private final int randomMovement = 0;
-	private final int smartMovement  = 1;
+	private final int methodicalMovement  = 1;
 	private final int findingPath	 = 2;
 	
 	private boolean findDir1Blocked = false;
@@ -43,8 +43,8 @@ public class Ghost extends Rectangle
 	private int nextDir 	= -1;
 	private int currentDir = -1;
 	
-	private int smartTime			= 0;
-	private int smartTargetTime; 
+	private int methodicalTime			= 0;
+	private int methodicalTargetTime; 
 	private boolean coolDown		= false;
 	private int coolDownTime    	= 0;
 	private int coolDownTargetTime	= 60*3; 
@@ -77,56 +77,57 @@ public class Ghost extends Rectangle
 	
 	class Zone
 	{	
-		int smartDir1;
-		int smartDir2;
+		int methodicalDir1;
+		int methodicalDir2;
 		int findDir1;
 		int findDir2;
 	}
 	
 	// Constructor
 	public Ghost(int ID, int portalStatus, boolean vulnerabilityStatus)
-	{			
+	{		
+		// Initialise zones
 		initZones();
 		
-		// Set default ghost movement type
-		movementType = randomMovement;
+		ghostID  	         = ID;                  // Update ghost ID
+		movementType         = randomMovement; 		// Set default ghost movement type
+		isVulnerable         = vulnerabilityStatus; // Update vulnerability status
+		portalCrossingStatus = portalStatus;		// Update portal crossing status
 		
-		portalCrossingStatus = portalStatus;
-		ghostID  		= ID;
-		isVulnerable 	= vulnerabilityStatus;
-		
+		// Check ghost's portal crossing status
 		switch(portalCrossingStatus)
 		{
 			case notCrossingPortal:
-				spawnGhost(Game.centerBoxX,Game.centerBoxY);
+				spawnGhost(Game.centerBoxX,Game.centerBoxY);		// Spawn ghost in spawn box
 				break;
 			case crossingLeftPortal:
-				spawnGhost(Game.rightPortalX,Game.rightPortalY);
-				move(left);
+				spawnGhost(Game.rightPortalX,Game.rightPortalY);	// Spawn ghost in the right portal (crossed left portal)
+				currentDir = left;									// Update the ghost's current direction of movement
 				break;
 			case crossingRightPortal:
-				spawnGhost(Game.leftPortalX,Game.leftPortalY);
-				move(right);
+				spawnGhost(Game.leftPortalX,Game.leftPortalY);		// Spawn ghost in the left portal (crossed right portal)
+				currentDir = right;									// Update the ghost's current direction of movement
 				break;
 		}
 
+		// Change ghost's detection range and time moving in a methodical manner based on selected difficulty
 		switch(Game.difficulty)
 		{
 			case 1:
 				detectionRange = 80;
-				smartTargetTime = 60 * 10;
+				methodicalTargetTime = 60 * 10;
 				break;
 			case 2:
 				detectionRange = 100;
-				smartTargetTime = 60 * 15;
+				methodicalTargetTime = 60 * 15;
 				break;
 			case 3:
 				detectionRange = 120;
-				smartTargetTime = 60 * 20;
+				methodicalTargetTime = 60 * 20;
 				break;
 			case 4:
 				detectionRange = 150;
-				smartTargetTime = 60 * 25;
+				methodicalTargetTime = 60 * 25;
 				break;
 		}
 		
@@ -148,102 +149,102 @@ public class Ghost extends Rectangle
 			switch(zone)
 			{
 			case 0: 
-				ZonesArray[zone].smartDir1 = left;
-				ZonesArray[zone].smartDir2 = up;
+				ZonesArray[zone].methodicalDir1 = left;
+				ZonesArray[zone].methodicalDir2 = up;
 				ZonesArray[zone].findDir1  = down;
 				
 				break;
 			case 1:
-				ZonesArray[zone].smartDir1 = up;
-				ZonesArray[zone].smartDir2 = left;
+				ZonesArray[zone].methodicalDir1 = up;
+				ZonesArray[zone].methodicalDir2 = left;
 				ZonesArray[zone].findDir1  = right;
 				
 				break;
 			case 2:
-				ZonesArray[zone].smartDir1 = up;
-				ZonesArray[zone].smartDir2 = left;
+				ZonesArray[zone].methodicalDir1 = up;
+				ZonesArray[zone].methodicalDir2 = left;
 				ZonesArray[zone].findDir1  = right;
 				
 				break;
 			case 3:
-				ZonesArray[zone].smartDir1 = up;
-				ZonesArray[zone].smartDir2 = -1;
+				ZonesArray[zone].methodicalDir1 = up;
+				ZonesArray[zone].methodicalDir2 = -1;
 				ZonesArray[zone].findDir1  = right;
 				ZonesArray[zone].findDir2  = left;
 				
 				break;
 			case 4:
-				ZonesArray[zone].smartDir1 = up;
-				ZonesArray[zone].smartDir2 = right;
+				ZonesArray[zone].methodicalDir1 = up;
+				ZonesArray[zone].methodicalDir2 = right;
 				ZonesArray[zone].findDir1  = left;
 				
 				break;
 			case 5:
-				ZonesArray[zone].smartDir1 = up;
-				ZonesArray[zone].smartDir2 = right;
+				ZonesArray[zone].methodicalDir1 = up;
+				ZonesArray[zone].methodicalDir2 = right;
 				ZonesArray[zone].findDir1  = left;
 				
 				break;
 			case 6:
-				ZonesArray[zone].smartDir1 = right;
-				ZonesArray[zone].smartDir2 = up;
+				ZonesArray[zone].methodicalDir1 = right;
+				ZonesArray[zone].methodicalDir2 = up;
 				ZonesArray[zone].findDir1  = down;
 				
 				break;
 			case 7:
-				ZonesArray[zone].smartDir1 = left;
-				ZonesArray[zone].smartDir2 = -1;
+				ZonesArray[zone].methodicalDir1 = left;
+				ZonesArray[zone].methodicalDir2 = -1;
 				ZonesArray[zone].findDir1  = down;
 				ZonesArray[zone].findDir2  = up;
 				
 				break;
 			case 8:
-				ZonesArray[zone].smartDir1 = right;
-				ZonesArray[zone].smartDir2 = -1;
+				ZonesArray[zone].methodicalDir1 = right;
+				ZonesArray[zone].methodicalDir2 = -1;
 				ZonesArray[zone].findDir1  = up;
 				ZonesArray[zone].findDir2  = down;
 				
 				break;
 			case 9:
-				ZonesArray[zone].smartDir1 = left;
-				ZonesArray[zone].smartDir2 = down;
+				ZonesArray[zone].methodicalDir1 = left;
+				ZonesArray[zone].methodicalDir2 = down;
 				ZonesArray[zone].findDir1  = up;
 				
 				break;
 			case 10:
-				ZonesArray[zone].smartDir1 = down;
-				ZonesArray[zone].smartDir2 = left;
+				ZonesArray[zone].methodicalDir1 = down;
+				ZonesArray[zone].methodicalDir2 = left;
 				ZonesArray[zone].findDir1  = right;
 				
 				break;
 			case 11:
-				ZonesArray[zone].smartDir1 = down;
-				ZonesArray[zone].smartDir2 = left;
+				ZonesArray[zone].methodicalDir1 = down;
+				ZonesArray[zone].methodicalDir2 = left;
 				ZonesArray[zone].findDir1  = right;
 				
 				break;
 			case 12:
-				ZonesArray[zone].smartDir1 = down;
-				ZonesArray[zone].smartDir2 = -1;
+				ZonesArray[zone].methodicalDir1 = down;
+				ZonesArray[zone].methodicalDir2 = -1;
 				ZonesArray[zone].findDir1  = right;
 				ZonesArray[zone].findDir2  = left;
 				
 				break;
 			case 13:
-				ZonesArray[zone].smartDir1 = down;
-				ZonesArray[zone].smartDir2 = right;
+				ZonesArray[zone].methodicalDir1 = down;
+				ZonesArray[zone].methodicalDir2 = right;
 				ZonesArray[zone].findDir1  = left;
 				
 				break;
 			case 14:
-				ZonesArray[zone].smartDir1 = down;
-				ZonesArray[zone].smartDir2 = right;
+				ZonesArray[zone].methodicalDir1 = down;
+				ZonesArray[zone].methodicalDir2 = right;
 				ZonesArray[zone].findDir1  = left;
 				
 				break;
 			case 15:
-				ZonesArray[zone].smartDir1 = right;
-				ZonesArray[zone].smartDir2 = down;
+				ZonesArray[zone].methodicalDir1 = right;
+				ZonesArray[zone].methodicalDir2 = down;
 				ZonesArray[zone].findDir1  = up;
 				
 				break;
@@ -358,6 +359,7 @@ public class Ghost extends Rectangle
 	
 	private void moveRandomly()
 	{
+		// Update ghost's distance to pacman
 		updateDistanceToPacman();
 		
 		if(coolDown == true)
@@ -374,7 +376,7 @@ public class Ghost extends Rectangle
 		{
 			if(pacmanIsClose() && isVulnerable == false && !inSpawnBox())
 			{
-				movementType = smartMovement;
+				movementType = methodicalMovement;
 			}
 		}
 		
@@ -391,8 +393,9 @@ public class Ghost extends Rectangle
 		nextDir = randomGen.nextInt(4);
 	}
 	
-	private void moveSmartly()
+	private void moveMethodically()
 	{
+		// Update ghost's distance to pacman
 		updateDistanceToPacman();
 		
 		// Check if energizer is active or ghost is in the spawn box
@@ -405,43 +408,43 @@ public class Ghost extends Rectangle
 		// Update pacman's zone relative to the ghost
 		updatePacmanZone();
 		
-		// Check if ghost can move in the first smart direction
-		if(canMove(ZonesArray[pacmanZone-1].smartDir1))
+		// Check if ghost can move in the first methodical direction
+		if(canMove(ZonesArray[pacmanZone-1].methodicalDir1))
 		{
-			// Move in the first smart direction
-			move(ZonesArray[pacmanZone-1].smartDir1);
+			// Move in the first methodical direction
+			move(ZonesArray[pacmanZone-1].methodicalDir1);
 		}
-		// Check if ghost can move in the second smart direction
-		else if(canMove(ZonesArray[pacmanZone-1].smartDir2))
+		// Check if ghost can move in the second methodical direction
+		else if(canMove(ZonesArray[pacmanZone-1].methodicalDir2))
 		{
-			// Move in the second smart direction
-			move(ZonesArray[pacmanZone-1].smartDir2);
+			// Move in the second methodical direction
+			move(ZonesArray[pacmanZone-1].methodicalDir2);
 		}
-		// Cannot move in either smart direction
+		// Cannot move in either methodical direction
 		else
 		{
 			// Ghost is stuck, need to change movement type to find path back
 			movementType = findingPath;
 		}
 		
-		// Increase time that ghost has been moving smartly
-		smartTime++;								
+		// Increase time that ghost has been moving methodically
+		methodicalTime++;								
 		
-		// Check if we have reached the target time for smart movement
-		if(smartTime == smartTargetTime) 				
+		// Check if we have reached the target time for methodical movement
+		if(methodicalTime == methodicalTargetTime) 				
 		{			
-			smartTime    = 0;			    // Reset counter for smart movement
-			coolDown 	 = true;			// Activate cool down period for smart movement
+			methodicalTime    = 0;			    // Reset counter for methodical movement
+			coolDown 	 = true;			// Activate cool down period for methodical movement
 			movementType = randomMovement;	// Return to random movement
 		}
 	}
 
 	private void findingPath()
 	{
-		if(canMove(ZonesArray[pacmanZone-1].smartDir1))
+		if(canMove(ZonesArray[pacmanZone-1].methodicalDir1))
 		{
 			findDir1Blocked = false;
-			movementType = smartMovement;
+			movementType = methodicalMovement;
 		}
 		else
 		{
@@ -470,7 +473,7 @@ public class Ghost extends Rectangle
 		switch(movementType)
 		{
 			case randomMovement: moveRandomly(); break;	// Move in a random fashion
-			case smartMovement:  moveSmartly();  break;	// Chase pacman
+			case methodicalMovement:  moveMethodically();  break;	// Chase pacman
 			case findingPath: 	 findingPath();  break;	// Find path to pacman when stuck
 		}			
 	}
@@ -489,6 +492,7 @@ public class Ghost extends Rectangle
 			// Check if ready to cross the left portal
 			if(x == 0 && y == 320)								
 			{	
+				// Spawn ghost on the other side of the map (ghost crossed portal)
 				Game.ghostArray[ghostID] = new Ghost(ghostID, portalCrossingStatus, isVulnerable);
 			}
 			
@@ -511,6 +515,7 @@ public class Ghost extends Rectangle
 			// Check if ready to cross the right portal
 			if(x == 640 && y == 320)
 			{
+				// Spawn ghost on the other side of the map (ghost crossed portal)
 				Game.ghostArray[ghostID] = new Ghost(ghostID, portalCrossingStatus, isVulnerable);
 			}
 			
@@ -656,9 +661,9 @@ public class Ghost extends Rectangle
 		switch(dir)
 		{
 			case right: x+=spd; currentDir = right; break;
-			case left: 	x-=spd; currentDir = left; break;
-			case up: 	y-=spd; currentDir = up; break;
-			case down: 	y+=spd; currentDir = down; break;
+			case left: 	x-=spd; currentDir = left;  break;
+			case up: 	y-=spd; currentDir = up;    break;
+			case down: 	y+=spd; currentDir = down;  break;
 		}
 	}
 	
@@ -687,11 +692,14 @@ public class Ghost extends Rectangle
 					// Intercepted a map wall. Can no longer move in this direction
 					if(bounds.intersects(Level.tiles[xx][yy]))				
 					{
+						// Cannot move
 						return false;								
 					}
 				}
 			}
 		}	
+		
+		// Can move
 		return true;
 	}
 }
