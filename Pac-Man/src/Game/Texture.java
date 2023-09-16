@@ -32,20 +32,10 @@ public class Texture
 	// Pacman matrix for sprite animations 
 	public static BufferedImage[][] pacmanLook;
 	
+	// Pacman array for death animation
 	public static BufferedImage[] pacmanDie;
 	
-	// Blinky ghost matrix for sprite animations
-	public static BufferedImage[][] blinkyLook;
-	
-	// Inky ghost matrix for sprite animations
-	public static BufferedImage[][] inkyLook;
-	
-	// Pinky ghost matrix for sprite animations
-	public static BufferedImage[][] pinkyLook;
-	
-	// Clyde ghost matrix for sprite animations
-	public static BufferedImage[][] clydeLook;
-	
+	// Ghosts matrix for sprite animations
 	public static BufferedImage[][][] ghostLook;
 	
 	// Vulnerable ghost arrays for sprite animations
@@ -100,12 +90,10 @@ public class Texture
 			e.printStackTrace();
 		}
 				
-		// Pacman sprite animation arrays
+		// Pacman sprite animation matrix
 		pacmanLook = new BufferedImage[4][3];
 		
-		pacmanDie 	= new BufferedImage[12];
-		
-		// Load pacman sprite animation arrays
+		// Load pacman sprite animation matrix
 		pacmanLook[0][0] = getSprite(spriteColumn1, spriteLine1, spriteSize, spriteSize);		
 		pacmanLook[0][1] = getSprite(spriteColumn2, spriteLine1, spriteSize, spriteSize);	
 		pacmanLook[0][2] = getSprite(spriteColumn3, spriteLine1, spriteSize, spriteSize);	
@@ -119,6 +107,10 @@ public class Texture
 		pacmanLook[3][1] = getSprite(spriteColumn8, spriteLine1, spriteSize, spriteSize);
 		pacmanLook[3][2] = getSprite(spriteColumn9, spriteLine1, spriteSize, spriteSize);
 		
+		// Pacman death animation array
+		pacmanDie 	= new BufferedImage[12];
+		
+		// Load pacman death animation array
 		pacmanDie[0] = getSprite(spriteColumn1, spriteLine1, spriteSize, spriteSize);
 		pacmanDie[1] = getSprite(spriteColumn1, spriteLine10, spriteSize, spriteSize);
 		pacmanDie[2] = getSprite(spriteColumn2, spriteLine10, spriteSize, spriteSize);
@@ -131,13 +123,11 @@ public class Texture
 		pacmanDie[9] = getSprite(spriteColumn9, spriteLine10, spriteSize, spriteSize);
 		pacmanDie[10] = getSprite(spriteColumn1, spriteLine9, spriteSize, spriteSize);
 		pacmanDie[11] = getSprite(spriteColumn10, spriteLine10, spriteSize, spriteSize);
-		
-		// Blinky sprite animation matrix
-		blinkyLook = new BufferedImage[4][2];
-		
+
+		// Ghosts' sprite animation matrix
 		ghostLook = new BufferedImage[4][4][2];
 		
-		// Load blinky sprite animation matrix
+		// Blinky
 		ghostLook[0][0][0] = getSprite(spriteColumn1, spriteLine2, spriteSize, spriteSize);
 		ghostLook[0][0][1] = getSprite(spriteColumn5, spriteLine2, spriteSize, spriteSize);
 		ghostLook[0][1][0] = getSprite(spriteColumn2, spriteLine2, spriteSize, spriteSize);
@@ -147,10 +137,7 @@ public class Texture
 		ghostLook[0][3][0] = getSprite(spriteColumn4, spriteLine2, spriteSize, spriteSize);
 		ghostLook[0][3][1] = getSprite(spriteColumn8, spriteLine2, spriteSize, spriteSize);
 		
-		// Inky sprite animation matrix
-		inkyLook = new BufferedImage[4][2];
-		
-		// Load inky sprite animation arrays
+		// Inky
 		ghostLook[1][0][0] = getSprite(spriteColumn1, spriteLine3, spriteSize, spriteSize);
 		ghostLook[1][0][1] = getSprite(spriteColumn5, spriteLine3, spriteSize, spriteSize);
 		ghostLook[1][1][0] = getSprite(spriteColumn2, spriteLine3, spriteSize, spriteSize);
@@ -160,10 +147,7 @@ public class Texture
 		ghostLook[1][3][0] = getSprite(spriteColumn4, spriteLine3, spriteSize, spriteSize);
 		ghostLook[1][3][1] = getSprite(spriteColumn8, spriteLine3, spriteSize, spriteSize);
 		
-		// Pinky sprite animation matrix
-		pinkyLook = new BufferedImage[4][2];
-		
-		// Load pinky sprite animation arrays
+		// Pinky
 		ghostLook[2][0][0] = getSprite(spriteColumn1, spriteLine4, spriteSize, spriteSize);
 		ghostLook[2][0][1] = getSprite(spriteColumn5, spriteLine4, spriteSize, spriteSize);
 		ghostLook[2][1][0] = getSprite(spriteColumn2, spriteLine4, spriteSize, spriteSize);
@@ -173,10 +157,7 @@ public class Texture
 		ghostLook[2][3][0] = getSprite(spriteColumn4, spriteLine4, spriteSize, spriteSize);
 		ghostLook[2][3][1] = getSprite(spriteColumn8, spriteLine4, spriteSize, spriteSize);
 		
-		// Clyde sprite animation matrix
-		clydeLook = new BufferedImage[4][2];
-		
-		// Load clyde sprite animation matrix
+		// Clyde
 		ghostLook[3][0][0] = getSprite(spriteColumn1, spriteLine5, spriteSize, spriteSize);
 		ghostLook[3][0][1] = getSprite(spriteColumn5, spriteLine5, spriteSize, spriteSize);
 		ghostLook[3][1][0] = getSprite(spriteColumn2, spriteLine5, spriteSize, spriteSize);
@@ -192,14 +173,14 @@ public class Texture
 		flashGhost 	= new BufferedImage[4];
 		
 		// Load vulnerable ghost animation arrays
-		blueGhost[0] 	= getSprite(spriteColumn1, spriteLine6, spriteSize, spriteSize);
-		blueGhost[1] 	= getSprite(spriteColumn2, spriteLine6, spriteSize, spriteSize);
-		whiteGhost[0] 	= getSprite(spriteColumn3, spriteLine6, spriteSize, spriteSize);
-		whiteGhost[1] 	= getSprite(spriteColumn4, spriteLine6, spriteSize, spriteSize);
-		flashGhost[0] 	= blueGhost[0];
-		flashGhost[1] 	= blueGhost[1];
-		flashGhost[2] 	= whiteGhost[0];
-		flashGhost[3] 	= whiteGhost[1];
+		blueGhost[0]  = getSprite(spriteColumn1, spriteLine6, spriteSize, spriteSize);
+		blueGhost[1]  = getSprite(spriteColumn2, spriteLine6, spriteSize, spriteSize);
+		whiteGhost[0] = getSprite(spriteColumn3, spriteLine6, spriteSize, spriteSize);
+		whiteGhost[1] = getSprite(spriteColumn4, spriteLine6, spriteSize, spriteSize);
+		flashGhost[0] = blueGhost[0];
+		flashGhost[1] = blueGhost[1];
+		flashGhost[2] = whiteGhost[0];
+		flashGhost[3] = whiteGhost[1];
 		
 		// Energizer sprite animation array
 		energizer = new BufferedImage[2];
