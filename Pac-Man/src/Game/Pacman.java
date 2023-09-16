@@ -410,26 +410,7 @@ public class Pacman extends Rectangle
 			Texture.pacmanAnimationPhase = 0;
 		}
 		
-		// Manage pacman animation rendering
-		switch(lastDir)
-		{
-			case right:
-				// Look right
-				g.drawImage(Texture.pacmanLookRight[Texture.pacmanAnimationPhase], x, y, width, height, null);
-				break;
-			case left:
-				// Look left
-				g.drawImage(Texture.pacmanLookLeft[Texture.pacmanAnimationPhase], x, y, width, height, null);
-				break;
-			case up:
-				// Look up
-				g.drawImage(Texture.pacmanLookUp[Texture.pacmanAnimationPhase], x, y, width, height, null);
-				break;
-			case down:
-				// Look down
-				g.drawImage(Texture.pacmanLookDown[Texture.pacmanAnimationPhase], x, y, width, height, null);
-				break;
-		}
+		g.drawImage(Texture.pacmanLook[lastDir][Texture.pacmanAnimationPhase], x, y, width, height, null);
 	}
 
 	// Tick function

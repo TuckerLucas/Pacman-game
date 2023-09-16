@@ -29,37 +29,24 @@ public class Texture
 	public static int objectWidth  = 32;
 	public static int objectHeight = 32;
 	
-	// Pacman arrays for sprite animations 
-	public static BufferedImage[] pacmanLookRight;						
-	public static BufferedImage[] pacmanLookLeft;
-	public static BufferedImage[] pacmanLookUp;	
-	public static BufferedImage[] pacmanLookDown;
+	// Pacman matrix for sprite animations 
+	public static BufferedImage[][] pacmanLook;
 	
 	public static BufferedImage[] pacmanDie;
 	
-	// Blinky ghost arrays for sprite animations
-	public static BufferedImage[] blinkyLookRight;
-	public static BufferedImage[] blinkyLookLeft;
-	public static BufferedImage[] blinkyLookUp;
-	public static BufferedImage[] blinkyLookDown;
+	// Blinky ghost matrix for sprite animations
+	public static BufferedImage[][] blinkyLook;
 	
-	// Inky ghost arrays for sprite animations
-	public static BufferedImage[] inkyLookRight;
-	public static BufferedImage[] inkyLookLeft;
-	public static BufferedImage[] inkyLookUp;
-	public static BufferedImage[] inkyLookDown;
+	// Inky ghost matrix for sprite animations
+	public static BufferedImage[][] inkyLook;
 	
-	// Pinky ghost arrays for sprite animations
-	public static BufferedImage[] pinkyLookRight;
-	public static BufferedImage[] pinkyLookLeft;
-	public static BufferedImage[] pinkyLookUp;
-	public static BufferedImage[] pinkyLookDown;
+	// Pinky ghost matrix for sprite animations
+	public static BufferedImage[][] pinkyLook;
 	
-	// Clyde ghost arrays for sprite animations
-	public static BufferedImage[] clydeLookRight;
-	public static BufferedImage[] clydeLookLeft;
-	public static BufferedImage[] clydeLookUp;
-	public static BufferedImage[] clydeLookDown;
+	// Clyde ghost matrix for sprite animations
+	public static BufferedImage[][] clydeLook;
+	
+	public static BufferedImage[][][] ghostLook;
 	
 	// Vulnerable ghost arrays for sprite animations
 	public static BufferedImage[] blueGhost;
@@ -114,26 +101,23 @@ public class Texture
 		}
 				
 		// Pacman sprite animation arrays
-		pacmanLookRight = new BufferedImage[3];
-		pacmanLookLeft 	= new BufferedImage[3];
-		pacmanLookUp 	= new BufferedImage[3];
-		pacmanLookDown 	= new BufferedImage[3];
+		pacmanLook = new BufferedImage[4][3];
 		
 		pacmanDie 	= new BufferedImage[12];
 		
 		// Load pacman sprite animation arrays
-		pacmanLookRight[0] 	= getSprite(spriteColumn1, spriteLine1, spriteSize, spriteSize);		
-		pacmanLookRight[1] 	= getSprite(spriteColumn2, spriteLine1, spriteSize, spriteSize);	
-		pacmanLookRight[2] 	= getSprite(spriteColumn3, spriteLine1, spriteSize, spriteSize);	
-		pacmanLookLeft[0] 	= getSprite(spriteColumn1, spriteLine1, spriteSize, spriteSize);
-		pacmanLookLeft[1] 	= getSprite(spriteColumn4, spriteLine1, spriteSize, spriteSize);
-		pacmanLookLeft[2] 	= getSprite(spriteColumn5, spriteLine1, spriteSize, spriteSize);
-		pacmanLookUp[0] 	= getSprite(spriteColumn1, spriteLine1, spriteSize, spriteSize);
-		pacmanLookUp[1] 	= getSprite(spriteColumn6, spriteLine1, spriteSize, spriteSize);
-		pacmanLookUp[2] 	= getSprite(spriteColumn7, spriteLine1, spriteSize, spriteSize);
-		pacmanLookDown[0] 	= getSprite(spriteColumn1, spriteLine1, spriteSize, spriteSize);
-		pacmanLookDown[1] 	= getSprite(spriteColumn8, spriteLine1, spriteSize, spriteSize);
-		pacmanLookDown[2] 	= getSprite(spriteColumn9, spriteLine1, spriteSize, spriteSize);
+		pacmanLook[0][0] = getSprite(spriteColumn1, spriteLine1, spriteSize, spriteSize);		
+		pacmanLook[0][1] = getSprite(spriteColumn2, spriteLine1, spriteSize, spriteSize);	
+		pacmanLook[0][2] = getSprite(spriteColumn3, spriteLine1, spriteSize, spriteSize);	
+		pacmanLook[1][0] = getSprite(spriteColumn1, spriteLine1, spriteSize, spriteSize);
+		pacmanLook[1][1] = getSprite(spriteColumn4, spriteLine1, spriteSize, spriteSize);
+		pacmanLook[1][2] = getSprite(spriteColumn5, spriteLine1, spriteSize, spriteSize);
+		pacmanLook[2][0] = getSprite(spriteColumn1, spriteLine1, spriteSize, spriteSize);
+		pacmanLook[2][1] = getSprite(spriteColumn6, spriteLine1, spriteSize, spriteSize);
+		pacmanLook[2][2] = getSprite(spriteColumn7, spriteLine1, spriteSize, spriteSize);
+		pacmanLook[3][0] = getSprite(spriteColumn1, spriteLine1, spriteSize, spriteSize);
+		pacmanLook[3][1] = getSprite(spriteColumn8, spriteLine1, spriteSize, spriteSize);
+		pacmanLook[3][2] = getSprite(spriteColumn9, spriteLine1, spriteSize, spriteSize);
 		
 		pacmanDie[0] = getSprite(spriteColumn1, spriteLine1, spriteSize, spriteSize);
 		pacmanDie[1] = getSprite(spriteColumn1, spriteLine10, spriteSize, spriteSize);
@@ -148,69 +132,59 @@ public class Texture
 		pacmanDie[10] = getSprite(spriteColumn1, spriteLine9, spriteSize, spriteSize);
 		pacmanDie[11] = getSprite(spriteColumn10, spriteLine10, spriteSize, spriteSize);
 		
-		// Blinky sprite sprite animation arrays
-		blinkyLookRight	= new BufferedImage[2];
-		blinkyLookLeft 	= new BufferedImage[2];
-		blinkyLookUp 	= new BufferedImage[2];
-		blinkyLookDown 	= new BufferedImage[2];
+		// Blinky sprite animation matrix
+		blinkyLook = new BufferedImage[4][2];
 		
-		// Load blinky sprite animation arrays
-		blinkyLookRight[0] 	= getSprite(spriteColumn1, spriteLine2, spriteSize, spriteSize);
-		blinkyLookRight[1] 	= getSprite(spriteColumn5, spriteLine2, spriteSize, spriteSize);
-		blinkyLookLeft[0]	= getSprite(spriteColumn2, spriteLine2, spriteSize, spriteSize);
-		blinkyLookLeft[1] 	= getSprite(spriteColumn6, spriteLine2, spriteSize, spriteSize);
-		blinkyLookUp[0] 	= getSprite(spriteColumn3, spriteLine2, spriteSize, spriteSize);
-		blinkyLookUp[1] 	= getSprite(spriteColumn7, spriteLine2, spriteSize, spriteSize);
-		blinkyLookDown[0] 	= getSprite(spriteColumn4, spriteLine2, spriteSize, spriteSize);
-		blinkyLookDown[1] 	= getSprite(spriteColumn8, spriteLine2, spriteSize, spriteSize);
+		ghostLook = new BufferedImage[4][4][2];
 		
-		// Inky sprite sprite animation arrays
-		inkyLookRight 	= new BufferedImage[2];
-		inkyLookLeft 	= new BufferedImage[2];
-		inkyLookUp 		= new BufferedImage[2];
-		inkyLookDown 	= new BufferedImage[2];
+		// Load blinky sprite animation matrix
+		ghostLook[0][0][0] = getSprite(spriteColumn1, spriteLine2, spriteSize, spriteSize);
+		ghostLook[0][0][1] = getSprite(spriteColumn5, spriteLine2, spriteSize, spriteSize);
+		ghostLook[0][1][0] = getSprite(spriteColumn2, spriteLine2, spriteSize, spriteSize);
+		ghostLook[0][1][1] = getSprite(spriteColumn6, spriteLine2, spriteSize, spriteSize);
+		ghostLook[0][2][0] = getSprite(spriteColumn3, spriteLine2, spriteSize, spriteSize);
+		ghostLook[0][2][1] = getSprite(spriteColumn7, spriteLine2, spriteSize, spriteSize);
+		ghostLook[0][3][0] = getSprite(spriteColumn4, spriteLine2, spriteSize, spriteSize);
+		ghostLook[0][3][1] = getSprite(spriteColumn8, spriteLine2, spriteSize, spriteSize);
+		
+		// Inky sprite animation matrix
+		inkyLook = new BufferedImage[4][2];
 		
 		// Load inky sprite animation arrays
-		inkyLookRight[0] 	= getSprite(spriteColumn1, spriteLine3, spriteSize, spriteSize);
-		inkyLookRight[1] 	= getSprite(spriteColumn5, spriteLine3, spriteSize, spriteSize);
-		inkyLookLeft[0]  	= getSprite(spriteColumn2, spriteLine3, spriteSize, spriteSize);
-		inkyLookLeft[1]  	= getSprite(spriteColumn6, spriteLine3, spriteSize, spriteSize);
-		inkyLookUp[0]    	= getSprite(spriteColumn3, spriteLine3, spriteSize, spriteSize);
-		inkyLookUp[1]    	= getSprite(spriteColumn7, spriteLine3, spriteSize, spriteSize);
-		inkyLookDown[0]  	= getSprite(spriteColumn4, spriteLine3, spriteSize, spriteSize);
-		inkyLookDown[1]  	= getSprite(spriteColumn8, spriteLine3, spriteSize, spriteSize);
+		ghostLook[1][0][0] = getSprite(spriteColumn1, spriteLine3, spriteSize, spriteSize);
+		ghostLook[1][0][1] = getSprite(spriteColumn5, spriteLine3, spriteSize, spriteSize);
+		ghostLook[1][1][0] = getSprite(spriteColumn2, spriteLine3, spriteSize, spriteSize);
+		ghostLook[1][1][1] = getSprite(spriteColumn6, spriteLine3, spriteSize, spriteSize);
+		ghostLook[1][2][0] = getSprite(spriteColumn3, spriteLine3, spriteSize, spriteSize);
+		ghostLook[1][2][1] = getSprite(spriteColumn7, spriteLine3, spriteSize, spriteSize);
+		ghostLook[1][3][0] = getSprite(spriteColumn4, spriteLine3, spriteSize, spriteSize);
+		ghostLook[1][3][1] = getSprite(spriteColumn8, spriteLine3, spriteSize, spriteSize);
 		
-		// Pinky sprite animation arrays
-		pinkyLookRight 	= new BufferedImage[2];
-		pinkyLookLeft 	= new BufferedImage[2];
-		pinkyLookUp 	= new BufferedImage[2];
-		pinkyLookDown 	= new BufferedImage[2];
+		// Pinky sprite animation matrix
+		pinkyLook = new BufferedImage[4][2];
 		
 		// Load pinky sprite animation arrays
-		pinkyLookRight[0] 	= getSprite(spriteColumn1, spriteLine4, spriteSize, spriteSize);
-		pinkyLookRight[1] 	= getSprite(spriteColumn5, spriteLine4, spriteSize, spriteSize);
-		pinkyLookLeft[0] 	= getSprite(spriteColumn2, spriteLine4, spriteSize, spriteSize);
-		pinkyLookLeft[1] 	= getSprite(spriteColumn6, spriteLine4, spriteSize, spriteSize);
-		pinkyLookUp[0] 		= getSprite(spriteColumn3, spriteLine4, spriteSize, spriteSize);
-		pinkyLookUp[1] 		= getSprite(spriteColumn7, spriteLine4, spriteSize, spriteSize);
-		pinkyLookDown[0] 	= getSprite(spriteColumn4, spriteLine4, spriteSize, spriteSize);
-		pinkyLookDown[1] 	= getSprite(spriteColumn8, spriteLine4, spriteSize, spriteSize);
+		ghostLook[2][0][0] = getSprite(spriteColumn1, spriteLine4, spriteSize, spriteSize);
+		ghostLook[2][0][1] = getSprite(spriteColumn5, spriteLine4, spriteSize, spriteSize);
+		ghostLook[2][1][0] = getSprite(spriteColumn2, spriteLine4, spriteSize, spriteSize);
+		ghostLook[2][1][1] = getSprite(spriteColumn6, spriteLine4, spriteSize, spriteSize);
+		ghostLook[2][2][0] = getSprite(spriteColumn3, spriteLine4, spriteSize, spriteSize);
+		ghostLook[2][2][1] = getSprite(spriteColumn7, spriteLine4, spriteSize, spriteSize);
+		ghostLook[2][3][0] = getSprite(spriteColumn4, spriteLine4, spriteSize, spriteSize);
+		ghostLook[2][3][1] = getSprite(spriteColumn8, spriteLine4, spriteSize, spriteSize);
 		
-		// Clyde sprite animation arrays
-		clydeLookRight 	= new BufferedImage[2];
-		clydeLookLeft 	= new BufferedImage[2];
-		clydeLookUp 	= new BufferedImage[2];
-		clydeLookDown 	= new BufferedImage[2];
+		// Clyde sprite animation matrix
+		clydeLook = new BufferedImage[4][2];
 		
-		// Load clyde sprite animation arrays
-		clydeLookRight[0] 	= getSprite(spriteColumn1, spriteLine5, spriteSize, spriteSize);
-		clydeLookRight[1] 	= getSprite(spriteColumn5, spriteLine5, spriteSize, spriteSize);
-		clydeLookLeft[0] 	= getSprite(spriteColumn2, spriteLine5, spriteSize, spriteSize);
-		clydeLookLeft[1] 	= getSprite(spriteColumn6, spriteLine5, spriteSize, spriteSize);
-		clydeLookUp[0] 		= getSprite(spriteColumn3, spriteLine5, spriteSize, spriteSize);
-		clydeLookUp[1] 		= getSprite(spriteColumn7, spriteLine5, spriteSize, spriteSize);
-		clydeLookDown[0] 	= getSprite(spriteColumn4, spriteLine5, spriteSize, spriteSize);
-		clydeLookDown[1] 	= getSprite(spriteColumn8, spriteLine5, spriteSize, spriteSize);
+		// Load clyde sprite animation matrix
+		ghostLook[3][0][0] = getSprite(spriteColumn1, spriteLine5, spriteSize, spriteSize);
+		ghostLook[3][0][1] = getSprite(spriteColumn5, spriteLine5, spriteSize, spriteSize);
+		ghostLook[3][1][0] = getSprite(spriteColumn2, spriteLine5, spriteSize, spriteSize);
+		ghostLook[3][1][1] = getSprite(spriteColumn6, spriteLine5, spriteSize, spriteSize);
+		ghostLook[3][2][0] = getSprite(spriteColumn3, spriteLine5, spriteSize, spriteSize);
+		ghostLook[3][2][1] = getSprite(spriteColumn7, spriteLine5, spriteSize, spriteSize);
+		ghostLook[3][3][0] = getSprite(spriteColumn4, spriteLine5, spriteSize, spriteSize);
+		ghostLook[3][3][1] = getSprite(spriteColumn8, spriteLine5, spriteSize, spriteSize);
 		
 		// Vulnerable ghost animation arrays
 		blueGhost 	= new BufferedImage[2];

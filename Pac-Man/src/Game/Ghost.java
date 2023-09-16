@@ -40,8 +40,8 @@ public class Ghost extends Rectangle
 	public static final int up 	  = 2;
 	public static final int down  = 3;
 	
-	private int nextDir 	= -1;
-	private int currentDir = -1;
+	private int nextDir    = 0;
+	private int currentDir = 0;
 	
 	private int methodicalTime			= 0;
 	private int methodicalTargetTime; 
@@ -433,7 +433,7 @@ public class Ghost extends Rectangle
 		// Check if we have reached the target time for methodical movement
 		if(methodicalTime == methodicalTargetTime) 				
 		{			
-			methodicalTime    = 0;			    // Reset counter for methodical movement
+			methodicalTime = 0;				// Reset timer for methodical movement
 			coolDown 	 = true;			// Activate cool down period for methodical movement
 			movementType = randomMovement;	// Return to random movement
 		}
@@ -472,9 +472,9 @@ public class Ghost extends Rectangle
 	{
 		switch(movementType)
 		{
-			case randomMovement: moveRandomly(); break;	// Move in a random fashion
-			case methodicalMovement:  moveMethodically();  break;	// Chase pacman
-			case findingPath: 	 findingPath();  break;	// Find path to pacman when stuck
+			case randomMovement: 	 moveRandomly();     break;	// Move in a random fashion
+			case methodicalMovement: moveMethodically(); break;	// Move in a methodical fashion (chase pacman)
+			case findingPath: 	 	 findingPath();      break;	// Find path to pacman when stuck
 		}			
 	}
 	
@@ -566,58 +566,9 @@ public class Ghost extends Rectangle
 		g.drawImage(Texture.blueGhost[imageIndexEnemy], x, y, width, height, null);
 	}
 	
-	private void look(int where, Graphics g)
+	private void look(int direction, Graphics g)
 	{
-		switch(where)
-		{
-			case right: 
-				
-				switch(this.ghostID)
-				{
-					case 0: g.drawImage(Texture.blinkyLookRight[imageIndexEnemy], x, y, width, height, null); break;
-					case 1: g.drawImage(Texture.inkyLookRight[imageIndexEnemy], x, y, width, height, null);   break;
-					case 2: g.drawImage(Texture.pinkyLookRight[imageIndexEnemy], x, y, width, height, null);  break;
-					case 3: g.drawImage(Texture.clydeLookRight[imageIndexEnemy], x, y, width, height, null);  break;
-				}
-				
-				break;
-				
-			case left:
-				
-				switch(ghostID)
-				{
-					case 0: g.drawImage(Texture.blinkyLookLeft[imageIndexEnemy], x, y, width, height, null); break;
-					case 1: g.drawImage(Texture.inkyLookLeft[imageIndexEnemy], x, y, width, height, null);   break;
-					case 2: g.drawImage(Texture.pinkyLookLeft[imageIndexEnemy], x, y, width, height, null);  break;
-					case 3: g.drawImage(Texture.clydeLookLeft[imageIndexEnemy], x, y, width, height, null);  break;
-				}
-				
-				break;
-				
-			case up:
-				
-				switch(ghostID)
-				{
-					case 0: g.drawImage(Texture.blinkyLookUp[imageIndexEnemy], x, y, width, height, null); break;
-					case 1: g.drawImage(Texture.inkyLookUp[imageIndexEnemy], x, y, width, height, null);   break;
-					case 2: g.drawImage(Texture.pinkyLookUp[imageIndexEnemy], x, y, width, height, null);  break;
-					case 3: g.drawImage(Texture.clydeLookUp[imageIndexEnemy], x, y, width, height, null);  break;
-				}
-				
-				break;
-				
-			case down:
-				
-				switch(ghostID)
-				{
-					case 0:	g.drawImage(Texture.blinkyLookDown[imageIndexEnemy], x, y, width, height, null); break;
-					case 1: g.drawImage(Texture.inkyLookDown[imageIndexEnemy], x, y, width, height, null);   break;
-					case 2: g.drawImage(Texture.pinkyLookDown[imageIndexEnemy], x, y, width, height, null);  break;
-					case 3: g.drawImage(Texture.clydeLookDown[imageIndexEnemy], x, y, width, height, null);  break;
-				}
-				
-				break;
-		}
+		g.drawImage(Texture.ghostLook[ghostID][direction][imageIndexEnemy], x, y, width, height, null);
 	}
 
 	public void render(Graphics g)
