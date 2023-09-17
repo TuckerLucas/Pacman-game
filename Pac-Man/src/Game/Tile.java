@@ -29,7 +29,7 @@ public class Tile extends Rectangle
 	// Render object
 	public void render(Graphics g)
 	{
-		g.setColor(Color.blue);
+		g.setColor(new Color(0,0,175));
 		g.fillRect(x, y, width, height);
 	}
 }
