@@ -47,8 +47,11 @@ public class Pacman extends Rectangle
 	public static int dir;
 	
 	// Pacman animation variables
-	public static int animationTime 		= 0;	
-	public static int animationTargetTime = 6;
+	public static int eatingAnimationTime 		= 0;	
+	public static int eatingAnimationTargetTime = 6;
+	
+	public static int deathAnimationTime 		= 0;	
+	public static int deathAnimationTargetTime = 6;
 	
 	
 	// Constructor
@@ -359,7 +362,11 @@ public class Pacman extends Rectangle
 				}
 			}
 			
-			die();
+			if(Game.gameStatus == Game.play)
+			{
+				die();
+			}
+			
 		}
 	}
 
@@ -387,30 +394,62 @@ public class Pacman extends Rectangle
 	public void eatingAnimation()
 	{
 		// Increase current animation phase time
-		animationTime++;
+		eatingAnimationTime++;
 		
 		// Check if time for animation phase is complete
-		if(animationTime == animationTargetTime)
+		if(eatingAnimationTime == eatingAnimationTargetTime)
 		{
 			// Reset timer for animation phase
-			animationTime = 0;
+			eatingAnimationTime = 0;
 			
 			// Move to the next animation phase
-			Texture.pacmanAnimationPhase++;
+			Texture.pacmanEatingAnimationPhase++;
+		}
+	}
+	
+	public void deathAnimation()
+	{
+		// Increase current animation phase time
+		deathAnimationTime++;
+		
+		// Check if time for animation phase is complete
+		if(deathAnimationTime == deathAnimationTargetTime)
+		{
+			// Reset timer for animation phase
+			deathAnimationTime = 0;
+			
+			// Move to the next animation phase
+			Texture.pacmanDeathAnimationPhase++;
 		}
 	}
 	
 	// Render object
 	public void render(Graphics g)
 	{
-		// Check if animation is in the last phase
-		if(Texture.pacmanAnimationPhase == 3)
+		if(Game.gameStatus == Game.lifeLost)
 		{
-			// Restart animation
-			Texture.pacmanAnimationPhase = 0;
+			dir = stopped;
+			
+			// Check if death animation is in the last phase
+			if(Texture.pacmanDeathAnimationPhase == 12)
+			{
+				// Restart animation
+				Texture.pacmanDeathAnimationPhase = 0;
+			}
+			
+			g.drawImage(Texture.pacmanDie[Texture.pacmanDeathAnimationPhase], x, y, width, height, null);
 		}
-		
-		g.drawImage(Texture.pacmanLook[lastDir][Texture.pacmanAnimationPhase], x, y, width, height, null);
+		else
+		{
+			// Check if eating animation is in the last phase
+			if(Texture.pacmanEatingAnimationPhase == 3)
+			{
+				// Restart animation
+				Texture.pacmanEatingAnimationPhase = 0;
+			}
+			
+			g.drawImage(Texture.pacmanLook[lastDir][Texture.pacmanEatingAnimationPhase], x, y, width, height, null);
+		}
 	}
 
 	// Tick function
@@ -421,6 +460,15 @@ public class Pacman extends Rectangle
 		foodCollision();
 		energizerCollision();
 		ghostCollision();
-		eatingAnimation();
+		//eatingAnimation();
+		
+		if(Game.gameStatus == Game.lifeLost)
+		{
+			deathAnimation();
+		}
+		else
+		{
+			eatingAnimation();
+		}
 	}
 }

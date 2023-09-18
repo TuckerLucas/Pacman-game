@@ -50,7 +50,8 @@ public class Texture
 	public static BufferedImage[] bonusScore;
 	
 	// Animation phase variables
-	public static int pacmanAnimationPhase     = 0;
+	public static int pacmanEatingAnimationPhase     = 0;
+	public static int pacmanDeathAnimationPhase = 0;
 	public static int flashAnimationPhase      = 0;
 	public static int bonusScoreAnimationPhase = 0;
 

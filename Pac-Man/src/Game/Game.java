@@ -267,6 +267,12 @@ public class Game extends Canvas implements Runnable, KeyListener
 		g.drawString("PRESS       TO RESTART GAME", 60, 350);
 		g.drawString("PRESS       TO GO HOME", 60, 400);
 	}
+	
+	private void drawPacmanDying(Graphics g)
+	{
+		level.render(g);
+		pacman.render(g);
+	}
 
 	// Tick function
 	private void tick()
@@ -379,9 +385,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 			case lifeLost:
 				
 				BonusScore.display = false;
-				loadGameElements();
-				gameStatus = play;
+				//loadGameElements();
+				//gameStatus = play;
 				Energizer.deactivate();
+				pacman.tick();
 				
 				break;
 		}
@@ -424,6 +431,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 			case init: 	drawInitScreen(g); 	break;
 			case win: 	drawWinScreen(g); 	break;
 			case lose: 	drawLoseScreen(g);  break;
+			case lifeLost: drawPacmanDying(g); break; 
 			case play: 	level.render(g); 	break;
 		}
 		
