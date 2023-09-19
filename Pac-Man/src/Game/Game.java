@@ -290,6 +290,8 @@ public class Game extends Canvas implements Runnable, KeyListener
 				energizer.tick();
 				level.tick();
 				texture.tick();
+				
+				Pacman.deathAnimationDisplayed = false;
 
 				break;
 				

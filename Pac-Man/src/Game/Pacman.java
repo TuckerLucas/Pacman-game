@@ -53,6 +53,7 @@ public class Pacman extends Rectangle
 	public static int deathAnimationTime 		= 0;	
 	public static int deathAnimationTargetTime = 6;
 	
+	public static boolean deathAnimationDisplayed = false;
 	
 	// Constructor
 	public Pacman(int spawnType)
@@ -431,14 +432,18 @@ public class Pacman extends Rectangle
 			dir = stopped;
 			
 			// Check if death animation is in the last phase
-			if(Texture.pacmanDeathAnimationPhase == 19)
+			if(Texture.pacmanDeathAnimationPhase == 20)
 			{
+				deathAnimationDisplayed = true;
 				Texture.pacmanDeathAnimationPhase = 0;
 				Game.loadGameElements();
 				Game.gameStatus = Game.play;
 			}
 			
-			g.drawImage(Texture.pacmanDie[Texture.pacmanDeathAnimationPhase], x, y, width, height, null);
+			if(!deathAnimationDisplayed)
+			{
+				g.drawImage(Texture.pacmanDie[Texture.pacmanDeathAnimationPhase], x, y, width, height, null);
+			}
 		}
 		else
 		{
@@ -461,7 +466,6 @@ public class Pacman extends Rectangle
 		foodCollision();
 		energizerCollision();
 		ghostCollision();
-		//eatingAnimation();
 		
 		if(Game.gameStatus == Game.lifeLost)
 		{
