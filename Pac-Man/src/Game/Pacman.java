@@ -431,10 +431,10 @@ public class Pacman extends Rectangle
 			dir = stopped;
 			
 			// Check if death animation is in the last phase
-			if(Texture.pacmanDeathAnimationPhase == 12)
+			if(Texture.pacmanDeathAnimationPhase == 19)
 			{
 				Texture.pacmanDeathAnimationPhase = 0;
-				
+				Game.loadGameElements();
 				Game.gameStatus = Game.play;
 			}
 			
