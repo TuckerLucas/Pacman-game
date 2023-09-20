@@ -62,15 +62,12 @@ public class BonusScore extends Rectangle
 		{
 			case 1: 
 					bonusScore = 200;
-
 					break;
 			case 2: 
 					bonusScore = 400; 
-					
 					break;
 			case 3: 
 					bonusScore = 800;  
-					
 					break;
 			case 4: 
 					bonusScore = 1600; 
