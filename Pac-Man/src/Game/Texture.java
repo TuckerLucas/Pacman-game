@@ -50,7 +50,8 @@ public class Texture
 	public static BufferedImage[] bonusScore;
 	
 	// Animation phase variables
-	public static int pacmanAnimationPhase     = 0;
+	public static int pacmanEatingAnimationPhase     = 0;
+	public static int pacmanDeathAnimationPhase = 0;
 	public static int flashAnimationPhase      = 0;
 	public static int bonusScoreAnimationPhase = 0;
 
@@ -108,21 +109,29 @@ public class Texture
 		pacmanLook[3][2] = getSprite(spriteColumn9, spriteLine1, spriteSize, spriteSize);
 		
 		// Pacman death animation array
-		pacmanDie 	= new BufferedImage[12];
+		pacmanDie 	= new BufferedImage[20];
 		
 		// Load pacman death animation array
 		pacmanDie[0] = getSprite(spriteColumn1, spriteLine1, spriteSize, spriteSize);
-		pacmanDie[1] = getSprite(spriteColumn1, spriteLine10, spriteSize, spriteSize);
-		pacmanDie[2] = getSprite(spriteColumn2, spriteLine10, spriteSize, spriteSize);
-		pacmanDie[3] = getSprite(spriteColumn3, spriteLine10, spriteSize, spriteSize);
-		pacmanDie[4] = getSprite(spriteColumn4, spriteLine10, spriteSize, spriteSize);
-		pacmanDie[5] = getSprite(spriteColumn5, spriteLine10, spriteSize, spriteSize);
-		pacmanDie[6] = getSprite(spriteColumn6, spriteLine10, spriteSize, spriteSize);
-		pacmanDie[7] = getSprite(spriteColumn7, spriteLine10, spriteSize, spriteSize);
-		pacmanDie[8] = getSprite(spriteColumn8, spriteLine10, spriteSize, spriteSize);
-		pacmanDie[9] = getSprite(spriteColumn9, spriteLine10, spriteSize, spriteSize);
-		pacmanDie[10] = getSprite(spriteColumn1, spriteLine9, spriteSize, spriteSize);
-		pacmanDie[11] = getSprite(spriteColumn10, spriteLine10, spriteSize, spriteSize);
+		pacmanDie[1] = getSprite(spriteColumn1, spriteLine1, spriteSize, spriteSize);
+		pacmanDie[2] = getSprite(spriteColumn1, spriteLine1, spriteSize, spriteSize);
+		pacmanDie[3] = getSprite(spriteColumn1, spriteLine1, spriteSize, spriteSize);
+		pacmanDie[4] = getSprite(spriteColumn1, spriteLine10, spriteSize, spriteSize);
+		pacmanDie[5] = getSprite(spriteColumn2, spriteLine10, spriteSize, spriteSize);
+		pacmanDie[6] = getSprite(spriteColumn3, spriteLine10, spriteSize, spriteSize);
+		pacmanDie[7] = getSprite(spriteColumn4, spriteLine10, spriteSize, spriteSize);
+		pacmanDie[8] = getSprite(spriteColumn5, spriteLine10, spriteSize, spriteSize);
+		pacmanDie[9] = getSprite(spriteColumn6, spriteLine10, spriteSize, spriteSize);
+		pacmanDie[10] = getSprite(spriteColumn7, spriteLine10, spriteSize, spriteSize);
+		pacmanDie[11] = getSprite(spriteColumn8, spriteLine10, spriteSize, spriteSize);
+		pacmanDie[12] = getSprite(spriteColumn9, spriteLine10, spriteSize, spriteSize);
+		pacmanDie[13] = getSprite(spriteColumn1, spriteLine9, spriteSize, spriteSize);
+		pacmanDie[14] = getSprite(spriteColumn10, spriteLine10, spriteSize, spriteSize);
+		pacmanDie[15] = getSprite(spriteColumn2, spriteLine7, spriteSize, spriteSize);
+		pacmanDie[16] = getSprite(spriteColumn2, spriteLine7, spriteSize, spriteSize);
+		pacmanDie[17] = getSprite(spriteColumn2, spriteLine7, spriteSize, spriteSize);
+		pacmanDie[18] = getSprite(spriteColumn2, spriteLine7, spriteSize, spriteSize);
+		pacmanDie[19] = getSprite(spriteColumn2, spriteLine7, spriteSize, spriteSize);
 
 		// Ghosts' sprite animation matrix
 		ghostLook = new BufferedImage[4][4][2];

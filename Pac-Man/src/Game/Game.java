@@ -95,7 +95,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	// Animation variables
 	private int blinkTime 	 = 0;							
 	private int targetFrames = 30;
-	private boolean showText = true;
+	private static boolean showText = true;
 	
 	// Map coordinate variables to locate events
 	public static int xEvent;
@@ -176,7 +176,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 
 	
 	// Load the required game elements
-	private void loadGameElements()
+	public static void loadGameElements()
 	{
 		// Load game characters
 		pacman 			= new Pacman(Pacman.spawnNormal);
@@ -255,7 +255,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	}
 	
 	// Draw game's losing screen
-	private void drawLoseScreen(Graphics g)
+	public static void drawLoseScreen(Graphics g)
 	{		
 		// Display text
 		g.drawString("BAD LUCK!", 270, 100);
@@ -266,6 +266,12 @@ public class Game extends Canvas implements Runnable, KeyListener
 		}
 		g.drawString("PRESS       TO RESTART GAME", 60, 350);
 		g.drawString("PRESS       TO GO HOME", 60, 400);
+	}
+	
+	private void drawPacmanDying(Graphics g)
+	{
+		level.render(g);
+		pacman.render(g);
 	}
 
 	// Tick function
@@ -284,6 +290,8 @@ public class Game extends Canvas implements Runnable, KeyListener
 				energizer.tick();
 				level.tick();
 				texture.tick();
+				
+				Pacman.deathAnimationDisplayed = false;
 
 				break;
 				
@@ -379,9 +387,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 			case lifeLost:
 				
 				BonusScore.display = false;
-				loadGameElements();
-				gameStatus = play;
+				//loadGameElements();
+				//gameStatus = play;
 				Energizer.deactivate();
+				pacman.tick();
 				
 				break;
 		}
@@ -421,10 +430,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 		// Render screens based on status of the game
 		switch(gameStatus)
 		{
-			case init: 	drawInitScreen(g); 	break;
-			case win: 	drawWinScreen(g); 	break;
-			case lose: 	drawLoseScreen(g);  break;
-			case play: 	level.render(g); 	break;
+			case init: drawInitScreen(g); break;
+			case win: drawWinScreen(g); break;
+			case lose: drawLoseScreen(g); break;
+			case lifeLost: drawPacmanDying(g); break; 
+			case play: level.render(g); break;
 		}
 		
 		g.dispose();

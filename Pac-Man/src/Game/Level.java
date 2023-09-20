@@ -219,10 +219,14 @@ public class Level
 		
 		// Render game characters
 		Game.pacman.render(g);
-		Game.ghostArray[0].render(g);
-		Game.ghostArray[1].render(g);
-		Game.ghostArray[2].render(g);
-		Game.ghostArray[3].render(g);
+		if(Game.gameStatus != Game.lifeLost)
+		{
+			Game.ghostArray[0].render(g);
+			Game.ghostArray[1].render(g);
+			Game.ghostArray[2].render(g);
+			Game.ghostArray[3].render(g);
+		}
+
 		Game.door.render(g);
 		Game.bonusScore.render(g);
 		

@@ -40,7 +40,7 @@ public class Ghost extends Rectangle
 	public static final int down  = 3;
 	
 	private int nextDir = 0;
-	private int currentDir = 0;
+	public int currentDir = 0;
 	
 	private int methodicalTime = 0;
 	private int methodicalTargetTime; 
