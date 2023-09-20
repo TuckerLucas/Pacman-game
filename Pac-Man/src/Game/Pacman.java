@@ -332,16 +332,8 @@ public class Pacman extends Rectangle
 		
 		// Decrement amount of lives
 		Game.lives--;
-	
-		// Check number of lives left
-		if(Game.lives == 0)
-		{
-			Game.gameStatus = Game.lose;
-		}
-		else 
-		{
-			Game.gameStatus = Game.lifeLost;
-		}		
+
+		Game.gameStatus = Game.lifeLost;				
 	}
 	
 	// Manage pacman collisions with ghosts
@@ -437,7 +429,15 @@ public class Pacman extends Rectangle
 				deathAnimationDisplayed = true;
 				Texture.pacmanDeathAnimationPhase = 0;
 				Game.loadGameElements();
-				Game.gameStatus = Game.play;
+				
+				if(Game.lives == 0)
+				{
+					Game.gameStatus = Game.lose;
+				}
+				else
+				{	
+					Game.gameStatus = Game.play;
+				}
 			}
 			
 			if(!deathAnimationDisplayed)
