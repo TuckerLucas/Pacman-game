@@ -184,7 +184,7 @@ public class Level
 		// Draw life symbols depending on number of user lives left
 		for(int i = 0; i < Game.lives; i++)
 		{
-			g.drawImage(Texture.getSprite(32, 0, 16, 16), livesSymbolsX[i], 
+			g.drawImage(Texture.getSprite(Texture.spriteColumn7, Texture.spriteLine5, Texture.spriteSize, Texture.spriteSize), livesSymbolsX[i], 
 					livesSymbolsY, 32, 32, null);
 		}
 		/*******************************************************/
