@@ -362,6 +362,11 @@ public class Ghost extends Rectangle
 	private void generateNextDirection()
 	{
 		nextDir = randomGen.nextInt(4);
+		
+		if(!canLeaveBox && nextDir == up)
+		{
+			nextDir = currentDir;
+		}
 	}
 	
 	private void moveRandomly()
@@ -662,7 +667,7 @@ public class Ghost extends Rectangle
 		{
 			case right: x+=spd; currentDir = right; break;
 			case left: 	x-=spd; currentDir = left;  break;
-			case up: 	if(canLeaveBox){y-=spd;}; currentDir = up; break;
+			case up: 	y-=spd; currentDir = up; break;
 			case down: 	y+=spd; currentDir = down;  break;
 		}
 	}
