@@ -115,11 +115,12 @@ public class Game extends Canvas implements Runnable, KeyListener
 		gameStatus = init;			
 		texture = new Texture();
 		
+		/*
 		for(int i = 0; i < 4; i++)
 		{
 			directionsArray[i] = i;
 			ghostArray[i] = new Ghost(i, Ghost.notCrossingPortal, false);
-		}
+		}*/
 		
 		// Get game's highscore
     	try
@@ -179,11 +180,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static void loadGameElements()
 	{
 		// Load game characters
-		pacman 			= new Pacman(Pacman.spawnNormal);
-		ghostArray[0] 	= new Ghost(0, Ghost.notCrossingPortal, false); 
-		ghostArray[1] 	= new Ghost(1, Ghost.notCrossingPortal, false);
-		ghostArray[2] 	= new Ghost(2, Ghost.notCrossingPortal, false);
-		ghostArray[3] 	= new Ghost(3, Ghost.notCrossingPortal, false);
+		pacman 			= new Pacman(Pacman.notCrossingPortal);
+		ghostArray[0] 	= new Ghost(0, Ghost.notCrossingPortal, false, true); 
+		ghostArray[1] 	= new Ghost(1, Ghost.notCrossingPortal, false, true);
+		ghostArray[2] 	= new Ghost(2, Ghost.notCrossingPortal, false, true);
+		ghostArray[3] 	= new Ghost(3, Ghost.notCrossingPortal, false, true);
 		
 		// Load other game objects based on game status
 		switch(gameStatus)
@@ -387,8 +388,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 			case lifeLost:
 				
 				BonusScore.display = false;
-				//loadGameElements();
-				//gameStatus = play;
 				Energizer.deactivate();
 				pacman.tick();
 				

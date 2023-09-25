@@ -31,9 +31,9 @@ public class Pacman extends Rectangle
 	public static int spawnY = 512;
 	
 	// Spawn variables
-	public static final int spawnNormal = 0;
-	public static final int spawnRight  = 1;
-	public static final int spawnLeft 	= 2;
+	public static final int notCrossingPortal = 0;
+	public static final int crossingLeftPortal = 1;
+	public static final int crossingRightPortal = 2;
 	
 	// Direction variables
 	public static final int stopped = -1;
@@ -62,21 +62,21 @@ public class Pacman extends Rectangle
 		switch(spawnType)
 		{
 			// Normal spawn
-			case spawnNormal:
+			case notCrossingPortal:
 				
 				// Spawn pacman normally
 				spawnPacman(spawnX, spawnY);
 				
-				// Wait for user to input direction
-				dir = stopped;
+				// Pacman starts by moving right
+				dir = right;
 				
 				// Make pacman look right on start-up
 				lastDir = right;
 				
 				break;
 				
-			// Right portal spawn
-			case spawnRight:
+			// Crossing left portal
+			case crossingLeftPortal:
 				
 				// Spawn pacman at the right portal
 				spawnPacman(Game.rightPortalX, Game.rightPortalY);
@@ -87,7 +87,7 @@ public class Pacman extends Rectangle
 				break;
 				
 			// Left portal spawn
-			case spawnLeft:
+			case crossingRightPortal:
 				
 				// Spawn pacman at the left portal
 				spawnPacman(Game.leftPortalX, Game.leftPortalY);
@@ -308,7 +308,7 @@ public class Pacman extends Rectangle
 		new Sounds(Sounds.ghostEatenSoundPath);
 		
 		// Respawn eaten ghost
-		Game.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, Ghost.notCrossingPortal, false);
+		Game.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, Ghost.notCrossingPortal, false, false);
 		
 		// Capture the event coordinates
 		Game.xEvent = x; 
@@ -359,7 +359,6 @@ public class Pacman extends Rectangle
 			{
 				die();
 			}
-			
 		}
 	}
 
@@ -371,14 +370,14 @@ public class Pacman extends Rectangle
 		if(x == Game.leftPortalX && y == Game.leftPortalY)	
 		{
 			// Spawn pacman on the right side of the map
-			Game.pacman = new Pacman(spawnRight);
+			Game.pacman = new Pacman(crossingLeftPortal);
 		}
 		
 		// Pacman going through the right portal
 		if(x == Game.rightPortalX && y == Game.rightPortalY)			
 		{
 			// Spawn pacman on the left side of the map
-			Game.pacman = new Pacman(spawnLeft);		
+			Game.pacman = new Pacman(crossingRightPortal);		
 		}
 	}
 	
@@ -424,7 +423,7 @@ public class Pacman extends Rectangle
 			dir = stopped;
 			
 			// Check if death animation is in the last phase
-			if(Texture.pacmanDeathAnimationPhase == 20)
+			if(Texture.pacmanDeathAnimationPhase == 21)
 			{
 				deathAnimationDisplayed = true;
 				Texture.pacmanDeathAnimationPhase = 0;

@@ -70,6 +70,10 @@ public class Ghost extends Rectangle
 	public static int flashAnimationTime = 0;
 	public static int flashAnimationTargetTime = 20;
 	
+	private boolean canLeaveBox;
+	private int inBoxTime = 0;
+	private int inBoxTargetTime = 60*3;
+	
 	public int ghostID;
 	private int pacmanZone = 1;
 	
@@ -82,7 +86,7 @@ public class Ghost extends Rectangle
 	}
 	
 	// Constructor
-	public Ghost(int ID, int portalStatus, boolean vulnerabilityStatus)
+	public Ghost(int ID, int portalStatus, boolean vulnerabilityStatus, boolean boxStatus)
 	{		
 		// Initialize zone directions array
 		loadZoneDirectionsArray();
@@ -91,6 +95,7 @@ public class Ghost extends Rectangle
 		movementType = randomMovement; 			// Set default ghost movement type
 		isVulnerable = vulnerabilityStatus; 	// Update vulnerability status
 		portalCrossingStatus = portalStatus;	// Update portal crossing status
+		canLeaveBox = boxStatus;
 		
 		// Check ghost's portal crossing status
 		switch(portalCrossingStatus)
@@ -276,6 +281,11 @@ public class Ghost extends Rectangle
 	// Check if ghost is in spawn box
 	private boolean inSpawnBox()
 	{
+		if(!canLeaveBox && currentDir == up)
+		{
+			generateNextDirection();
+		}
+		
 		return ((x < 368 && x > 272) && (y < 336 && y > 304)) ? true : false;
 	}
 
@@ -518,7 +528,7 @@ public class Ghost extends Rectangle
 			if(x == 0 && y == 320)								
 			{	
 				// Spawn ghost on the other side of the map (ghost crossed portal)
-				Game.ghostArray[ghostID] = new Ghost(ghostID, portalCrossingStatus, isVulnerable);
+				Game.ghostArray[ghostID] = new Ghost(ghostID, portalCrossingStatus, isVulnerable, true);
 			}
 			
 			// Ghost arrived at right portal entry
@@ -541,7 +551,7 @@ public class Ghost extends Rectangle
 			if(x == 640 && y == 320)
 			{
 				// Spawn ghost on the other side of the map (ghost crossed portal)
-				Game.ghostArray[ghostID] = new Ghost(ghostID, portalCrossingStatus, isVulnerable);
+				Game.ghostArray[ghostID] = new Ghost(ghostID, portalCrossingStatus, isVulnerable, true);
 			}
 			
 			// Arrived at left portal entry
@@ -620,8 +630,22 @@ public class Ghost extends Rectangle
 		}
 	}
 	
+	private void spawnBoxManager()
+	{
+		if(inSpawnBox())
+		{
+			if(inBoxTime == inBoxTargetTime)
+			{
+				canLeaveBox = true;
+			}
+			
+			inBoxTime++;
+		}
+	}
+	
 	public void tick()
 	{		
+		spawnBoxManager();
 		managePortalCrossing();
 		
 		if(portalCrossingStatus == notCrossingPortal)
@@ -638,7 +662,7 @@ public class Ghost extends Rectangle
 		{
 			case right: x+=spd; currentDir = right; break;
 			case left: 	x-=spd; currentDir = left;  break;
-			case up: 	y-=spd; currentDir = up;    break;
+			case up: 	if(canLeaveBox){y-=spd;}; currentDir = up; break;
 			case down: 	y+=spd; currentDir = down;  break;
 		}
 	}
