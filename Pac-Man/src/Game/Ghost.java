@@ -27,7 +27,7 @@ public class Ghost extends Rectangle
 	
 	// Ghost movement variables
 	private int movementType;
-	private final int randomMovement = 0;
+	public static final int randomMovement = 0;
 	private final int methodicalMovement = 1;
 	private final int findingPath = 2;
 	private boolean findDir1Blocked = false;
@@ -86,13 +86,13 @@ public class Ghost extends Rectangle
 	}
 	
 	// Constructor
-	public Ghost(int ID, int portalStatus, boolean vulnerabilityStatus, boolean boxStatus)
+	public Ghost(int ID, int movementStatus, int portalStatus, boolean vulnerabilityStatus, boolean boxStatus)
 	{		
 		// Initialize zone directions array
 		loadZoneDirectionsArray();
 		
 		ghostID = ID;                  			// Update ghost ID
-		movementType = randomMovement; 			// Set default ghost movement type
+		movementType = movementStatus; 			// Set default ghost movement type
 		isVulnerable = vulnerabilityStatus; 	// Update vulnerability status
 		portalCrossingStatus = portalStatus;	// Update portal crossing status
 		canLeaveBox = boxStatus;
@@ -533,7 +533,7 @@ public class Ghost extends Rectangle
 			if(x == 0 && y == 320)								
 			{	
 				// Spawn ghost on the other side of the map (ghost crossed portal)
-				Game.ghostArray[ghostID] = new Ghost(ghostID, portalCrossingStatus, isVulnerable, true);
+				Game.ghostArray[ghostID] = new Ghost(ghostID, movementType, portalCrossingStatus, isVulnerable, true);
 			}
 			
 			// Ghost arrived at right portal entry
@@ -556,7 +556,7 @@ public class Ghost extends Rectangle
 			if(x == 640 && y == 320)
 			{
 				// Spawn ghost on the other side of the map (ghost crossed portal)
-				Game.ghostArray[ghostID] = new Ghost(ghostID, portalCrossingStatus, isVulnerable, true);
+				Game.ghostArray[ghostID] = new Ghost(ghostID, movementType, portalCrossingStatus, isVulnerable, true);
 			}
 			
 			// Arrived at left portal entry
