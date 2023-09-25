@@ -38,14 +38,14 @@ public class Level
 		
 	// Variables for object loading via colour identification
 	private final int black 	= 0xFF000000;
-	private final int pink 		= 0xFFFF00FF;
-	private final int blue 		= 0xFF0000FF;
+	private final int gray		= 0xFF808080;
+	private final int darkYellow = 0xFFFFD800;
 	private final int red 		= 0xFFFF0000;
 	private final int cyan 		= 0xFF00FFFF;
 	private final int orange 	= 0xFFFF8726;
 	private final int purple 	= 0xFFE7CCFF;
 	private final int white 	= 0xFFFFFFFF;
-	private final int yellow 	= 0xFFFFFF00;
+	private final int lightYellow 	= 0xFFFFFF00;
 	
 	// Constructor
 	public Level()	
@@ -83,14 +83,14 @@ public class Level
 							
 							break;
 							
-						case pink:			
+						case gray:			
 							
 							Game.door.x = x*32;
 							Game.door.y = y*32;
 							
 							break;
 							
-						case blue:			
+						case darkYellow:			
 							
 							Game.pacman.x = x*32;
 							Game.pacman.y = y*32;
@@ -125,7 +125,7 @@ public class Level
 							
 							break;
 							
-						case yellow:
+						case lightYellow:
 							
 							energizers.add(new Energizer(x*32, y*32));
 							

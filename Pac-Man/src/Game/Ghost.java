@@ -95,7 +95,7 @@ public class Ghost extends Rectangle
 		movementType = movementStatus; 			// Set default ghost movement type
 		isVulnerable = vulnerabilityStatus; 	// Update vulnerability status
 		portalCrossingStatus = portalStatus;	// Update portal crossing status
-		canLeaveBox = boxStatus;
+		canLeaveBox = boxStatus;                // Update spawn box leaving privileges
 		
 		// Check ghost's portal crossing status
 		switch(portalCrossingStatus)

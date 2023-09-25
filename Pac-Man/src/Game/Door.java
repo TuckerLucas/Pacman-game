@@ -29,7 +29,7 @@ public class Door extends Rectangle
 	// Render object
 	public void render(Graphics g)
 	{
-		g.setColor(Color.red);
+		g.setColor(Color.gray);
 		g.fillRect(x, y, width, height/6);
 	}
 }
