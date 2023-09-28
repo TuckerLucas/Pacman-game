@@ -55,8 +55,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static Level level;
 	public static Texture texture;
 
+	private static int LIVES = 3;
+	
 	// Pacman lives variable
-	public static int lives = 3;
+	public static int lives = LIVES;
 	
 	// Ghost identifiers
 	public static final int blinkyID = 0;
@@ -114,13 +116,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 		addKeyListener(this);
 		gameStatus = init;			
 		texture = new Texture();
-		
-		/*
-		for(int i = 0; i < 4; i++)
-		{
-			directionsArray[i] = i;
-			ghostArray[i] = new Ghost(i, Ghost.notCrossingPortal, false);
-		}*/
 		
 		// Get game's highscore
     	try
@@ -271,8 +266,12 @@ public class Game extends Canvas implements Runnable, KeyListener
 	
 	private void drawPacmanDying(Graphics g)
 	{
-		level.render(g);
 		pacman.render(g);
+		
+		if(gameStatus != lose)
+		{
+			level.render(g);
+		}
 	}
 
 	// Tick function
@@ -352,7 +351,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 				BonusScore.display = false;
 				
-				lives = 3;
+				lives = LIVES;
 				
 				if(score >= highscore)
 				{
