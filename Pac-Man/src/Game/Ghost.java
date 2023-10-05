@@ -20,9 +20,6 @@ public class Ghost extends Rectangle
 {
 	private static final long serialVersionUID = 1L;
 	
-	// 
-	private int spd = 2;
-	
 	private Random randomGen;
 	
 	// Ghost movement variables
@@ -402,16 +399,16 @@ public class Ghost extends Rectangle
 		}
 		
 		// Ghost can move in the next defined direction
-		if(canMove(nextDir))
+		if(Movement.canMove(nextDir, this))
 		{
 			// Move in the next defined direction
-			move(nextDir);
+			Movement.moveGhost(this, nextDir);
 		}
 		// Ghost can move in the current defined direction
-		else if(canMove(currentDir))
+		else if(Movement.canMove(currentDir, this))
 		{
 			// Continue moving in the current defined direction
-			move(currentDir);
+			Movement.moveGhost(this, currentDir);
 			
 			// Will continue moving in the current direction until can move in the next one
 			return;
@@ -437,16 +434,16 @@ public class Ghost extends Rectangle
 		updatePacmanZone();
 		
 		// Ghost can move in the first methodical direction
-		if(canMove(zoneDirectionsArray[pacmanZone].methodicalDir1))
+		if(Movement.canMove(zoneDirectionsArray[pacmanZone].methodicalDir1,  this))
 		{
 			// Move in the first methodical direction
-			move(zoneDirectionsArray[pacmanZone].methodicalDir1);
+			Movement.moveGhost(this, zoneDirectionsArray[pacmanZone].methodicalDir1);
 		}
 		// Ghost can move in the second methodical direction
-		else if(canMove(zoneDirectionsArray[pacmanZone].methodicalDir2))
+		else if(Movement.canMove(zoneDirectionsArray[pacmanZone].methodicalDir2, this))
 		{
 			// Move in the second methodical direction
-			move(zoneDirectionsArray[pacmanZone].methodicalDir2);
+			Movement.moveGhost(this, zoneDirectionsArray[pacmanZone].methodicalDir2);
 		}
 		// Cannot move in either methodical direction
 		else
@@ -470,7 +467,7 @@ public class Ghost extends Rectangle
 	private void findingPath()
 	{
 		// Ghost can move in first methodical direction
-		if(canMove(zoneDirectionsArray[pacmanZone].methodicalDir1))
+		if(Movement.canMove(zoneDirectionsArray[pacmanZone].methodicalDir1, this))
 		{
 			// Reset flag regarding blocked first find path direction
 			findDir1Blocked = false;
@@ -485,10 +482,10 @@ public class Ghost extends Rectangle
 			if(findDir1Blocked == false)
 			{
 				// Ghost can move in first find path direction
-				if(canMove(zoneDirectionsArray[pacmanZone].findDir1))
+				if(Movement.canMove(zoneDirectionsArray[pacmanZone].findDir1, this))
 				{
 					// Move in first find path direction
-					move(zoneDirectionsArray[pacmanZone].findDir1);
+					Movement.moveGhost(this, zoneDirectionsArray[pacmanZone].findDir1);
 				}
 				// Cannot move in first find path direction
 				else
@@ -501,7 +498,7 @@ public class Ghost extends Rectangle
 			else if(findDir1Blocked == true)
 			{
 				// Move in second find path direction (which is known not to be blocked)
-				move(zoneDirectionsArray[pacmanZone].findDir2);
+				Movement.moveGhost(this, zoneDirectionsArray[pacmanZone].findDir2);
 			}
 		}
 	}
@@ -527,7 +524,7 @@ public class Ghost extends Rectangle
 			portalCrossingStatus = crossingLeftPortal;
 			
 			// Keep moving left
-			move(left);
+			Movement.moveGhost(this, left);
 			
 			// Ghost ready to cross the left portal
 			if(x == 0 && y == 320)								
@@ -550,7 +547,7 @@ public class Ghost extends Rectangle
 			portalCrossingStatus = crossingRightPortal;
 			
 			// Keep moving right
-			move(right);
+			Movement.moveGhost(this, right);
 			
 			// Ghost ready to cross the right portal
 			if(x == 640 && y == 320)
@@ -659,52 +656,5 @@ public class Ghost extends Rectangle
 		}
 		
 		animation();
-	}
-	
-	private void move(int dir)
-	{
-		switch(dir)
-		{
-			case right: x+=spd; currentDir = right; break;
-			case left: 	x-=spd; currentDir = left;  break;
-			case up: 	y-=spd; currentDir = up; break;
-			case down: 	y+=spd; currentDir = down;  break;
-		}
-	}
-	
-	private boolean canMove(int dir)
-	{
-		int nextx = 0, nexty = 0;
-		
-		switch(dir)
-		{
-			case right:	nextx = x+spd; nexty = y; break;
-			case left:	nextx = x-spd; nexty = y; break;
-			case up:	nextx = x; nexty = y-spd; break;
-			case down:	if(x == 320 && y == 256) {return false;}			// Prevent ghosts from reentering spawn box
-						nextx = x; nexty = y+spd; break;
-		}
-		
-		Rectangle bounds = new Rectangle(nextx, nexty, width, height);
-		
-		for(int xx = 0; xx < Level.tiles.length; xx++)
-		{
-			for(int yy = 0; yy < Level.tiles[0].length; yy++)
-			{
-				// If not null, we have intercepted a map wall
-				if(Level.tiles[xx][yy] != null)								
-				{
-					// Intercepted a map wall. Can no longer move in this direction
-					if(bounds.intersects(Level.tiles[xx][yy]))				
-					{
-						// Cannot move
-						return false;								
-					}
-				}
-			}
-		}	
-		
-		// Can move
-		return true;
 	}
 }

@@ -37,13 +37,10 @@ public class Pacman extends Rectangle
 	
 	// Direction variables
 	public static final int stopped = -1;
-	public static final int right 	= 0;
-	public static final int left  	= 1;
-	public static final int up    	= 2;
-	public static final int down  	= 3;
+
 	
 	// Movement variables
-	public static int lastDir;
+	public int lastDir;
 	public static int dir;
 	
 	// Pacman animation variables
@@ -68,10 +65,10 @@ public class Pacman extends Rectangle
 				spawnPacman(spawnX, spawnY);
 				
 				// Pacman starts by moving right
-				dir = right;
+				dir = Movement.right;
 				
 				// Make pacman look right on start-up
-				lastDir = right;
+				lastDir = Movement.right;
 				
 				break;
 				
@@ -82,7 +79,7 @@ public class Pacman extends Rectangle
 				spawnPacman(Game.rightPortalX, Game.rightPortalY);
 				
 				// Keep pacman moving left
-				dir = left;
+				dir = Movement.left;
 				
 				break;
 				
@@ -93,7 +90,7 @@ public class Pacman extends Rectangle
 				spawnPacman(Game.leftPortalX, Game.leftPortalY);
 				
 				// Keep pacman moving right
-				dir = right;
+				dir = Movement.right;
 				
 				break;
 		}
@@ -105,130 +102,8 @@ public class Pacman extends Rectangle
 	{
 		setBounds(xCoordinate, yCoordinate, Texture.objectWidth,Texture.objectHeight);
 	}
-	
-	// Make pacman move in given direction
-	public void move(int direction)
-	{
-		// Check if pacman can move in given direction
-		if(canMove(direction))
-		{
-			// Make pacman move
-			switch(direction)
-			{
-				case right: x += Game.speed; lastDir = right; break;
-				case left:  x -= Game.speed; lastDir = left;  break;
-				case up:    y -= Game.speed; lastDir = up;    break;
-				case down:  y += Game.speed; lastDir = down;  break;
-			}
-			return;
-		}
-		
-		// Continue moving in last direction until direction change is possible
-		switch(direction)
-		{
-			case right:
-				
-				if(lastDir == left && canMove(left))
-				{
-					x -= Game.speed;
-				}
-				if(lastDir == up && canMove(up))
-				{
-					y -= Game.speed;
-				}
-				if(lastDir == down && canMove(down))
-				{
-					y += Game.speed;
-				}
-			
-				break;
-					
-			case left: 
-				
-				if(lastDir == right && canMove(right))
-				{
-					x += Game.speed;
-				}
-				if(lastDir == up && canMove(up))
-				{
-					y -= Game.speed;
-				}
-				if(lastDir == down && canMove(down))
-				{
-					y += Game.speed;
-				}
-					
-				break;
-					
-			case up:
-				
-				if(lastDir == left && canMove(left))
-				{
-					x -= Game.speed;
-				}
-				if(lastDir == right && canMove(right))
-				{
-					x += Game.speed;
-				}
-				if(lastDir == down && canMove(down))
-				{
-					y += Game.speed;
-				}
-				
-				break;
-			
-			case down:
-					
-				if(lastDir == left && canMove(left))
-				{
-					x -= Game.speed;
-				}
-				if(lastDir == up && canMove(up))
-				{
-					y -= Game.speed;
-				}
-				if(lastDir == right && canMove(right))
-				{
-					x += Game.speed;
-				}
-				
-				break;
-		}
-	}
 
-	// Check if pacman can move in given direction
-	private boolean canMove(int direction)
-	{
-		int nextx = 0, nexty = 0;
 		
-		switch(direction)
-		{
-			case right: nextx = x + Game.speed; nexty = y; break;
-			case left:	nextx = x - Game.speed; nexty = y; break;
-			case up: 	nextx = x; nexty = y - Game.speed; break;
-			case down: 	if(x == 320 && y == 256) {return false;}
-						nextx = x; nexty = y + Game.speed; break;
-		}
-		
-		Rectangle bounds = new Rectangle(nextx, nexty, width, height);
-
-		for(int xx = 0; xx < Level.tiles.length; xx++)
-		{
-			for(int yy = 0; yy < Level.tiles[0].length; yy++)
-			{
-				if(Level.tiles[xx][yy] != null)								
-				{
-					if(bounds.intersects(Level.tiles[xx][yy]))						
-					{
-						return false;								
-					}
-				}
-			}
-		}
-		return true;
-	}
-	
-	
 	// Manage pacman collisions with food
 	private void foodCollision()
 	{	
@@ -460,7 +335,7 @@ public class Pacman extends Rectangle
 	// Tick function
 	public void tick()
 	{	
-		move(dir);
+		Movement.movePacman(this, dir);
 		portalCrossing();
 		foodCollision();
 		energizerCollision();

@@ -43,9 +43,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 	// Game difficulty variable
 	public static int difficulty = 1;
 	
-	// Game speed variable
-	public static int speed = 2;
-	
 	// Game object variables
 	public static Pacman pacman;			
 	public static Ghost ghostArray[] = new Ghost[4];
@@ -180,7 +177,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 		ghostArray[1] 	= new Ghost(1, Ghost.randomMovement, Ghost.notCrossingPortal, false, true);
 		ghostArray[2] 	= new Ghost(2, Ghost.randomMovement, Ghost.notCrossingPortal, false, true);
 		ghostArray[3] 	= new Ghost(3, Ghost.randomMovement, Ghost.notCrossingPortal, false, true);
-		
+
 		// Load other game objects based on game status
 		switch(gameStatus)
 		{
@@ -481,13 +478,13 @@ public class Game extends Canvas implements Runnable, KeyListener
 				switch(e.getKeyCode())
 				{
 					case KeyEvent.VK_D:	// fall through
-					case KeyEvent.VK_RIGHT: Pacman.dir = Pacman.right; break;
+					case KeyEvent.VK_RIGHT: Pacman.dir = Movement.right; break;
 					case KeyEvent.VK_A:	// fall through
-					case KeyEvent.VK_LEFT: Pacman.dir = Pacman.left; break;
+					case KeyEvent.VK_LEFT: Pacman.dir = Movement.left; break;
 					case KeyEvent.VK_W:	// fall through
-					case KeyEvent.VK_UP: Pacman.dir = Pacman.up; break;
+					case KeyEvent.VK_UP: Pacman.dir = Movement.up; break;
 					case KeyEvent.VK_S:	// fall through
-					case KeyEvent.VK_DOWN: Pacman.dir = Pacman.down; break;
+					case KeyEvent.VK_DOWN: Pacman.dir = Movement.down; break;
 				}
 				
 				break;
