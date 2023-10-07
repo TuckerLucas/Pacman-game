@@ -47,7 +47,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static Pacman pacman;			
 	public static Ghost ghostArray[] = new Ghost[4];
 	public static Energizer energizer;
-	public static Door door;
+	public static BoxDoor boxDoor;
 	public static BonusScore bonusScore;
 	public static Level level;
 	public static Texture texture;
@@ -183,7 +183,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 		{
 			case init:
 				
-				door 	  = new Door(0, 0);
+				boxDoor 	  = new BoxDoor(0, 0);
 				energizer = new Energizer(0, 0);
 				
 				// fall through

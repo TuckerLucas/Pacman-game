@@ -14,37 +14,32 @@ public class Portal
 		return ((character.x < 160 || character.x > 480) && character.y == 320) ? true : false;
 	}
 	
-	public static boolean isGhostCrossingLeftPortal(Ghost ghost)
+	public static boolean isCrossingPortalFromLeftSide(Ghost ghost)
 	{
 		return (isInPortal(ghost) && ghost.currentDir == Movement.left) ? true : false;
 	}
 	
-	public static boolean isGhostCrossingRightPortal(Ghost ghost)
+	public static boolean isCrossingPortalFromRightSide(Ghost ghost)
 	{
 		return (isInPortal(ghost) && ghost.currentDir == Movement.right) ? true : false;
 	}
 
-	
-	public static boolean atPortalEntry(int portal, Rectangle character)
+	public static boolean atLeftPortalEntry(Rectangle character)
 	{
-		switch(portal)
-		{
-			// Left portal entry
-			case Movement.left:  return (character.x == 160 && character.y == 320) ? true : false; 
-			
-			// Right portal entry
-			case Movement.right: return (character.x == 480 && character.y == 320) ? true : false;
-		}
-		
-		return false;
+		return (character.x == 160 && character.y == 320) ? true : false;
 	}
 	
-	public static boolean isAboutToCrossLeftPortal(Rectangle character)
+	public static boolean atRightPortalEntry(Rectangle character)
+	{
+		return (character.x == 480 && character.y == 320) ? true : false;
+	}
+	
+	public static boolean isAboutToCrossPortalFromLeftSide(Rectangle character)
 	{
 		return (character.x == 0 && character.y == 320) ? true : false;
 	}
 	
-	public static boolean isAboutToCrossRightPortal(Rectangle character)
+	public static boolean isAboutToCrossPortalFromRightSide(Rectangle character)
 	{
 		return (character.x == 640 && character.y == 320) ? true : false;
 	}

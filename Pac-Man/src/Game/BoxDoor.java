@@ -16,12 +16,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class Door extends Rectangle 
+public class BoxDoor extends Rectangle 
 {
 	private static final long serialVersionUID = 1L;
 
 	// Constructor
-	public Door(int x, int y)
+	public BoxDoor(int x, int y)
 	{
 		setBounds(x,y,32,32);
 	}

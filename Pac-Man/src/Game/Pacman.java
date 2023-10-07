@@ -237,21 +237,15 @@ public class Pacman extends Rectangle
 		}
 	}
 
-	
-	// Manage pacman crossing map portals
 	public void portalCrossing()
 	{
-		// Pacman going through the left portal
-		if(Portal.isAboutToCrossLeftPortal(this))	
+		if(Portal.isAboutToCrossPortalFromLeftSide(this))	
 		{
-			// Spawn pacman on the right side of the map
 			Game.pacman = new Pacman(crossingLeftPortal);
 		}
 		
-		// Pacman going through the right portal
-		if(Portal.isAboutToCrossRightPortal(this))			
+		if(Portal.isAboutToCrossPortalFromRightSide(this))			
 		{
-			// Spawn pacman on the left side of the map
 			Game.pacman = new Pacman(crossingRightPortal);		
 		}
 	}

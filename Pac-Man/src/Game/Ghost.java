@@ -56,8 +56,8 @@ public class Ghost extends Rectangle
 	private int portalCrossingStatus;
 
 	public static final int notCrossingPortal = 0;
-	public static final int crossingLeftPortal = 1;
-	public static final int crossingRightPortal = 2;
+	public static final int crossingPortalFromLeftSide = 1;
+	public static final int crossingPortalFromRightSide = 2;
 	
 	private int imageIndexEnemy = 0;
 	
@@ -100,11 +100,11 @@ public class Ghost extends Rectangle
 			case notCrossingPortal:
 				spawnGhost(Game.centerBoxX,Game.centerBoxY);		// Spawn ghost in spawn box
 				break;
-			case crossingLeftPortal:
+			case crossingPortalFromLeftSide:
 				spawnGhost(Game.rightPortalX,Game.rightPortalY);	// Spawn ghost in the right portal (crossed left portal)
 				currentDir = left;									// Update the ghost's current direction of movement
 				break;
-			case crossingRightPortal:
+			case crossingPortalFromRightSide:
 				spawnGhost(Game.leftPortalX,Game.leftPortalY);		// Spawn ghost in the left portal (crossed right portal)
 				currentDir = right;									// Update the ghost's current direction of movement
 				break;
@@ -487,7 +487,7 @@ public class Ghost extends Rectangle
 
 	
 	// Manage ghost movement
-	private void selectMovementType()
+	private void selectGhostMovementType()
 	{
 		switch(movementType)
 		{
@@ -499,49 +499,35 @@ public class Ghost extends Rectangle
 	
 	private void managePortalCrossing()
 	{		
-		// Ghost is crossing left portal
-		if(Portal.isGhostCrossingLeftPortal(this))
+		if(Portal.isCrossingPortalFromLeftSide(this))
 		{
-			// Set portal crossing status flag
-			portalCrossingStatus = crossingLeftPortal;
+			portalCrossingStatus = crossingPortalFromLeftSide;
 			
-			// Keep moving left
 			Movement.moveGhostInGivenDirection(this, left);
 			
-			// Ghost ready to cross the left portal
-			if(Portal.isAboutToCrossLeftPortal(this))								
+			if(Portal.isAboutToCrossPortalFromLeftSide(this))								
 			{	
-				// Spawn ghost on the other side of the map (ghost crossed portal)
 				Game.ghostArray[ghostID] = new Ghost(ghostID, movementType, portalCrossingStatus, isVulnerable, true);
 			}
 			
-			// Ghost arrived at right portal entry
-			if(Portal.atPortalEntry(right, this))
+			if(Portal.atRightPortalEntry(this))
 			{
-				// Left portal crossed successfully. Not crossing portal anymore.
 				portalCrossingStatus = notCrossingPortal;
 			}
 		}
-		// Ghost is crossing right portal
-		else if(Portal.isGhostCrossingRightPortal(this))
+		else if(Portal.isCrossingPortalFromRightSide(this))
 		{
-			// Set portal crossing status flag
-			portalCrossingStatus = crossingRightPortal;
+			portalCrossingStatus = crossingPortalFromRightSide;
 			
-			// Keep moving right
 			Movement.moveGhostInGivenDirection(this, right);
 			
-			// Ghost ready to cross the right portal
-			if(Portal.isAboutToCrossRightPortal(this))
+			if(Portal.isAboutToCrossPortalFromRightSide(this))
 			{
-				// Spawn ghost on the other side of the map (ghost crossed portal)
 				Game.ghostArray[ghostID] = new Ghost(ghostID, movementType, portalCrossingStatus, isVulnerable, true);
 			}
 			
-			// Arrived at left portal entry
-			if(Portal.atPortalEntry(left, this))
+			if(Portal.atLeftPortalEntry(this))
 			{
-				// Right portal crossed successfully. Not crossing portal anymore.
 				portalCrossingStatus = notCrossingPortal;
 			}
 		}
@@ -634,7 +620,7 @@ public class Ghost extends Rectangle
 		
 		if(portalCrossingStatus == notCrossingPortal)
 		{
-			selectMovementType();
+			selectGhostMovementType();
 		}
 		
 		animation();
