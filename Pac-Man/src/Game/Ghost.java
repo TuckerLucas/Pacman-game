@@ -239,26 +239,8 @@ public class Ghost extends Rectangle
 		}
 	}
 	
-	// Check if ghost is in a portal
-	private boolean inPortal()
-	{
-		return ((x < 160 || x > 480) && y == 320) ? true : false;
-	}
-	
 	// Check if ghost is at a portal entry
-	private boolean atPortalEntry(int portal)
-	{
-		switch(portal)
-		{
-			// Left portal entry
-			case left:  return (x == 160 && y == 320) ? true : false; 
-			
-			// Right portal entry
-			case right: return (x == 480 && y == 320) ? true : false;
-		}
-		
-		return false;
-	}
+
 	
 	// Update ghost's distance to pacman
 	private void updateDistanceToPacman()
@@ -402,13 +384,13 @@ public class Ghost extends Rectangle
 		if(Movement.canMove(nextDir, this))
 		{
 			// Move in the next defined direction
-			Movement.moveGhost(this, nextDir);
+			Movement.moveGhostInGivenDirection(this, nextDir);
 		}
 		// Ghost can move in the current defined direction
 		else if(Movement.canMove(currentDir, this))
 		{
 			// Continue moving in the current defined direction
-			Movement.moveGhost(this, currentDir);
+			Movement.moveGhostInGivenDirection(this, currentDir);
 			
 			// Will continue moving in the current direction until can move in the next one
 			return;
@@ -437,13 +419,13 @@ public class Ghost extends Rectangle
 		if(Movement.canMove(zoneDirectionsArray[pacmanZone].methodicalDir1,  this))
 		{
 			// Move in the first methodical direction
-			Movement.moveGhost(this, zoneDirectionsArray[pacmanZone].methodicalDir1);
+			Movement.moveGhostInGivenDirection(this, zoneDirectionsArray[pacmanZone].methodicalDir1);
 		}
 		// Ghost can move in the second methodical direction
 		else if(Movement.canMove(zoneDirectionsArray[pacmanZone].methodicalDir2, this))
 		{
 			// Move in the second methodical direction
-			Movement.moveGhost(this, zoneDirectionsArray[pacmanZone].methodicalDir2);
+			Movement.moveGhostInGivenDirection(this, zoneDirectionsArray[pacmanZone].methodicalDir2);
 		}
 		// Cannot move in either methodical direction
 		else
@@ -485,7 +467,7 @@ public class Ghost extends Rectangle
 				if(Movement.canMove(zoneDirectionsArray[pacmanZone].findDir1, this))
 				{
 					// Move in first find path direction
-					Movement.moveGhost(this, zoneDirectionsArray[pacmanZone].findDir1);
+					Movement.moveGhostInGivenDirection(this, zoneDirectionsArray[pacmanZone].findDir1);
 				}
 				// Cannot move in first find path direction
 				else
@@ -498,7 +480,7 @@ public class Ghost extends Rectangle
 			else if(findDir1Blocked == true)
 			{
 				// Move in second find path direction (which is known not to be blocked)
-				Movement.moveGhost(this, zoneDirectionsArray[pacmanZone].findDir2);
+				Movement.moveGhostInGivenDirection(this, zoneDirectionsArray[pacmanZone].findDir2);
 			}
 		}
 	}
@@ -518,46 +500,46 @@ public class Ghost extends Rectangle
 	private void managePortalCrossing()
 	{		
 		// Ghost is crossing left portal
-		if(inPortal() && currentDir == left)
+		if(Portal.isGhostCrossingLeftPortal(this))
 		{
 			// Set portal crossing status flag
 			portalCrossingStatus = crossingLeftPortal;
 			
 			// Keep moving left
-			Movement.moveGhost(this, left);
+			Movement.moveGhostInGivenDirection(this, left);
 			
 			// Ghost ready to cross the left portal
-			if(x == 0 && y == 320)								
+			if(Portal.isAboutToCrossLeftPortal(this))								
 			{	
 				// Spawn ghost on the other side of the map (ghost crossed portal)
 				Game.ghostArray[ghostID] = new Ghost(ghostID, movementType, portalCrossingStatus, isVulnerable, true);
 			}
 			
 			// Ghost arrived at right portal entry
-			if(atPortalEntry(right))
+			if(Portal.atPortalEntry(right, this))
 			{
 				// Left portal crossed successfully. Not crossing portal anymore.
 				portalCrossingStatus = notCrossingPortal;
 			}
 		}
 		// Ghost is crossing right portal
-		else if(inPortal() && currentDir == right)
+		else if(Portal.isGhostCrossingRightPortal(this))
 		{
 			// Set portal crossing status flag
 			portalCrossingStatus = crossingRightPortal;
 			
 			// Keep moving right
-			Movement.moveGhost(this, right);
+			Movement.moveGhostInGivenDirection(this, right);
 			
 			// Ghost ready to cross the right portal
-			if(x == 640 && y == 320)
+			if(Portal.isAboutToCrossRightPortal(this))
 			{
 				// Spawn ghost on the other side of the map (ghost crossed portal)
 				Game.ghostArray[ghostID] = new Ghost(ghostID, movementType, portalCrossingStatus, isVulnerable, true);
 			}
 			
 			// Arrived at left portal entry
-			if(atPortalEntry(left))
+			if(Portal.atPortalEntry(left, this))
 			{
 				// Right portal crossed successfully. Not crossing portal anymore.
 				portalCrossingStatus = notCrossingPortal;

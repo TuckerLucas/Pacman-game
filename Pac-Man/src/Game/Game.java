@@ -478,13 +478,13 @@ public class Game extends Canvas implements Runnable, KeyListener
 				switch(e.getKeyCode())
 				{
 					case KeyEvent.VK_D:	// fall through
-					case KeyEvent.VK_RIGHT: Pacman.dir = Movement.right; break;
+					case KeyEvent.VK_RIGHT: Pacman.nextDir = Movement.right; break;
 					case KeyEvent.VK_A:	// fall through
-					case KeyEvent.VK_LEFT: Pacman.dir = Movement.left; break;
+					case KeyEvent.VK_LEFT: Pacman.nextDir = Movement.left; break;
 					case KeyEvent.VK_W:	// fall through
-					case KeyEvent.VK_UP: Pacman.dir = Movement.up; break;
+					case KeyEvent.VK_UP: Pacman.nextDir = Movement.up; break;
 					case KeyEvent.VK_S:	// fall through
-					case KeyEvent.VK_DOWN: Pacman.dir = Movement.down; break;
+					case KeyEvent.VK_DOWN: Pacman.nextDir = Movement.down; break;
 				}
 				
 				break;

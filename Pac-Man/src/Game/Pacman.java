@@ -40,8 +40,8 @@ public class Pacman extends Rectangle
 
 	
 	// Movement variables
-	public int lastDir;
-	public static int dir;
+	public int currentDir;
+	public static int nextDir;
 	
 	// Pacman animation variables
 	public static int eatingAnimationTime 		= 0;	
@@ -65,10 +65,10 @@ public class Pacman extends Rectangle
 				spawnPacman(spawnX, spawnY);
 				
 				// Pacman starts by moving right
-				dir = Movement.right;
+				nextDir = Movement.right;
 				
 				// Make pacman look right on start-up
-				lastDir = Movement.right;
+				currentDir = Movement.right;
 				
 				break;
 				
@@ -79,7 +79,7 @@ public class Pacman extends Rectangle
 				spawnPacman(Game.rightPortalX, Game.rightPortalY);
 				
 				// Keep pacman moving left
-				dir = Movement.left;
+				nextDir = Movement.left;
 				
 				break;
 				
@@ -90,7 +90,7 @@ public class Pacman extends Rectangle
 				spawnPacman(Game.leftPortalX, Game.leftPortalY);
 				
 				// Keep pacman moving right
-				dir = Movement.right;
+				nextDir = Movement.right;
 				
 				break;
 		}
@@ -242,14 +242,14 @@ public class Pacman extends Rectangle
 	public void portalCrossing()
 	{
 		// Pacman going through the left portal
-		if(x == Game.leftPortalX && y == Game.leftPortalY)	
+		if(Portal.isAboutToCrossLeftPortal(this))	
 		{
 			// Spawn pacman on the right side of the map
 			Game.pacman = new Pacman(crossingLeftPortal);
 		}
 		
 		// Pacman going through the right portal
-		if(x == Game.rightPortalX && y == Game.rightPortalY)			
+		if(Portal.isAboutToCrossRightPortal(this))			
 		{
 			// Spawn pacman on the left side of the map
 			Game.pacman = new Pacman(crossingRightPortal);		
@@ -295,7 +295,7 @@ public class Pacman extends Rectangle
 	{
 		if(Game.gameStatus == Game.lifeLost)
 		{
-			dir = stopped;
+			nextDir = stopped;
 			
 			// Check if death animation is in the last phase
 			if(Texture.pacmanDeathAnimationPhase == 21)
@@ -328,14 +328,14 @@ public class Pacman extends Rectangle
 				Texture.pacmanEatingAnimationPhase = 0;
 			}
 			
-			g.drawImage(Texture.pacmanLook[lastDir][Texture.pacmanEatingAnimationPhase], x, y, width, height, null);
+			g.drawImage(Texture.pacmanLook[currentDir][Texture.pacmanEatingAnimationPhase], x, y, width, height, null);
 		}
 	}
 
 	// Tick function
 	public void tick()
 	{	
-		Movement.movePacman(this, dir);
+		Movement.movePacmanInGivenDirection(this, nextDir);
 		portalCrossing();
 		foodCollision();
 		energizerCollision();

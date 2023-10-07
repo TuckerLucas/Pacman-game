@@ -54,18 +54,43 @@ public class Movement extends Rectangle
 		return true;
 	}
 	
-	public static void moveGhost(Ghost ghost, int dir)
+	public static void moveGhostInGivenDirection(Ghost ghost, int direction)
 	{
-		switch(dir)
+		switch(direction)
 		{
 			case right: ghost.x+=speed; ghost.currentDir = right; break;
 			case left: 	ghost.x-=speed; ghost.currentDir = left;  break;
 			case up: 	ghost.y-=speed; ghost.currentDir = up; break;
 			case down: 	ghost.y+=speed; ghost.currentDir = down;  break;
 		}
+
+		
+		// Continue moving in last direction until direction change is possible
+		if(direction == right || direction == left)
+		{
+			if(ghost.currentDir == up && canMove(up, ghost))
+			{
+				ghost.y -= speed;
+			}
+			if(ghost.currentDir == down && canMove(down, ghost))
+			{
+				ghost.y += speed;
+			}
+		}
+		else if(direction == up || direction == down)
+		{
+			if(ghost.currentDir == left && canMove(left, ghost))
+			{
+				ghost.x -= speed;
+			}
+			if(ghost.currentDir == right && canMove(right, ghost))
+			{
+				ghost.x += speed;
+			}
+		}
 	}
 	
-	public static void movePacman(Pacman pacman, int direction)
+	public static void movePacmanInGivenDirection(Pacman pacman, int direction)
 	{
 		// Check if pacman can move in given direction
 		if(canMove(direction, pacman))
@@ -73,84 +98,36 @@ public class Movement extends Rectangle
 			// Make pacman move
 			switch(direction)
 			{
-				case right: pacman.x += speed; pacman.lastDir = right; break;
-				case left:  pacman.x -= speed; pacman.lastDir = left;  break;
-				case up:    pacman.y -= speed; pacman.lastDir = up;    break;
-				case down:  pacman.y += speed; pacman.lastDir = down;  break;
+				case right: pacman.x += speed; pacman.currentDir = right; break;
+				case left:  pacman.x -= speed; pacman.currentDir = left;  break;
+				case up:    pacman.y -= speed; pacman.currentDir = up;    break;
+				case down:  pacman.y += speed; pacman.currentDir = down;  break;
 			}
 			return;
 		}
 		
 		// Continue moving in last direction until direction change is possible
-		switch(direction)
+		if(direction == right || direction == left)
 		{
-			case right:
-				
-				if(pacman.lastDir == left && canMove(left, pacman))
-				{
-					pacman.x -= speed;
-				}
-				if(pacman.lastDir == up && canMove(up, pacman))
-				{
-					pacman.y -= speed;
-				}
-				if(pacman.lastDir == down && canMove(down, pacman))
-				{
-					pacman.y += speed;
-				}
-			
-				break;
-					
-			case left: 
-				
-				if(pacman.lastDir == right && canMove(right, pacman))
-				{
-					pacman.x += speed;
-				}
-				if(pacman.lastDir == up && canMove(up, pacman))
-				{
-					pacman.y -= speed;
-				}
-				if(pacman.lastDir == down && canMove(down, pacman))
-				{
-					pacman.y += speed;
-				}
-					
-				break;
-					
-			case up:
-				
-				if(pacman.lastDir == left && canMove(left, pacman))
-				{
-					pacman.x -= speed;
-				}
-				if(pacman.lastDir == right && canMove(right, pacman))
-				{
-					pacman.x += speed;
-				}
-				if(pacman.lastDir == down && canMove(down, pacman))
-				{
-					pacman.y += speed;
-				}
-				
-				break;
-			
-			case down:
-					
-				if(pacman.lastDir == left && canMove(left, pacman))
-				{
-					pacman.x -= speed;
-				}
-				if(pacman.lastDir == up && canMove(up, pacman))
-				{
-					pacman.y -= speed;
-				}
-				if(pacman.lastDir == right && canMove(right, pacman))
-				{
-					pacman.x += speed;
-				}
-				
-				break;
+			if(pacman.currentDir == up && canMove(up, pacman))
+			{
+				pacman.y -= speed;
+			}
+			if(pacman.currentDir == down && canMove(down, pacman))
+			{
+				pacman.y += speed;
+			}
+		}
+		else if(direction == up || direction == down)
+		{
+			if(pacman.currentDir == left && canMove(left, pacman))
+			{
+				pacman.x -= speed;
+			}
+			if(pacman.currentDir == right && canMove(right, pacman))
+			{
+				pacman.x += speed;
+			}
 		}
 	}
 }
