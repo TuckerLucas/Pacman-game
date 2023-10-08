@@ -67,7 +67,7 @@ public class Ghost extends Rectangle
 	public static int flashAnimationTime = 0;
 	public static int flashAnimationTargetTime = 20;
 	
-	private boolean canLeaveBox;
+	public static boolean canLeaveSpawnBox;
 	private int inBoxTime = 0;
 	private int inBoxTargetTime = 60*3;
 	
@@ -92,7 +92,7 @@ public class Ghost extends Rectangle
 		movementType = movementStatus; 			// Set default ghost movement type
 		isVulnerable = vulnerabilityStatus; 	// Update vulnerability status
 		portalCrossingStatus = portalStatus;	// Update portal crossing status
-		canLeaveBox = boxStatus;                // Update spawn box leaving privileges
+		canLeaveSpawnBox = boxStatus;                // Update spawn box leaving privileges
 		
 		// Check ghost's portal crossing status
 		switch(portalCrossingStatus)
@@ -238,8 +238,6 @@ public class Ghost extends Rectangle
 			}
 		}
 	}
-	
-	// Check if ghost is at a portal entry
 
 	
 	// Update ghost's distance to pacman
@@ -257,16 +255,7 @@ public class Ghost extends Rectangle
 				? true : false;
 	}
 	
-	// Check if ghost is in spawn box
-	private boolean inSpawnBox()
-	{
-		if(!canLeaveBox && currentDir == up)
-		{
-			generateNextDirection();
-		}
-		
-		return ((x < 368 && x > 272) && (y < 336 && y > 304)) ? true : false;
-	}
+
 
 	// Get zone that pacman is in relative to the ghost
 	private void updatePacmanZone()
@@ -342,7 +331,7 @@ public class Ghost extends Rectangle
 	{
 		nextDir = randomGen.nextInt(4);
 		
-		if(!canLeaveBox && nextDir == up)
+		if(!canLeaveSpawnBox && nextDir == up)
 		{
 			nextDir = currentDir;
 		}
@@ -373,7 +362,7 @@ public class Ghost extends Rectangle
 		else if(coolDown == false)
 		{
 			// Ghost not vulnerable, not in spawn box and pacman within detection range
-			if(pacmanIsClose() && !isVulnerable && !inSpawnBox())
+			if(pacmanIsClose() && !isVulnerable && !SpawnBox.isInSpawnBox(this))
 			{
 				// Switch movement type to methodical
 				movementType = methodicalMovement;
@@ -406,7 +395,7 @@ public class Ghost extends Rectangle
 		updateDistanceToPacman();
 		
 		// Energizer in active state or ghost is in the spawn box
-		if(Energizer.isActive == true || inSpawnBox())
+		if(Energizer.isActive == true || SpawnBox.isInSpawnBox(this))
 		{
 			// Change movement type to random
 			movementType = randomMovement;
@@ -599,14 +588,19 @@ public class Ghost extends Rectangle
 			}
 		}
 	}
-	
+		
 	private void spawnBoxManager()
 	{
-		if(inSpawnBox())
+		if(SpawnBox.isInSpawnBox(this))
 		{
 			if(inBoxTime == inBoxTargetTime)
 			{
-				canLeaveBox = true;
+				canLeaveSpawnBox = true;
+				return;
+			}
+			else if(!canLeaveSpawnBox && currentDir == up)
+			{
+				generateNextDirection();
 			}
 			
 			inBoxTime++;

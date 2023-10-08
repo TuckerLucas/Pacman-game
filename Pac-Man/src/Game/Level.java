@@ -85,8 +85,8 @@ public class Level
 							
 						case gray:			
 							
-							Game.boxDoor.x = x*32;
-							Game.boxDoor.y = y*32;
+							Game.spawnBoxDoor.x = x*32;
+							Game.spawnBoxDoor.y = y*32;
 							
 							break;
 							
@@ -227,7 +227,7 @@ public class Level
 			Game.ghostArray[3].render(g);
 		}
 
-		Game.boxDoor.render(g);
+		Game.spawnBoxDoor.render(g);
 		Game.bonusScore.render(g);
 		
 		drawData(g);
