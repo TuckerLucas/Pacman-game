@@ -29,7 +29,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import Game.Game;
-import Game.Sounds;
 
 public class PlayPanel extends JPanel
 {

@@ -30,11 +30,6 @@ public class Pacman extends Rectangle
 	public static int spawnX = 320;
 	public static int spawnY = 512;
 	
-	// Spawn variables
-	public static final int notCrossingPortal = 0;
-	public static final int crossingLeftPortal = 1;
-	public static final int crossingRightPortal = 2;
-	
 	// Direction variables
 	public static final int stopped = -1;
 
@@ -59,7 +54,7 @@ public class Pacman extends Rectangle
 		switch(spawnType)
 		{
 			// Normal spawn
-			case notCrossingPortal:
+			case Portal.notCrossingPortal:
 				
 				// Spawn pacman normally
 				spawnPacman(spawnX, spawnY);
@@ -73,7 +68,7 @@ public class Pacman extends Rectangle
 				break;
 				
 			// Crossing left portal
-			case crossingLeftPortal:
+			case Portal.crossingPortalFromLeftSide:
 				
 				// Spawn pacman at the right portal
 				spawnPacman(Game.rightPortalX, Game.rightPortalY);
@@ -84,7 +79,7 @@ public class Pacman extends Rectangle
 				break;
 				
 			// Left portal spawn
-			case crossingRightPortal:
+			case Portal.crossingPortalFromRightSide:
 				
 				// Spawn pacman at the left portal
 				spawnPacman(Game.leftPortalX, Game.leftPortalY);
@@ -183,7 +178,7 @@ public class Pacman extends Rectangle
 		new Sounds(Sounds.ghostEatenSoundPath);
 		
 		// Respawn eaten ghost
-		Game.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, Ghost.randomMovement, Ghost.notCrossingPortal, false, false);
+		Game.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, Movement.randomMovement, Portal.notCrossingPortal, false);
 		
 		// Capture the event coordinates
 		Game.xEvent = x; 
@@ -241,12 +236,12 @@ public class Pacman extends Rectangle
 	{
 		if(Portal.isAboutToCrossPortalFromLeftSide(this))	
 		{
-			Game.pacman = new Pacman(crossingLeftPortal);
+			Game.pacman = new Pacman(Portal.crossingPortalFromLeftSide);
 		}
 		
 		if(Portal.isAboutToCrossPortalFromRightSide(this))			
 		{
-			Game.pacman = new Pacman(crossingRightPortal);		
+			Game.pacman = new Pacman(Portal.crossingPortalFromRightSide);		
 		}
 	}
 	

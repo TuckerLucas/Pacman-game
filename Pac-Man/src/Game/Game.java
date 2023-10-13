@@ -172,11 +172,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static void loadGameElements()
 	{
 		// Load game characters
-		pacman 			= new Pacman(Pacman.notCrossingPortal);
-		ghostArray[0] 	= new Ghost(0, Ghost.randomMovement, Ghost.notCrossingPortal, false, true); 
-		ghostArray[1] 	= new Ghost(1, Ghost.randomMovement, Ghost.notCrossingPortal, false, true);
-		ghostArray[2] 	= new Ghost(2, Ghost.randomMovement, Ghost.notCrossingPortal, false, true);
-		ghostArray[3] 	= new Ghost(3, Ghost.randomMovement, Ghost.notCrossingPortal, false, true);
+		pacman 			= new Pacman(Portal.notCrossingPortal);
+		ghostArray[0] 	= new Ghost(0, Movement.randomMovement, Portal.notCrossingPortal, false); 
+		ghostArray[1] 	= new Ghost(1, Movement.randomMovement, Portal.notCrossingPortal, false);
+		ghostArray[2] 	= new Ghost(2, Movement.randomMovement, Portal.notCrossingPortal, false);
+		ghostArray[3] 	= new Ghost(3, Movement.randomMovement, Portal.notCrossingPortal, false);
 
 		// Load other game objects based on game status
 		switch(gameStatus)

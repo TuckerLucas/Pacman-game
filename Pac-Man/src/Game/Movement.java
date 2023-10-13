@@ -11,6 +11,10 @@ public class Movement extends Rectangle
 	public static final int up    	= 2;
 	public static final int down  	= 3;
 	
+	public static final int randomMovement = 0;
+	public static final int methodicalMovement = 1;
+	public static final int findingPath = 2;
+	
 	public static int speed = 2;
 	
 	public Movement()

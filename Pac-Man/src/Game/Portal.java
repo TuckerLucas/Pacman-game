@@ -4,6 +4,10 @@ import java.awt.Rectangle;
 
 public class Portal 
 {
+	public static final int notCrossingPortal = 0;
+	public static final int crossingPortalFromLeftSide = 1;
+	public static final int crossingPortalFromRightSide = 2;
+	
 	public Portal()
 	{
 		
