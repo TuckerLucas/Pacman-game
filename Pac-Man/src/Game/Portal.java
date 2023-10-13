@@ -20,12 +20,12 @@ public class Portal
 	
 	public static boolean isCrossingPortalFromLeftSide(Ghost ghost)
 	{
-		return (isInPortal(ghost) && ghost.currentDir == Movement.left) ? true : false;
+		return (isInPortal(ghost) && ghost.currentDir == Character.left) ? true : false;
 	}
 	
 	public static boolean isCrossingPortalFromRightSide(Ghost ghost)
 	{
-		return (isInPortal(ghost) && ghost.currentDir == Movement.right) ? true : false;
+		return (isInPortal(ghost) && ghost.currentDir == Character.right) ? true : false;
 	}
 
 	public static boolean atLeftPortalEntry(Rectangle character)

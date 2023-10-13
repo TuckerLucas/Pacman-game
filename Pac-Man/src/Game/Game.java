@@ -173,10 +173,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 	{
 		// Load game characters
 		pacman 			= new Pacman(Portal.notCrossingPortal);
-		ghostArray[0] 	= new Ghost(0, Movement.randomMovement, Portal.notCrossingPortal, false); 
-		ghostArray[1] 	= new Ghost(1, Movement.randomMovement, Portal.notCrossingPortal, false);
-		ghostArray[2] 	= new Ghost(2, Movement.randomMovement, Portal.notCrossingPortal, false);
-		ghostArray[3] 	= new Ghost(3, Movement.randomMovement, Portal.notCrossingPortal, false);
+		ghostArray[0] 	= new Ghost(0, Character.randomMovement, Portal.notCrossingPortal, false); 
+		ghostArray[1] 	= new Ghost(1, Character.randomMovement, Portal.notCrossingPortal, false);
+		ghostArray[2] 	= new Ghost(2, Character.randomMovement, Portal.notCrossingPortal, false);
+		ghostArray[3] 	= new Ghost(3, Character.randomMovement, Portal.notCrossingPortal, false);
 
 		// Load other game objects based on game status
 		switch(gameStatus)
@@ -478,13 +478,13 @@ public class Game extends Canvas implements Runnable, KeyListener
 				switch(e.getKeyCode())
 				{
 					case KeyEvent.VK_D:	// fall through
-					case KeyEvent.VK_RIGHT: Pacman.nextDir = Movement.right; break;
+					case KeyEvent.VK_RIGHT: Pacman.nextDir = Character.right; break;
 					case KeyEvent.VK_A:	// fall through
-					case KeyEvent.VK_LEFT: Pacman.nextDir = Movement.left; break;
+					case KeyEvent.VK_LEFT: Pacman.nextDir = Character.left; break;
 					case KeyEvent.VK_W:	// fall through
-					case KeyEvent.VK_UP: Pacman.nextDir = Movement.up; break;
+					case KeyEvent.VK_UP: Pacman.nextDir = Character.up; break;
 					case KeyEvent.VK_S:	// fall through
-					case KeyEvent.VK_DOWN: Pacman.nextDir = Movement.down; break;
+					case KeyEvent.VK_DOWN: Pacman.nextDir = Character.down; break;
 				}
 				
 				break;

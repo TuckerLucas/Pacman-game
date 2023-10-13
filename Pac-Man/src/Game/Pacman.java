@@ -14,9 +14,8 @@
 package Game;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
-public class Pacman extends Rectangle
+public class Pacman extends Character
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -32,11 +31,6 @@ public class Pacman extends Rectangle
 	
 	// Direction variables
 	public static final int stopped = -1;
-
-	
-	// Movement variables
-	public int currentDir;
-	public static int nextDir;
 	
 	// Pacman animation variables
 	public static int eatingAnimationTime 		= 0;	
@@ -60,10 +54,10 @@ public class Pacman extends Rectangle
 				spawnPacman(spawnX, spawnY);
 				
 				// Pacman starts by moving right
-				nextDir = Movement.right;
+				nextDir = right;
 				
 				// Make pacman look right on start-up
-				currentDir = Movement.right;
+				currentDir = right;
 				
 				break;
 				
@@ -74,7 +68,7 @@ public class Pacman extends Rectangle
 				spawnPacman(Game.rightPortalX, Game.rightPortalY);
 				
 				// Keep pacman moving left
-				nextDir = Movement.left;
+				nextDir = left;
 				
 				break;
 				
@@ -85,7 +79,7 @@ public class Pacman extends Rectangle
 				spawnPacman(Game.leftPortalX, Game.leftPortalY);
 				
 				// Keep pacman moving right
-				nextDir = Movement.right;
+				nextDir = right;
 				
 				break;
 		}
@@ -178,7 +172,7 @@ public class Pacman extends Rectangle
 		new Sounds(Sounds.ghostEatenSoundPath);
 		
 		// Respawn eaten ghost
-		Game.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, Movement.randomMovement, Portal.notCrossingPortal, false);
+		Game.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, randomMovement, Portal.notCrossingPortal, false);
 		
 		// Capture the event coordinates
 		Game.xEvent = x; 
@@ -324,7 +318,11 @@ public class Pacman extends Rectangle
 	// Tick function
 	public void tick()
 	{	
-		Movement.movePacmanInGivenDirection(this, nextDir);
+		if(canMove(nextDir, this))
+		{
+			currentDir = nextDir;
+		}
+		moveGivenCharacterInGivenDirection(this, nextDir);
 		portalCrossing();
 		foodCollision();
 		energizerCollision();
