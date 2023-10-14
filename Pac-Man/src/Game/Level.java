@@ -30,7 +30,7 @@ public class Level
 	private static int gameHeight;
 	
 	// Game tiles (walls) matrix 
-	public static Tile[][] tiles;
+	public static Wall[][] walls;
 	
 	// Food and energizer lists
 	public static List<Food> food;					
@@ -61,7 +61,7 @@ public class Level
 			Level.gameWidth = map.getWidth();		// Get map width size
 			Level.gameHeight = map.getHeight();		// Get map height size
 			
-			tiles = new Tile[gameWidth][gameHeight];
+			walls = new Wall[gameWidth][gameHeight];
 			
 			// Get RGB array of the whole map and store it
 			int pixels[] = new int[gameWidth * gameHeight];	
@@ -79,7 +79,7 @@ public class Level
 					{
 						case black:
 							
-							tiles[x][y] = new Tile(x*32, y*32);
+							walls[x][y] = new Wall(x*32, y*32);
 							
 							break;
 							
@@ -198,9 +198,9 @@ public class Level
 		{
 			for(int y = 0; y < gameHeight; y++)
 			{
-				if(tiles[x][y] != null)
+				if(walls[x][y] != null)
 				{
-					tiles[x][y].render(g);
+					walls[x][y].render(g);
 				}
 			}
 		}
