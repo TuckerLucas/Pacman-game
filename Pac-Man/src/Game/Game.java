@@ -83,9 +83,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	
 	// Score variables
 	public static int highscore;
-	public static int score 		 = 0;
-	public static int foodScore 	 = 10;
-	public static int energizerScore = 50;
+	public static int score = 0;
 	
 	// Game key flag variables
 	public boolean enter = false;					

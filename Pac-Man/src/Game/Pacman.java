@@ -92,8 +92,6 @@ public class Pacman extends Character
 		setBounds(xCoordinate, yCoordinate, Texture.objectWidth,Texture.objectHeight);
 	}
 
-		
-	// Manage pacman collisions with food
 	private void foodCollision()
 	{	
 		for(int i = 0; i < Level.food.size(); i++) 		
@@ -107,24 +105,7 @@ public class Pacman extends Character
 				break;
 			}
 		}
-	}
-	
-	// Manage pacman collisions with energizers
-	private void energizerCollision()
-	{			
-		for(int i = 0; i < Level.energizers.size(); i++) 	
-		{		
-			// Check for collision with energizer
-			if(this.intersects(Level.energizers.get(i)))						
-			{	
-				// Activate the energizer
-				Energizer.activate(i);							
-				
-				break;
-			}
-		}
-	}
-	
+	}	
 	
 	// Turn all ghosts vulnerable
 	public static void makeGhostsVulnerable()
@@ -325,7 +306,6 @@ public class Pacman extends Character
 		moveGivenCharacterInGivenDirection(this, nextDir);
 		portalCrossing();
 		foodCollision();
-		energizerCollision();
 		ghostCollision();
 		
 		if(Game.gameStatus == Game.lifeLost)

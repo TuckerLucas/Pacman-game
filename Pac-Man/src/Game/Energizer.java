@@ -13,9 +13,8 @@
 package Game;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
-public class Energizer extends Rectangle
+public class Energizer extends Food
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -28,6 +27,8 @@ public class Energizer extends Rectangle
 	public static int activeTime = 0; 
 	public static int activeTargetTime = 60*8;
 	
+	public static int energizerScore = 50;
+	
 	public static boolean isActive   = false;
 	
 	// Constructor
@@ -36,18 +37,13 @@ public class Energizer extends Rectangle
 		setBounds(x+2,y+2,28,28);
 	}
 	
-	public static void activate(int energizer)
+	public static void activate()
 	{
 		new Sounds(Sounds.energizerSoundPath);
 		
 		Energizer.isActive = true;	
 		Energizer.activeTime = 0;
 		
-		Level.energizers.remove(energizer);
-		
-		Game.score += Game.energizerScore;
-		
-		// Make ghosts vulnerable
 		Pacman.makeGhostsVulnerable();
 	}
 	

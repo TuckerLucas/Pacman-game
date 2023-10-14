@@ -20,19 +20,24 @@ public class Food extends Rectangle
 {
 	private static final long serialVersionUID = 1L;
 
-	// Constructor
-	public Food(int x, int y)
+	public Food()
 	{
-		setBounds(x+12,y+12,8,8);			
+		
 	}
 	
 	public static void eat(int food)
-	{
-		new Sounds(Sounds.pacmanEatingSoundPath);
+	{	
+		if(Level.food.get(food) instanceof Pellet)
+		{
+			Game.score += Pellet.pelletScore;
+		}
+		else if(Level.food.get(food) instanceof Energizer)
+		{
+			Game.score += Energizer.energizerScore;
+			Energizer.activate();
+		}
 		
-		Level.food.remove(food);	
-		
-		Game.score += Game.foodScore;
+		Level.food.remove(food);
 	}
 	
 	// Render object

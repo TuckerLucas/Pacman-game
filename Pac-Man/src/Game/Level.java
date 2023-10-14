@@ -31,10 +31,8 @@ public class Level
 	
 	// Game tiles (walls) matrix 
 	public static Wall[][] walls;
-	
-	// Food and energizer lists
-	public static List<Food> food;					
-	public static List<Energizer> energizers; 	
+	 
+	public static List<Food> food;
 		
 	// Variables for object loading via colour identification
 	private final int black 	= 0xFF000000;
@@ -50,16 +48,15 @@ public class Level
 	// Constructor
 	public Level()	
 	{
-		food = new ArrayList<>();
-		energizers = new ArrayList<>();
+		food = new ArrayList<>();	
 		
 		try 
 		{
 			// Get map sketch image via the passed path
 			BufferedImage map = ImageIO.read(getClass().getResource("/Images/map.png"));
 			
-			Level.gameWidth = map.getWidth();		// Get map width size
-			Level.gameHeight = map.getHeight();		// Get map height size
+			Level.gameWidth = map.getWidth();		
+			Level.gameHeight = map.getHeight();		
 			
 			walls = new Wall[gameWidth][gameHeight];
 			
@@ -125,15 +122,15 @@ public class Level
 							
 							break;
 							
-						case lightYellow:
+						case white:
 							
-							energizers.add(new Energizer(x*32, y*32));
+							food.add(new Pellet(x*32, y*32));
 							
 							break;
 							
-						case white:
+						case lightYellow:
 							
-							food.add(new Food(x*32, y*32));
+							food.add(new Energizer(x*32, y*32));
 							
 							break;
 					}
@@ -205,17 +202,23 @@ public class Level
 			}
 		}
 		
-		// Render game food
 		for(int i = 0; i < food.size(); i++)
 		{
 			food.get(i).render(g);
+		}
+		
+		/*
+		// Render game food
+		for(int i = 0; i < pellets.size(); i++)
+		{
+			pellets.get(i).render(g);
 		}
 		
 		// Render game energizers
 		for(int i = 0; i < energizers.size(); i++) 
 		{
 			energizers.get(i).render(g);
-		}
+		}*/
 		
 		// Render game characters
 		Game.pacman.render(g);
@@ -235,8 +238,7 @@ public class Level
 	
 	public void tick()
 	{
-		// Check if any food/energizers are left left
-		if(Level.food.size() == 0 && Level.energizers.size() == 0)
+		if(Level.food.size() == 0)
 		{
 			Game.gameStatus = Game.win;
 		}
