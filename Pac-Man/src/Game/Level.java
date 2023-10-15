@@ -27,9 +27,6 @@ public class Level
 	// Variables for game size
 	private static int gameWidth;
 	private static int gameHeight;
-	
-	// Game tiles (walls) matrix 
-	public static Wall[][] walls;
 		
 	// Variables for object loading via colour identification
 	private final int black 	= 0xFF000000;
@@ -55,7 +52,7 @@ public class Level
 			Level.gameWidth = map.getWidth();		
 			Level.gameHeight = map.getHeight();		
 			
-			walls = new Wall[gameWidth][gameHeight];
+			Wall.wallMatrix = new Wall[gameWidth][gameHeight];
 			
 			// Get RGB array of the whole map and store it
 			int pixels[] = new int[gameWidth * gameHeight];	
@@ -73,7 +70,7 @@ public class Level
 					{
 						case black:
 							
-							walls[x][y] = new Wall(x*32, y*32);
+							Wall.wallMatrix[x][y] = new Wall(x*32, y*32);
 							
 							break;
 							
@@ -190,9 +187,9 @@ public class Level
 		{
 			for(int y = 0; y < gameHeight; y++)
 			{
-				if(walls[x][y] != null)
+				if(Wall.wallMatrix[x][y] != null)
 				{
-					walls[x][y].render(g);
+					Wall.wallMatrix[x][y].render(g);
 				}
 			}
 		}

@@ -45,13 +45,13 @@ public class Character extends Rectangle
 		bounds.width = character.width;
 		bounds.height = character.height;
 		
-		for(int xx = 0; xx < Level.walls.length; xx++)
+		for(int xx = 0; xx < Wall.wallMatrix.length; xx++)
 		{
-			for(int yy = 0; yy < Level.walls[0].length; yy++)
+			for(int yy = 0; yy < Wall.wallMatrix[0].length; yy++)
 			{
-				if(Level.walls[xx][yy] != null)								
+				if(Wall.wallMatrix[xx][yy] != null)								
 				{
-					if(bounds.intersects(Level.walls[xx][yy]))						
+					if(bounds.intersects(Wall.wallMatrix[xx][yy]))						
 					{
 						return false;								
 					}
