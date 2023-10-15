@@ -34,11 +34,11 @@ public abstract class Food extends Rectangle
 			Energizer.activate();
 		}
 
-		Game.score += food.getFoodScore();
+		Game.score += food.getScoreValueOfFood();
 		Food.food.remove(food);
 	}
 	
 	abstract void render(Graphics g);
 	
-	abstract int getFoodScore();
+	abstract int getScoreValueOfFood();
 }
