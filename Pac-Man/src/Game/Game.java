@@ -42,15 +42,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 	
 	// Game difficulty variable
 	public static int difficulty = 1;
-	
-	// Game object variables
-	public static Pacman pacman;			
-	public static Ghost ghostArray[] = new Ghost[4];
-	public static Energizer energizer;
-	public static SpawnBoxDoor spawnBoxDoor;
-	public static BonusScore bonusScore;
-	public static Level level;
-	public static Texture texture;
 
 	private static int LIVES = 3;
 	
@@ -102,15 +93,12 @@ public class Game extends Canvas implements Runnable, KeyListener
 	
 	// Paths to required resources
 	String scoresPath = "res/Files/Scores.txt";
-	
 
-	
-	// Constructor
 	public Game()
 	{
 		addKeyListener(this);
 		gameStatus = init;			
-		texture = new Texture();
+		Texture.texture = new Texture();
 		
 		// Get game's highscore
     	try
@@ -170,19 +158,19 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static void loadGameElements()
 	{
 		// Load game characters
-		pacman 			= new Pacman(Portal.notCrossingPortal);
-		ghostArray[0] 	= new Ghost(0, Character.randomMovement, Portal.notCrossingPortal, false); 
-		ghostArray[1] 	= new Ghost(1, Character.randomMovement, Portal.notCrossingPortal, false);
-		ghostArray[2] 	= new Ghost(2, Character.randomMovement, Portal.notCrossingPortal, false);
-		ghostArray[3] 	= new Ghost(3, Character.randomMovement, Portal.notCrossingPortal, false);
+		Pacman.pacman 			= new Pacman(Portal.notCrossingPortal);
+		Ghost.ghostArray[0] 	= new Ghost(0, Character.randomMovement, Portal.notCrossingPortal, false); 
+		Ghost.ghostArray[1] 	= new Ghost(1, Character.randomMovement, Portal.notCrossingPortal, false);
+		Ghost.ghostArray[2] 	= new Ghost(2, Character.randomMovement, Portal.notCrossingPortal, false);
+		Ghost.ghostArray[3] 	= new Ghost(3, Character.randomMovement, Portal.notCrossingPortal, false);
 
 		// Load other game objects based on game status
 		switch(gameStatus)
 		{
 			case init:
 				
-				spawnBoxDoor 	  = new SpawnBoxDoor(0, 0);
-				energizer = new Energizer(0, 0);
+				SpawnBoxDoor.spawnBoxDoor = new SpawnBoxDoor(0, 0);
+				Energizer.energizer = new Energizer(0, 0);
 				
 				// fall through
 				
@@ -193,9 +181,9 @@ public class Game extends Canvas implements Runnable, KeyListener
 			case lose:
 				
 				// Load bonus score object
-				bonusScore = new BonusScore();
+				BonusScore.bonusScore = new BonusScore();
 				
-				level = new Level(); 
+				Level.level = new Level(); 
 				break;
 				
 			default: break;
@@ -261,11 +249,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 	
 	private void drawPacmanDying(Graphics g)
 	{
-		pacman.render(g);
+		Pacman.pacman.render(g);
 		
 		if(gameStatus != lose)
 		{
-			level.render(g);
+			Level.level.render(g);
 		}
 	}
 
@@ -276,15 +264,15 @@ public class Game extends Canvas implements Runnable, KeyListener
 		{
 			case play:
 				
-				pacman.tick();
-				ghostArray[0].tick(); 
-				ghostArray[1].tick();
-				ghostArray[2].tick();
-				ghostArray[3].tick();
-				bonusScore.tick();
-				energizer.tick();
-				level.tick();
-				texture.tick();
+				Pacman.pacman.tick();
+				Ghost.ghostArray[0].tick(); 
+				Ghost.ghostArray[1].tick();
+				Ghost.ghostArray[2].tick();
+				Ghost.ghostArray[3].tick();
+				BonusScore.bonusScore.tick();
+				Energizer.energizer.tick();
+				Level.level.tick();
+				Texture.texture.tick();
 				
 				Pacman.deathAnimationDisplayed = false;
 
@@ -383,7 +371,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 				BonusScore.display = false;
 				Energizer.deactivate();
-				pacman.tick();
+				Pacman.pacman.tick();
 				
 				break;
 		}
@@ -427,7 +415,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 			case win: drawWinScreen(g); break;
 			case lose: drawLoseScreen(g); break;
 			case lifeLost: drawPacmanDying(g); break; 
-			case play: level.render(g); break;
+			case play: Level.level.render(g); break;
 		}
 		
 		g.dispose();

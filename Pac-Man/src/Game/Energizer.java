@@ -31,6 +31,8 @@ public class Energizer extends Food
 	
 	public static boolean isActive   = false;
 	
+	public static Energizer energizer;
+	
 	// Constructor
 	public Energizer(int x, int y)
 	{

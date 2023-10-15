@@ -41,6 +41,8 @@ public class Pacman extends Character
 	
 	public static boolean deathAnimationDisplayed = false;
 	
+	public static Pacman pacman;
+	
 	// Constructor
 	public Pacman(int spawnType)
 	{
@@ -110,9 +112,9 @@ public class Pacman extends Character
 	// Turn all ghosts vulnerable
 	public static void makeGhostsVulnerable()
 	{
-		for(int i = 0; i < Game.ghostArray.length; i++)
+		for(int i = 0; i < Ghost.ghostArray.length; i++)
 		{
-			Game.ghostArray[i].isVulnerable = true;
+			Ghost.ghostArray[i].isVulnerable = true;
 		}
 		
 		nEatenGhosts = 0;
@@ -121,9 +123,9 @@ public class Pacman extends Character
 	// Turn all ghosts vulnerable
 	public static void makeGhostsNormal()
 	{
-		for(int i = 0; i < Game.ghostArray.length; i++)
+		for(int i = 0; i < Ghost.ghostArray.length; i++)
 		{
-			Game.ghostArray[i].isVulnerable = false;
+			Ghost.ghostArray[i].isVulnerable = false;
 		}
 	}
 
@@ -131,10 +133,10 @@ public class Pacman extends Character
 	public boolean intersectedWithGhost()
 	{
 		// Iterate through the ghost array
-		for(int i = 0; i < Game.ghostArray.length; i++)
+		for(int i = 0; i < Ghost.ghostArray.length; i++)
 		{
 			// Check for intersection between ghost and pacman
-			if(Game.ghostArray[i].intersects(this))
+			if(Ghost.ghostArray[i].intersects(this))
 			{	
 				// Identify the intersected ghost
 				intersectedGhost = i;
@@ -153,7 +155,7 @@ public class Pacman extends Character
 		new Sounds(Sounds.ghostEatenSoundPath);
 		
 		// Respawn eaten ghost
-		Game.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, randomMovement, Portal.notCrossingPortal, false);
+		Ghost.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, randomMovement, Portal.notCrossingPortal, false);
 		
 		// Capture the event coordinates
 		Game.xEvent = x; 
@@ -170,7 +172,7 @@ public class Pacman extends Character
 			Energizer.deactivate();
 		}
 		// Add the bonus score to the game score
-		Game.score += BonusScore.bonusScore;
+		Game.score += BonusScore.bonusScoreValue;
 	}
 	
 	// Manage pacman death
@@ -195,7 +197,7 @@ public class Pacman extends Character
 			if(Energizer.isActive == true)
 			{
 				// Check if ghost hasn't been eaten yet
-				if(Game.ghostArray[intersectedGhost].isVulnerable == true)
+				if(Ghost.ghostArray[intersectedGhost].isVulnerable == true)
 				{
 					// Eat the ghost
 					eatGhost();
@@ -215,12 +217,12 @@ public class Pacman extends Character
 	{
 		if(Portal.isAboutToCrossPortalFromLeftSide(this))	
 		{
-			Game.pacman = new Pacman(Portal.crossingPortalFromLeftSide);
+			pacman = new Pacman(Portal.crossingPortalFromLeftSide);
 		}
 		
 		if(Portal.isAboutToCrossPortalFromRightSide(this))			
 		{
-			Game.pacman = new Pacman(Portal.crossingPortalFromRightSide);		
+			pacman = new Pacman(Portal.crossingPortalFromRightSide);		
 		}
 	}
 	

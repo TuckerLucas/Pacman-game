@@ -39,7 +39,8 @@ public class Level
 	private final int white 	= 0xFFFFFFFF;
 	private final int lightYellow 	= 0xFFFFFF00;
 	
-	// Constructor
+	public static Level level;
+	
 	public Level()	
 	{
 		Food.food = new ArrayList<>();	
@@ -49,8 +50,8 @@ public class Level
 			// Get map sketch image via the passed path
 			BufferedImage map = ImageIO.read(getClass().getResource("/Images/map.png"));
 			
-			Level.gameWidth = map.getWidth();		
-			Level.gameHeight = map.getHeight();		
+			gameWidth = map.getWidth();		
+			gameHeight = map.getHeight();		
 			
 			Wall.wallMatrix = new Wall[gameWidth][gameHeight];
 			
@@ -76,43 +77,43 @@ public class Level
 							
 						case gray:			
 							
-							Game.spawnBoxDoor.x = x*32;
-							Game.spawnBoxDoor.y = y*32;
+							SpawnBoxDoor.spawnBoxDoor.x = x*32;
+							SpawnBoxDoor.spawnBoxDoor.y = y*32;
 							
 							break;
 							
 						case darkYellow:			
 							
-							Game.pacman.x = x*32;
-							Game.pacman.y = y*32;
+							Pacman.pacman.x = x*32;
+							Pacman.pacman.y = y*32;
 							
 							break;
 							
 						case red:			
 							
-							Game.ghostArray[0].x = x*32;
-							Game.ghostArray[0].y = y*32;
+							Ghost.ghostArray[0].x = x*32;
+							Ghost.ghostArray[0].y = y*32;
 							
 							break;
 							
 						case cyan:			
 							
-							Game.ghostArray[1].x = x*32;
-							Game.ghostArray[1].y = y*32;
+							Ghost.ghostArray[1].x = x*32;
+							Ghost.ghostArray[1].y = y*32;
 							
 							break;
 							
 						case purple:
 							
-							Game.ghostArray[2].x = x*32;
-							Game.ghostArray[2].y = y*32;
+							Ghost.ghostArray[2].x = x*32;
+							Ghost.ghostArray[2].y = y*32;
 							
 							break;
 							
 						case orange:
 							
-							Game.ghostArray[3].x = x*32;
-							Game.ghostArray[3].y = y*32;
+							Ghost.ghostArray[3].x = x*32;
+							Ghost.ghostArray[3].y = y*32;
 							
 							break;
 							
@@ -199,18 +200,18 @@ public class Level
 			Food.food.get(i).render(g);
 		}
 		
-		Game.pacman.render(g);
+		Pacman.pacman.render(g);
 		
 		if(Game.gameStatus != Game.lifeLost)
 		{
-			Game.ghostArray[0].render(g);
-			Game.ghostArray[1].render(g);
-			Game.ghostArray[2].render(g);
-			Game.ghostArray[3].render(g);
+			Ghost.ghostArray[0].render(g);
+			Ghost.ghostArray[1].render(g);
+			Ghost.ghostArray[2].render(g);
+			Ghost.ghostArray[3].render(g);
 		}
 
-		Game.spawnBoxDoor.render(g);
-		Game.bonusScore.render(g);
+		SpawnBoxDoor.spawnBoxDoor.render(g);
+		BonusScore.bonusScore.render(g);
 		
 		drawData(g);
 	}

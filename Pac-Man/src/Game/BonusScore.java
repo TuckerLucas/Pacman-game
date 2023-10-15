@@ -25,9 +25,10 @@ public class BonusScore extends Rectangle
 	public static int nFlashes 			  = 0;
 	public static int nTargetFlashes	  = 3;
 	public static boolean display  		  = false;
-	public static int bonusScore;
+	public static int bonusScoreValue;
 	
-	// Constructor 
+	public static BonusScore bonusScore;
+	
 	public BonusScore()
 	{
 		setBounds(64,32,32,32);
@@ -61,17 +62,17 @@ public class BonusScore extends Rectangle
 		switch(Pacman.nEatenGhosts)
 		{
 			case 1: 
-					bonusScore = 200;
-					break;
+				bonusScoreValue = 200;
+				break;
 			case 2: 
-					bonusScore = 400; 
-					break;
+				bonusScoreValue = 400; 
+				break;
 			case 3: 
-					bonusScore = 800;  
-					break;
+				bonusScoreValue = 800;  
+				break;
 			case 4: 
-					bonusScore = 1600; 
-					break;
+				bonusScoreValue = 1600; 
+				break;
 		}
 	}
 }

@@ -76,7 +76,8 @@ public class Texture
 	public static int spriteLine8 = spriteSize*7;
 	public static int spriteLine9 = spriteSize*8;
 	
-	// Constructor
+	public static Texture texture;
+	
 	public Texture()
 	{
 		try

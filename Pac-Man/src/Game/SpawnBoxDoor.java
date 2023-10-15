@@ -20,7 +20,8 @@ public class SpawnBoxDoor extends Rectangle
 {
 	private static final long serialVersionUID = 1L;
 
-	// Constructor
+	public static SpawnBoxDoor spawnBoxDoor;
+	
 	public SpawnBoxDoor(int x, int y)
 	{
 		setBounds(x,y,32,32);

@@ -60,6 +60,8 @@ public class Ghost extends Character
 	public int ghostID;
 	private int pacmanZone = 1;
 	
+	public static Ghost ghostArray[] = new Ghost[4];
+	
 	class zoneDirections
 	{	
 		int methodicalDir1;
@@ -228,8 +230,8 @@ public class Ghost extends Character
 	// Update ghost's distance to pacman
 	private void updateDistanceToPacman()
 	{
-		deltaX = x - Game.pacman.x; // X axis distance
-		deltaY = y - Game.pacman.y; // Y axis distance
+		deltaX = x - Pacman.pacman.x; // X axis distance
+		deltaY = y - Pacman.pacman.y; // Y axis distance
 	}
 	
 	// Check if pacman is within detection range
@@ -486,7 +488,7 @@ public class Ghost extends Character
 			
 			if(Portal.isAboutToCrossPortalFromLeftSide(this))								
 			{	
-				Game.ghostArray[ghostID] = new Ghost(ghostID, movementType, portalCrossingStatus, isVulnerable);
+				ghostArray[ghostID] = new Ghost(ghostID, movementType, portalCrossingStatus, isVulnerable);
 			}
 			
 			if(Portal.atRightPortalEntry(this))
@@ -502,7 +504,7 @@ public class Ghost extends Character
 			
 			if(Portal.isAboutToCrossPortalFromRightSide(this))
 			{
-				Game.ghostArray[ghostID] = new Ghost(ghostID, movementType, portalCrossingStatus, isVulnerable);
+				ghostArray[ghostID] = new Ghost(ghostID, movementType, portalCrossingStatus, isVulnerable);
 			}
 			
 			if(Portal.atLeftPortalEntry(this))
