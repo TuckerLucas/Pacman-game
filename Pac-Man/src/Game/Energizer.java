@@ -27,7 +27,7 @@ public class Energizer extends Food
 	public static int activeTime = 0; 
 	public static int activeTargetTime = 60*8;
 	
-	public static int energizerScore = 50;
+	public static int score = 50;
 	
 	public static boolean isActive   = false;
 	
@@ -56,6 +56,10 @@ public class Energizer extends Food
 		Pacman.makeGhostsNormal();
 	}
 	
+	public int getFoodScore()
+	{
+		return score;
+	}
 	
 	// Manage animation time
 	public void tick()
@@ -93,7 +97,6 @@ public class Energizer extends Food
 		}
 	}
 	
-	// Render object
 	public void render(Graphics g)
 	{
 		if(spriteFrame >= spriteTargetFrame)

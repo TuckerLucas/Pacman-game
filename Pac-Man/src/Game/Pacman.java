@@ -94,13 +94,13 @@ public class Pacman extends Character
 
 	private void foodCollision()
 	{	
-		for(int i = 0; i < Level.food.size(); i++) 		
+		for(int i = 0; i < Food.food.size(); i++) 		
 		{    
 			// Check for collision with food
-			if(this.intersects(Level.food.get(i)))							
+			if(this.intersects(Food.food.get(i)))							
 			{
 				// Eat the food
-				Food.eat(i);
+				Food.eat(Food.food.get(i));
 				
 				break;
 			}
@@ -165,6 +165,10 @@ public class Pacman extends Character
 		// Increment the number of eaten ghosts
 		nEatenGhosts++;
 		
+		if(nEatenGhosts == 4)
+		{
+			Energizer.deactivate();
+		}
 		// Add the bonus score to the game score
 		Game.score += BonusScore.bonusScore;
 	}

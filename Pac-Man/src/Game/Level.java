@@ -19,7 +19,6 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -31,8 +30,6 @@ public class Level
 	
 	// Game tiles (walls) matrix 
 	public static Wall[][] walls;
-	 
-	public static List<Food> food;
 		
 	// Variables for object loading via colour identification
 	private final int black 	= 0xFF000000;
@@ -48,7 +45,7 @@ public class Level
 	// Constructor
 	public Level()	
 	{
-		food = new ArrayList<>();	
+		Food.food = new ArrayList<>();	
 		
 		try 
 		{
@@ -124,13 +121,13 @@ public class Level
 							
 						case white:
 							
-							food.add(new Pellet(x*32, y*32));
+							Food.food.add(new Pellet(x*32, y*32));
 							
 							break;
 							
 						case lightYellow:
 							
-							food.add(new Energizer(x*32, y*32));
+							Food.food.add(new Energizer(x*32, y*32));
 							
 							break;
 					}
@@ -187,10 +184,8 @@ public class Level
 		/*******************************************************/
 	}
 	
-	// Render the game objects
 	public void render(Graphics g)
 	{
-		// Render game tiles (walls)
 		for(int x = 0; x < gameWidth; x++)
 		{
 			for(int y = 0; y < gameHeight; y++)
@@ -202,26 +197,13 @@ public class Level
 			}
 		}
 		
-		for(int i = 0; i < food.size(); i++)
-		{
-			food.get(i).render(g);
+		for(int i = 0; i < Food.food.size(); i++)
+		{	
+			Food.food.get(i).render(g);
 		}
 		
-		/*
-		// Render game food
-		for(int i = 0; i < pellets.size(); i++)
-		{
-			pellets.get(i).render(g);
-		}
-		
-		// Render game energizers
-		for(int i = 0; i < energizers.size(); i++) 
-		{
-			energizers.get(i).render(g);
-		}*/
-		
-		// Render game characters
 		Game.pacman.render(g);
+		
 		if(Game.gameStatus != Game.lifeLost)
 		{
 			Game.ghostArray[0].render(g);
@@ -238,7 +220,7 @@ public class Level
 	
 	public void tick()
 	{
-		if(Level.food.size() == 0)
+		if(Food.food.size() == 0)
 		{
 			Game.gameStatus = Game.win;
 		}

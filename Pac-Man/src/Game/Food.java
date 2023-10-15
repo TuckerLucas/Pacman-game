@@ -12,38 +12,33 @@
 
 package Game;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.List;
 
-public class Food extends Rectangle
-{
+public abstract class Food extends Rectangle
+{	
 	private static final long serialVersionUID = 1L;
 
+	public static List<Food> food;
+	
 	public Food()
 	{
 		
 	}
 	
-	public static void eat(int food)
+	public static void eat(Food food)
 	{	
-		if(Level.food.get(food) instanceof Pellet)
+		if(food instanceof Energizer)
 		{
-			Game.score += Pellet.pelletScore;
-		}
-		else if(Level.food.get(food) instanceof Energizer)
-		{
-			Game.score += Energizer.energizerScore;
 			Energizer.activate();
 		}
-		
-		Level.food.remove(food);
+
+		Game.score += food.getFoodScore();
+		Food.food.remove(food);
 	}
 	
-	// Render object
-	public void render(Graphics g)
-	{
-		g.setColor(Color.yellow);				
-		g.fillRect(x,y,width,height);	
-	}
+	abstract void render(Graphics g);
+	
+	abstract int getFoodScore();
 }

@@ -71,7 +71,6 @@ public class BonusScore extends Rectangle
 					break;
 			case 4: 
 					bonusScore = 1600; 
-					Energizer.deactivate();
 					break;
 		}
 	}
