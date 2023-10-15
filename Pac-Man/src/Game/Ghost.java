@@ -60,6 +60,9 @@ public class Ghost extends Character
 	public int ghostID;
 	private int pacmanZone = 1;
 	
+	public static int spawnBoxX = 320;
+	public static int spawnBoxY = 320;
+	
 	public static Ghost ghostArray[] = new Ghost[4];
 	
 	class zoneDirections
@@ -85,14 +88,14 @@ public class Ghost extends Character
 		switch(portalCrossingStatus)
 		{
 			case Portal.notCrossingPortal:
-				spawnGhost(Game.centerBoxX,Game.centerBoxY);		// Spawn ghost in spawn box
+				spawnGhost(spawnBoxX, spawnBoxY);		// Spawn ghost in spawn box
 				break;
 			case Portal.crossingPortalFromLeftSide:
-				spawnGhost(Game.rightPortalX,Game.rightPortalY);	// Spawn ghost in the right portal (crossed left portal)
+				spawnGhost(rightPortalX, rightPortalY);	// Spawn ghost in the right portal (crossed left portal)
 				currentDir = left;									// Update the ghost's current direction of movement
 				break;
 			case Portal.crossingPortalFromRightSide:
-				spawnGhost(Game.leftPortalX,Game.leftPortalY);		// Spawn ghost in the left portal (crossed right portal)
+				spawnGhost(leftPortalX, leftPortalY);		// Spawn ghost in the left portal (crossed right portal)
 				currentDir = right;									// Update the ghost's current direction of movement
 				break;
 		}

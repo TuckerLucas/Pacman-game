@@ -37,33 +37,12 @@ public class Game extends Canvas implements Runnable, KeyListener
 	private static boolean isRunning = false;	
 
 	// Game boundaries variables
-	public static final int WIDTH  = 672;
+	public static final int WIDTH = 672;
 	public static final int	HEIGHT = 800;	
 	
 	// Game difficulty variable
 	public static int difficulty = 1;
-
-	private static int LIVES = 3;
 	
-	// Pacman lives variable
-	public static int lives = LIVES;
-	
-	// Ghost identifiers
-	public static final int blinkyID = 0;
-	public static final int inkyID 	 = 1;
-	public static final int pinkyID  = 2;
-	public static final int clydeID  = 3;
-	
-	// Portal coordinate variables
-	public static int leftPortalX  = 0;
-	public static int leftPortalY  = 320;
-	public static int rightPortalX = 640;
-	public static int rightPortalY = 320;
-	
-	// Center box coordinate variables
-	public static int centerBoxX = 320;
-	public static int centerBoxY = 320;
-
 	// Game status variables
 	public static int gameStatus 	 = 0;
 	public static final int init 	 = 1;		
@@ -92,7 +71,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static int directionsArray[] = new int[4];
 	
 	// Paths to required resources
-	String scoresPath = "res/Files/Scores.txt";
+	private static String scoresPath = "res/Files/Scores.txt";
 
 	public Game()
 	{
@@ -100,19 +79,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 		gameStatus = init;			
 		Texture.texture = new Texture();
 		
-		// Get game's highscore
-    	try
-		{
-			BufferedReader reader;
-			reader = new BufferedReader(new FileReader(scoresPath));
-			String line = reader.readLine();
-			highscore = Integer.parseInt(line);
-	        reader.close();
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
+		getGameHighScore();
 	}
 
 	
@@ -153,16 +120,30 @@ public class Game extends Canvas implements Runnable, KeyListener
 		}
 	}
 
+	public static void getGameHighScore()
+	{
+		try
+		{
+			BufferedReader reader;
+			reader = new BufferedReader(new FileReader(scoresPath));
+			String line = reader.readLine();
+			highscore = Integer.parseInt(line);
+	        reader.close();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 	
 	// Load the required game elements
 	public static void loadGameElements()
 	{
-		// Load game characters
-		Pacman.pacman 			= new Pacman(Portal.notCrossingPortal);
-		Ghost.ghostArray[0] 	= new Ghost(0, Character.randomMovement, Portal.notCrossingPortal, false); 
-		Ghost.ghostArray[1] 	= new Ghost(1, Character.randomMovement, Portal.notCrossingPortal, false);
-		Ghost.ghostArray[2] 	= new Ghost(2, Character.randomMovement, Portal.notCrossingPortal, false);
-		Ghost.ghostArray[3] 	= new Ghost(3, Character.randomMovement, Portal.notCrossingPortal, false);
+		Pacman.pacman = new Pacman(Portal.notCrossingPortal);
+		Ghost.ghostArray[0] = new Ghost(0, Character.randomMovement, Portal.notCrossingPortal, false); 
+		Ghost.ghostArray[1] = new Ghost(1, Character.randomMovement, Portal.notCrossingPortal, false);
+		Ghost.ghostArray[2] = new Ghost(2, Character.randomMovement, Portal.notCrossingPortal, false);
+		Ghost.ghostArray[3] = new Ghost(3, Character.randomMovement, Portal.notCrossingPortal, false);
 
 		// Load other game objects based on game status
 		switch(gameStatus)
@@ -334,7 +315,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 				BonusScore.display = false;
 				
-				lives = LIVES;
+				Pacman.lives = Pacman.LIVES;
 				
 				if(score >= highscore)
 				{

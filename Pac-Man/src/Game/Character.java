@@ -15,6 +15,11 @@ public class Character extends Rectangle
 	public static final int methodicalMovement = 1;
 	public static final int findingPath = 2;
 	
+	public static int leftPortalX  = 0;
+	public static int leftPortalY  = 320;
+	public static int rightPortalX = 640;
+	public static int rightPortalY = 320;
+	
 	public static int speed = 2;
 	
 	public int currentDir;

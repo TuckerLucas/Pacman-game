@@ -43,6 +43,11 @@ public class Pacman extends Character
 	
 	public static Pacman pacman;
 	
+	public static int LIVES = 3;
+	
+	// Pacman lives variable
+	public static int lives = LIVES;
+	
 	// Constructor
 	public Pacman(int spawnType)
 	{
@@ -67,7 +72,7 @@ public class Pacman extends Character
 			case Portal.crossingPortalFromLeftSide:
 				
 				// Spawn pacman at the right portal
-				spawnPacman(Game.rightPortalX, Game.rightPortalY);
+				spawnPacman(rightPortalX, rightPortalY);
 				
 				// Keep pacman moving left
 				nextDir = left;
@@ -78,7 +83,7 @@ public class Pacman extends Character
 			case Portal.crossingPortalFromRightSide:
 				
 				// Spawn pacman at the left portal
-				spawnPacman(Game.leftPortalX, Game.leftPortalY);
+				spawnPacman(leftPortalX, leftPortalY);
 				
 				// Keep pacman moving right
 				nextDir = right;
@@ -182,7 +187,7 @@ public class Pacman extends Character
 		new Sounds(Sounds.pacmanDeathSoundPath);
 		
 		// Decrement amount of lives
-		Game.lives--;
+		lives--;
 
 		Game.gameStatus = Game.lifeLost;				
 	}
@@ -274,7 +279,7 @@ public class Pacman extends Character
 				Texture.pacmanDeathAnimationPhase = 0;
 				Game.loadGameElements();
 				
-				if(Game.lives == 0)
+				if(lives == 0)
 				{
 					Game.gameStatus = Game.lose;
 				}
