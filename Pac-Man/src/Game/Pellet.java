@@ -7,16 +7,16 @@ public class Pellet extends Food
 {
 	private static final long serialVersionUID = 1L;
 	
-	public static int score = 10;
+	public static int points = 10;
 
 	public Pellet(int x, int y)
 	{
 		setBounds(x+12,y+12,8,8);
 	}
 	
-	public int getScoreValueOfFood()
+	public int getFoodPoints()
 	{
-		return score;
+		return points;
 	}
 	
 	public void render(Graphics g)

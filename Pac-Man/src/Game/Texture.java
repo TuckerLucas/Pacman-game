@@ -209,7 +209,7 @@ public class Texture
 	
 	public void tick()
 	{
-		switch(Pacman.nEatenGhosts)
+		switch(Ghost.nEatenGhosts)
 		{
 			case 1: 
 				Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn1, Texture.spriteLine8, 

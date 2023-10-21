@@ -59,7 +59,7 @@ public class BonusScore extends Rectangle
 	
 	public void tick()
 	{
-		switch(Pacman.nEatenGhosts)
+		switch(Ghost.nEatenGhosts)
 		{
 			case 1: 
 				bonusScoreValue = 200;

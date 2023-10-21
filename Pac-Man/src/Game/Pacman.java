@@ -22,9 +22,6 @@ public class Pacman extends Character
 	// Intersected ghost variable
 	private int intersectedGhost = -1;
 	
-	// Counter variable for number of eaten ghosts
-	public static int nEatenGhosts = 0;
-	
 	// Pacman spawn coordinate variables
 	public static int spawnX = 320;
 	public static int spawnY = 512;
@@ -49,7 +46,7 @@ public class Pacman extends Character
 	public static int lives = LIVES;
 	
 	// Constructor
-	public Pacman(int spawnType)
+	public Pacman(int spawnType, int nD)
 	{
 		// Check where to spawn pacman
 		switch(spawnType)
@@ -61,7 +58,7 @@ public class Pacman extends Character
 				spawnPacman(spawnX, spawnY);
 				
 				// Pacman starts by moving right
-				nextDir = right;
+				//nextDir = nD;
 				
 				// Make pacman look right on start-up
 				currentDir = right;
@@ -75,7 +72,9 @@ public class Pacman extends Character
 				spawnPacman(rightPortalX, rightPortalY);
 				
 				// Keep pacman moving left
-				nextDir = left;
+				currentDir = left;
+				
+				nextDir = nD;
 				
 				break;
 				
@@ -86,7 +85,9 @@ public class Pacman extends Character
 				spawnPacman(leftPortalX, leftPortalY);
 				
 				// Keep pacman moving right
-				nextDir = right;
+				currentDir = right;
+				
+				nextDir = nD;
 				
 				break;
 		}
@@ -113,26 +114,6 @@ public class Pacman extends Character
 			}
 		}
 	}	
-	
-	// Turn all ghosts vulnerable
-	public static void makeGhostsVulnerable()
-	{
-		for(int i = 0; i < Ghost.ghostArray.length; i++)
-		{
-			Ghost.ghostArray[i].isVulnerable = true;
-		}
-		
-		nEatenGhosts = 0;
-	}
-	
-	// Turn all ghosts vulnerable
-	public static void makeGhostsNormal()
-	{
-		for(int i = 0; i < Ghost.ghostArray.length; i++)
-		{
-			Ghost.ghostArray[i].isVulnerable = false;
-		}
-	}
 
 	// Check if pacman and a ghost have intersected
 	public boolean intersectedWithGhost()
@@ -170,9 +151,9 @@ public class Pacman extends Character
 		BonusScore.display = true;
 		
 		// Increment the number of eaten ghosts
-		nEatenGhosts++;
+		Ghost.nEatenGhosts++;
 		
-		if(nEatenGhosts == 4)
+		if(Ghost.nEatenGhosts == 4)
 		{
 			Energizer.deactivate();
 		}
@@ -222,12 +203,12 @@ public class Pacman extends Character
 	{
 		if(Portal.isAboutToCrossPortalFromLeftSide(this))	
 		{
-			pacman = new Pacman(Portal.crossingPortalFromLeftSide);
+			pacman = new Pacman(Portal.crossingPortalFromLeftSide, nextDir);
 		}
 		
 		if(Portal.isAboutToCrossPortalFromRightSide(this))			
 		{
-			pacman = new Pacman(Portal.crossingPortalFromRightSide);		
+			pacman = new Pacman(Portal.crossingPortalFromRightSide, nextDir);		
 		}
 	}
 	

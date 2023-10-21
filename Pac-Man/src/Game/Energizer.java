@@ -27,13 +27,12 @@ public class Energizer extends Food
 	public static int activeTime = 0; 
 	public static int activeTargetTime = 60*8;
 	
-	public static int scoreValue = 50;
+	public static int points = 50;
 	
-	public static boolean isActive   = false;
+	public static boolean isActive = false;
 	
 	public static Energizer energizer;
 	
-	// Constructor
 	public Energizer(int x, int y)
 	{
 		setBounds(x+2,y+2,28,28);
@@ -46,7 +45,7 @@ public class Energizer extends Food
 		Energizer.isActive = true;	
 		Energizer.activeTime = 0;
 		
-		Pacman.makeGhostsVulnerable();
+		turnGhostsVulnerable();
 	}
 	
 	public static void deactivate()
@@ -54,18 +53,41 @@ public class Energizer extends Food
 		Energizer.activeTime = 0;
 		Energizer.isActive = false;
 		
-		// Make ghosts normal
-		Pacman.makeGhostsNormal();
+		turnGhostsHostile();
 	}
 	
-	public int getScoreValueOfFood()
+	public static void turnGhostsVulnerable()
 	{
-		return scoreValue;
+		for(int i = 0; i < Ghost.ghostArray.length; i++)
+		{
+			Ghost.ghostArray[i].isVulnerable = true;
+		}
+		
+		Ghost.nEatenGhosts = 0;
 	}
 	
-	// Manage animation time
+	public static void turnGhostsHostile()
+	{
+		for(int i = 0; i < Ghost.ghostArray.length; i++)
+		{
+			Ghost.ghostArray[i].isVulnerable = false;
+		}
+	}
+	
+	public int getFoodPoints()
+	{
+		return points;
+	}
+
+	
 	public void tick()
 	{	
+		runAnimation();
+		checkEnergizerActivityStatus();
+	}
+	
+	public void runAnimation()
+	{
 		frameTime++;
 		
 		if(frameTime == frameTargetTime)
@@ -73,30 +95,37 @@ public class Energizer extends Food
 			frameTime = 0;
 			spriteFrame++;
 		}
-		
-		// Energizer is active
-		if(Energizer.isActive == true)
+	}
+	
+	public void checkEnergizerActivityStatus()
+	{
+		if(!isActive)
 		{
-			// Energizer time over
-			if(Energizer.activeTime == Energizer.activeTargetTime)		
-			{
-				deactivate();
-			}
-			// Energizer time not over yet
-			else if(Energizer.activeTime < Energizer.activeTargetTime)	
-			{
-				if(activeTime >= Ghost.flashTime)
-				{
-					Ghost.isFlashing = true;
-				}
-				else if(activeTime < Ghost.flashTime)
-				{
-					Ghost.isFlashing = false;
-				}
-				
-				activeTime++;
-			}
+			return;
 		}
+		
+		if(activeTime < activeTargetTime)	
+		{
+			checkEnergizerActivePhase();
+		}
+		else if(activeTime == activeTargetTime)		
+		{
+			deactivate();
+		}
+	}
+	
+	public void checkEnergizerActivePhase()
+	{
+		if(activeTime >= Ghost.flashTime)
+		{
+			Ghost.isFlashing = true;
+		}
+		else if(activeTime < Ghost.flashTime)
+		{
+			Ghost.isFlashing = false;
+		}
+		
+		activeTime++;
 	}
 	
 	public void render(Graphics g)

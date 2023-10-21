@@ -45,6 +45,8 @@ public class Ghost extends Character
 	private int deltaY;
 	private int detectionRange;
 	
+	public static int nEatenGhosts = 0;
+	
 	private int portalCrossingStatus;
 	
 	private int imageIndexEnemy = 0;

@@ -128,7 +128,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 			reader = new BufferedReader(new FileReader(scoresPath));
 			String line = reader.readLine();
 			highscore = Integer.parseInt(line);
-	        reader.close();
+			reader.close();
 		}
 		catch(IOException e)
 		{
@@ -139,7 +139,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	// Load the required game elements
 	public static void loadGameElements()
 	{
-		Pacman.pacman = new Pacman(Portal.notCrossingPortal);
+		Pacman.pacman = new Pacman(Portal.notCrossingPortal, Character.right);
 		Ghost.ghostArray[0] = new Ghost(0, Character.randomMovement, Portal.notCrossingPortal, false); 
 		Ghost.ghostArray[1] = new Ghost(1, Character.randomMovement, Portal.notCrossingPortal, false);
 		Ghost.ghostArray[2] = new Ghost(2, Character.randomMovement, Portal.notCrossingPortal, false);
@@ -286,7 +286,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 				Energizer.isActive = false;				
 
-				Pacman.makeGhostsVulnerable();
+				Energizer.turnGhostsVulnerable();
 				
 				Energizer.activeTime = 0;
 				
