@@ -139,11 +139,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 	// Load the required game elements
 	public static void loadGameElements()
 	{
-		Pacman.pacman = new Pacman(Portal.notCrossingPortal, Character.right);
-		Ghost.ghostArray[0] = new Ghost(0, Character.randomMovement, Portal.notCrossingPortal, false); 
-		Ghost.ghostArray[1] = new Ghost(1, Character.randomMovement, Portal.notCrossingPortal, false);
-		Ghost.ghostArray[2] = new Ghost(2, Character.randomMovement, Portal.notCrossingPortal, false);
-		Ghost.ghostArray[3] = new Ghost(3, Character.randomMovement, Portal.notCrossingPortal, false);
+		Pacman.pacman = new Pacman(Character.notCrossingPortal, Character.movingRight);
+		Ghost.ghostArray[0] = new Ghost(0, Character.randomMovement, Character.notCrossingPortal, false); 
+		Ghost.ghostArray[1] = new Ghost(1, Character.randomMovement, Character.notCrossingPortal, false);
+		Ghost.ghostArray[2] = new Ghost(2, Character.randomMovement, Character.notCrossingPortal, false);
+		Ghost.ghostArray[3] = new Ghost(3, Character.randomMovement, Character.notCrossingPortal, false);
 
 		// Load other game objects based on game status
 		switch(gameStatus)
@@ -445,13 +445,13 @@ public class Game extends Canvas implements Runnable, KeyListener
 				switch(e.getKeyCode())
 				{
 					case KeyEvent.VK_D:	// fall through
-					case KeyEvent.VK_RIGHT: Pacman.nextDir = Character.right; break;
+					case KeyEvent.VK_RIGHT: Pacman.nextDir = Character.movingRight; break;
 					case KeyEvent.VK_A:	// fall through
-					case KeyEvent.VK_LEFT: Pacman.nextDir = Character.left; break;
+					case KeyEvent.VK_LEFT: Pacman.nextDir = Character.movingLeft; break;
 					case KeyEvent.VK_W:	// fall through
-					case KeyEvent.VK_UP: Pacman.nextDir = Character.up; break;
+					case KeyEvent.VK_UP: Pacman.nextDir = Character.movingUpwards; break;
 					case KeyEvent.VK_S:	// fall through
-					case KeyEvent.VK_DOWN: Pacman.nextDir = Character.down; break;
+					case KeyEvent.VK_DOWN: Pacman.nextDir = Character.movingDownwards; break;
 				}
 				
 				break;

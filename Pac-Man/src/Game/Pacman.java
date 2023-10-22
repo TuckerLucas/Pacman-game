@@ -52,7 +52,7 @@ public class Pacman extends Character
 		switch(spawnType)
 		{
 			// Normal spawn
-			case Portal.notCrossingPortal:
+			case Character.notCrossingPortal:
 				
 				// Spawn pacman normally
 				spawnPacman(spawnX, spawnY);
@@ -61,31 +61,31 @@ public class Pacman extends Character
 				//nextDir = nD;
 				
 				// Make pacman look right on start-up
-				currentDir = right;
+				currentDir = movingRight;
 				
 				break;
 				
 			// Crossing left portal
-			case Portal.crossingPortalFromLeftSide:
+			case Character.crossingPortalFromLeftSide:
 				
 				// Spawn pacman at the right portal
 				spawnPacman(rightPortalX, rightPortalY);
 				
 				// Keep pacman moving left
-				currentDir = left;
+				currentDir = movingLeft;
 				
 				nextDir = nD;
 				
 				break;
 				
 			// Left portal spawn
-			case Portal.crossingPortalFromRightSide:
+			case Character.crossingPortalFromRightSide:
 				
 				// Spawn pacman at the left portal
 				spawnPacman(leftPortalX, leftPortalY);
 				
 				// Keep pacman moving right
-				currentDir = right;
+				currentDir = movingRight;
 				
 				nextDir = nD;
 				
@@ -141,7 +141,7 @@ public class Pacman extends Character
 		new Sounds(Sounds.ghostEatenSoundPath);
 		
 		// Respawn eaten ghost
-		Ghost.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, randomMovement, Portal.notCrossingPortal, false);
+		Ghost.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, randomMovement, Character.notCrossingPortal, false);
 		
 		// Capture the event coordinates
 		Game.xEvent = x; 
@@ -201,14 +201,14 @@ public class Pacman extends Character
 
 	public void portalCrossing()
 	{
-		if(Portal.isAboutToCrossPortalFromLeftSide(this))	
+		if(Character.isAboutToCrossPortalFromLeftSide(this))	
 		{
-			pacman = new Pacman(Portal.crossingPortalFromLeftSide, nextDir);
+			pacman = new Pacman(Character.crossingPortalFromLeftSide, nextDir);
 		}
 		
-		if(Portal.isAboutToCrossPortalFromRightSide(this))			
+		if(Character.isAboutToCrossPortalFromRightSide(this))			
 		{
-			pacman = new Pacman(Portal.crossingPortalFromRightSide, nextDir);		
+			pacman = new Pacman(Character.crossingPortalFromRightSide, nextDir);		
 		}
 	}
 	

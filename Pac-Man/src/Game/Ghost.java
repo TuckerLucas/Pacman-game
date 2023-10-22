@@ -67,12 +67,19 @@ public class Ghost extends Character
 	
 	public static Ghost ghostArray[] = new Ghost[4];
 	
+	public static int minimumTimeToBeSpentInSpawnBoxInSeconds = 60*3; 
+	
 	class zoneDirections
 	{	
 		int methodicalDir1;
 		int methodicalDir2;
 		int findDir1;
 		int findDir2;
+	}
+	
+	public Ghost()
+	{
+		
 	}
 	
 	// Constructor
@@ -89,16 +96,16 @@ public class Ghost extends Character
 		// Check ghost's portal crossing status
 		switch(portalCrossingStatus)
 		{
-			case Portal.notCrossingPortal:
+			case Character.notCrossingPortal:
 				spawnGhost(spawnBoxX, spawnBoxY);		// Spawn ghost in spawn box
 				break;
-			case Portal.crossingPortalFromLeftSide:
-				spawnGhost(rightPortalX, rightPortalY);	// Spawn ghost in the right portal (crossed left portal)
-				currentDir = left;									// Update the ghost's current direction of movement
+			case Character.crossingPortalFromLeftSide:
+				spawnGhost(rightPortalX, rightPortalY);	// Spawn ghost in the movingRight portal (crossed movingLeft portal)
+				currentDir = movingLeft;									// Update the ghost's current direction of movement
 				break;
-			case Portal.crossingPortalFromRightSide:
-				spawnGhost(leftPortalX, leftPortalY);		// Spawn ghost in the left portal (crossed right portal)
-				currentDir = right;									// Update the ghost's current direction of movement
+			case Character.crossingPortalFromRightSide:
+				spawnGhost(leftPortalX, leftPortalY);		// Spawn ghost in the movingLeft portal (crossed movingRight portal)
+				currentDir = movingRight;									// Update the ghost's current direction of movement
 				break;
 		}
 
@@ -127,6 +134,15 @@ public class Ghost extends Character
 		generateNextDirection();
 	}
 	
+	public static boolean isInSpawnBox(Ghost ghost)
+	{
+		return ((ghost.x < 368 && ghost.x > 272) && (ghost.y < 336 && ghost.y > 304)) ? true : false;
+	}
+	
+	public static boolean canLeaveSpawnBox(int timeSpentInSpawnBoxInSeconds)
+	{
+		return (timeSpentInSpawnBoxInSeconds == minimumTimeToBeSpentInSpawnBoxInSeconds) ? true : false;
+	}
 	private void spawnGhost(int xCoordinate, int yCoordinate)
 	{
 		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
@@ -144,88 +160,88 @@ public class Ghost extends Character
 			switch(zone)
 			{
 				case 0:
-					zoneDirectionsArray[zone].methodicalDir1 = left;
+					zoneDirectionsArray[zone].methodicalDir1 = movingLeft;
 					zoneDirectionsArray[zone].methodicalDir2 = -1;
-					zoneDirectionsArray[zone].findDir1 = down;
-					zoneDirectionsArray[zone].findDir2 = up;
+					zoneDirectionsArray[zone].findDir1 = movingDownwards;
+					zoneDirectionsArray[zone].findDir2 = movingUpwards;
 					break;
 				case 1:
-					zoneDirectionsArray[zone].methodicalDir1 = left;
-					zoneDirectionsArray[zone].methodicalDir2 = up;
-					zoneDirectionsArray[zone].findDir1 = down;
+					zoneDirectionsArray[zone].methodicalDir1 = movingLeft;
+					zoneDirectionsArray[zone].methodicalDir2 = movingUpwards;
+					zoneDirectionsArray[zone].findDir1 = movingDownwards;
 					break;
 				case 2:
-					zoneDirectionsArray[zone].methodicalDir1 = up;
-					zoneDirectionsArray[zone].methodicalDir2 = left;
-					zoneDirectionsArray[zone].findDir1 = right;
+					zoneDirectionsArray[zone].methodicalDir1 = movingUpwards;
+					zoneDirectionsArray[zone].methodicalDir2 = movingLeft;
+					zoneDirectionsArray[zone].findDir1 = movingRight;
 					break;
 				case 3:
-					zoneDirectionsArray[zone].methodicalDir1 = up;
-					zoneDirectionsArray[zone].methodicalDir2 = left;
-					zoneDirectionsArray[zone].findDir1 = right;
+					zoneDirectionsArray[zone].methodicalDir1 = movingUpwards;
+					zoneDirectionsArray[zone].methodicalDir2 = movingLeft;
+					zoneDirectionsArray[zone].findDir1 = movingRight;
 					break;
 				case 4:
-					zoneDirectionsArray[zone].methodicalDir1 = up;
+					zoneDirectionsArray[zone].methodicalDir1 = movingUpwards;
 					zoneDirectionsArray[zone].methodicalDir2 = -1;
-					zoneDirectionsArray[zone].findDir1 = right;
-					zoneDirectionsArray[zone].findDir2 = left;
+					zoneDirectionsArray[zone].findDir1 = movingRight;
+					zoneDirectionsArray[zone].findDir2 = movingLeft;
 					break;
 				case 5:
-					zoneDirectionsArray[zone].methodicalDir1 = up;
-					zoneDirectionsArray[zone].methodicalDir2 = right;
-					zoneDirectionsArray[zone].findDir1 = left;
+					zoneDirectionsArray[zone].methodicalDir1 = movingUpwards;
+					zoneDirectionsArray[zone].methodicalDir2 = movingRight;
+					zoneDirectionsArray[zone].findDir1 = movingLeft;
 					break;
 				case 6:
-					zoneDirectionsArray[zone].methodicalDir1 = up;
-					zoneDirectionsArray[zone].methodicalDir2 = right;
-					zoneDirectionsArray[zone].findDir1 = left;
+					zoneDirectionsArray[zone].methodicalDir1 = movingUpwards;
+					zoneDirectionsArray[zone].methodicalDir2 = movingRight;
+					zoneDirectionsArray[zone].findDir1 = movingLeft;
 					break;
 				case 7:
-					zoneDirectionsArray[zone].methodicalDir1 = right;
-					zoneDirectionsArray[zone].methodicalDir2 = up;
-					zoneDirectionsArray[zone].findDir1 = down;
+					zoneDirectionsArray[zone].methodicalDir1 = movingRight;
+					zoneDirectionsArray[zone].methodicalDir2 = movingUpwards;
+					zoneDirectionsArray[zone].findDir1 = movingDownwards;
 					break;
 				case 8:
-					zoneDirectionsArray[zone].methodicalDir1 = right;
+					zoneDirectionsArray[zone].methodicalDir1 = movingRight;
 					zoneDirectionsArray[zone].methodicalDir2 = -1;
-					zoneDirectionsArray[zone].findDir1 = up;
-					zoneDirectionsArray[zone].findDir2 = down;
+					zoneDirectionsArray[zone].findDir1 = movingUpwards;
+					zoneDirectionsArray[zone].findDir2 = movingDownwards;
 					break;
 				case 9:
-					zoneDirectionsArray[zone].methodicalDir1 = right;
-					zoneDirectionsArray[zone].methodicalDir2 = down;
-					zoneDirectionsArray[zone].findDir1 = up;
+					zoneDirectionsArray[zone].methodicalDir1 = movingRight;
+					zoneDirectionsArray[zone].methodicalDir2 = movingDownwards;
+					zoneDirectionsArray[zone].findDir1 = movingUpwards;
 					break;
 				case 10:
-					zoneDirectionsArray[zone].methodicalDir1 = down;
-					zoneDirectionsArray[zone].methodicalDir2 = right;
-					zoneDirectionsArray[zone].findDir1 = left;
+					zoneDirectionsArray[zone].methodicalDir1 = movingDownwards;
+					zoneDirectionsArray[zone].methodicalDir2 = movingRight;
+					zoneDirectionsArray[zone].findDir1 = movingLeft;
 					break;
 				case 11:
-					zoneDirectionsArray[zone].methodicalDir1 = down;
-					zoneDirectionsArray[zone].methodicalDir2 = right;
-					zoneDirectionsArray[zone].findDir1 = left;
+					zoneDirectionsArray[zone].methodicalDir1 = movingDownwards;
+					zoneDirectionsArray[zone].methodicalDir2 = movingRight;
+					zoneDirectionsArray[zone].findDir1 = movingLeft;
 					break;
 				case 12:
-					zoneDirectionsArray[zone].methodicalDir1 = down;
+					zoneDirectionsArray[zone].methodicalDir1 = movingDownwards;
 					zoneDirectionsArray[zone].methodicalDir2 = -1;
-					zoneDirectionsArray[zone].findDir1 = right;
-					zoneDirectionsArray[zone].findDir2 = left;
+					zoneDirectionsArray[zone].findDir1 = movingRight;
+					zoneDirectionsArray[zone].findDir2 = movingLeft;
 					break;
 				case 13:
-					zoneDirectionsArray[zone].methodicalDir1 = down;
-					zoneDirectionsArray[zone].methodicalDir2 = left;
-					zoneDirectionsArray[zone].findDir1 = right;
+					zoneDirectionsArray[zone].methodicalDir1 = movingDownwards;
+					zoneDirectionsArray[zone].methodicalDir2 = movingLeft;
+					zoneDirectionsArray[zone].findDir1 = movingRight;
 					break;
 				case 14:
-					zoneDirectionsArray[zone].methodicalDir1 = down;
-					zoneDirectionsArray[zone].methodicalDir2 = left;
-					zoneDirectionsArray[zone].findDir1 = right;
+					zoneDirectionsArray[zone].methodicalDir1 = movingDownwards;
+					zoneDirectionsArray[zone].methodicalDir2 = movingLeft;
+					zoneDirectionsArray[zone].findDir1 = movingRight;
 					break;
 				case 15:
-					zoneDirectionsArray[zone].methodicalDir1 = left;
-					zoneDirectionsArray[zone].methodicalDir2 = down;
-					zoneDirectionsArray[zone].findDir1 = up;
+					zoneDirectionsArray[zone].methodicalDir1 = movingLeft;
+					zoneDirectionsArray[zone].methodicalDir2 = movingDownwards;
+					zoneDirectionsArray[zone].findDir1 = movingUpwards;
 					break;
 			}
 		}
@@ -323,7 +339,7 @@ public class Ghost extends Character
 	{
 		nextDir = randomGen.nextInt(4);
 		
-		if(!SpawnBox.canLeaveSpawnBox(timeSpentInSpawnBoxInSeconds) && nextDir == up)
+		if(!canLeaveSpawnBox(timeSpentInSpawnBoxInSeconds) && nextDir == movingUpwards)
 		{
 			nextDir = currentDir;
 		}
@@ -334,27 +350,27 @@ public class Ghost extends Character
 		// Update ghost's distance to pacman
 		updateDistanceToPacman();
 		
-		// In cool down period from methodical movement
+		// In cool movingDownwards period from methodical movement
 		if(coolDown == true)
 		{
-			// Increase cool down time
+			// Increase cool movingDownwards time
 			coolDownTime++;
 			
-			// Cool down time has reached the target time 
+			// Cool movingDownwards time has reached the target time 
 			if(coolDownTime == coolDownTargetTime)
 			{
-				// Clear cool down flag
+				// Clear cool movingDownwards flag
 				coolDown = false;
 				
-				// Reset cool down timer 
+				// Reset cool movingDownwards timer 
 				coolDownTime = 0;
 			}
 		}
-		// No longer in cool down period from methodical movement
+		// No longer in cool movingDownwards period from methodical movement
 		else if(coolDown == false)
 		{
 			// Ghost not vulnerable, not in spawn box and pacman within detection range
-			if(pacmanIsClose() && !isVulnerable && !SpawnBox.isInSpawnBox(this))
+			if(pacmanIsClose() && !isVulnerable && !isInSpawnBox(this))
 			{
 				// Switch movement type to methodical
 				movementType = methodicalMovement;
@@ -388,7 +404,7 @@ public class Ghost extends Character
 		updateDistanceToPacman();
 		
 		// Energizer in active state or ghost is in the spawn box
-		if(Energizer.isActive == true || SpawnBox.isInSpawnBox(this))
+		if(Energizer.isActive == true || isInSpawnBox(this))
 		{
 			// Change movement type to random
 			movementType = randomMovement;
@@ -425,7 +441,7 @@ public class Ghost extends Character
 		if(methodicalTime == methodicalTargetTime) 				
 		{			
 			methodicalTime = 0;				// Reset timer for methodical movement
-			coolDown 	 = true;			// Activate cool down period for methodical movement
+			coolDown 	 = true;			// Activate cool movingDownwards period for methodical movement
 			movementType = randomMovement;	// Return to random movement
 		}
 	}
@@ -485,36 +501,36 @@ public class Ghost extends Character
 	
 	private void portalEvents()
 	{		
-		if(Portal.isCrossingPortalFromLeftSide(this))
+		if(Character.isCrossingPortalFromLeftSide(this))
 		{
-			portalCrossingStatus = Portal.crossingPortalFromLeftSide;
-			currentDir = left;
-			moveGivenCharacterInGivenDirection(this, left);
+			portalCrossingStatus = Character.crossingPortalFromLeftSide;
+			currentDir = movingLeft;
+			moveGivenCharacterInGivenDirection(this, movingLeft);
 			
-			if(Portal.isAboutToCrossPortalFromLeftSide(this))								
+			if(Character.isAboutToCrossPortalFromLeftSide(this))								
 			{	
 				ghostArray[ghostID] = new Ghost(ghostID, movementType, portalCrossingStatus, isVulnerable);
 			}
 			
-			if(Portal.atRightPortalEntry(this))
+			if(Character.atRightPortalEntry(this))
 			{
-				portalCrossingStatus = Portal.notCrossingPortal;
+				portalCrossingStatus = Character.notCrossingPortal;
 			}
 		}
-		else if(Portal.isCrossingPortalFromRightSide(this))
+		else if(Character.isCrossingPortalFromRightSide(this))
 		{
-			portalCrossingStatus = Portal.crossingPortalFromRightSide;
-			currentDir = right;
-			moveGivenCharacterInGivenDirection(this, right);
+			portalCrossingStatus = Character.crossingPortalFromRightSide;
+			currentDir = movingRight;
+			moveGivenCharacterInGivenDirection(this, movingRight);
 			
-			if(Portal.isAboutToCrossPortalFromRightSide(this))
+			if(Character.isAboutToCrossPortalFromRightSide(this))
 			{
 				ghostArray[ghostID] = new Ghost(ghostID, movementType, portalCrossingStatus, isVulnerable);
 			}
 			
-			if(Portal.atLeftPortalEntry(this))
+			if(Character.atLeftPortalEntry(this))
 			{
-				portalCrossingStatus = Portal.notCrossingPortal;
+				portalCrossingStatus = Character.notCrossingPortal;
 			}
 		}
 	}
@@ -588,9 +604,9 @@ public class Ghost extends Character
 		
 	private void spawnBoxEvents()
 	{
-		if(SpawnBox.isInSpawnBox(this))
+		if(isInSpawnBox(this))
 		{
-			if(!SpawnBox.canLeaveSpawnBox(timeSpentInSpawnBoxInSeconds))
+			if(!canLeaveSpawnBox(timeSpentInSpawnBoxInSeconds))
 			{
 				timeSpentInSpawnBoxInSeconds++;
 			}
@@ -602,7 +618,7 @@ public class Ghost extends Character
 		spawnBoxEvents();
 		portalEvents();
 		
-		if(portalCrossingStatus == Portal.notCrossingPortal)
+		if(portalCrossingStatus == Character.notCrossingPortal)
 		{
 			selectGhostMovementType();
 		}
