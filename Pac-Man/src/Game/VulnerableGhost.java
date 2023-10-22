@@ -8,4 +8,14 @@ public class VulnerableGhost extends Ghost
 	{
 		
 	}
+	
+	public void render()
+	{
+		
+	}
+	
+	public void tick()
+	{
+		
+	}
 }

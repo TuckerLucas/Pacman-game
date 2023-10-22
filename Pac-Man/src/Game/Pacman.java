@@ -26,6 +26,11 @@ public class Pacman extends Character
 	public static int spawnX = 320;
 	public static int spawnY = 512;
 	
+	public static int currentDir;
+	public static int nextDir;
+	
+	public static int portalCrossingStatus;
+	
 	// Direction variables
 	public static final int stopped = -1;
 	
@@ -93,6 +98,20 @@ public class Pacman extends Character
 		}
 	}
 
+	public int getCurrentDirection()
+	{
+		return currentDir;
+	}
+	
+	public void setCurrentDirection(int dir)
+	{
+		currentDir = dir;
+	}
+	
+	public void setPortalCrossingStatus(int portalStatus)
+	{
+		portalCrossingStatus = portalStatus;
+	}
 	
 	// Spawn pacman at the given coordinates
 	private void spawnPacman(int xCoordinate, int yCoordinate)
@@ -198,20 +217,31 @@ public class Pacman extends Character
 			}
 		}
 	}
-
-	public void portalCrossing()
+	
+	public int getNextDirection()
 	{
-		if(Character.isAboutToCrossPortalFromLeftSide(this))	
-		{
-			pacman = new Pacman(Character.crossingPortalFromLeftSide, nextDir);
-		}
-		
-		if(Character.isAboutToCrossPortalFromRightSide(this))			
-		{
-			pacman = new Pacman(Character.crossingPortalFromRightSide, nextDir);		
-		}
+		return nextDir;
 	}
 	
+	public int getID()
+	{
+		return -1;
+	}
+	
+	int getPortalCrossingStatus() 
+	{
+		return -1;
+	}
+
+	int getMovementType() 
+	{
+		return -1;
+	}
+
+	boolean getVulnerabilityStatus() 
+	{
+		return false;
+	}
 	
 	// Manage pacman animation timing
 	public void eatingAnimation()
@@ -296,7 +326,8 @@ public class Pacman extends Character
 			currentDir = nextDir;
 		}
 		moveGivenCharacterInGivenDirection(this, nextDir);
-		portalCrossing();
+
+		Character.portalEvents(this);
 		foodCollision();
 		ghostCollision();
 		

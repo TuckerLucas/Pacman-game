@@ -8,4 +8,14 @@ public class HostileGhost extends Ghost
 	{
 		
 	}
+	
+	public void render()
+	{
+		
+	}
+	
+	public void tick()
+	{
+		
+	}
 }

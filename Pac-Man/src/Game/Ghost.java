@@ -82,6 +82,31 @@ public class Ghost extends Character
 		
 	}
 	
+	public int getCurrentDirection()
+	{
+		return currentDir;
+	}
+	
+	public void setCurrentDirection(int dir)
+	{
+		currentDir = dir;
+	}
+	
+	public void setPortalCrossingStatus(int portalStatus)
+	{
+		portalCrossingStatus = portalStatus;
+	}
+	
+	public int getNextDirection()
+	{
+		return nextDir;
+	}
+	
+	public int getID()
+	{
+		return ghostID;
+	}
+	
 	// Constructor
 	public Ghost(int ID, int movementStatus, int portalStatus, boolean vulnerabilityStatus)
 	{		
@@ -143,6 +168,7 @@ public class Ghost extends Character
 	{
 		return (timeSpentInSpawnBoxInSeconds == minimumTimeToBeSpentInSpawnBoxInSeconds) ? true : false;
 	}
+	
 	private void spawnGhost(int xCoordinate, int yCoordinate)
 	{
 		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
@@ -493,46 +519,10 @@ public class Ghost extends Character
 	{
 		switch(movementType)
 		{
-			case randomMovement: 	 moveRandomly();     break;	// Move in a random fashion
+			case randomMovement: moveRandomly(); break;	// Move in a random fashion
 			case methodicalMovement: moveMethodically(); break;	// Move in a methodical fashion (chase pacman)
-			case findingPath: 	 	 findingPath();      break;	// Find path to pacman when stuck
+			case findingPath: findingPath(); break;	// Find path to pacman when stuck
 		}			
-	}
-	
-	private void portalEvents()
-	{		
-		if(Character.isCrossingPortalFromLeftSide(this))
-		{
-			portalCrossingStatus = Character.crossingPortalFromLeftSide;
-			currentDir = movingLeft;
-			moveGivenCharacterInGivenDirection(this, movingLeft);
-			
-			if(Character.isAboutToCrossPortalFromLeftSide(this))								
-			{	
-				ghostArray[ghostID] = new Ghost(ghostID, movementType, portalCrossingStatus, isVulnerable);
-			}
-			
-			if(Character.atRightPortalEntry(this))
-			{
-				portalCrossingStatus = Character.notCrossingPortal;
-			}
-		}
-		else if(Character.isCrossingPortalFromRightSide(this))
-		{
-			portalCrossingStatus = Character.crossingPortalFromRightSide;
-			currentDir = movingRight;
-			moveGivenCharacterInGivenDirection(this, movingRight);
-			
-			if(Character.isAboutToCrossPortalFromRightSide(this))
-			{
-				ghostArray[ghostID] = new Ghost(ghostID, movementType, portalCrossingStatus, isVulnerable);
-			}
-			
-			if(Character.atLeftPortalEntry(this))
-			{
-				portalCrossingStatus = Character.notCrossingPortal;
-			}
-		}
 	}
 	
 	private void animation()
@@ -616,7 +606,7 @@ public class Ghost extends Character
 	public void tick()
 	{		
 		spawnBoxEvents();
-		portalEvents();
+		Character.portalEvents(this);
 		
 		if(portalCrossingStatus == Character.notCrossingPortal)
 		{
@@ -624,5 +614,20 @@ public class Ghost extends Character
 		}
 		
 		animation();
+	}
+
+	int getPortalCrossingStatus() 
+	{
+		return portalCrossingStatus;
+	}
+
+	int getMovementType() 
+	{
+		return movementType;
+	}
+
+	boolean getVulnerabilityStatus() 
+	{
+		return isVulnerable;
 	}
 }
