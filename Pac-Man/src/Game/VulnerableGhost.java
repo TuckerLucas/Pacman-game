@@ -1,6 +1,7 @@
 package Game;
 
 import java.awt.Graphics;
+import java.util.Random;
 
 public class VulnerableGhost extends Ghost
 {
@@ -14,9 +15,34 @@ public class VulnerableGhost extends Ghost
 	private int timeImage = 0;		
 	private int targetTimeImage = 4;
 	
-	VulnerableGhost(int id, int movement, int portalStatus)
+	private Random randomGen;
+
+	
+	VulnerableGhost(int x, int y, int ID, int movement, int portalStatus)
 	{
+		ghostID = ID;                  			// Update ghost ID
+		movementType = movement; 			// Set default ghost movement type
+		portalCrossingStatus = portalStatus;
 		
+		spawnGhost(x, y);
+		
+		randomGen = new Random();
+		generateNextDirection();
+	}
+	
+	private void generateNextDirection()
+	{
+		nextDir = randomGen.nextInt(4);
+		
+		if(!canLeaveSpawnBox(timeSpentInSpawnBoxInSeconds) && nextDir == movingUpwards)
+		{
+			nextDir = currentDir;
+		}
+	}
+	
+	private void spawnGhost(int xCoordinate, int yCoordinate)
+	{
+		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
 	}
 	
 	private void flashGhost(Graphics g)
@@ -72,11 +98,32 @@ public class VulnerableGhost extends Ghost
 		}
 	}
 	
-
+	private void moveRandomly()
+	{
+		// Ghost can move in the next defined direction
+		if(canMove(nextDir, this))
+		{
+			currentDir = nextDir;
+			// Move in the next defined direction
+			moveGivenCharacterInGivenDirection(this, nextDir);
+		}
+		// Ghost can move in the current defined direction
+		else if(canMove(currentDir, this))
+		{
+			// Continue moving in the current defined direction
+			moveGivenCharacterInGivenDirection(this, currentDir);
+			
+			// Will continue moving in the current direction until can move in the next one
+			return;
+		}
+		
+		// Generate a new direction for the ghost to move in
+		generateNextDirection();
+	}
 	
 	public void tick()
 	{
-		
+		moveRandomly();
 		animation();
 	}
 	
@@ -113,10 +160,5 @@ public class VulnerableGhost extends Ghost
 	int getMovementType() 
 	{
 		return movementType;
-	}
-
-	boolean getVulnerabilityStatus() 
-	{
-		return isVulnerable;
 	}
 }

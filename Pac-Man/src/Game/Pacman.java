@@ -202,7 +202,7 @@ public class Pacman extends Character
 			if(Energizer.isActive == true)
 			{
 				// Check if ghost hasn't been eaten yet
-				if(Ghost.ghostArray[intersectedGhost].isVulnerable == true)
+				if(Ghost.ghostArray[intersectedGhost] instanceof VulnerableGhost)
 				{
 					// Eat the ghost
 					eatGhost();

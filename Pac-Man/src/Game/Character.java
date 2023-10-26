@@ -81,7 +81,7 @@ public abstract class Character extends Rectangle
 					}
 					else if(character instanceof VulnerableGhost) 
 					{
-						Ghost.ghostArray[character.getID()] = new VulnerableGhost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus());
+						Ghost.ghostArray[character.getID()] = new VulnerableGhost(character.x, character.y, character.getID(), character.getMovementType(), character.getPortalCrossingStatus());
 					}
 					
 					//Ghost.ghostArray[character.getID()] = new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
@@ -106,7 +106,7 @@ public abstract class Character extends Rectangle
 					}
 					else if(character instanceof VulnerableGhost) 
 					{
-						Ghost.ghostArray[character.getID()] = new VulnerableGhost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus());
+						Ghost.ghostArray[character.getID()] = new VulnerableGhost(character.x, character.y, character.getID(), character.getMovementType(), character.getPortalCrossingStatus());
 					}
 					
 					//Ghost.ghostArray[character.getID()] = new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
@@ -215,5 +215,4 @@ public abstract class Character extends Rectangle
 	abstract int getNextDirection();
 	abstract int getID();
 	abstract int getMovementType();
-	abstract boolean getVulnerabilityStatus();
 }
