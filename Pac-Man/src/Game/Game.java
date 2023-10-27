@@ -140,10 +140,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static void loadGameElements()
 	{
 		Pacman.pacman = new Pacman(Character.notCrossingPortal, Character.movingRight);
-		Ghost.ghostArray[0] = new HostileGhost(0, Ghost.randomMovement, Character.notCrossingPortal);//new Ghost(0, Character.randomMovement, Character.notCrossingPortal, false); 
-		Ghost.ghostArray[1] = new HostileGhost(1, Ghost.randomMovement, Character.notCrossingPortal);//new Ghost(1, Character.randomMovement, Character.notCrossingPortal, false);
-		Ghost.ghostArray[2] = new HostileGhost(2, Ghost.randomMovement, Character.notCrossingPortal);//new Ghost(2, Character.randomMovement, Character.notCrossingPortal, false);
-		Ghost.ghostArray[3] = new HostileGhost(3, Ghost.randomMovement, Character.notCrossingPortal);//new Ghost(3, Character.randomMovement, Character.notCrossingPortal, false);
+		Ghost.ghostArray[0] = new HostileGhost(Ghost.spawnBoxX, Ghost.spawnBoxY, 0, Ghost.randomMovement, Character.notCrossingPortal);//new Ghost(0, Character.randomMovement, Character.notCrossingPortal, false); 
+		Ghost.ghostArray[1] = new HostileGhost(Ghost.spawnBoxX, Ghost.spawnBoxY, 1, Ghost.randomMovement, Character.notCrossingPortal);//new Ghost(1, Character.randomMovement, Character.notCrossingPortal, false);
+		Ghost.ghostArray[2] = new HostileGhost(Ghost.spawnBoxX, Ghost.spawnBoxY, 2, Ghost.randomMovement, Character.notCrossingPortal);//new Ghost(2, Character.randomMovement, Character.notCrossingPortal, false);
+		Ghost.ghostArray[3] = new HostileGhost(Ghost.spawnBoxX, Ghost.spawnBoxY, 3, Ghost.randomMovement, Character.notCrossingPortal);//new Ghost(3, Character.randomMovement, Character.notCrossingPortal, false);
 
 		// Load other game objects based on game status
 		switch(gameStatus)

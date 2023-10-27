@@ -105,7 +105,7 @@ public class HostileGhost extends Ghost
 	}
 	
 	// Constructor
-	public HostileGhost(int ID, int movementStatus, int portalStatus)
+	public HostileGhost(int x, int y, int ID, int movementStatus, int portalStatus)
 	{		
 		// Initialize zone directions array
 		loadZoneDirectionsArray();
@@ -118,7 +118,7 @@ public class HostileGhost extends Ghost
 		switch(portalCrossingStatus)
 		{
 			case Character.notCrossingPortal:
-				spawnGhost(spawnBoxX, spawnBoxY);		// Spawn ghost in spawn box
+				spawnGhost(x, y);		// Spawn ghost in spawn box
 				break;
 			case Character.crossingPortalFromLeftSide:
 				spawnGhost(rightPortalX, rightPortalY);	// Spawn ghost in the movingRight portal (crossed movingLeft portal)
@@ -544,9 +544,6 @@ public class HostileGhost extends Ghost
 			}
 		}
 	}
-	
-	
-
 	
 	private void look(int direction, Graphics g)
 	{

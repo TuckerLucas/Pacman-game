@@ -77,14 +77,12 @@ public abstract class Character extends Rectangle
 				{	
 					if(character instanceof HostileGhost)
 					{
-						Ghost.ghostArray[character.getID()] = new HostileGhost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus());
+						Ghost.ghostArray[character.getID()] = new HostileGhost(rightPortalX, rightPortalY, character.getID(), character.getMovementType(), character.getPortalCrossingStatus());
 					}
 					else if(character instanceof VulnerableGhost) 
 					{
 						Ghost.ghostArray[character.getID()] = new VulnerableGhost(character.x, character.y, character.getID(), character.getMovementType(), character.getPortalCrossingStatus());
 					}
-					
-					//Ghost.ghostArray[character.getID()] = new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
 				}
 				
 				if(atRightPortalEntry(character))
@@ -102,14 +100,12 @@ public abstract class Character extends Rectangle
 				{
 					if(character instanceof HostileGhost)
 					{
-						Ghost.ghostArray[character.getID()] = new HostileGhost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus());
+						Ghost.ghostArray[character.getID()] = new HostileGhost(leftPortalX, leftPortalY, character.getID(), character.getMovementType(), character.getPortalCrossingStatus());
 					}
 					else if(character instanceof VulnerableGhost) 
 					{
-						Ghost.ghostArray[character.getID()] = new VulnerableGhost(character.x, character.y, character.getID(), character.getMovementType(), character.getPortalCrossingStatus());
+						Ghost.ghostArray[character.getID()] = new VulnerableGhost(leftPortalX, leftPortalY, character.getID(), character.getMovementType(), character.getPortalCrossingStatus());
 					}
-					
-					//Ghost.ghostArray[character.getID()] = new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
 				}
 				
 				if(Character.atLeftPortalEntry(character))

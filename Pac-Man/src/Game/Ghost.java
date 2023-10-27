@@ -21,9 +21,7 @@ public abstract class Ghost extends Character
 	// Ghost movement variables
 	public int movementType;
 
-	
 	public static int flashTime = 60*5;
-	
 	
 	public static final int randomMovement = 0;
 	public static final int methodicalMovement = 1;
