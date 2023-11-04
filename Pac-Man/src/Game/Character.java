@@ -11,6 +11,10 @@ public abstract class Character extends Rectangle
 	public static final int movingUpwards = 2;
 	public static final int movingDownwards = 3;
 	
+	public static final int randomMovement = 0;
+	public static final int methodicalMovement = 1;
+	public static final int findingPath = 2;
+	
 	public static int leftPortalX = 0;
 	public static int leftPortalY = 320;
 	public static int rightPortalX = 640;
@@ -75,16 +79,7 @@ public abstract class Character extends Rectangle
 				
 				if(Character.isAboutToCrossPortalFromLeftSide(character))								
 				{	
-					if(character instanceof HostileGhost)
-					{
-						Ghost.ghostArray[character.getID()] = new HostileGhost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus());
-					}
-					else if(character instanceof VulnerableGhost) 
-					{
-						Ghost.ghostArray[character.getID()] = new VulnerableGhost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus());
-					}
-					
-					//Ghost.ghostArray[character.getID()] = new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
+					Ghost.ghostArray[character.getID()] = new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
 				}
 				
 				if(atRightPortalEntry(character))
@@ -100,16 +95,7 @@ public abstract class Character extends Rectangle
 				
 				if(Character.isAboutToCrossPortalFromRightSide(character))
 				{
-					if(character instanceof HostileGhost)
-					{
-						Ghost.ghostArray[character.getID()] = new HostileGhost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus());
-					}
-					else if(character instanceof VulnerableGhost) 
-					{
-						Ghost.ghostArray[character.getID()] = new VulnerableGhost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus());
-					}
-					
-					//Ghost.ghostArray[character.getID()] = new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
+					Ghost.ghostArray[character.getID()] = new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
 				}
 				
 				if(Character.atLeftPortalEntry(character))
