@@ -163,7 +163,7 @@ public class HostileGhost extends Ghost
 		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
 	}
 	
-	// Populate the zone directions array (test1)
+	// Populate the zone directions array (test)
 	private void loadZoneDirectionsArray()
 	{	
 		// Iterate through the zone directions array
