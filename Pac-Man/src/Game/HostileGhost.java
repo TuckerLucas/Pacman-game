@@ -106,7 +106,7 @@ public class HostileGhost extends Ghost
 		// Initialize zone directions array
 		loadZoneDirectionsArray();
 		
-		ghostID = ID;                  			
+		ghostID = ID;                  			// Update ghost ID
 		movementType = movementStatus; 			// Set default ghost movement type
 		portalCrossingStatus = portalStatus;	// Update portal crossing status
 		
