@@ -60,7 +60,7 @@ public class Energizer extends Food
 	{
 		for(int i = 0; i < Ghost.ghostArray.length; i++)
 		{
-			Ghost.ghostArray[i] = new VulnerableGhost(Ghost.ghostArray[i].x, Ghost.ghostArray[i].y, Ghost.ghostArray[i].ghostID, Ghost.ghostArray[i].movementType, Ghost.ghostArray[i].portalCrossingStatus);
+			Ghost.ghostArray[i].isVulnerable = true;
 		}
 		
 		Ghost.nEatenGhosts = 0;
@@ -70,7 +70,7 @@ public class Energizer extends Food
 	{
 		for(int i = 0; i < Ghost.ghostArray.length; i++)
 		{
-			Ghost.ghostArray[i] = new HostileGhost(Ghost.ghostArray[i].ghostID, Ghost.ghostArray[i].movementType, Ghost.ghostArray[i].portalCrossingStatus);
+			Ghost.ghostArray[i].isVulnerable = false;
 		}
 	}
 	

@@ -33,6 +33,8 @@ public abstract class Ghost extends Character
 	
 	public int portalCrossingStatus;
 	
+	
+	public boolean isVulnerable = false;
 	public static boolean isFlashing = false;
 	
 	public static int flashAnimationTime = 0;
@@ -48,18 +50,25 @@ public abstract class Ghost extends Character
 	public static Ghost ghostArray[] = new Ghost[4];
 	public static Ghost ghost;
 	
-	public static int minimumTimeToBeSpentInSpawnBoxInSeconds = 60*3;
+
 	
 	public Ghost()
 	{
 		
 	}
 	
-	public static boolean canLeaveSpawnBox(int timeSpentInSpawnBoxInSeconds)
-	{
-		return (timeSpentInSpawnBoxInSeconds == minimumTimeToBeSpentInSpawnBoxInSeconds) ? true : false;
-	}
+
 	
+
+
+	
+
+	
+
+
+	
+
+
 	
 	abstract void render(Graphics g);
 	abstract void tick();

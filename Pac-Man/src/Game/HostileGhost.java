@@ -22,6 +22,7 @@ public class HostileGhost extends Ghost
 	private Random randomGen;
 	
 	// Ghost movement variables
+	private int movementType;
 
 	private boolean findDir1Blocked = false;
 	
@@ -50,9 +51,11 @@ public class HostileGhost extends Ghost
 	
 	public static int nEatenGhosts = 0;
 	
+	private int portalCrossingStatus;
 	
 	private int imageIndexEnemy = 0;
 	
+	public boolean isVulnerable = false;
 	public static boolean isFlashing = false;
 	
 	public static int flashAnimationTime = 0;
@@ -60,7 +63,7 @@ public class HostileGhost extends Ghost
 	
 	private int timeSpentInSpawnBoxInSeconds = 0;
 	
-
+	public int ghostID;
 	private int pacmanZone = 1;
 	
 	public static int spawnBoxX = 320;
@@ -68,7 +71,7 @@ public class HostileGhost extends Ghost
 	
 	public static Ghost ghostArray[] = new Ghost[4];
 	
-	 
+	public static int minimumTimeToBeSpentInSpawnBoxInSeconds = 60*3; 
 	
 	class zoneDirections
 	{	
@@ -160,7 +163,10 @@ public class HostileGhost extends Ghost
 		return ((ghost.x < 368 && ghost.x > 272) && (ghost.y < 336 && ghost.y > 304)) ? true : false;
 	}
 	
-	
+	public static boolean canLeaveSpawnBox(int timeSpentInSpawnBoxInSeconds)
+	{
+		return (timeSpentInSpawnBoxInSeconds == minimumTimeToBeSpentInSpawnBoxInSeconds) ? true : false;
+	}
 	
 	private void spawnGhost(int xCoordinate, int yCoordinate)
 	{
@@ -389,7 +395,7 @@ public class HostileGhost extends Ghost
 		else if(coolDown == false)
 		{
 			// Ghost not vulnerable, not in spawn box and pacman within detection range
-			if(pacmanIsClose() && !isInSpawnBox(this))
+			if(pacmanIsClose() && !isVulnerable && !isInSpawnBox(this))
 			{
 				// Switch movement type to methodical
 				movementType = methodicalMovement;
@@ -596,5 +602,164 @@ public class HostileGhost extends Ghost
 	{
 		return movementType;
 	}
+
+	boolean getVulnerabilityStatus() 
+	{
+		return isVulnerable;
+	}
 }
 
+/*
+package Game;
+
+import java.awt.Graphics;
+import java.util.Random;
+
+public class HostileGhost extends Ghost
+{
+	private static final long serialVersionUID = 1L;
+
+	private static Random randomGen;
+	private static int nextDir = 0;
+	private static int currentDir = 0;
+	
+	
+	private int timeImage = 0;		
+	private int targetTimeImage = 4;
+	private int imageIndexEnemy = 0;
+	
+	public HostileGhost(int id, int movement, int portalStatus)
+	{
+		ghostID = id;                  			// Update ghost ID
+		movementType = movement; 			// Set default ghost movement type
+		portalCrossingStatus = portalStatus;
+		
+		switch(portalCrossingStatus)
+		{
+			case Character.notCrossingPortal:
+				spawnGhost(spawnBoxX, spawnBoxY);		// Spawn ghost in spawn box
+				break;
+			case Character.crossingPortalFromLeftSide:
+				spawnGhost(rightPortalX, rightPortalY);	// Spawn ghost in the movingRight portal (crossed movingLeft portal)
+				currentDir = movingLeft;									// Update the ghost's current direction of movement
+				break;
+			case Character.crossingPortalFromRightSide:
+				spawnGhost(leftPortalX, leftPortalY);		// Spawn ghost in the movingLeft portal (crossed movingRight portal)
+				currentDir = movingRight;									// Update the ghost's current direction of movement
+				break;
+		}
+		
+		randomGen = new Random();
+		generateNextDirection();
+	}
+	
+	protected static void generateNextDirection()
+	{
+		nextDir = randomGen.nextInt(4);
+	}
+	
+	private void spawnGhost(int xCoordinate, int yCoordinate)
+	{
+		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
+	}
+	
+	private void moveRandomly()
+	{
+		// Ghost can move in the next defined direction
+		if(canMove(nextDir, this))
+		{
+			currentDir = nextDir;
+			// Move in the next defined direction
+			moveGivenCharacterInGivenDirection(this, nextDir);
+		}
+		// Ghost can move in the current defined direction
+		else if(canMove(currentDir, this))
+		{
+			// Continue moving in the current defined direction
+			moveGivenCharacterInGivenDirection(this, currentDir);
+			
+			// Will continue moving in the current direction until can move in the next one
+			return;
+		}
+		
+		// Generate a new direction for the ghost to move in
+		generateNextDirection();
+	}
+	
+
+	
+	private void look(int direction, Graphics g)
+	{
+		g.drawImage(Texture.ghostLook[ghostID][direction][imageIndexEnemy], x, y, width, height, null);
+	}
+	
+	public void render(Graphics g)
+	{
+		if(imageIndexEnemy == 2)
+		{
+			imageIndexEnemy = 0;
+		}
+
+		look(currentDir, g);
+		
+	}
+	
+	public void animation()
+	{
+		timeImage ++;
+		
+		if(timeImage == targetTimeImage)
+		{
+			timeImage = 0;
+			imageIndexEnemy ++;
+		}
+	}
+	
+
+	
+	public void tick()
+	{
+		moveRandomly();
+		animation();
+	}
+	
+	public int getCurrentDirection()
+	{
+		return currentDir;
+	}
+	
+	public void setCurrentDirection(int dir)
+	{
+		currentDir = dir;
+	}
+	
+	public void setPortalCrossingStatus(int portalStatus)
+	{
+		portalCrossingStatus = portalStatus;
+	}
+	
+	public int getNextDirection()
+	{
+		return nextDir;
+	}
+	
+	public int getID()
+	{
+		return ghostID;
+	}
+	
+	int getPortalCrossingStatus() 
+	{
+		return portalCrossingStatus;
+	}
+
+	int getMovementType() 
+	{
+		return movementType;
+	}
+
+	boolean getVulnerabilityStatus() 
+	{
+		return isVulnerable;
+	}
+}*/
