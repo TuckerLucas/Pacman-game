@@ -66,6 +66,10 @@ public class HostileGhost extends Ghost
 	public static int spawnBoxX = 320;
 	public static int spawnBoxY = 320;
 	
+	public static Ghost ghostArray[] = new Ghost[4];
+	
+	 
+	
 	class zoneDirections
 	{	
 		int methodicalDir1;

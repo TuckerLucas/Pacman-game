@@ -61,6 +61,11 @@ public class VulnerableGhost extends Ghost
 	public int ghostID;
 	private int pacmanZone = 1;
 	
+	public static int spawnBoxX = 320;
+	public static int spawnBoxY = 320;
+	
+	public static Ghost ghostArray[] = new Ghost[4];
+	
 	public static int minimumTimeToBeSpentInSpawnBoxInSeconds = 60*3; 
 	
 	class zoneDirections
