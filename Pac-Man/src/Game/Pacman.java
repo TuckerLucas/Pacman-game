@@ -121,13 +121,13 @@ public class Pacman extends Character
 
 	private void foodCollision()
 	{	
-		for(int i = 0; i < Food.food.size(); i++) 		
+		for(int i = 0; i < Food.foodList.size(); i++) 		
 		{    
 			// Check for collision with food
-			if(this.intersects(Food.food.get(i)))							
+			if(this.intersects(Food.foodList.get(i)))							
 			{
 				// Eat the food
-				Food.eat(Food.food.get(i));
+				Food.eat(Food.foodList.get(i));
 				
 				break;
 			}

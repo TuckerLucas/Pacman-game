@@ -43,7 +43,7 @@ public class Level
 	
 	public Level()	
 	{
-		Food.food = new ArrayList<>();	
+		Food.foodList = new ArrayList<>();	
 		
 		try 
 		{
@@ -119,13 +119,13 @@ public class Level
 							
 						case white:
 							
-							Food.food.add(new Pellet(x*32, y*32));
+							Food.foodList.add(new Pellet(x*32, y*32));
 							
 							break;
 							
 						case lightYellow:
 							
-							Food.food.add(new Energizer(x*32, y*32));
+							Food.foodList.add(new Energizer(x*32, y*32));
 							
 							break;
 					}
@@ -195,9 +195,9 @@ public class Level
 			}
 		}
 		
-		for(int i = 0; i < Food.food.size(); i++)
+		for(int i = 0; i < Food.foodList.size(); i++)
 		{	
-			Food.food.get(i).render(g);
+			Food.foodList.get(i).render(g);
 		}
 		
 		Pacman.pacman.render(g);
@@ -218,7 +218,7 @@ public class Level
 	
 	public void tick()
 	{
-		if(Food.food.size() == 0)
+		if(Food.foodList.size() == 0)
 		{
 			Game.gameStatus = Game.win;
 		}
