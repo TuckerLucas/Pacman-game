@@ -365,10 +365,11 @@ public class Ghost extends Character
 	{
 		nextDir = randomGen.nextInt(4);
 		
+		/*
 		if(!canLeaveSpawnBox(timeSpentInSpawnBoxInSeconds) && nextDir == movingUpwards)
 		{
 			nextDir = currentDir;
-		}
+		}*/
 	}
 	
 	private void moveRandomly()
@@ -605,7 +606,7 @@ public class Ghost extends Character
 	
 	public void tick()
 	{		
-		spawnBoxEvents();
+		//spawnBoxEvents();
 		Character.portalEvents(this);
 		
 		if(portalCrossingStatus == Character.notCrossingPortal)
