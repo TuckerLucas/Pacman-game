@@ -18,16 +18,16 @@ public class Energizer extends Food
 {
 	private static final long serialVersionUID = 1L;
 	
-	// Energizer animation variables
-	private int frameTime = 0;			// Time current frame has been displayed
-	private int frameTargetTime = 10;	// Target time for each frame to be displayed
-	private static int spriteFrame = 0;	// Array index of frame being displayed
-	private int spriteTargetFrame = 2;	// Array index of last frame of the animation 
+	private int spriteFrameDisplayTimeMilliseconds = 0;			
+	private int spriteFrameTargetDisplayTimeMilliseconds = 10;	
+	
+	private static int currentSpriteFrameIndex = 0;
+	private int totalNumberOfSpriteFrames = 2;
 	
 	public static int activeTime = 0; 
-	public static int activeTargetTime = 60*8;
+	private final int activeTargetTime = 60 * 8;
 	
-	public static int points = 50;
+	private int points = 50;
 	
 	public static boolean isActive = false;
 	
@@ -35,7 +35,7 @@ public class Energizer extends Food
 	
 	public Energizer(int x, int y)
 	{
-		setBounds(x+2,y+2,28,28);
+		setBounds(x+2, y+2, 28, 28);
 	}
 	
 	public static void activate()
@@ -88,12 +88,12 @@ public class Energizer extends Food
 	
 	public void runAnimation()
 	{
-		frameTime++;
+		spriteFrameDisplayTimeMilliseconds++;
 		
-		if(frameTime == frameTargetTime)
+		if(spriteFrameDisplayTimeMilliseconds == spriteFrameTargetDisplayTimeMilliseconds)
 		{
-			frameTime = 0;
-			spriteFrame++;
+			spriteFrameDisplayTimeMilliseconds = 0;
+			currentSpriteFrameIndex++;
 		}
 	}
 	
@@ -130,11 +130,11 @@ public class Energizer extends Food
 	
 	public void render(Graphics g)
 	{
-		if(spriteFrame >= spriteTargetFrame)
+		if(currentSpriteFrameIndex >= totalNumberOfSpriteFrames)
 		{
-			spriteFrame = 0;
+			currentSpriteFrameIndex = 0;
 		}
 		
-		g.drawImage(Texture.energizer[spriteFrame], x, y, width, height, null);	
+		g.drawImage(Texture.energizer[currentSpriteFrameIndex], x, y, width, height, null);	
 	}
 }

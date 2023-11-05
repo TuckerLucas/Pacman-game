@@ -309,9 +309,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 			case lose:
 				
+				/*
 				LeaderboardPanel.read_from_file();
 				LeaderboardPanel.swap_values();
-				LeaderboardPanel.write_to_file();
+				LeaderboardPanel.write_to_file();*/
 				
 				BonusScore.display = false;
 				
@@ -403,12 +404,9 @@ public class Game extends Canvas implements Runnable, KeyListener
 		bs.show();
 	}
 	
-	// Manage game's timing
 	@Override
 	public void run() 
-	{
-		requestFocus();					
-		
+	{					
 		long lastTime = System.nanoTime();		// Previous game instant
 		double targetTick = 60.0; 				// Game speed
 		double delta = 0;						// Time difference between game instants

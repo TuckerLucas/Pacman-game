@@ -47,6 +47,7 @@ public class LeaderboardPanel extends JPanel
 	
 	public static DefaultTableModel LeaderboardData;
 	
+	/*
 	public static void read_from_file()
 	{
 		try
@@ -131,6 +132,7 @@ public class LeaderboardPanel extends JPanel
 			e.printStackTrace();
 		}
 	}
+	*/
 	
 	public static DefaultTableModel update_table()
 	{
@@ -152,7 +154,7 @@ public class LeaderboardPanel extends JPanel
 	
 	public LeaderboardPanel()
 	{	
-		read_from_file();
+		//read_from_file();
 		
 		String information[][] = new String[N_SUPPORTED_USERNAMES][3];
 		
