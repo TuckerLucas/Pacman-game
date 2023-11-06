@@ -12,12 +12,12 @@ public class Wall extends Rectangle
 	
 	public Wall(int x, int y)
 	{	
-		setBounds(x,y,32,32);
+		setBounds(x, y, Texture.objectWidth, Texture.objectHeight);
 	}
 	
 	public void render(Graphics g)
 	{
-		g.setColor(new Color(0,0,255));
+		g.setColor(new Color(0, 0, 170));
 		g.fillRect(x, y, width, height);
 	}
 }
