@@ -73,6 +73,9 @@ public class Game extends Canvas implements Runnable, KeyListener
 	// Paths to required resources
 	private static String scoresPath = "res/Files/Scores.txt";
 
+	private static double targetTick = 60.0; 				
+	public static double secondsPerTick = 1.0 / targetTick;
+	
 	public Game()
 	{
 		addKeyListener(this);
@@ -275,7 +278,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 					loadGameElements();
 					gameStatus = play;
 
-            		Sounds.loop(Sounds.sirenSoundPath);
+            		//Sounds.loop(Sounds.sirenSoundPath);
 				}
 				
 				break;
@@ -286,9 +289,9 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 				Energizer.isActive = false;				
 
-				Energizer.turnGhostsVulnerable();
+				Ghost.turnAllVulnerable();
 				
-				Energizer.activeTime = 0;
+				Energizer.timeActiveInSeconds = 0.0f;
 				
 				blinkTime++;
 				
@@ -408,7 +411,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public void run() 
 	{					
 		long lastTime = System.nanoTime();		// Previous game instant
-		double targetTick = 60.0; 				// Game speed
 		double delta = 0;						// Time difference between game instants
 		double ns = 1000000000 / targetTick; 	// Time interval between ticks
 				

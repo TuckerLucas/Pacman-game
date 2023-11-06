@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.List;
 
-
 public abstract class Food extends Rectangle
 {	
 	private static final long serialVersionUID = 1L;

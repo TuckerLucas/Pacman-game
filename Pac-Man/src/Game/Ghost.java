@@ -26,8 +26,6 @@ public class Ghost extends Character
 
 	private boolean findDir1Blocked = false;
 	
-	public static int flashTime = 60*5;
-	
 	private int nextDir = 0;
 	public int currentDir = 0;
 	
@@ -52,7 +50,6 @@ public class Ghost extends Character
 	private int imageIndexEnemy = 0;
 	
 	public boolean isVulnerable = false;
-	public static boolean isFlashing = false;
 	
 	public static int flashAnimationTime = 0;
 	public static int flashAnimationTargetTime = 20;
@@ -172,6 +169,24 @@ public class Ghost extends Character
 	private void spawnGhost(int xCoordinate, int yCoordinate)
 	{
 		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
+	}
+	
+	public static void turnAllVulnerable()
+	{
+		for(int i = 0; i < ghostArray.length; i++)
+		{
+			ghostArray[i].isVulnerable = true;
+		}
+		
+		nEatenGhosts = 0;
+	}
+	
+	public static void turnAllHostile()
+	{
+		for(int i = 0; i < ghostArray.length; i++)
+		{
+			ghostArray[i].isVulnerable = false;
+		}
 	}
 	
 	// Populate the zone directions array
@@ -582,11 +597,11 @@ public class Ghost extends Character
 		}
 		else
 		{
-			if(isFlashing)
+			if(VulnerableGhost.isFlashing)
 			{
 				flashGhost(g);
 			}
-			else if(!isFlashing)
+			else if(!VulnerableGhost.isFlashing)
 			{
 				stayBlue(g);
 			}

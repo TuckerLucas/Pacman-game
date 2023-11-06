@@ -73,14 +73,14 @@ public class SettingsPanel extends JPanel
         	{
         		public void actionPerformed(ActionEvent e) 
         		{
-        			if(Sounds.soundOn == true)
+        			if(Sounds.soundIsOn == true)
         			{
-        				Sounds.soundOn = false;
+        				Sounds.soundIsOn = false;
         				SoundButton.setText("GAME SOUNDS: OFF");
         			}
-        			else if(Sounds.soundOn == false)
+        			else if(Sounds.soundIsOn == false)
         			{	
-        				Sounds.soundOn = true;
+        				Sounds.soundIsOn = true;
         				SoundButton.setText("GAME SOUNDS: ON ");
         			}
         		}
