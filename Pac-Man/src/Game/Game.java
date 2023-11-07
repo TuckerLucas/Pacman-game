@@ -285,7 +285,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 			case win:
 				
-				BonusScore.display = false;
+				BonusScore.isBeingDisplayed = false;
 				
 				Energizer.isActive = false;				
 
@@ -317,7 +317,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				LeaderboardPanel.swap_values();
 				LeaderboardPanel.write_to_file();*/
 				
-				BonusScore.display = false;
+				BonusScore.isBeingDisplayed = false;
 				
 				Pacman.lives = Pacman.LIVES;
 				
@@ -354,19 +354,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 			case lifeLost:
 				
-				BonusScore.display = false;
+				BonusScore.isBeingDisplayed = false;
 				Energizer.deactivate();
 				Pacman.pacman.tick();
 				
 				break;
-		}
-					
-		BonusScore.animationTime++;
-		
-		if(BonusScore.animationTime == BonusScore.animationTargetTime)
-		{
-			BonusScore.animationTime = 0;
-			Texture.bonusScoreAnimationPhase++;
 		}
 		
 		if(Game.score >= Game.highscore)

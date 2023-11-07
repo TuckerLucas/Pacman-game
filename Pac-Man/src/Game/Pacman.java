@@ -167,7 +167,7 @@ public class Pacman extends Character
 		Game.yEvent = y;
 		
 		// Display bonus score 
-		BonusScore.display = true;
+		BonusScore.isBeingDisplayed = true;
 		
 		// Increment the number of eaten ghosts
 		Ghost.nEatenGhosts++;

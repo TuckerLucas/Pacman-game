@@ -14,7 +14,7 @@ public class Energizer extends Food
 	private final double timeActiveTargetInSeconds = 8.0;
 	
 	private static int frameIndex = 0;
-	private int totalNumberOfFrames = 2;
+	private int totalNumberOfFrames = Texture.energizer.length;
 	
 	private double currentFrameTimeInSeconds = 0;			
 	private double frameTargetTimeInSeconds = 0.2;	
@@ -40,6 +40,11 @@ public class Energizer extends Food
 		{
 			currentFrameTimeInSeconds = 0;	
 			frameIndex++;
+		}
+		
+		if(frameIndex >= totalNumberOfFrames)
+		{
+			frameIndex = 0;
 		}
 	}
 	
@@ -92,11 +97,6 @@ public class Energizer extends Food
 	
 	public void render(Graphics g)
 	{
-		if(frameIndex >= totalNumberOfFrames)
-		{
-			frameIndex = 0;
-		}
-		
 		g.drawImage(Texture.energizer[frameIndex], x, y, width, height, null);	
 	}
 }

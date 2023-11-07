@@ -19,45 +19,45 @@ public class BonusScore extends Rectangle
 {
 	private static final long serialVersionUID = 1L;
 	
-	// Bonus score animation variables
-	public static int animationTime       = 0;
-	public static int animationTargetTime = 10;
-	public static int nFlashes 			  = 0;
-	public static int nTargetFlashes	  = 3;
-	public static boolean display  		  = false;
+	private double currentFrameTimeInSeconds = 0.0;
+	private double frameTargetTimeInSeconds = 5.0;
+	public static boolean isBeingDisplayed = false;
 	public static int bonusScoreValue;
+	
+	private static int frameIndex = 0;
+	private static int totalNumberOfFrames = Texture.bonusScore.length;
 	
 	public static BonusScore bonusScore;
 	
 	public BonusScore()
 	{
-		setBounds(64,32,32,32);
-	}
-	
-	// Render object
-	public void render(Graphics g)
-	{
-		if(display == true)
-		{
-			// Check if bonus score has flashed the target amount of times
-			if(nFlashes == nTargetFlashes)
-			{
-				nFlashes = 0;
-				display = false;
-			}
-			else if(nFlashes < nTargetFlashes)
-			{
-				if(Texture.bonusScoreAnimationPhase >= Texture.bonusScore.length)
-				{
-					Texture.bonusScoreAnimationPhase = 0;
-					nFlashes++;
-				}
-				g.drawImage(Texture.bonusScore[Texture.bonusScoreAnimationPhase], Game.xEvent, Game.yEvent, width, height, null);
-			}
-		}
+		setBounds(0, 0, Texture.objectWidth, Texture.objectHeight);
 	}
 	
 	public void tick()
+	{
+		runAnimation();
+		checkStatus();
+	}
+	
+	private void runAnimation()
+	{
+		currentFrameTimeInSeconds += Game.secondsPerTick;
+		
+		if(currentFrameTimeInSeconds >= frameTargetTimeInSeconds)
+		{
+			currentFrameTimeInSeconds = 0;	
+			//frameIndex++;
+			isBeingDisplayed = false;
+		}
+		
+		if(frameIndex >= totalNumberOfFrames)
+		{
+			frameIndex = 0;
+		}
+	}
+	
+	private void checkStatus()
 	{
 		switch(Ghost.nEatenGhosts)
 		{
@@ -73,6 +73,14 @@ public class BonusScore extends Rectangle
 			case 4: 
 				bonusScoreValue = 1600; 
 				break;
+		}
+	}
+	
+	public void render(Graphics g)
+	{
+		if(isBeingDisplayed)
+		{
+			g.drawImage(Texture.bonusScore[frameIndex], Game.xEvent, Game.yEvent, width, height, null);
 		}
 	}
 }

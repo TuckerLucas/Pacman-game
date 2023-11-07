@@ -53,7 +53,6 @@ public class Texture
 	public static int pacmanEatingAnimationPhase     = 0;
 	public static int pacmanDeathAnimationPhase = 0;
 	public static int flashAnimationPhase      = 0;
-	public static int bonusScoreAnimationPhase = 0;
 
 	// Spritesheet columns
 	public static int spriteColumn1 = 0;
