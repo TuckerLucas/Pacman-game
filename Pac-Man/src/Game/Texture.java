@@ -197,7 +197,7 @@ public class Texture
 		energizer[1] = getSprite(spriteColumn8, spriteLine7, spriteSize, spriteSize);
 		
 		// Bonus score sprite animation array
-		bonusScore = new BufferedImage[10];
+		bonusScore = new BufferedImage[2];
 	}
 	
 	// Get sprite from the spritesheet
@@ -234,18 +234,6 @@ public class Texture
 				Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn7, Texture.spriteLine9, 
 				32, Texture.spriteSize);
 				break;
-		}
-		
-		for(int i = 2; i < Texture.bonusScore.length; i++)
-		{
-			if(i % 2 == 0)
-			{
-				Texture.bonusScore[i] = Texture.bonusScore[0];
-			}
-			else
-			{
-				Texture.bonusScore[i] = Texture.bonusScore[1];
-			}
 		}
 	}
 }

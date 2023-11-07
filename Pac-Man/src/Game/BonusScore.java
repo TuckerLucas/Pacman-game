@@ -19,13 +19,15 @@ public class BonusScore extends Rectangle
 {
 	private static final long serialVersionUID = 1L;
 	
-	private double currentFrameTimeInSeconds = 0.0;
-	private double frameTargetTimeInSeconds = 5.0;
-	public static boolean isBeingDisplayed = false;
-	public static int bonusScoreValue;
-	
-	private static int frameIndex = 0;
+	public static double elapsedFrameTimeInSeconds = 0.0;
+	private double targetTimePerFrameInSeconds = 0.1;
+	public static double elapsedAnimationTimeInSeconds = 0.0;
+	private double targetTimeForAnimationInSeconds = 5.0;
+	public static int frameIndex = 0;
 	private static int totalNumberOfFrames = Texture.bonusScore.length;
+	public static boolean isBeingDisplayed = false;
+	
+	public static int bonusScoreValue;
 	
 	public static BonusScore bonusScore;
 	
@@ -36,28 +38,43 @@ public class BonusScore extends Rectangle
 	
 	public void tick()
 	{
-		runAnimation();
-		checkStatus();
+		manageAnimationTiming();
+		checkBonusScoreValue();
 	}
 	
-	private void runAnimation()
+	private void manageAnimationTiming()
 	{
-		currentFrameTimeInSeconds += Game.secondsPerTick;
-		
-		if(currentFrameTimeInSeconds >= frameTargetTimeInSeconds)
+		if(!isBeingDisplayed)
 		{
-			currentFrameTimeInSeconds = 0;	
-			//frameIndex++;
-			isBeingDisplayed = false;
+			return;
 		}
 		
-		if(frameIndex >= totalNumberOfFrames)
+		elapsedAnimationTimeInSeconds += Game.secondsPerTick;
+		
+		if(elapsedAnimationTimeInSeconds < targetTimeForAnimationInSeconds)
+		{
+			elapsedFrameTimeInSeconds += Game.secondsPerTick;
+			
+			if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
+			{
+				frameIndex++;
+				elapsedFrameTimeInSeconds = 0;
+				
+				if(frameIndex >= totalNumberOfFrames)
+				{
+					frameIndex = 0;
+				}
+			}
+		}
+		else
 		{
 			frameIndex = 0;
+			elapsedAnimationTimeInSeconds = 0;
+			isBeingDisplayed = false;
 		}
 	}
 	
-	private void checkStatus()
+	private void checkBonusScoreValue()
 	{
 		switch(Ghost.nEatenGhosts)
 		{

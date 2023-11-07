@@ -10,14 +10,14 @@ public class Energizer extends Food
 	
 	public static boolean isActive = false;
 	
-	public static double timeActiveInSeconds = 0.0; 
-	private final double timeActiveTargetInSeconds = 8.0;
+	public static double elapsedTimeWhileActiveInSeconds = 0.0; 
+	private final double activeTargetTimeInSeconds = 8.0;
 	
 	private static int frameIndex = 0;
 	private int totalNumberOfFrames = Texture.energizer.length;
 	
-	private double currentFrameTimeInSeconds = 0;			
-	private double frameTargetTimeInSeconds = 0.2;	
+	private double elapsedFrameTimeInSeconds = 0;			
+	private double targetTimePerFrameInSeconds = 0.2;	
 	
 	public static Energizer energizer;
 	
@@ -28,17 +28,17 @@ public class Energizer extends Food
 	
 	public void tick()
 	{	
-		runAnimation();
-		checkStatus();
+		manageAnimationTiming();
+		checkEnergizerActivity();
 	}
 	
-	public void runAnimation()
+	public void manageAnimationTiming()
 	{
-		currentFrameTimeInSeconds += Game.secondsPerTick;
+		elapsedFrameTimeInSeconds += Game.secondsPerTick;
 		
-		if(currentFrameTimeInSeconds >= frameTargetTimeInSeconds)
+		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
 		{
-			currentFrameTimeInSeconds = 0;	
+			elapsedFrameTimeInSeconds = 0;	
 			frameIndex++;
 		}
 		
@@ -48,28 +48,28 @@ public class Energizer extends Food
 		}
 	}
 	
-	public void checkStatus()
+	public void checkEnergizerActivity()
 	{
 		if(!isActive)
 		{
 			return;
 		}
 		
-		if(timeActiveInSeconds < timeActiveTargetInSeconds)	
+		if(elapsedTimeWhileActiveInSeconds < activeTargetTimeInSeconds)	
 		{
-			checkActiveStatus();
+			checkIfEnergizerTimeNearlyOver();
 		}
-		else if(timeActiveInSeconds >= timeActiveTargetInSeconds)		
+		else if(elapsedTimeWhileActiveInSeconds >= activeTargetTimeInSeconds)		
 		{
 			deactivate();
 		}
 	}
 	
-	public void checkActiveStatus()
+	public void checkIfEnergizerTimeNearlyOver()
 	{
-		timeActiveInSeconds += Game.secondsPerTick;
+		elapsedTimeWhileActiveInSeconds += Game.secondsPerTick;
 		
-		if(timeActiveInSeconds >= VulnerableGhost.timeInstantToBeginFlashingInSeconds)
+		if(elapsedTimeWhileActiveInSeconds >= VulnerableGhost.timeInstantToBeginFlashingInSeconds)
 		{
 			VulnerableGhost.startFlashing();
 		}
@@ -78,7 +78,8 @@ public class Energizer extends Food
 	public static void activate()
 	{
 		Sounds.playSoundEffect(Sounds.eatenEnergizerSoundPath);
-		Energizer.timeActiveInSeconds = 0.0f;
+		
+		Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
 		Energizer.isActive = true;	
 		VulnerableGhost.isFlashing = false;
 		

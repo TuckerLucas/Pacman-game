@@ -291,7 +291,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 
 				Ghost.turnAllVulnerable();
 				
-				Energizer.timeActiveInSeconds = 0.0f;
+				Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
 				
 				blinkTime++;
 				

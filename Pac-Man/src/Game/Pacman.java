@@ -168,6 +168,9 @@ public class Pacman extends Character
 		
 		// Display bonus score 
 		BonusScore.isBeingDisplayed = true;
+		BonusScore.elapsedAnimationTimeInSeconds = 0;
+		BonusScore.elapsedFrameTimeInSeconds = 0;
+		BonusScore.frameIndex = 0;
 		
 		// Increment the number of eaten ghosts
 		Ghost.nEatenGhosts++;
@@ -176,8 +179,9 @@ public class Pacman extends Character
 		{
 			Energizer.deactivate();
 		}
+		
 		// Add the bonus score to the game score
-		Game.score += BonusScore.bonusScoreValue;
+		//Game.score += BonusScore.bonusScoreValue;
 	}
 	
 	// Manage pacman death
