@@ -43,7 +43,7 @@ public class Ghost extends Character
 	private int deltaY;
 	private int detectionRange;
 	
-	public static int nEatenGhosts = 0;
+	public static int numberOfEatenGhosts = 0;
 	
 	private int portalCrossingStatus;
 	
@@ -64,7 +64,7 @@ public class Ghost extends Character
 	
 	public static Ghost ghostArray[] = new Ghost[4];
 	
-	public static int minimumTimeToBeSpentInSpawnBoxInSeconds = 60*3; 
+	public static int minimumTimeToBeSpentInSpawnBoxInSeconds = 60*6; 
 	
 	class zoneDirections
 	{	
@@ -178,7 +178,7 @@ public class Ghost extends Character
 			ghostArray[i].isVulnerable = true;
 		}
 		
-		nEatenGhosts = 0;
+		numberOfEatenGhosts = 0;
 	}
 	
 	public static void turnAllHostile()

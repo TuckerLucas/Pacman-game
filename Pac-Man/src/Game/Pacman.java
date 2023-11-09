@@ -162,26 +162,15 @@ public class Pacman extends Character
 		// Respawn eaten ghost
 		Ghost.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, randomMovement, Character.notCrossingPortal, false);
 		
-		// Capture the event coordinates
-		Game.xEvent = x; 
-		Game.yEvent = y;
+		Ghost.numberOfEatenGhosts++;
 		
-		// Display bonus score 
-		BonusScore.isBeingDisplayed = true;
-		BonusScore.elapsedAnimationTimeInSeconds = 0;
-		BonusScore.elapsedFrameTimeInSeconds = 0;
-		BonusScore.frameIndex = 0;
-		
-		// Increment the number of eaten ghosts
-		Ghost.nEatenGhosts++;
-		
-		if(Ghost.nEatenGhosts == 4)
+		if(Ghost.numberOfEatenGhosts == 4)
 		{
 			Energizer.deactivate();
 		}
 		
-		// Add the bonus score to the game score
-		//Game.score += BonusScore.bonusScoreValue;
+		BonusScore.displayBonusScore(x, y);
+		BonusScore.sumBonusScoreToGameScore();
 	}
 	
 	// Manage pacman death

@@ -27,8 +27,6 @@ public class BonusScore extends Rectangle
 	private static int totalNumberOfFrames = Texture.bonusScore.length;
 	public static boolean isBeingDisplayed = false;
 	
-	public static int bonusScoreValue;
-	
 	public static BonusScore bonusScore;
 	
 	public BonusScore()
@@ -39,7 +37,6 @@ public class BonusScore extends Rectangle
 	public void tick()
 	{
 		manageAnimationTiming();
-		checkBonusScoreValue();
 	}
 	
 	private void manageAnimationTiming()
@@ -73,31 +70,34 @@ public class BonusScore extends Rectangle
 			isBeingDisplayed = false;
 		}
 	}
+
+	public static void sumBonusScoreToGameScore()
+	{	
+		int bonusScore = (int)calculateBonusScore();
+		Game.score += bonusScore;
+	}
 	
-	private void checkBonusScoreValue()
+	private static double calculateBonusScore()
 	{
-		switch(Ghost.nEatenGhosts)
-		{
-			case 1: 
-				bonusScoreValue = 200;
-				break;
-			case 2: 
-				bonusScoreValue = 400; 
-				break;
-			case 3: 
-				bonusScoreValue = 800;  
-				break;
-			case 4: 
-				bonusScoreValue = 1600; 
-				break;
-		}
+		return Math.pow(2.0, (double)Ghost.numberOfEatenGhosts) * 100.0;
+	}
+	
+	public static void displayBonusScore(int xCoordinate, int yCoordinate)
+	{
+		bonusScore.x = xCoordinate;
+		bonusScore.y = yCoordinate;
+		
+		isBeingDisplayed = true;
+		elapsedAnimationTimeInSeconds = 0;
+		elapsedFrameTimeInSeconds = 0;
+		frameIndex = 0;
 	}
 	
 	public void render(Graphics g)
 	{
 		if(isBeingDisplayed)
 		{
-			g.drawImage(Texture.bonusScore[frameIndex], Game.xEvent, Game.yEvent, width, height, null);
+			g.drawImage(Texture.bonusScore[frameIndex], x, y, width, height, null);
 		}
 	}
 }
