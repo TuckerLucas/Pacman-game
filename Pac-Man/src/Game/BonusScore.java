@@ -1,15 +1,3 @@
-/**************************************************************
-* Created by: Lucas Tucker (tucker.lucas.1404@gmail.com)
-* 
-* File: BonusScore.java
-* 
-* Description: 
-* 
-* This file contains the implementation for the bonus scores
-* that appear when pacman eats a ghost.
-* 
-/**************************************************************/
-
 package Game;
 
 import java.awt.Graphics;
@@ -19,19 +7,22 @@ public class BonusScore extends Rectangle
 {
 	private static final long serialVersionUID = 1L;
 	
-	public static double elapsedFrameTimeInSeconds = 0.0;
-	private double targetTimePerFrameInSeconds = 0.1;
+	public static boolean isBeingDisplayed = false;
+	
 	public static double elapsedAnimationTimeInSeconds = 0.0;
 	private double targetTimeForAnimationInSeconds = 5.0;
+	
+	public static double elapsedFrameTimeInSeconds = 0.0;
+	private double targetTimePerFrameInSeconds = 0.1;
+	
 	public static int frameIndex = 0;
 	private static int totalNumberOfFrames = Texture.bonusScore.length;
-	public static boolean isBeingDisplayed = false;
 	
 	public static BonusScore bonusScore;
 	
 	public BonusScore()
 	{
-		setBounds(0, 0, Texture.objectWidth, Texture.objectHeight);
+		setBounds(0, 0, Texture.objectWidth * 2, Texture.objectHeight);
 	}
 	
 	public void tick()
@@ -54,8 +45,8 @@ public class BonusScore extends Rectangle
 			
 			if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
 			{
-				frameIndex++;
 				elapsedFrameTimeInSeconds = 0;
+				frameIndex++;
 				
 				if(frameIndex >= totalNumberOfFrames)
 				{
@@ -65,8 +56,6 @@ public class BonusScore extends Rectangle
 		}
 		else
 		{
-			frameIndex = 0;
-			elapsedAnimationTimeInSeconds = 0;
 			isBeingDisplayed = false;
 		}
 	}
@@ -88,9 +77,9 @@ public class BonusScore extends Rectangle
 		bonusScore.y = yCoordinate;
 		
 		isBeingDisplayed = true;
-		elapsedAnimationTimeInSeconds = 0;
-		elapsedFrameTimeInSeconds = 0;
 		frameIndex = 0;
+		elapsedFrameTimeInSeconds = 0;
+		elapsedAnimationTimeInSeconds = 0;
 	}
 	
 	public void render(Graphics g)

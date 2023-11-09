@@ -13,11 +13,11 @@ public class Energizer extends Food
 	public static double elapsedTimeWhileActiveInSeconds = 0.0; 
 	private final double activeTargetTimeInSeconds = 8.0;
 	
-	private static int frameIndex = 0;
-	private int totalNumberOfFrames = Texture.energizer.length;
-	
 	private double elapsedFrameTimeInSeconds = 0;			
-	private double targetTimePerFrameInSeconds = 0.2;	
+	private double targetTimePerFrameInSeconds = 0.2;
+	
+	private static int frameIndex = 0;
+	private int totalNumberOfFrames = Texture.energizer.length;	
 	
 	public static Energizer energizer;
 	
