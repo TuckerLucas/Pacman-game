@@ -11,20 +11,21 @@ public abstract class Character extends Rectangle
 	public static final int movingUpwards = 2;
 	public static final int movingDownwards = 3;
 	
-	public static final int randomMovement = 0;
-	public static final int methodicalMovement = 1;
-	public static final int findingPath = 2;
-	
-	public static int leftPortalX = 0;
-	public static int leftPortalY = 320;
-	public static int rightPortalX = 640;
-	public static int rightPortalY = 320;
-	
-	public static int speed = 2;
-	
 	public static final int notCrossingPortal = 0;
 	public static final int crossingPortalFromLeftSide = 1;
 	public static final int crossingPortalFromRightSide = 2;
+	
+	public static int leftPortalEntryXCoordinate = 0;
+	public static int leftPortalEntryYCoordinate = 320;
+	public static int rightPortalEntryXCoordinate = 640;
+	public static int rightPortalEntryYCoordinate = 320;
+	
+	public static int portalCrossingPointLeftSideXCoordinate = 0;
+	public static int portalCrossingPointLeftSideYCoordinate = 320;
+	public static int portalCrossingPointRightSideXCoordinate = 640;
+	public static int portalCrossingPointRightSideYCoordinate = 320;
+	
+	public static int pixelsTravelledPerTick = 2;
 	
 	public Character()
 	{
@@ -124,11 +125,11 @@ public abstract class Character extends Rectangle
 		
 		switch(direction)
 		{
-			case movingRight: nextx = character.x + speed; nexty = character.y; break;
-			case movingLeft: nextx = character.x - speed; nexty = character.y; break;
-			case movingUpwards: nextx = character.x; nexty = character.y - speed; break;
+			case movingRight: nextx = character.x + pixelsTravelledPerTick; nexty = character.y; break;
+			case movingLeft: nextx = character.x - pixelsTravelledPerTick; nexty = character.y; break;
+			case movingUpwards: nextx = character.x; nexty = character.y - pixelsTravelledPerTick; break;
 			case movingDownwards: if(character.x == 320 && character.y == 256) {return false;}
-								  nextx = character.x; nexty = character.y + speed; break;
+								  nextx = character.x; nexty = character.y + pixelsTravelledPerTick; break;
 		}
 		
 		Rectangle bounds = new Rectangle();
@@ -160,10 +161,10 @@ public abstract class Character extends Rectangle
 		{
 			switch(direction)
 			{
-				case movingRight: character.x+=speed; break;
-				case movingLeft: character.x-=speed; break;
-				case movingUpwards: character.y-=speed; break;
-				case movingDownwards: character.y+=speed; break;
+				case movingRight: character.x += pixelsTravelledPerTick; break;
+				case movingLeft: character.x -= pixelsTravelledPerTick; break;
+				case movingUpwards: character.y -= pixelsTravelledPerTick; break;
+				case movingDownwards: character.y += pixelsTravelledPerTick; break;
 			}
 			
 			return;
@@ -174,22 +175,22 @@ public abstract class Character extends Rectangle
 		{
 			if(character.getCurrentDirection() == movingUpwards && canMove(movingUpwards, character))
 			{
-				character.y -= speed;
+				character.y -= pixelsTravelledPerTick;
 			}
 			if(character.getCurrentDirection() == movingDownwards && canMove(movingDownwards, character))
 			{
-				character.y += speed;
+				character.y += pixelsTravelledPerTick;
 			}
 		}
 		else if(direction == movingUpwards || direction == movingDownwards)
 		{
 			if(character.getCurrentDirection() == movingLeft && canMove(movingLeft, character))
 			{
-				character.x -= speed;
+				character.x -= pixelsTravelledPerTick;
 			}
 			if(character.getCurrentDirection() == movingRight && canMove(movingRight, character))
 			{
-				character.x += speed;
+				character.x += pixelsTravelledPerTick;
 			}
 		}
 	}

@@ -38,7 +38,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 
 	// Game boundaries variables
 	public static final int WIDTH = 672;
-	public static final int	HEIGHT = 800;	
+	public static final int	HEIGHT = 784;	// 704 game + 80 data
 	
 	// Game difficulty variable
 	public static int difficulty = 1;
@@ -139,10 +139,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static void loadGameElements()
 	{
 		Pacman.pacman = new Pacman(Character.notCrossingPortal, Character.movingRight);
-		Ghost.ghostArray[0] = new Ghost(0, Character.randomMovement, Character.notCrossingPortal, false); 
-		Ghost.ghostArray[1] = new Ghost(1, Character.randomMovement, Character.notCrossingPortal, false);
-		Ghost.ghostArray[2] = new Ghost(2, Character.randomMovement, Character.notCrossingPortal, false);
-		Ghost.ghostArray[3] = new Ghost(3, Character.randomMovement, Character.notCrossingPortal, false);
+		Ghost.ghostArray[0] = new Ghost(0, Ghost.randomMovement, Character.notCrossingPortal, false); 
+		Ghost.ghostArray[1] = new Ghost(1, Ghost.randomMovement, Character.notCrossingPortal, false);
+		Ghost.ghostArray[2] = new Ghost(2, Ghost.randomMovement, Character.notCrossingPortal, false);
+		Ghost.ghostArray[3] = new Ghost(3, Ghost.randomMovement, Character.notCrossingPortal, false);
 
 		// Load other game objects based on game status
 		switch(gameStatus)

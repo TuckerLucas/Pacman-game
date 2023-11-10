@@ -46,7 +46,7 @@ public class CLayout
 	
 	// Window dimensions
 	public static int windowWidth = 672;
-	public static int windowHeight = 816;
+	public static int windowHeight = 784;
 	
 	// Constructor
 	public CLayout() 
@@ -75,7 +75,7 @@ public class CLayout
 		// JFrame configurations
 		CLayout.add(panelContainer);				
 		CLayout.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);			// DISPOSE_ON_CLOSE leaves pending processes
-		CLayout.setSize(windowWidth, windowHeight);						// Set JFrame width and height
+		CLayout.setSize(windowWidth, windowHeight+32);					// Set JFrame width and height (include top bar which is 32pix)
 		CLayout.setLocationRelativeTo(null);							// Make JFrame appear in the centre of monitor
 		CLayout.setVisible(true); 
 		

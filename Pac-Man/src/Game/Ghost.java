@@ -21,6 +21,10 @@ public class Ghost extends Character
 	
 	private Random randomGen;
 	
+	public static final int randomMovement = 0;
+	public static final int methodicalMovement = 1;
+	public static final int findingPath = 2;
+	
 	// Ghost movement variables
 	private int movementType;
 
@@ -122,11 +126,11 @@ public class Ghost extends Character
 				spawnGhost(spawnBoxX, spawnBoxY);		// Spawn ghost in spawn box
 				break;
 			case Character.crossingPortalFromLeftSide:
-				spawnGhost(rightPortalX, rightPortalY);	// Spawn ghost in the movingRight portal (crossed movingLeft portal)
+				spawnGhost(rightPortalEntryXCoordinate, rightPortalEntryYCoordinate);	// Spawn ghost in the movingRight portal (crossed movingLeft portal)
 				currentDir = movingLeft;									// Update the ghost's current direction of movement
 				break;
 			case Character.crossingPortalFromRightSide:
-				spawnGhost(leftPortalX, leftPortalY);		// Spawn ghost in the movingLeft portal (crossed movingRight portal)
+				spawnGhost(portalCrossingPointLeftSideXCoordinate, leftPortalEntryYCoordinate);		// Spawn ghost in the movingLeft portal (crossed movingRight portal)
 				currentDir = movingRight;									// Update the ghost's current direction of movement
 				break;
 		}

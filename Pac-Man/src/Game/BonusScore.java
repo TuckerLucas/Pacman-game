@@ -59,17 +59,6 @@ public class BonusScore extends Rectangle
 			isBeingDisplayed = false;
 		}
 	}
-
-	public static void sumBonusScoreToGameScore()
-	{	
-		int bonusScore = (int)calculateBonusScore();
-		Game.score += bonusScore;
-	}
-	
-	private static double calculateBonusScore()
-	{
-		return Math.pow(2.0, (double)Ghost.numberOfEatenGhosts) * 100.0;
-	}
 	
 	public static void displayBonusScore(int xCoordinate, int yCoordinate)
 	{
@@ -80,6 +69,17 @@ public class BonusScore extends Rectangle
 		frameIndex = 0;
 		elapsedFrameTimeInSeconds = 0;
 		elapsedAnimationTimeInSeconds = 0;
+	}
+
+	public static void sumBonusScoreToGameScore()
+	{	
+		int bonusScore = (int)calculateBonusScore();
+		Game.score += bonusScore;
+	}
+	
+	private static double calculateBonusScore()
+	{
+		return Math.pow(2.0, (double)Ghost.numberOfEatenGhosts) * 100.0;
 	}
 	
 	public void render(Graphics g)

@@ -74,7 +74,7 @@ public class Pacman extends Character
 			case Character.crossingPortalFromLeftSide:
 				
 				// Spawn pacman at the right portal
-				spawnPacman(rightPortalX, rightPortalY);
+				spawnPacman(rightPortalEntryXCoordinate, rightPortalEntryYCoordinate);
 				
 				// Keep pacman moving left
 				currentDir = movingLeft;
@@ -87,7 +87,7 @@ public class Pacman extends Character
 			case Character.crossingPortalFromRightSide:
 				
 				// Spawn pacman at the left portal
-				spawnPacman(leftPortalX, leftPortalY);
+				spawnPacman(portalCrossingPointLeftSideXCoordinate, leftPortalEntryYCoordinate);
 				
 				// Keep pacman moving right
 				currentDir = movingRight;
@@ -160,7 +160,7 @@ public class Pacman extends Character
 		new Sounds(Sounds.ghostEatenSoundPath);
 		
 		// Respawn eaten ghost
-		Ghost.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, randomMovement, Character.notCrossingPortal, false);
+		Ghost.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, Ghost.randomMovement, notCrossingPortal, false);
 		
 		Ghost.numberOfEatenGhosts++;
 		
