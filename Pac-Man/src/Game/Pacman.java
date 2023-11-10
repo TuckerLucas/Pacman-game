@@ -87,7 +87,7 @@ public class Pacman extends Character
 			case Character.crossingPortalFromRightSide:
 				
 				// Spawn pacman at the left portal
-				spawnPacman(portalCrossingPointLeftSideXCoordinate, leftPortalEntryYCoordinate);
+				spawnPacman(portalCrossingPointLeftSideXCoordinate, portalCrossingPointLeftSideYCoordinate);
 				
 				// Keep pacman moving right
 				currentDir = movingRight;

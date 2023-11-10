@@ -130,7 +130,7 @@ public class Ghost extends Character
 				currentDir = movingLeft;									// Update the ghost's current direction of movement
 				break;
 			case Character.crossingPortalFromRightSide:
-				spawnGhost(portalCrossingPointLeftSideXCoordinate, leftPortalEntryYCoordinate);		// Spawn ghost in the movingLeft portal (crossed movingRight portal)
+				spawnGhost(portalCrossingPointLeftSideXCoordinate, portalCrossingPointLeftSideYCoordinate);		// Spawn ghost in the movingLeft portal (crossed movingRight portal)
 				currentDir = movingRight;									// Update the ghost's current direction of movement
 				break;
 		}
