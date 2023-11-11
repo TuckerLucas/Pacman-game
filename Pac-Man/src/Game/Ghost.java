@@ -126,7 +126,7 @@ public class Ghost extends Character
 				spawnGhost(spawnBoxX, spawnBoxY);		// Spawn ghost in spawn box
 				break;
 			case Character.crossingPortalFromLeftSide:
-				spawnGhost(rightPortalEntryXCoordinate, rightPortalEntryYCoordinate);	// Spawn ghost in the movingRight portal (crossed movingLeft portal)
+				spawnGhost(portalCrossingPointRightSideXCoordinate, rightPortalEntryYCoordinate);	// Spawn ghost in the movingRight portal (crossed movingLeft portal)
 				currentDir = movingLeft;									// Update the ghost's current direction of movement
 				break;
 			case Character.crossingPortalFromRightSide:
