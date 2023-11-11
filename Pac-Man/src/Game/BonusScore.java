@@ -9,13 +9,13 @@ public class BonusScore extends Rectangle
 	
 	public static boolean isBeingDisplayed = false;
 	
-	public static double elapsedAnimationTimeInSeconds = 0.0;
+	private static double elapsedAnimationTimeInSeconds = 0.0;
 	private double targetTimeForAnimationInSeconds = 5.0;
 	
-	public static double elapsedFrameTimeInSeconds = 0.0;
+	private static double elapsedFrameTimeInSeconds = 0.0;
 	private double targetTimePerFrameInSeconds = 0.1;
 	
-	public static int frameIndex = 0;
+	private static int frameIndex = 0;
 	private static int totalNumberOfFrames = Texture.bonusScore.length;
 	
 	public static BonusScore bonusScore;
@@ -39,24 +39,22 @@ public class BonusScore extends Rectangle
 		
 		elapsedAnimationTimeInSeconds += Game.secondsPerTick;
 		
-		if(elapsedAnimationTimeInSeconds < targetTimeForAnimationInSeconds)
-		{
-			elapsedFrameTimeInSeconds += Game.secondsPerTick;
-			
-			if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
-			{
-				elapsedFrameTimeInSeconds = 0;
-				frameIndex++;
-				
-				if(frameIndex >= totalNumberOfFrames)
-				{
-					frameIndex = 0;
-				}
-			}
-		}
-		else
+		if(elapsedAnimationTimeInSeconds >= targetTimeForAnimationInSeconds)
 		{
 			isBeingDisplayed = false;
+		}
+		
+		elapsedFrameTimeInSeconds += Game.secondsPerTick;
+		
+		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
+		{
+			elapsedFrameTimeInSeconds = 0;
+			frameIndex++;
+			
+			if(frameIndex >= totalNumberOfFrames)
+			{
+				frameIndex = 0;
+			}
 		}
 	}
 	

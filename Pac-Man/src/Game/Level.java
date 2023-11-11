@@ -88,7 +88,7 @@ public class Level
 							Pacman.pacman.y = y*32;
 							
 							break;
-							
+						
 						case red:			
 							
 							Ghost.ghostArray[0].x = x*32;

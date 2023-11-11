@@ -11,19 +11,17 @@ public abstract class Character extends Rectangle
 	public static final int movingUpwards = 2;
 	public static final int movingDownwards = 3;
 	
-	public static final int notCrossingPortal = 0;
+	public static final int notCrossingPortal = -1;
+	public static final int crossingPortalFromRightSide = 0;
 	public static final int crossingPortalFromLeftSide = 1;
-	public static final int crossingPortalFromRightSide = 2;
 	
-	public static int leftPortalEntryXCoordinate = 0;
-	public static int leftPortalEntryYCoordinate = 320;
-	public static int rightPortalEntryCoordinate = 640;
-	public static int rightPortalEntryYCoordinate = 320;
+	public static int portalLeftSideCrossingPointXCoordinate = 0;
+	public static int portalRightSideCrossingPointXCoordinate = 640;
 	
-	public static int portalCrossingPointLeftSideXCoordinate = 0;
-	public static int portalCrossingPointLeftSideYCoordinate = 320;
-	public static int portalCrossingPointRightSideXCoordinate = 640;
-	public static int portalCrossingPointRightSideYCoordinate = 320;
+	private static int portalLeftSideEntryXCoordinate = 160;
+	private static int portalRightSideEntryXCoordinate = 480;
+	
+	public static int portalYCoordinate = 320;
 	
 	public static int pixelsTravelledPerTick = 2;
 	
@@ -32,129 +30,109 @@ public abstract class Character extends Rectangle
 		
 	}
 	
-	public static boolean isInPortal(Rectangle character)
-	{
-		return ((character.x < 160 || character.x > 480) && character.y == 320) ? true : false;
-	}
-	
-	public static boolean isCrossingPortalFromLeftSide(Character character)
-	{
-		return (isInPortal(character) && character.getCurrentDirection() == Character.movingLeft) ? true : false;
-	}
-	
-	public static boolean isCrossingPortalFromRightSide(Character character)
-	{
-		return (isInPortal(character) && character.getCurrentDirection() == Character.movingRight) ? true : false;
-	}
-
-	public static boolean atLeftPortalEntry(Character character)
-	{
-		return (character.x == 160 && character.y == 320) ? true : false;
-	}
-	
-	public static boolean atRightPortalEntry(Character character)
-	{
-		return (character.x == 480 && character.y == 320) ? true : false;
-	}
-	
-	public static boolean isAboutToCrossPortalFromLeftSide(Character character)
-	{
-		return (character.x == 0 && character.y == 320) ? true : false;
-	}
-	
-	public static boolean isAboutToCrossPortalFromRightSide(Character character)
-	{
-		return (character.x == 640 && character.y == 320) ? true : false;
-	}
-	
-	
 	protected static void portalEvents(Character character)
 	{		
-		if(character instanceof Ghost)
+		if(isCrossingPortalFromGivenSide(character, movingLeft))
 		{
-			if(isCrossingPortalFromLeftSide(character))
-			{
-				character.setPortalCrossingStatus(crossingPortalFromLeftSide);
-				character.setCurrentDirection(movingLeft); 
-				moveGivenCharacterInGivenDirection(character, movingLeft);
-				
-				if(Character.isAboutToCrossPortalFromLeftSide(character))								
-				{	
-					Ghost.ghostArray[character.getID()] = new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
-				}
-				
-				if(atRightPortalEntry(character))
-				{
-					character.setPortalCrossingStatus(notCrossingPortal);
-				}
-			}
-			else if(isCrossingPortalFromRightSide(character))
-			{
-				character.setPortalCrossingStatus(crossingPortalFromRightSide);
-				character.setCurrentDirection(movingRight);
-				moveGivenCharacterInGivenDirection(character, movingRight);
-				
-				if(Character.isAboutToCrossPortalFromRightSide(character))
-				{
-					Ghost.ghostArray[character.getID()] = new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
-				}
-				
-				if(Character.atLeftPortalEntry(character))
-				{
-					character.setPortalCrossingStatus(notCrossingPortal);
-				}
-			}
+			managePortalCrossingFromGivenSide(character, movingLeft);
 		}
-		else if(character instanceof Pacman)
+		else if(isCrossingPortalFromGivenSide(character, movingRight))
 		{
-			if(Character.isAboutToCrossPortalFromLeftSide(character))	
-			{
-				Pacman.pacman = new Pacman(crossingPortalFromLeftSide, character.getNextDirection());
-			}
-			
-			if(Character.isAboutToCrossPortalFromRightSide(character))			
-			{
-				Pacman.pacman = new Pacman(Character.crossingPortalFromRightSide, character.getNextDirection());		
-			}
+			managePortalCrossingFromGivenSide(character, movingRight);
 		}
 	}
 	
-	public static boolean canMove(int direction, Character character)
+	public static boolean isCrossingPortalFromGivenSide(Character character, int side)
 	{
-		int nextx = 0, nexty = 0;
-		
-		switch(direction)
+		if(side == movingLeft)
 		{
-			case movingRight: nextx = character.x + pixelsTravelledPerTick; nexty = character.y; break;
-			case movingLeft: nextx = character.x - pixelsTravelledPerTick; nexty = character.y; break;
-			case movingUpwards: nextx = character.x; nexty = character.y - pixelsTravelledPerTick; break;
-			case movingDownwards: if(character.x == 320 && character.y == 256) {return false;}
-								  nextx = character.x; nexty = character.y + pixelsTravelledPerTick; break;
+			return (isInPortalCorridor(character) && character.getCurrentDirection() == Character.movingLeft) ? true : false;
+		}
+		else if(side == movingRight)
+		{
+			return (isInPortalCorridor(character) && character.getCurrentDirection() == Character.movingRight) ? true : false;
 		}
 		
-		Rectangle bounds = new Rectangle();
-
-		bounds.x = nextx;
-		bounds.y = nexty;
-		bounds.width = character.width;
-		bounds.height = character.height;
-		
-		for(int xx = 0; xx < Wall.wallMatrix.length; xx++)
-		{
-			for(int yy = 0; yy < Wall.wallMatrix[0].length; yy++)
-			{
-				if(Wall.wallMatrix[xx][yy] != null)								
-				{
-					if(bounds.intersects(Wall.wallMatrix[xx][yy]))						
-					{
-						return false;								
-					}
-				}
-			}
-		}
-		return true;
+		return false;
 	}
 	
+	private static void managePortalCrossingFromGivenSide(Character character, int side)
+	{
+		if(character instanceof Pacman)
+		{
+			Pacman.blockMovement = true;
+		}
+		
+		character.setPortalCrossingStatus(side);
+		character.setCurrentDirection(side);
+		
+		if(Game.gameStatus != Game.lifeLost)
+		{
+			moveGivenCharacterInGivenDirection(character, side);
+		}
+		
+		if(isAtPortalCrossingPoint(character, side))
+		{
+			makeCharacterCrossPortal(character, side);
+		}
+		
+		if(isAtPortalEntry(character, side ^= 1))
+		{
+			character.setPortalCrossingStatus(notCrossingPortal);
+			
+			if(character instanceof Pacman)
+			{
+				Pacman.blockMovement = false;
+			}
+		}
+	}
+
+	private static boolean isInPortalCorridor(Rectangle character)
+	{
+		return ((character.x < portalLeftSideEntryXCoordinate || character.x > portalRightSideEntryXCoordinate) 
+				&& character.y == portalYCoordinate) ? true : false;
+	}
+
+	private static boolean isAtPortalEntry(Character character, int side)
+	{
+		if(side == movingLeft)
+		{
+			return (character.x == portalLeftSideEntryXCoordinate && character.y == portalYCoordinate) ? true : false;
+		}
+		else if(side == movingRight)
+		{
+			return (character.x == portalRightSideEntryXCoordinate && character.y == portalYCoordinate) ? true : false;
+		}
+		
+		return false;
+	}
+	
+	private static boolean isAtPortalCrossingPoint(Character character, int side)
+	{
+		if(side == movingLeft)
+		{
+			return (character.x == portalLeftSideCrossingPointXCoordinate && character.y == portalYCoordinate) ? true : false;
+		}
+		else if(side == movingRight)
+		{
+			return (character.x == portalRightSideCrossingPointXCoordinate && character.y == portalYCoordinate) ? true : false;
+		}
+		
+		return false;
+	}
+	
+	private static void makeCharacterCrossPortal(Character character, int side)
+	{
+		if(character instanceof Pacman)
+		{
+			Pacman.pacman = new Pacman(side, character.getNextDirection());
+		}
+		else if(character instanceof Ghost)
+		{
+			Ghost.ghostArray[character.getID()] = new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
+		}
+	}
+			
 	public static void moveGivenCharacterInGivenDirection(Character character, int direction)
 	{
 		if(canMove(direction, character))
@@ -193,6 +171,42 @@ public abstract class Character extends Rectangle
 				character.x += pixelsTravelledPerTick;
 			}
 		}
+	}
+	
+	public static boolean canMove(int direction, Character character)
+	{
+		int nextx = 0, nexty = 0;
+		
+		switch(direction)
+		{
+			case movingRight: nextx = character.x + pixelsTravelledPerTick; nexty = character.y; break;
+			case movingLeft: nextx = character.x - pixelsTravelledPerTick; nexty = character.y; break;
+			case movingUpwards: nextx = character.x; nexty = character.y - pixelsTravelledPerTick; break;
+			case movingDownwards: if(character.x == 320 && character.y == 256) {return false;}
+								  nextx = character.x; nexty = character.y + pixelsTravelledPerTick; break;
+		}
+		
+		Rectangle bounds = new Rectangle();
+
+		bounds.x = nextx;
+		bounds.y = nexty;
+		bounds.width = character.width;
+		bounds.height = character.height;
+		
+		for(int xx = 0; xx < Wall.wallMatrix.length; xx++)
+		{
+			for(int yy = 0; yy < Wall.wallMatrix[0].length; yy++)
+			{
+				if(Wall.wallMatrix[xx][yy] != null)								
+				{
+					if(bounds.intersects(Wall.wallMatrix[xx][yy]))						
+					{
+						return false;								
+					}
+				}
+			}
+		}
+		return true;
 	}
 	
 	abstract int getCurrentDirection();

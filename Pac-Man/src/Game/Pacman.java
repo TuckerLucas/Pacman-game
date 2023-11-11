@@ -43,6 +43,8 @@ public class Pacman extends Character
 	
 	public static boolean deathAnimationDisplayed = false;
 	
+	public static boolean blockMovement = false;
+	
 	public static Pacman pacman;
 	
 	public static int LIVES = 3;
@@ -74,7 +76,7 @@ public class Pacman extends Character
 			case Character.crossingPortalFromLeftSide:
 				
 				// Spawn pacman at the right portal
-				spawnPacman(portalCrossingPointRightSideXCoordinate, rightPortalEntryYCoordinate);
+				spawnPacman(portalRightSideCrossingPointXCoordinate, portalYCoordinate);
 				
 				// Keep pacman moving left
 				currentDir = movingLeft;
@@ -87,7 +89,7 @@ public class Pacman extends Character
 			case Character.crossingPortalFromRightSide:
 				
 				// Spawn pacman at the left portal
-				spawnPacman(portalCrossingPointLeftSideXCoordinate, portalCrossingPointLeftSideYCoordinate);
+				spawnPacman(portalLeftSideCrossingPointXCoordinate, portalYCoordinate);
 				
 				// Keep pacman moving right
 				currentDir = movingRight;
@@ -318,9 +320,14 @@ public class Pacman extends Character
 		{
 			currentDir = nextDir;
 		}
-		moveGivenCharacterInGivenDirection(this, nextDir);
+		
+		if(!blockMovement)
+		{
+			moveGivenCharacterInGivenDirection(this, nextDir);
+		}
+		
 
-		Character.portalEvents(this);
+		portalEvents(this);
 		foodCollision();
 		ghostCollision();
 		
