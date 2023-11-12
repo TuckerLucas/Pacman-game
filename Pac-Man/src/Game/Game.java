@@ -238,10 +238,8 @@ public class Game extends Canvas implements Runnable, KeyListener
 		}
 	}
 
-	// Tick function
 	private void tick()
 	{
-		//System.out.println(Pacman.blockMovement);
 		switch(gameStatus)
 		{
 			case play:
@@ -255,8 +253,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 				Energizer.energizer.tick();
 				Level.level.tick();
 				Texture.texture.tick();
-				
-				Pacman.deathAnimationDisplayed = false;
 
 				break;
 				
@@ -317,7 +313,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 				BonusScore.isBeingDisplayed = false;
 				
-				Pacman.lives = Pacman.LIVES;
+				Pacman.numberOfLives = 3;
 				
 				if(score >= highscore)
 				{
@@ -431,19 +427,17 @@ public class Game extends Canvas implements Runnable, KeyListener
 		{
 			case play: 
 				
-				
-					switch(e.getKeyCode())
-					{
-						case KeyEvent.VK_D:	// fall through
-						case KeyEvent.VK_RIGHT: Pacman.nextDir = Character.right; break;
-						case KeyEvent.VK_A:	// fall through
-						case KeyEvent.VK_LEFT: Pacman.nextDir = Character.left; break;
-						case KeyEvent.VK_W:	// fall through
-						case KeyEvent.VK_UP: Pacman.nextDir = Character.upwards; break;
-						case KeyEvent.VK_S:	// fall through
-						case KeyEvent.VK_DOWN: Pacman.nextDir = Character.downwards; break;
-					}
-				
+				switch(e.getKeyCode())
+				{
+					case KeyEvent.VK_D:	// fall through
+					case KeyEvent.VK_RIGHT: Pacman.nextDir = Character.right; break;
+					case KeyEvent.VK_A:	// fall through
+					case KeyEvent.VK_LEFT: Pacman.nextDir = Character.left; break;
+					case KeyEvent.VK_W:	// fall through
+					case KeyEvent.VK_UP: Pacman.nextDir = Character.upwards; break;
+					case KeyEvent.VK_S:	// fall through
+					case KeyEvent.VK_DOWN: Pacman.nextDir = Character.downwards; break;
+				}
 				
 				break;
 				

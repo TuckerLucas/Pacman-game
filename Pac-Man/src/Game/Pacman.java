@@ -1,16 +1,3 @@
-/**************************************************************
-* Created by: Lucas Tucker (tucker.lucas.1404@gmail.com)
-* 
-* File: Pacman.java
-* 
-* Description: 
-* 
-* This file contains the implementation for the Pacman 
-* character regarding movement around the map, collisions with
-* other characters/objects and animations.
-* 
-/**************************************************************/
-
 package Game;
 
 import java.awt.Graphics;
@@ -19,12 +6,12 @@ public class Pacman extends Character
 {
 	private static final long serialVersionUID = 1L;
 	
-	// Intersected ghost variable
-	private int intersectedGhost = -1;
+	public static int numberOfLives = 3;
 	
-	// Pacman spawn coordinate variables
-	public static int spawnX = 320;
-	public static int spawnY = 512;
+	private int intersectedGhost;
+	
+	public static int pacmanSpawnXCoordinate = 320;
+	public static int pacmanSpawnYCoordinate = 512;
 	
 	public static int currentDir;
 	public static int nextDir;
@@ -36,56 +23,32 @@ public class Pacman extends Character
 	
 	public static int frameIndex = 0;
 	
-	public static boolean deathAnimationDisplayed = false;
-	
 	public static Pacman pacman;
 	
-	public static int LIVES = 3;
-	
-	// Pacman lives variable
-	public static int lives = LIVES;
-	
-	// Constructor
 	public Pacman(int spawnType, int nD)
 	{
-		// Check where to spawn pacman
 		switch(spawnType)
 		{
-			// Normal spawn
-			case Character.notCrossingPortal:
+			case notCrossingPortal:
 				
-				// Spawn pacman normally
-				spawnPacman(spawnX, spawnY);
-				
+				spawnPacman(pacmanSpawnXCoordinate, pacmanSpawnYCoordinate);
 				nextDir = stopped;
-				
-				// Make pacman look right on start-up
 				currentDir = right;
 				
 				break;
 				
-			// Crossing left portal
-			case Character.crossingPortalFromLeftSide:
+			case crossingPortalFromLeftSide:
 				
-				// Spawn pacman at the right portal
 				spawnPacman(portalRightSideCrossingPointXCoordinate, portalYCoordinate);
-				
-				// Keep pacman moving left
 				currentDir = left;
-				
 				nextDir = nD;
 				
 				break;
 				
-			// Left portal spawn
-			case Character.crossingPortalFromRightSide:
+			case crossingPortalFromRightSide:
 				
-				// Spawn pacman at the left portal
 				spawnPacman(portalLeftSideCrossingPointXCoordinate, portalYCoordinate);
-				
-				// Keep pacman moving right
 				currentDir = right;
-				
 				nextDir = nD;
 				
 				break;
@@ -104,32 +67,15 @@ public class Pacman extends Character
 			move(this, nextDir);
 		}
 		
-
 		portalEvents(this);
 		foodCollision();
 		ghostCollision();
 		manageAnimationTiming();
 	}
-
-	public int getCurrentDirection()
-	{
-		return currentDir;
-	}
 	
-	public void setCurrentDirection(int dir)
-	{
-		currentDir = dir;
-	}
-	
-	public void setPortalCrossingStatus(int portalStatus)
-	{
-		portalCrossingStatus = portalStatus;
-	}
-	
-	// Spawn pacman at the given coordinates
 	private void spawnPacman(int xCoordinate, int yCoordinate)
 	{
-		setBounds(xCoordinate, yCoordinate, Texture.objectWidth,Texture.objectHeight);
+		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
 	}
 
 	private void foodCollision()
@@ -177,30 +123,99 @@ public class Pacman extends Character
 	
 	private void die()
 	{
-		lives--;
-		Game.gameStatus = Game.lifeLost;
-		Sounds.playSoundEffect(Sounds.pacmanDeathSoundPath);
+		if(Game.gameStatus == Game.play)
+		{
+			numberOfLives--;
+			Game.gameStatus = Game.lifeLost;
+			Sounds.playSoundEffect(Sounds.pacmanDeathSoundPath);
+		}
 	}
 	
-	public void ghostCollision()
+	private void ghostCollision()
 	{
-		if(pacmanIntersectedGhost())
+		if(!pacmanIntersectedGhost())
 		{
-			if(Energizer.isActive)
-			{
-				if(Ghost.ghostArray[intersectedGhost].isVulnerable)
-				{
-					eatGhost();
-					
-					return;
-				}
-			}
+			return;
+		}
+		
+		if(Ghost.ghostArray[intersectedGhost].isVulnerable)
+		{
+			eatGhost();
+		}
+		else 
+		{
+			die();
+		}
+	}
+	
+	public void manageAnimationTiming()
+	{
+		elapsedFrameTimeInSeconds += Game.secondsPerTick;
+		
+		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
+		{
+			elapsedFrameTimeInSeconds = 0;
+			
+			frameIndex++;
 			
 			if(Game.gameStatus == Game.play)
 			{
-				die();
+				if(frameIndex >= Texture.pacmanLook[currentDir].length)
+				{
+					frameIndex = 0;
+				}
+			}
+			else if(Game.gameStatus == Game.lifeLost)
+			{
+				if(frameIndex >= Texture.pacmanDie.length)
+				{
+					frameIndex = 0;
+					Game.loadGameElements();
+					
+					if(numberOfLives == 0)
+					{
+						Game.gameStatus = Game.lose;
+					}
+					else
+					{	
+						Game.gameStatus = Game.play;
+					}
+				}
 			}
 		}
+	}
+	
+	public void render(Graphics g)
+	{
+		if(Game.gameStatus == Game.lifeLost)
+		{	
+			g.drawImage(Texture.pacmanDie[frameIndex], x, y, width, height, null);
+		}
+		else if(Game.gameStatus == Game.play)
+		{
+			g.drawImage(Texture.pacmanLook[currentDir][frameIndex], x, y, width, height, null);
+		}
+	}
+	
+	
+	public int getCurrentDirection()
+	{
+		return currentDir;
+	}
+	
+	public void setCurrentDirection(int dir)
+	{
+		currentDir = dir;
+	}
+	
+	int getPortalCrossingStatus() 
+	{
+		return -1;
+	}
+	
+	public void setPortalCrossingStatus(int portalStatus)
+	{
+		portalCrossingStatus = portalStatus;
 	}
 	
 	public int getNextDirection()
@@ -213,11 +228,6 @@ public class Pacman extends Character
 		return -1;
 	}
 	
-	int getPortalCrossingStatus() 
-	{
-		return -1;
-	}
-
 	int getMovementType() 
 	{
 		return -1;
@@ -226,53 +236,5 @@ public class Pacman extends Character
 	boolean getVulnerabilityStatus() 
 	{
 		return false;
-	}
-	
-	public void manageAnimationTiming()
-	{
-		elapsedFrameTimeInSeconds += Game.secondsPerTick;
-		
-		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
-		{
-			elapsedFrameTimeInSeconds = 0;
-			
-			frameIndex++;
-		}
-	}
-	
-	public void render(Graphics g)
-	{
-		if(Game.gameStatus == Game.lifeLost)
-		{	
-			if(frameIndex == Texture.pacmanDie.length)
-			{
-				deathAnimationDisplayed = true;
-				frameIndex = 0;
-				Game.loadGameElements();
-				
-				if(lives == 0)
-				{
-					Game.gameStatus = Game.lose;
-				}
-				else
-				{	
-					Game.gameStatus = Game.play;
-				}
-			}
-			
-			if(!deathAnimationDisplayed)
-			{
-				g.drawImage(Texture.pacmanDie[frameIndex], x, y, width, height, null);
-			}
-		}
-		else
-		{
-			if(frameIndex >= Texture.pacmanLook[currentDir].length)
-			{
-				frameIndex = 0;
-			}
-			
-			g.drawImage(Texture.pacmanLook[currentDir][frameIndex], x, y, width, height, null);
-		}
 	}
 }
