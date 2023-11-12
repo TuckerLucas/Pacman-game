@@ -14,6 +14,11 @@ public class Pellet extends Food
 		setBounds(x+12, y+12, 8, 8);
 	}
 	
+	public static void getEaten()
+	{
+		Sounds.playSoundEffect(Sounds.pacmanEatingSoundPath);
+	}
+	
 	public int getFoodPoints()
 	{
 		return points;

@@ -6,6 +6,7 @@ public abstract class Character extends Rectangle
 {
 	private static final long serialVersionUID = 1L;
 	
+	public static final int stopped = -1;
 	public static final int right = 0;
 	public static final int left = 1;
 	public static final int upwards = 2;

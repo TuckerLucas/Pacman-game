@@ -49,10 +49,7 @@ public class Texture
 	// Bonus score array for sprite animations
 	public static BufferedImage[] bonusScore;
 	
-	// Animation phase variables
-	public static int pacmanEatingAnimationPhase     = 0;
-	public static int pacmanDeathAnimationPhase = 0;
-	public static int flashAnimationPhase      = 0;
+	public static int flashAnimationPhase = 0;
 
 	// Spritesheet columns
 	public static int spriteColumn1 = 0;

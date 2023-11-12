@@ -234,7 +234,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 		
 		if(gameStatus != lose)
 		{
-			Pacman.blockMovement = false;
 			Level.level.render(g);
 		}
 	}

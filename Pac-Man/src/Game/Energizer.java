@@ -76,7 +76,7 @@ public class Energizer extends Food
 	}
 	
 	public static void activate()
-	{
+	{	
 		Sounds.playSoundEffect(Sounds.eatenEnergizerSoundPath);
 		
 		Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;

@@ -31,19 +31,12 @@ public class Pacman extends Character
 	
 	public static int portalCrossingStatus = notCrossingPortal;
 	
-	// Direction variables
-	public static final int stopped = -1;
+	public static double elapsedFrameTimeInSeconds = 0.0;	
+	public static double targetTimePerFrameInSeconds = 0.1;
 	
-	// Pacman animation variables
-	public static int eatingAnimationTime 		= 0;	
-	public static int eatingAnimationTargetTime = 6;
-	
-	public static int deathAnimationTime 		= 0;	
-	public static int deathAnimationTargetTime = 6;
+	public static int frameIndex = 0;
 	
 	public static boolean deathAnimationDisplayed = false;
-	
-	public static boolean blockMovement = false;
 	
 	public static Pacman pacman;
 	
@@ -64,8 +57,7 @@ public class Pacman extends Character
 				// Spawn pacman normally
 				spawnPacman(spawnX, spawnY);
 				
-				// Pacman starts by moving right
-				//nextDir = nD;
+				nextDir = stopped;
 				
 				// Make pacman look right on start-up
 				currentDir = right;
@@ -99,6 +91,25 @@ public class Pacman extends Character
 				break;
 		}
 	}
+	
+	public void tick()
+	{	
+		if(canMove(this, nextDir))
+		{
+			currentDir = nextDir;
+		}
+		
+		if(portalCrossingStatus == notCrossingPortal)
+		{
+			move(this, nextDir);
+		}
+		
+
+		portalEvents(this);
+		foodCollision();
+		ghostCollision();
+		manageAnimationTiming();
+	}
 
 	public int getCurrentDirection()
 	{
@@ -125,48 +136,37 @@ public class Pacman extends Character
 	{	
 		for(int i = 0; i < Food.foodList.size(); i++) 		
 		{    
-			// Check for collision with food
 			if(this.intersects(Food.foodList.get(i)))							
 			{
-				// Eat the food
 				Food.eat(Food.foodList.get(i));
-				
 				break;
 			}
 		}
 	}	
 
-	// Check if pacman and a ghost have intersected
-	public boolean intersectedWithGhost()
+	public boolean pacmanIntersectedGhost()
 	{
-		// Iterate through the ghost array
 		for(int i = 0; i < Ghost.ghostArray.length; i++)
 		{
-			// Check for intersection between ghost and pacman
 			if(Ghost.ghostArray[i].intersects(this))
 			{	
-				// Identify the intersected ghost
 				intersectedGhost = i;
 				
 				return true;
 			}
 		}
-		
 		return false;
 	}
 
-	// Make pacman eat intersected ghost
 	private void eatGhost()
 	{
-		// Ghost eaten sound effect
-		new Sounds(Sounds.ghostEatenSoundPath);
+		Sounds.playSoundEffect(Sounds.ghostEatenSoundPath);
 		
-		// Respawn eaten ghost
 		Ghost.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, Ghost.randomMovement, notCrossingPortal, false);
 		
 		Ghost.numberOfEatenGhosts++;
 		
-		if(Ghost.numberOfEatenGhosts == 4)
+		if(Ghost.numberOfEatenGhosts == Ghost.ghostArray.length)
 		{
 			Energizer.deactivate();
 		}
@@ -175,31 +175,21 @@ public class Pacman extends Character
 		BonusScore.sumBonusScoreToGameScore();
 	}
 	
-	// Manage pacman death
 	private void die()
 	{
-		// Pacman death sound effect
-		new Sounds(Sounds.pacmanDeathSoundPath);
-		
-		// Decrement amount of lives
 		lives--;
-
-		Game.gameStatus = Game.lifeLost;				
+		Game.gameStatus = Game.lifeLost;
+		Sounds.playSoundEffect(Sounds.pacmanDeathSoundPath);
 	}
 	
-	// Manage pacman collisions with ghosts
 	public void ghostCollision()
 	{
-		// Check for collision between pacman and ghost
-		if(intersectedWithGhost() == true)
+		if(pacmanIntersectedGhost())
 		{
-			// Check if energizer is active
-			if(Energizer.isActive == true)
+			if(Energizer.isActive)
 			{
-				// Check if ghost hasn't been eaten yet
-				if(Ghost.ghostArray[intersectedGhost].isVulnerable == true)
+				if(Ghost.ghostArray[intersectedGhost].isVulnerable)
 				{
-					// Eat the ghost
 					eatGhost();
 					
 					return;
@@ -238,51 +228,26 @@ public class Pacman extends Character
 		return false;
 	}
 	
-	// Manage pacman animation timing
-	public void eatingAnimation()
+	public void manageAnimationTiming()
 	{
-		// Increase current animation phase time
-		eatingAnimationTime++;
+		elapsedFrameTimeInSeconds += Game.secondsPerTick;
 		
-		// Check if time for animation phase is complete
-		if(eatingAnimationTime == eatingAnimationTargetTime)
+		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
 		{
-			// Reset timer for animation phase
-			eatingAnimationTime = 0;
+			elapsedFrameTimeInSeconds = 0;
 			
-			// Move to the next animation phase
-			Texture.pacmanEatingAnimationPhase++;
+			frameIndex++;
 		}
 	}
 	
-	public void deathAnimation()
-	{
-		// Increase current animation phase time
-		deathAnimationTime++;
-		
-		// Check if time for animation phase is complete
-		if(deathAnimationTime == deathAnimationTargetTime)
-		{
-			// Reset timer for animation phase
-			deathAnimationTime = 0;
-			
-			// Move to the next animation phase
-			Texture.pacmanDeathAnimationPhase++;
-		}
-	}
-	
-	// Render object
 	public void render(Graphics g)
 	{
 		if(Game.gameStatus == Game.lifeLost)
-		{
-			nextDir = stopped;
-			
-			// Check if death animation is in the last phase
-			if(Texture.pacmanDeathAnimationPhase == 21)
+		{	
+			if(frameIndex == Texture.pacmanDie.length)
 			{
 				deathAnimationDisplayed = true;
-				Texture.pacmanDeathAnimationPhase = 0;
+				frameIndex = 0;
 				Game.loadGameElements();
 				
 				if(lives == 0)
@@ -297,46 +262,17 @@ public class Pacman extends Character
 			
 			if(!deathAnimationDisplayed)
 			{
-				g.drawImage(Texture.pacmanDie[Texture.pacmanDeathAnimationPhase], x, y, width, height, null);
+				g.drawImage(Texture.pacmanDie[frameIndex], x, y, width, height, null);
 			}
 		}
 		else
 		{
-			// Check if eating animation is in the last phase
-			if(Texture.pacmanEatingAnimationPhase == 3)
+			if(frameIndex >= Texture.pacmanLook[currentDir].length)
 			{
-				// Restart animation
-				Texture.pacmanEatingAnimationPhase = 0;
+				frameIndex = 0;
 			}
 			
-			g.drawImage(Texture.pacmanLook[currentDir][Texture.pacmanEatingAnimationPhase], x, y, width, height, null);
-		}
-	}
-
-	public void tick()
-	{	
-		if(canMove(this, nextDir))
-		{
-			currentDir = nextDir;
-		}
-		
-		if(portalCrossingStatus == notCrossingPortal)
-		{
-			move(this, nextDir);
-		}
-		
-
-		portalEvents(this);
-		foodCollision();
-		ghostCollision();
-		
-		if(Game.gameStatus == Game.lifeLost)
-		{
-			deathAnimation();
-		}
-		else
-		{
-			eatingAnimation();
+			g.drawImage(Texture.pacmanLook[currentDir][frameIndex], x, y, width, height, null);
 		}
 	}
 }

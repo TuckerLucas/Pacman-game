@@ -21,6 +21,10 @@ public abstract class Food extends Rectangle
 		{
 			Energizer.activate();
 		}
+		else if(food instanceof Pellet)
+		{
+			Pellet.getEaten();
+		}
 
 		Game.score += food.getFoodPoints();
 		foodList.remove(food);
