@@ -126,12 +126,12 @@ public class Ghost extends Character
 				spawnGhost(spawnBoxX, spawnBoxY);		// Spawn ghost in spawn box
 				break;
 			case Character.crossingPortalFromLeftSide:
-				spawnGhost(portalRightSideCrossingPointXCoordinate, portalYCoordinate);	// Spawn ghost in the movingRight portal (crossed movingLeft portal)
-				currentDir = movingLeft;									// Update the ghost's current direction of movement
+				spawnGhost(portalRightSideCrossingPointXCoordinate, portalYCoordinate);	// Spawn ghost in the right portal (crossed left portal)
+				currentDir = left;									// Update the ghost's current direction of movement
 				break;
 			case Character.crossingPortalFromRightSide:
-				spawnGhost(portalLeftSideCrossingPointXCoordinate, portalYCoordinate);		// Spawn ghost in the movingLeft portal (crossed movingRight portal)
-				currentDir = movingRight;									// Update the ghost's current direction of movement
+				spawnGhost(portalLeftSideCrossingPointXCoordinate, portalYCoordinate);		// Spawn ghost in the left portal (crossed right portal)
+				currentDir = right;									// Update the ghost's current direction of movement
 				break;
 		}
 
@@ -205,88 +205,88 @@ public class Ghost extends Character
 			switch(zone)
 			{
 				case 0:
-					zoneDirectionsArray[zone].methodicalDir1 = movingLeft;
+					zoneDirectionsArray[zone].methodicalDir1 = left;
 					zoneDirectionsArray[zone].methodicalDir2 = -1;
-					zoneDirectionsArray[zone].findDir1 = movingDownwards;
-					zoneDirectionsArray[zone].findDir2 = movingUpwards;
+					zoneDirectionsArray[zone].findDir1 = downwards;
+					zoneDirectionsArray[zone].findDir2 = upwards;
 					break;
 				case 1:
-					zoneDirectionsArray[zone].methodicalDir1 = movingLeft;
-					zoneDirectionsArray[zone].methodicalDir2 = movingUpwards;
-					zoneDirectionsArray[zone].findDir1 = movingDownwards;
+					zoneDirectionsArray[zone].methodicalDir1 = left;
+					zoneDirectionsArray[zone].methodicalDir2 = upwards;
+					zoneDirectionsArray[zone].findDir1 = downwards;
 					break;
 				case 2:
-					zoneDirectionsArray[zone].methodicalDir1 = movingUpwards;
-					zoneDirectionsArray[zone].methodicalDir2 = movingLeft;
-					zoneDirectionsArray[zone].findDir1 = movingRight;
+					zoneDirectionsArray[zone].methodicalDir1 = upwards;
+					zoneDirectionsArray[zone].methodicalDir2 = left;
+					zoneDirectionsArray[zone].findDir1 = right;
 					break;
 				case 3:
-					zoneDirectionsArray[zone].methodicalDir1 = movingUpwards;
-					zoneDirectionsArray[zone].methodicalDir2 = movingLeft;
-					zoneDirectionsArray[zone].findDir1 = movingRight;
+					zoneDirectionsArray[zone].methodicalDir1 = upwards;
+					zoneDirectionsArray[zone].methodicalDir2 = left;
+					zoneDirectionsArray[zone].findDir1 = right;
 					break;
 				case 4:
-					zoneDirectionsArray[zone].methodicalDir1 = movingUpwards;
+					zoneDirectionsArray[zone].methodicalDir1 = upwards;
 					zoneDirectionsArray[zone].methodicalDir2 = -1;
-					zoneDirectionsArray[zone].findDir1 = movingRight;
-					zoneDirectionsArray[zone].findDir2 = movingLeft;
+					zoneDirectionsArray[zone].findDir1 = right;
+					zoneDirectionsArray[zone].findDir2 = left;
 					break;
 				case 5:
-					zoneDirectionsArray[zone].methodicalDir1 = movingUpwards;
-					zoneDirectionsArray[zone].methodicalDir2 = movingRight;
-					zoneDirectionsArray[zone].findDir1 = movingLeft;
+					zoneDirectionsArray[zone].methodicalDir1 = upwards;
+					zoneDirectionsArray[zone].methodicalDir2 = right;
+					zoneDirectionsArray[zone].findDir1 = left;
 					break;
 				case 6:
-					zoneDirectionsArray[zone].methodicalDir1 = movingUpwards;
-					zoneDirectionsArray[zone].methodicalDir2 = movingRight;
-					zoneDirectionsArray[zone].findDir1 = movingLeft;
+					zoneDirectionsArray[zone].methodicalDir1 = upwards;
+					zoneDirectionsArray[zone].methodicalDir2 = right;
+					zoneDirectionsArray[zone].findDir1 = left;
 					break;
 				case 7:
-					zoneDirectionsArray[zone].methodicalDir1 = movingRight;
-					zoneDirectionsArray[zone].methodicalDir2 = movingUpwards;
-					zoneDirectionsArray[zone].findDir1 = movingDownwards;
+					zoneDirectionsArray[zone].methodicalDir1 = right;
+					zoneDirectionsArray[zone].methodicalDir2 = upwards;
+					zoneDirectionsArray[zone].findDir1 = downwards;
 					break;
 				case 8:
-					zoneDirectionsArray[zone].methodicalDir1 = movingRight;
+					zoneDirectionsArray[zone].methodicalDir1 = right;
 					zoneDirectionsArray[zone].methodicalDir2 = -1;
-					zoneDirectionsArray[zone].findDir1 = movingUpwards;
-					zoneDirectionsArray[zone].findDir2 = movingDownwards;
+					zoneDirectionsArray[zone].findDir1 = upwards;
+					zoneDirectionsArray[zone].findDir2 = downwards;
 					break;
 				case 9:
-					zoneDirectionsArray[zone].methodicalDir1 = movingRight;
-					zoneDirectionsArray[zone].methodicalDir2 = movingDownwards;
-					zoneDirectionsArray[zone].findDir1 = movingUpwards;
+					zoneDirectionsArray[zone].methodicalDir1 = right;
+					zoneDirectionsArray[zone].methodicalDir2 = downwards;
+					zoneDirectionsArray[zone].findDir1 = upwards;
 					break;
 				case 10:
-					zoneDirectionsArray[zone].methodicalDir1 = movingDownwards;
-					zoneDirectionsArray[zone].methodicalDir2 = movingRight;
-					zoneDirectionsArray[zone].findDir1 = movingLeft;
+					zoneDirectionsArray[zone].methodicalDir1 = downwards;
+					zoneDirectionsArray[zone].methodicalDir2 = right;
+					zoneDirectionsArray[zone].findDir1 = left;
 					break;
 				case 11:
-					zoneDirectionsArray[zone].methodicalDir1 = movingDownwards;
-					zoneDirectionsArray[zone].methodicalDir2 = movingRight;
-					zoneDirectionsArray[zone].findDir1 = movingLeft;
+					zoneDirectionsArray[zone].methodicalDir1 = downwards;
+					zoneDirectionsArray[zone].methodicalDir2 = right;
+					zoneDirectionsArray[zone].findDir1 = left;
 					break;
 				case 12:
-					zoneDirectionsArray[zone].methodicalDir1 = movingDownwards;
+					zoneDirectionsArray[zone].methodicalDir1 = downwards;
 					zoneDirectionsArray[zone].methodicalDir2 = -1;
-					zoneDirectionsArray[zone].findDir1 = movingRight;
-					zoneDirectionsArray[zone].findDir2 = movingLeft;
+					zoneDirectionsArray[zone].findDir1 = right;
+					zoneDirectionsArray[zone].findDir2 = left;
 					break;
 				case 13:
-					zoneDirectionsArray[zone].methodicalDir1 = movingDownwards;
-					zoneDirectionsArray[zone].methodicalDir2 = movingLeft;
-					zoneDirectionsArray[zone].findDir1 = movingRight;
+					zoneDirectionsArray[zone].methodicalDir1 = downwards;
+					zoneDirectionsArray[zone].methodicalDir2 = left;
+					zoneDirectionsArray[zone].findDir1 = right;
 					break;
 				case 14:
-					zoneDirectionsArray[zone].methodicalDir1 = movingDownwards;
-					zoneDirectionsArray[zone].methodicalDir2 = movingLeft;
-					zoneDirectionsArray[zone].findDir1 = movingRight;
+					zoneDirectionsArray[zone].methodicalDir1 = downwards;
+					zoneDirectionsArray[zone].methodicalDir2 = left;
+					zoneDirectionsArray[zone].findDir1 = right;
 					break;
 				case 15:
-					zoneDirectionsArray[zone].methodicalDir1 = movingLeft;
-					zoneDirectionsArray[zone].methodicalDir2 = movingDownwards;
-					zoneDirectionsArray[zone].findDir1 = movingUpwards;
+					zoneDirectionsArray[zone].methodicalDir1 = left;
+					zoneDirectionsArray[zone].methodicalDir2 = downwards;
+					zoneDirectionsArray[zone].findDir1 = upwards;
 					break;
 			}
 		}
@@ -385,7 +385,7 @@ public class Ghost extends Character
 		nextDir = randomGen.nextInt(4);
 		
 		/*
-		if(!canLeaveSpawnBox(timeSpentInSpawnBoxInSeconds) && nextDir == movingUpwards)
+		if(!canLeaveSpawnBox(timeSpentInSpawnBoxInSeconds) && nextDir == upwards)
 		{
 			nextDir = currentDir;
 		}*/
@@ -396,23 +396,23 @@ public class Ghost extends Character
 		// Update ghost's distance to pacman
 		updateDistanceToPacman();
 		
-		// In cool movingDownwards period from methodical movement
+		// In cool downwards period from methodical movement
 		if(coolDown == true)
 		{
-			// Increase cool movingDownwards time
+			// Increase cool downwards time
 			coolDownTime++;
 			
-			// Cool movingDownwards time has reached the target time 
+			// Cool downwards time has reached the target time 
 			if(coolDownTime == coolDownTargetTime)
 			{
-				// Clear cool movingDownwards flag
+				// Clear cool downwards flag
 				coolDown = false;
 				
-				// Reset cool movingDownwards timer 
+				// Reset cool downwards timer 
 				coolDownTime = 0;
 			}
 		}
-		// No longer in cool movingDownwards period from methodical movement
+		// No longer in cool downwards period from methodical movement
 		else if(coolDown == false)
 		{
 			// Ghost not vulnerable, not in spawn box and pacman within detection range
@@ -424,17 +424,17 @@ public class Ghost extends Character
 		}
 		
 		// Ghost can move in the next defined direction
-		if(canMove(nextDir, this))
+		if(canMove(this, nextDir))
 		{
 			currentDir = nextDir;
 			// Move in the next defined direction
-			moveGivenCharacterInGivenDirection(this, nextDir);
+			move(this, nextDir);
 		}
 		// Ghost can move in the current defined direction
-		else if(canMove(currentDir, this))
+		else if(canMove(this, currentDir))
 		{
 			// Continue moving in the current defined direction
-			moveGivenCharacterInGivenDirection(this, currentDir);
+			move(this, currentDir);
 			
 			// Will continue moving in the current direction until can move in the next one
 			return;
@@ -460,18 +460,18 @@ public class Ghost extends Character
 		updatePacmanZone();
 		
 		// Ghost can move in the first methodical direction
-		if(canMove(zoneDirectionsArray[pacmanZone].methodicalDir1,  this))
+		if(canMove(this, zoneDirectionsArray[pacmanZone].methodicalDir1))
 		{
 			currentDir = zoneDirectionsArray[pacmanZone].methodicalDir1;
 			// Move in the first methodical direction
-			moveGivenCharacterInGivenDirection(this, zoneDirectionsArray[pacmanZone].methodicalDir1);
+			move(this, zoneDirectionsArray[pacmanZone].methodicalDir1);
 		}
 		// Ghost can move in the second methodical direction
-		else if(canMove(zoneDirectionsArray[pacmanZone].methodicalDir2, this))
+		else if(canMove(this, zoneDirectionsArray[pacmanZone].methodicalDir2))
 		{
 			currentDir = zoneDirectionsArray[pacmanZone].methodicalDir2;
 			// Move in the second methodical direction
-			moveGivenCharacterInGivenDirection(this, zoneDirectionsArray[pacmanZone].methodicalDir2);
+			move(this, zoneDirectionsArray[pacmanZone].methodicalDir2);
 		}
 		// Cannot move in either methodical direction
 		else
@@ -487,7 +487,7 @@ public class Ghost extends Character
 		if(methodicalTime == methodicalTargetTime) 				
 		{			
 			methodicalTime = 0;				// Reset timer for methodical movement
-			coolDown 	 = true;			// Activate cool movingDownwards period for methodical movement
+			coolDown 	 = true;			// Activate cool downwards period for methodical movement
 			movementType = randomMovement;	// Return to random movement
 		}
 	}
@@ -495,7 +495,7 @@ public class Ghost extends Character
 	private void findingPath()
 	{
 		// Ghost can move in first methodical direction
-		if(canMove(zoneDirectionsArray[pacmanZone].methodicalDir1, this))
+		if(canMove(this, zoneDirectionsArray[pacmanZone].methodicalDir1))
 		{
 			// Reset flag regarding blocked first find path direction
 			findDir1Blocked = false;
@@ -510,11 +510,11 @@ public class Ghost extends Character
 			if(findDir1Blocked == false)
 			{
 				// Ghost can move in first find path direction
-				if(canMove(zoneDirectionsArray[pacmanZone].findDir1, this))
+				if(canMove(this, zoneDirectionsArray[pacmanZone].findDir1))
 				{
 					currentDir = zoneDirectionsArray[pacmanZone].findDir1;
 					// Move in first find path direction
-					moveGivenCharacterInGivenDirection(this, zoneDirectionsArray[pacmanZone].findDir1);
+					move(this, zoneDirectionsArray[pacmanZone].findDir1);
 				}
 				// Cannot move in first find path direction
 				else
@@ -528,7 +528,7 @@ public class Ghost extends Character
 			{
 				currentDir = zoneDirectionsArray[pacmanZone].findDir2;
 				// Move in second find path direction (which is known not to be blocked)
-				moveGivenCharacterInGivenDirection(this, zoneDirectionsArray[pacmanZone].findDir2);
+				move(this, zoneDirectionsArray[pacmanZone].findDir2);
 			}
 		}
 	}

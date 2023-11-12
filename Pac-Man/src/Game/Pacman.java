@@ -29,7 +29,7 @@ public class Pacman extends Character
 	public static int currentDir;
 	public static int nextDir;
 	
-	public static int portalCrossingStatus;
+	public static int portalCrossingStatus = notCrossingPortal;
 	
 	// Direction variables
 	public static final int stopped = -1;
@@ -68,7 +68,7 @@ public class Pacman extends Character
 				//nextDir = nD;
 				
 				// Make pacman look right on start-up
-				currentDir = movingRight;
+				currentDir = right;
 				
 				break;
 				
@@ -79,7 +79,7 @@ public class Pacman extends Character
 				spawnPacman(portalRightSideCrossingPointXCoordinate, portalYCoordinate);
 				
 				// Keep pacman moving left
-				currentDir = movingLeft;
+				currentDir = left;
 				
 				nextDir = nD;
 				
@@ -92,7 +92,7 @@ public class Pacman extends Character
 				spawnPacman(portalLeftSideCrossingPointXCoordinate, portalYCoordinate);
 				
 				// Keep pacman moving right
-				currentDir = movingRight;
+				currentDir = right;
 				
 				nextDir = nD;
 				
@@ -313,17 +313,16 @@ public class Pacman extends Character
 		}
 	}
 
-	// Tick function
 	public void tick()
 	{	
-		if(canMove(nextDir, this))
+		if(canMove(this, nextDir))
 		{
 			currentDir = nextDir;
 		}
 		
-		if(!blockMovement)
+		if(portalCrossingStatus == notCrossingPortal)
 		{
-			moveGivenCharacterInGivenDirection(this, nextDir);
+			move(this, nextDir);
 		}
 		
 

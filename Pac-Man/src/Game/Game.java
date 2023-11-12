@@ -138,7 +138,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	// Load the required game elements
 	public static void loadGameElements()
 	{
-		Pacman.pacman = new Pacman(Character.notCrossingPortal, Character.movingRight);
+		Pacman.pacman = new Pacman(Character.notCrossingPortal, Character.right);
 		Ghost.ghostArray[0] = new Ghost(0, Ghost.randomMovement, Character.notCrossingPortal, false); 
 		Ghost.ghostArray[1] = new Ghost(1, Ghost.randomMovement, Character.notCrossingPortal, false);
 		Ghost.ghostArray[2] = new Ghost(2, Ghost.randomMovement, Character.notCrossingPortal, false);
@@ -229,6 +229,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	
 	private void drawPacmanDying(Graphics g)
 	{
+		Pacman.portalCrossingStatus = Character.notCrossingPortal;
 		Pacman.pacman.render(g);
 		
 		if(gameStatus != lose)
@@ -431,20 +432,19 @@ public class Game extends Canvas implements Runnable, KeyListener
 		{
 			case play: 
 				
-				if(!Pacman.blockMovement)
-				{
+				
 					switch(e.getKeyCode())
 					{
 						case KeyEvent.VK_D:	// fall through
-						case KeyEvent.VK_RIGHT: Pacman.nextDir = Character.movingRight; break;
+						case KeyEvent.VK_RIGHT: Pacman.nextDir = Character.right; break;
 						case KeyEvent.VK_A:	// fall through
-						case KeyEvent.VK_LEFT: Pacman.nextDir = Character.movingLeft; break;
+						case KeyEvent.VK_LEFT: Pacman.nextDir = Character.left; break;
 						case KeyEvent.VK_W:	// fall through
-						case KeyEvent.VK_UP: Pacman.nextDir = Character.movingUpwards; break;
+						case KeyEvent.VK_UP: Pacman.nextDir = Character.upwards; break;
 						case KeyEvent.VK_S:	// fall through
-						case KeyEvent.VK_DOWN: Pacman.nextDir = Character.movingDownwards; break;
+						case KeyEvent.VK_DOWN: Pacman.nextDir = Character.downwards; break;
 					}
-				}
+				
 				
 				break;
 				
