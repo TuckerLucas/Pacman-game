@@ -72,11 +72,6 @@ public class Pacman extends Character
 		ghostCollision();
 		manageAnimationTiming();
 	}
-	/*
-	private void spawnPacman(int xCoordinate, int yCoordinate)
-	{
-		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
-	}*/
 
 	private void foodCollision()
 	{	
