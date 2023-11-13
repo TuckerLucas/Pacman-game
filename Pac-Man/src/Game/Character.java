@@ -205,11 +205,6 @@ public abstract class Character extends Rectangle
 		}
 	}
 	
-	protected void spawnCharacter(int xCoordinate, int yCoordinate)
-	{
-		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
-	}
-	
 	
 	abstract int getCurrentDirection();
 	abstract void setCurrentDirection(int dir);
