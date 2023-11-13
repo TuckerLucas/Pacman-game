@@ -123,14 +123,14 @@ public class Ghost extends Character
 		switch(portalCrossingStatus)
 		{
 			case Character.notCrossingPortal:
-				spawnGhost(spawnBoxX, spawnBoxY);		// Spawn ghost in spawn box
+				spawnCharacter(spawnBoxX, spawnBoxY);		// Spawn ghost in spawn box
 				break;
 			case Character.crossingPortalFromLeftSide:
-				spawnGhost(portalRightSideCrossingPointXCoordinate, portalYCoordinate);	// Spawn ghost in the right portal (crossed left portal)
+				spawnCharacter(portalRightSideCrossingPointXCoordinate, portalYCoordinate);	// Spawn ghost in the right portal (crossed left portal)
 				currentDir = left;									// Update the ghost's current direction of movement
 				break;
 			case Character.crossingPortalFromRightSide:
-				spawnGhost(portalLeftSideCrossingPointXCoordinate, portalYCoordinate);		// Spawn ghost in the left portal (crossed right portal)
+				spawnCharacter(portalLeftSideCrossingPointXCoordinate, portalYCoordinate);		// Spawn ghost in the left portal (crossed right portal)
 				currentDir = right;									// Update the ghost's current direction of movement
 				break;
 		}
@@ -168,11 +168,6 @@ public class Ghost extends Character
 	public static boolean canLeaveSpawnBox(int timeSpentInSpawnBoxInSeconds)
 	{
 		return (timeSpentInSpawnBoxInSeconds == minimumTimeToBeSpentInSpawnBoxInSeconds) ? true : false;
-	}
-	
-	private void spawnGhost(int xCoordinate, int yCoordinate)
-	{
-		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
 	}
 	
 	public static void turnAllVulnerable()

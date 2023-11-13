@@ -31,7 +31,7 @@ public class Pacman extends Character
 		{
 			case notCrossingPortal:
 				
-				spawnPacman(pacmanSpawnXCoordinate, pacmanSpawnYCoordinate);
+				spawnCharacter(pacmanSpawnXCoordinate, pacmanSpawnYCoordinate);
 				nextDir = stopped;
 				currentDir = right;
 				
@@ -39,7 +39,7 @@ public class Pacman extends Character
 				
 			case crossingPortalFromLeftSide:
 				
-				spawnPacman(portalRightSideCrossingPointXCoordinate, portalYCoordinate);
+				spawnCharacter(portalRightSideCrossingPointXCoordinate, portalYCoordinate);
 				currentDir = left;
 				nextDir = nD;
 				
@@ -47,7 +47,7 @@ public class Pacman extends Character
 				
 			case crossingPortalFromRightSide:
 				
-				spawnPacman(portalLeftSideCrossingPointXCoordinate, portalYCoordinate);
+				spawnCharacter(portalLeftSideCrossingPointXCoordinate, portalYCoordinate);
 				currentDir = right;
 				nextDir = nD;
 				
@@ -72,11 +72,11 @@ public class Pacman extends Character
 		ghostCollision();
 		manageAnimationTiming();
 	}
-	
+	/*
 	private void spawnPacman(int xCoordinate, int yCoordinate)
 	{
 		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
-	}
+	}*/
 
 	private void foodCollision()
 	{	
