@@ -204,7 +204,6 @@ public abstract class Character extends Rectangle
 			}
 		}
 	}
-
 	
 	protected void spawnCharacter(int xCoordinate, int yCoordinate)
 	{
