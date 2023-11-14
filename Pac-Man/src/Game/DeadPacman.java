@@ -34,7 +34,6 @@ public class DeadPacman extends Pacman
 			if(frameIndex >= Texture.pacmanDie.length)
 			{
 				frameIndex = 0;
-				Game.loadGameElements();
 				
 				if(numberOfLives == 0) 
 				{
@@ -42,6 +41,7 @@ public class DeadPacman extends Pacman
 				}
 				else
 				{	
+					Game.loadGameElements();
 					Game.gameStatus = Game.play;
 				}
 			}
