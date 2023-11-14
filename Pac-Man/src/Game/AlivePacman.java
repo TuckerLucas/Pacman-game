@@ -124,7 +124,7 @@ public class AlivePacman extends Pacman
 		if(Game.gameStatus == Game.play)
 		{
 			numberOfLives--;
-			pacman = new DeadPacman();
+			pacman = new DeadPacman(x, y);
 			Game.gameStatus = Game.lifeLost;
 			Sounds.playSoundEffect(Sounds.pacmanDeathSoundPath);
 		}

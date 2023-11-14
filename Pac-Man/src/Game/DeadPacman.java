@@ -6,14 +6,19 @@ public class DeadPacman extends Pacman
 {
 	private static final long serialVersionUID = 1L;
 
-	public DeadPacman()
+	public DeadPacman(int x, int y)
 	{
-		
+		spawnPacman(x, y);
 	}
 	
 	public void tick()
 	{
 		manageAnimationTiming();
+	}
+	
+	private void spawnPacman(int xCoordinate, int yCoordinate)
+	{
+		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
 	}
 	
 	public void manageAnimationTiming()
