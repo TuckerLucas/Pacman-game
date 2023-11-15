@@ -119,14 +119,6 @@ public class AlivePacman extends Pacman
 		BonusScore.sumBonusScoreToGameScore();
 	}
 	
-	private void die()
-	{
-		numberOfLives--;
-		pacman = new DeadPacman(x, y);
-		Game.gameStatus = Game.lifeLost;
-		Sounds.playSoundEffect(Sounds.pacmanDeathSoundPath);
-	}
-	
 	private void ghostCollision()
 	{
 		if(!pacmanIntersectedGhost())
@@ -142,6 +134,14 @@ public class AlivePacman extends Pacman
 		{
 			die();
 		}
+	}
+	
+	private void die()
+	{
+		numberOfLives--;
+		pacman = new DeadPacman(x, y);
+		Game.gameStatus = Game.lifeLost;
+		Sounds.playSoundEffect(Sounds.pacmanDeathSoundPath);
 	}
 	
 	public void render(Graphics g)

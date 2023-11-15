@@ -5,20 +5,23 @@ import java.awt.Graphics;
 public class DeadPacman extends Pacman
 {
 	private static final long serialVersionUID = 1L;
-
+	
+	public static boolean deathAnimationHasFinished = false;
+	
 	public DeadPacman(int x, int y)
 	{
 		spawnPacman(x, y);
 	}
 	
-	public void tick()
-	{
-		manageAnimationTiming();
-	}
-	
 	private void spawnPacman(int xCoordinate, int yCoordinate)
 	{
 		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
+	}
+	
+	public void tick()
+	{
+		manageAnimationTiming();
+		checkGameStatusNeedsChanging();
 	}
 	
 	public void manageAnimationTiming()
@@ -34,17 +37,28 @@ public class DeadPacman extends Pacman
 			if(frameIndex >= Texture.pacmanDie.length)
 			{
 				frameIndex = 0;
-				
-				if(numberOfLives == 0) 
-				{
-					Game.gameStatus = Game.lose;
-				}
-				else
-				{	
-					Game.loadGameElements();
-					Game.gameStatus = Game.play;
-				}
+				deathAnimationHasFinished = true;
 			}
+		}
+	}
+	
+	private void checkGameStatusNeedsChanging()
+	{
+		if(!deathAnimationHasFinished)
+		{
+			return;
+		}
+		
+		deathAnimationHasFinished = false;
+		
+		if(numberOfLives == 0) 
+		{
+			Game.gameStatus = Game.lose;
+		}
+		else
+		{	
+			Game.loadGameElements();
+			Game.gameStatus = Game.play;
 		}
 	}
 	
