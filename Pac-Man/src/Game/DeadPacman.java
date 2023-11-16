@@ -39,7 +39,6 @@ public class DeadPacman extends Pacman
 			{
 				frameIndex = 0;
 				deathAnimationHasFinished = true;
-				numberOfLives--;
 			}
 		}
 	}
@@ -50,6 +49,8 @@ public class DeadPacman extends Pacman
 		{
 			return;
 		}
+		
+		numberOfLives--;
 		
 		deathAnimationHasFinished = false;
 		
