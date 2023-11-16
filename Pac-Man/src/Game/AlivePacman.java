@@ -6,18 +6,16 @@ public class AlivePacman extends Pacman
 {	
 	private static final long serialVersionUID = 1L;
 
+	public AlivePacman()
+	{
+		spawnPacman(pacmanSpawnXCoordinate, pacmanSpawnYCoordinate);
+		nextDir = stopped;
+	}
+	
 	public AlivePacman(int spawnType, int nD)
 	{
 		switch(spawnType)
 		{
-			case notCrossingPortal:
-				
-				spawnPacman(pacmanSpawnXCoordinate, pacmanSpawnYCoordinate);
-				nextDir = stopped;
-				currentDir = right;
-				
-				break;
-				
 			case crossingPortalFromLeftSide:
 				
 				spawnPacman(portalRightSideCrossingPointXCoordinate, portalYCoordinate);
@@ -36,6 +34,11 @@ public class AlivePacman extends Pacman
 		}
 	}
 	
+	private void spawnPacman(int xCoordinate, int yCoordinate)
+	{
+		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
+	}
+	
 	public void tick()
 	{	
 		if(canMove(this, nextDir))
@@ -43,22 +46,13 @@ public class AlivePacman extends Pacman
 			currentDir = nextDir;
 		}
 		
-		if(portalCrossingStatus == notCrossingPortal)
-		{
-			move(this, nextDir);
-		}
-		
+		move(this, nextDir);
 		portalEvents(this);
+		manageAnimationTiming();
 		foodCollision();
 		ghostCollision();
-		manageAnimationTiming();
 	}
-	
-	private void spawnPacman(int xCoordinate, int yCoordinate)
-	{
-		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
-	}
-	
+
 	public void manageAnimationTiming()
 	{
 		elapsedFrameTimeInSeconds += Game.secondsPerTick;
@@ -88,37 +82,6 @@ public class AlivePacman extends Pacman
 		}
 	}	
 
-	public boolean pacmanIntersectedGhost()
-	{
-		for(int i = 0; i < Ghost.ghostArray.length; i++)
-		{
-			if(Ghost.ghostArray[i].intersects(this))
-			{	
-				intersectedGhost = i;
-				
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private void eatGhost()
-	{
-		Sounds.playSoundEffect(Sounds.ghostEatenSoundPath);
-		
-		Ghost.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, Ghost.randomMovement, notCrossingPortal, false);
-		
-		Ghost.numberOfEatenGhosts++;
-		
-		if(Ghost.numberOfEatenGhosts == Ghost.ghostArray.length)
-		{
-			Energizer.deactivate();
-		}
-		
-		BonusScore.displayBonusScore(x, y);
-		BonusScore.sumBonusScoreToGameScore();
-	}
-	
 	private void ghostCollision()
 	{
 		if(!pacmanIntersectedGhost())
@@ -134,6 +97,37 @@ public class AlivePacman extends Pacman
 		{
 			die();
 		}
+	}
+	
+	public boolean pacmanIntersectedGhost()
+	{
+		for(int i = 0; i < Ghost.ghostArray.length; i++)
+		{
+			if(Ghost.ghostArray[i].intersects(this))
+			{	
+				intersectedGhost = i;
+				
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private void eatGhost()
+	{
+		Sounds.playSoundEffect(Sounds.ghostEatenSoundPath);
+		
+		Ghost.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, Ghost.randomMovement, notCrossingPortal, false);
+		
+		Ghost.numberOfEatenGhosts++;
+		
+		if(Ghost.numberOfEatenGhosts == Ghost.ghostArray.length)
+		{
+			Energizer.deactivate();
+		}
+		
+		BonusScore.displayBonusScore(x, y);
+		BonusScore.sumBonusScoreToGameScore();
 	}
 	
 	private void die()

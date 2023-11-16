@@ -43,12 +43,21 @@ public abstract class Character extends Rectangle
 		}
 	}
 	
+	public static boolean isCrossingPortalFromGivenSide(Character character, int side)
+	{
+		return (isInPortalCorridor(character) && character.getCurrentDirection() == side) ? true : false;
+	}
+	
 	private static void managePortalCrossingFromGivenSide(Character character, int side)
 	{
 		character.setPortalCrossingStatus(side);
 		character.setCurrentDirection(side);
 		
-		move(character, side);
+		if(!(character instanceof Pacman))
+		{
+			move(character, side);
+		}
+		
 				
 		if(isAtPortalCrossingPoint(character, side))
 		{
@@ -60,12 +69,6 @@ public abstract class Character extends Rectangle
 		{
 			character.setPortalCrossingStatus(notCrossingPortal);
 		}
-	}
-	
-	
-	public static boolean isCrossingPortalFromGivenSide(Character character, int side)
-	{
-		return (isInPortalCorridor(character) && character.getCurrentDirection() == side) ? true : false;
 	}
 	
 	private static boolean isInPortalCorridor(Rectangle character)

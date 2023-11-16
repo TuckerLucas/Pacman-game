@@ -27,7 +27,7 @@ public abstract class Pacman extends Character
 	
 	public Pacman()
 	{
-		
+
 	}
 	
 	public int getCurrentDirection()
