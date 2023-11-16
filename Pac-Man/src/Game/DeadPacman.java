@@ -10,6 +10,7 @@ public class DeadPacman extends Pacman
 	
 	public DeadPacman(int x, int y)
 	{
+		
 		spawnPacman(x, y);
 	}
 	
@@ -38,6 +39,7 @@ public class DeadPacman extends Pacman
 			{
 				frameIndex = 0;
 				deathAnimationHasFinished = true;
+				numberOfLives--;
 			}
 		}
 	}
