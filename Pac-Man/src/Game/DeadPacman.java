@@ -6,15 +6,14 @@ public class DeadPacman extends Pacman
 {
 	private static final long serialVersionUID = 1L;
 	
-	public static boolean deathAnimationHasFinished = false;
+	public static boolean pacmanDeathAnimationHasFinished = false;
 	
-	public DeadPacman(int x, int y)
+	public DeadPacman(int lastAliveX, int lastAliveY)
 	{
-		
-		spawnPacman(x, y);
+		spawnDeadPacman(lastAliveX, lastAliveY);
 	}
 	
-	private void spawnPacman(int xCoordinate, int yCoordinate)
+	private void spawnDeadPacman(int xCoordinate, int yCoordinate)
 	{
 		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
 	}
@@ -22,7 +21,6 @@ public class DeadPacman extends Pacman
 	public void tick()
 	{
 		manageAnimationTiming();
-		checkGameStatusNeedsChanging();
 	}
 	
 	public void manageAnimationTiming()
@@ -38,30 +36,8 @@ public class DeadPacman extends Pacman
 			if(frameIndex >= Texture.pacmanDie.length)
 			{
 				frameIndex = 0;
-				deathAnimationHasFinished = true;
+				pacmanDeathAnimationHasFinished = true;
 			}
-		}
-	}
-	
-	private void checkGameStatusNeedsChanging()
-	{
-		if(!deathAnimationHasFinished)
-		{
-			return;
-		}
-		
-		numberOfLives--;
-		
-		deathAnimationHasFinished = false;
-		
-		if(numberOfLives == 0) 
-		{
-			Game.gameStatus = Game.lose;
-		}
-		else
-		{	
-			Game.loadGameElements();
-			Game.gameStatus = Game.play;
 		}
 	}
 	

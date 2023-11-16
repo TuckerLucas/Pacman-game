@@ -138,9 +138,10 @@ public class AlivePacman extends Pacman
 	
 	private void die()
 	{
+		Sounds.playSoundEffect(Sounds.pacmanDeathSoundPath);
+		
 		pacman = new DeadPacman(x, y);
 		Game.gameStatus = Game.lifeLost;
-		Sounds.playSoundEffect(Sounds.pacmanDeathSoundPath);
 	}
 	
 	public void render(Graphics g)
