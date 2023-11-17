@@ -10,6 +10,7 @@ public class AlivePacman extends Pacman
 	{
 		spawnPacman(pacmanSpawnXCoordinate, pacmanSpawnYCoordinate);
 		nextDir = stopped;
+		currentDir = right;
 	}
 	
 	public AlivePacman(int spawnType, int nD)

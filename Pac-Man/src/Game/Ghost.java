@@ -1,15 +1,3 @@
-/**************************************************************
-* Created by: Lucas Tucker (tucker.lucas.1404@gmail.com)
-* 
-* File: Ghost.java
-* 
-* Description: 
-* 
-* This file contains the implementation for ghost behaviour 
-* regarding movement within the game map as well as animations.
-* 
-/**************************************************************/
-
 package Game;
 
 import java.awt.Graphics;
@@ -25,7 +13,6 @@ public class Ghost extends Character
 	public static final int methodicalMovement = 1;
 	public static final int findingPath = 2;
 	
-	// Ghost movement variables
 	private int movementType;
 
 	private boolean findDir1Blocked = false;
@@ -58,8 +45,6 @@ public class Ghost extends Character
 	public static int flashAnimationTime = 0;
 	public static int flashAnimationTargetTime = 20;
 	
-	private int timeSpentInSpawnBoxInSeconds = 0;
-	
 	public int ghostID;
 	private int pacmanZone = 1;
 	
@@ -83,59 +68,30 @@ public class Ghost extends Character
 		
 	}
 	
-	public int getCurrentDirection()
-	{
-		return currentDir;
-	}
-	
-	public void setCurrentDirection(int dir)
-	{
-		currentDir = dir;
-	}
-	
-	public void setPortalCrossingStatus(int portalStatus)
-	{
-		portalCrossingStatus = portalStatus;
-	}
-	
-	public int getNextDirection()
-	{
-		return nextDir;
-	}
-	
-	public int getID()
-	{
-		return ghostID;
-	}
-	
-	// Constructor
 	public Ghost(int ID, int movementStatus, int portalStatus, boolean vulnerabilityStatus)
 	{		
-		// Initialize zone directions array
 		loadZoneDirectionsArray();
 		
-		ghostID = ID;                  			// Update ghost ID
-		movementType = movementStatus; 			// Set default ghost movement type
-		isVulnerable = vulnerabilityStatus; 	// Update vulnerability status
-		portalCrossingStatus = portalStatus;	// Update portal crossing status
+		ghostID = ID;                  			
+		movementType = movementStatus; 			
+		isVulnerable = vulnerabilityStatus; 	
+		portalCrossingStatus = portalStatus;	
 		
-		// Check ghost's portal crossing status
 		switch(portalCrossingStatus)
 		{
 			case Character.notCrossingPortal:
-				spawnGhost(spawnBoxX, spawnBoxY);		// Spawn ghost in spawn box
+				spawnGhost(spawnBoxX, spawnBoxY);		
 				break;
 			case Character.crossingPortalFromLeftSide:
-				spawnGhost(portalRightSideCrossingPointXCoordinate, portalYCoordinate);	// Spawn ghost in the right portal (crossed left portal)
-				currentDir = left;									// Update the ghost's current direction of movement
+				spawnGhost(portalRightSideCrossingPointXCoordinate, portalYCoordinate);	
+				currentDir = left;									
 				break;
 			case Character.crossingPortalFromRightSide:
-				spawnGhost(portalLeftSideCrossingPointXCoordinate, portalYCoordinate);		// Spawn ghost in the left portal (crossed right portal)
-				currentDir = right;									// Update the ghost's current direction of movement
+				spawnGhost(portalLeftSideCrossingPointXCoordinate, portalYCoordinate);		
+				currentDir = right;									
 				break;
 		}
 
-		// Change ghost's detection range and time moving in a methodical manner based on selected difficulty
 		switch(Game.difficulty)
 		{
 			case 1:
@@ -193,15 +149,12 @@ public class Ghost extends Character
 		}
 	}
 	
-	// Populate the zone directions array
 	private void loadZoneDirectionsArray()
 	{	
-		// Iterate through the zone directions array
 		for(int zone = 0; zone < zoneDirectionsArray.length; zone++)
 		{
 			zoneDirectionsArray[zone] = new zoneDirections();
 			
-			// Populate each zone element with the ghost's required directions of travel to this zone
 			switch(zone)
 			{
 				case 0:
@@ -292,15 +245,12 @@ public class Ghost extends Character
 		}
 	}
 
-	
-	// Update ghost's distance to pacman
 	private void updateDistanceToPacman()
 	{
-		deltaX = x - Pacman.pacman.x; // X axis distance
-		deltaY = y - Pacman.pacman.y; // Y axis distance
+		deltaX = x - Pacman.pacman.x; 
+		deltaY = y - Pacman.pacman.y;
 	}
 	
-	// Check if pacman is within detection range
 	private boolean pacmanIsClose()
 	{
 		return ((deltaX < detectionRange && deltaX > -detectionRange) && 
@@ -308,240 +258,195 @@ public class Ghost extends Character
 				? true : false;
 	}
 	
-
-
-	// Get zone that pacman is in relative to the ghost
 	private void updatePacmanZone()
 	{	
 		if(deltaX > 0 && deltaY == 0)										
 		{
-			pacmanZone = 0;										// Pacman in zone 0
+			pacmanZone = 0;	
 		}
 		else if(deltaX > 0 && deltaY > 0 && deltaX > deltaY)			
 		{
-			pacmanZone = 1;										// Pacman in zone 1
+			pacmanZone = 1;										
 		}
 		else if(deltaX > 0 && deltaY > 0 && deltaX == deltaY)					
 		{
-			pacmanZone = 2;										// Pacman in zone 2
+			pacmanZone = 2;										
 		}
 		else if(deltaX > 0 && deltaY > 0 && deltaY > deltaX)						
 		{
-			pacmanZone = 3;										// Pacman in zone 3
+			pacmanZone = 3;										
 		}
 		else if(deltaX == 0 && deltaY > 0)									
 		{
-			pacmanZone = 4;										// Pacman in zone 4
+			pacmanZone = 4;		
 		}
 		else if(deltaX < 0 && deltaY > 0 && deltaY > -deltaX)						
 		{
-			pacmanZone = 5;										// Pacman in zone 5
+			pacmanZone = 5;										
 		}
 		else if(deltaX < 0 && deltaY > 0 && -deltaX == deltaY)					
 		{
-			pacmanZone = 6;										// Pacman in zone 6
+			pacmanZone = 6;										
 		}
 		else if(deltaX < 0 && deltaY > 0 && -deltaX > deltaY)						
 		{
-			pacmanZone = 7;										// Pacman in zone 7
+			pacmanZone = 7;										
 		}
 		else if(deltaX < 0 && deltaY == 0)										
 		{
-			pacmanZone = 8;										// Pacman in zone 8
+			pacmanZone = 8;										
 		}
 		else if(deltaX < 0 && deltaY < 0 && -deltaX > -deltaY)						
 		{
-			pacmanZone = 9;										// Pacman in zone 9
+			pacmanZone = 9;										
 		}
 		else if(deltaX < 0 && deltaY < 0 && -deltaY == -deltaX)						
 		{
-			pacmanZone = 10;									// Pacman in zone 10
+			pacmanZone = 10;									
 		}
 		else if(deltaX < 0 && deltaY < 0 && -deltaY > -deltaX)						
 		{
-			pacmanZone = 11;									// Pacman in zone 11
+			pacmanZone = 11;									
 		}
 		else if(deltaX == 0 && deltaY < 0)										
 		{
-			pacmanZone = 12;									// Pacman in zone 12
+			pacmanZone = 12;									
 		}
 		else if(deltaX > 0 && deltaY < 0 && -deltaY > deltaX)						
 		{
-			pacmanZone = 13;									// Pacman in zone 13
+			pacmanZone = 13;									
 		}
 		else if(deltaX > 0 && deltaY < 0 && deltaX == -deltaY)	 					
 		{
-			pacmanZone = 14;									// Pacman in zone 14
+			pacmanZone = 14;									
 		}
 		else if(deltaX > 0 && deltaY < 0 && deltaX > -deltaY)	 					
 		{
-			pacmanZone = 15;									// Pacman in zone 15
+			pacmanZone = 15;									
 		}
 	}
 	
-	// Generate the next direction of travel at random
 	private void generateNextDirection()
 	{
 		nextDir = randomGen.nextInt(4);
-		
-		/*
-		if(!canLeaveSpawnBox(timeSpentInSpawnBoxInSeconds) && nextDir == upwards)
-		{
-			nextDir = currentDir;
-		}*/
 	}
 	
 	private void moveRandomly()
 	{
-		// Update ghost's distance to pacman
 		updateDistanceToPacman();
 		
-		// In cool downwards period from methodical movement
 		if(coolDown == true)
 		{
-			// Increase cool downwards time
 			coolDownTime++;
 			
-			// Cool downwards time has reached the target time 
 			if(coolDownTime == coolDownTargetTime)
 			{
-				// Clear cool downwards flag
 				coolDown = false;
 				
-				// Reset cool downwards timer 
 				coolDownTime = 0;
 			}
 		}
-		// No longer in cool downwards period from methodical movement
 		else if(coolDown == false)
 		{
-			// Ghost not vulnerable, not in spawn box and pacman within detection range
 			if(pacmanIsClose() && !isVulnerable && !isInSpawnBox(this))
 			{
-				// Switch movement type to methodical
 				movementType = methodicalMovement;
 			}
 		}
 		
-		// Ghost can move in the next defined direction
 		if(canMove(this, nextDir))
 		{
 			currentDir = nextDir;
-			// Move in the next defined direction
+			
 			move(this, nextDir);
 		}
-		// Ghost can move in the current defined direction
 		else if(canMove(this, currentDir))
 		{
-			// Continue moving in the current defined direction
 			move(this, currentDir);
 			
-			// Will continue moving in the current direction until can move in the next one
 			return;
 		}
 		
-		// Generate a new direction for the ghost to move in
 		generateNextDirection();
 	}
 	
 	private void moveMethodically()
 	{
-		// Update ghost's distance to pacman
 		updateDistanceToPacman();
 		
-		// Energizer in active state or ghost is in the spawn box
 		if(Energizer.isActive == true || isInSpawnBox(this))
 		{
-			// Change movement type to random
 			movementType = randomMovement;
 		}
 
-		// Update pacman's zone relative to the ghost
 		updatePacmanZone();
 		
-		// Ghost can move in the first methodical direction
 		if(canMove(this, zoneDirectionsArray[pacmanZone].methodicalDir1))
 		{
 			currentDir = zoneDirectionsArray[pacmanZone].methodicalDir1;
-			// Move in the first methodical direction
+			
 			move(this, zoneDirectionsArray[pacmanZone].methodicalDir1);
 		}
-		// Ghost can move in the second methodical direction
 		else if(canMove(this, zoneDirectionsArray[pacmanZone].methodicalDir2))
 		{
 			currentDir = zoneDirectionsArray[pacmanZone].methodicalDir2;
-			// Move in the second methodical direction
+			
 			move(this, zoneDirectionsArray[pacmanZone].methodicalDir2);
 		}
-		// Cannot move in either methodical direction
 		else
 		{
-			// Ghost is stuck, need to change movement type to find path back
 			movementType = findingPath;
 		}
 		
-		// Increase time that ghost has been moving methodically
 		methodicalTime++;								
 		
-		// Target time for methodical movement reached
 		if(methodicalTime == methodicalTargetTime) 				
 		{			
-			methodicalTime = 0;				// Reset timer for methodical movement
-			coolDown 	 = true;			// Activate cool downwards period for methodical movement
-			movementType = randomMovement;	// Return to random movement
+			methodicalTime = 0;				
+			coolDown 	 = true;			
+			movementType = randomMovement;	
 		}
 	}
 
 	private void findingPath()
 	{
-		// Ghost can move in first methodical direction
 		if(canMove(this, zoneDirectionsArray[pacmanZone].methodicalDir1))
 		{
-			// Reset flag regarding blocked first find path direction
 			findDir1Blocked = false;
 			
-			// Change movement type back to methodical
 			movementType = methodicalMovement;
 		}
-		// Ghost cannot move in first methodical direction
 		else
 		{
-			// First find path direction isn't blocked
 			if(findDir1Blocked == false)
 			{
-				// Ghost can move in first find path direction
 				if(canMove(this, zoneDirectionsArray[pacmanZone].findDir1))
 				{
 					currentDir = zoneDirectionsArray[pacmanZone].findDir1;
-					// Move in first find path direction
+					
 					move(this, zoneDirectionsArray[pacmanZone].findDir1);
 				}
-				// Cannot move in first find path direction
 				else
 				{
-					// First find path direction is blocked, set flag
 					findDir1Blocked = true;
 				}
 			}
-			// First find path direction is blocked 
 			else if(findDir1Blocked == true)
 			{
 				currentDir = zoneDirectionsArray[pacmanZone].findDir2;
-				// Move in second find path direction (which is known not to be blocked)
+				
 				move(this, zoneDirectionsArray[pacmanZone].findDir2);
 			}
 		}
 	}
 
-	
-	// Manage ghost movement
 	private void selectGhostMovementType()
 	{
 		switch(movementType)
 		{
-			case randomMovement: moveRandomly(); break;	// Move in a random fashion
-			case methodicalMovement: moveMethodically(); break;	// Move in a methodical fashion (chase pacman)
-			case findingPath: findingPath(); break;	// Find path to pacman when stuck
+			case randomMovement: moveRandomly(); break;
+			case methodicalMovement: moveMethodically(); break;
+			case findingPath: findingPath(); break;	
 		}			
 	}
 	
@@ -611,21 +516,9 @@ public class Ghost extends Character
 			}
 		}
 	}
-		
-	private void spawnBoxEvents()
-	{
-		if(isInSpawnBox(this))
-		{
-			if(!canLeaveSpawnBox(timeSpentInSpawnBoxInSeconds))
-			{
-				timeSpentInSpawnBoxInSeconds++;
-			}
-		}
-	}
 	
 	public void tick()
 	{		
-		//spawnBoxEvents();
 		Character.portalEvents(this);
 		
 		if(portalCrossingStatus == Character.notCrossingPortal)
@@ -649,5 +542,30 @@ public class Ghost extends Character
 	boolean getVulnerabilityStatus() 
 	{
 		return isVulnerable;
+	}
+	
+	public int getCurrentDirection()
+	{
+		return currentDir;
+	}
+	
+	public void setCurrentDirection(int dir)
+	{
+		currentDir = dir;
+	}
+	
+	public void setPortalCrossingStatus(int portalStatus)
+	{
+		portalCrossingStatus = portalStatus;
+	}
+	
+	public int getNextDirection()
+	{
+		return nextDir;
+	}
+	
+	public int getID()
+	{
+		return ghostID;
 	}
 }

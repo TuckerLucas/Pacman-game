@@ -9,12 +9,12 @@ public class HostileGhost extends Ghost
 		
 	}
 	
-	public void render()
+	public void tick()
 	{
 		
 	}
 	
-	public void tick()
+	public void render()
 	{
 		
 	}

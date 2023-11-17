@@ -7,7 +7,12 @@ public class VulnerableGhost extends Ghost
 	public static boolean isFlashing = false;
 	public static double timeInstantToBeginFlashingInSeconds = 5.0;
 	
-	VulnerableGhost()
+	public VulnerableGhost()
+	{
+		
+	}
+	
+	public void tick()
 	{
 		
 	}
@@ -18,11 +23,6 @@ public class VulnerableGhost extends Ghost
 	}
 	
 	public void render()
-	{
-		
-	}
-	
-	public void tick()
 	{
 		
 	}
