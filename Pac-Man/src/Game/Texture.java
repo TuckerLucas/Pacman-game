@@ -38,6 +38,8 @@ public class Texture
 	// Ghosts matrix for sprite animations
 	public static BufferedImage[][][] ghostLook;
 	
+	public static int flashAnimationPhase = 0;
+	
 	// Vulnerable ghost arrays for sprite animations
 	public static BufferedImage[] blueGhost;
 	public static BufferedImage[] whiteGhost;
@@ -48,8 +50,6 @@ public class Texture
 	
 	// Bonus score array for sprite animations
 	public static BufferedImage[] bonusScore;
-	
-	public static int flashAnimationPhase = 0;
 
 	// Spritesheet columns
 	public static int spriteColumn1 = 0;

@@ -55,6 +55,11 @@ public class Ghost extends Character
 	
 	public static int minimumTimeToBeSpentInSpawnBoxInSeconds = 60*6; 
 	
+	public static double elapsedFrameTimeInSeconds = 0.0;	
+	public static double targetTimePerFrameInSeconds = 0.1;
+	
+	public static int frameIndex = 0;
+	
 	class zoneDirections
 	{	
 		int methodicalDir1;
