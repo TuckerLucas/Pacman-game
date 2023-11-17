@@ -118,7 +118,9 @@ public class AlivePacman extends Pacman
 	{
 		Sounds.playSoundEffect(Sounds.ghostEatenSoundPath);
 		
-		Ghost.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, Ghost.randomMovement, notCrossingPortal, false);
+		Ghost.ghostArray[intersectedGhost].isVulnerable = false;
+				
+		Ghost.ghostArray[intersectedGhost] = new Ghost(Ghost.ghostArray[intersectedGhost]);
 		
 		Ghost.numberOfEatenGhosts++;
 		

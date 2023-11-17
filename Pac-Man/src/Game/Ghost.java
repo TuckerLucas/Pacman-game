@@ -13,7 +13,7 @@ public class Ghost extends Character
 	public static final int methodicalMovement = 1;
 	public static final int findingPath = 2;
 	
-	private int movementType;
+	public int movementType;
 
 	private boolean findDir1Blocked = false;
 	
@@ -36,7 +36,7 @@ public class Ghost extends Character
 	
 	public static int numberOfEatenGhosts = 0;
 	
-	private int portalCrossingStatus;
+	public int portalCrossingStatus;
 	
 	private int imageIndexEnemy = 0;
 	
@@ -70,17 +70,19 @@ public class Ghost extends Character
 	
 	public Ghost()
 	{
-		
+		spawnGhost(spawnBoxX, spawnBoxY);
+		randomGen = new Random();
+		generateNextDirection();
 	}
 	
-	public Ghost(int ID, int movementStatus, int portalStatus, boolean vulnerabilityStatus)
+	public Ghost(Ghost ghost)
 	{		
 		loadZoneDirectionsArray();
 		
-		ghostID = ID;                  			
-		movementType = movementStatus; 			
-		isVulnerable = vulnerabilityStatus; 	
-		portalCrossingStatus = portalStatus;	
+		ghostID = ghost.ghostID;                  			
+		movementType = ghost.movementType;			
+		isVulnerable = ghost.isVulnerable;	
+		portalCrossingStatus = ghost.portalCrossingStatus;	
 		
 		switch(portalCrossingStatus)
 		{
