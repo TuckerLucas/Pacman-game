@@ -11,7 +11,7 @@ public class VulnerableGhost extends Ghost
 	
 	public VulnerableGhost()
 	{
-		
+		spawnGhost(spawnBoxX, spawnBoxY);
 	}
 	
 	public static void startFlashing()
@@ -21,11 +21,25 @@ public class VulnerableGhost extends Ghost
 	
 	void tick()
 	{
-		
+		if(!VulnerableGhost.isFlashing)
+		{
+			manageVulnerableGhostAnimationTiming();
+		}
+		else if(VulnerableGhost.isFlashing)
+		{
+			manageFlashingGhostAnimationTiming();
+		}
 	}
 	
 	void render(Graphics g)
 	{
-		
+		if(VulnerableGhost.isFlashing)
+		{
+			g.drawImage(Texture.flashGhost[frameIndexFlash], x, y, width, height, null);
+		}
+		else if(!VulnerableGhost.isFlashing)
+		{
+			g.drawImage(Texture.blueGhost[frameIndexBlue], x, y, width, height, null);
+		}
 	}
 }

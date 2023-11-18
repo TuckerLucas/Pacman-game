@@ -124,12 +124,12 @@ public abstract class Ghost extends Character
 		generateNextDirection();
 	}
 
-	private void spawnGhost(int xCoordinate, int yCoordinate)
+	protected void spawnGhost(int xCoordinate, int yCoordinate)
 	{
 		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
 	}
 	
-	private void generateNextDirection()
+	protected void generateNextDirection()
 	{
 		nextDir = randomGen.nextInt(4);
 	}
