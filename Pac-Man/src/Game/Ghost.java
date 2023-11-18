@@ -25,8 +25,6 @@ public class Ghost extends Character
 	private boolean coolDown = false;
 	private int coolDownTime = 0;
 	private int coolDownTargetTime = 60*3; 
-	private int timeImage = 0;		
-	private int targetTimeImage = 4;
 	
 	private zoneDirections zoneDirectionsArray[] = new zoneDirections[16];
 	
@@ -37,8 +35,6 @@ public class Ghost extends Character
 	public static int numberOfEatenGhosts = 0;
 	
 	private int portalCrossingStatus;
-	
-	private int imageIndexEnemy = 0;
 	
 	public boolean isVulnerable = false;
 	
@@ -55,10 +51,17 @@ public class Ghost extends Character
 	
 	public static int minimumTimeToBeSpentInSpawnBoxInSeconds = 60*6; 
 	
-	public static double elapsedFrameTimeInSeconds = 0.0;	
 	public static double targetTimePerFrameInSeconds = 0.1;
 	
-	public static int frameIndex = 0;
+	
+	public static double elapsedFrameTimeInSecondsHostile = 0.0;
+	public static int frameIndexHostile = 0;
+	
+	public static double elapsedFrameTimeInSecondsBlue = 0.0;
+	public static int frameIndexBlue = 0;
+	
+	public static double elapsedFrameTimeInSecondsFlash = 0.0;
+	public static int frameIndexFlash = 0;
 	
 	class zoneDirections
 	{	
@@ -120,23 +123,105 @@ public class Ghost extends Character
 		randomGen = new Random();
 		generateNextDirection();
 	}
-	
-	public static boolean isInSpawnBox(Ghost ghost)
-	{
-		return ((ghost.x < 368 && ghost.x > 272) && (ghost.y < 336 && ghost.y > 304)) ? true : false;
-	}
-	
-	public static boolean canLeaveSpawnBox(int timeSpentInSpawnBoxInSeconds)
-	{
-		return (timeSpentInSpawnBoxInSeconds == minimumTimeToBeSpentInSpawnBoxInSeconds) ? true : false;
-	}
-	
+
 	private void spawnGhost(int xCoordinate, int yCoordinate)
 	{
 		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
 	}
 	
-	public static void turnAllVulnerable()
+	private void generateNextDirection()
+	{
+		nextDir = randomGen.nextInt(4);
+	}
+	
+	
+	public void tick()
+	{		
+		portalEvents(this);
+		
+		if(portalCrossingStatus == Character.notCrossingPortal)
+		{
+			selectGhostMovementType();
+		}
+		
+		if(!isVulnerable)
+			manageHostileGhostAnimationTiming();
+		else
+		{
+			if(!VulnerableGhost.isFlashing)
+			{
+				manageVulnerableGhostAnimationTiming();
+			}
+			else if(VulnerableGhost.isFlashing)
+			{
+				manageFlashingGhostAnimationTiming();
+			}
+		}
+	}
+
+	private void selectGhostMovementType()
+	{
+		switch(movementType)
+		{
+			case randomMovement: moveRandomly(); break;
+			case methodicalMovement: moveMethodically(); break;
+			case findingPath: findingPath(); break;	
+		}			
+	}
+	
+	
+	private void manageHostileGhostAnimationTiming()
+	{
+		elapsedFrameTimeInSecondsHostile += Game.secondsPerTick;
+		
+		if(elapsedFrameTimeInSecondsHostile >= targetTimePerFrameInSeconds)
+		{
+			elapsedFrameTimeInSecondsHostile = 0;
+			
+			frameIndexHostile++;
+			
+			if(frameIndexHostile >= Texture.ghostLook[ghostID][currentDir].length)
+			{
+				frameIndexHostile = 0;
+			}
+		}
+	}
+	
+	private void manageVulnerableGhostAnimationTiming()
+	{
+		elapsedFrameTimeInSecondsBlue += Game.secondsPerTick;
+		
+		if(elapsedFrameTimeInSecondsBlue >= targetTimePerFrameInSeconds)
+		{
+			elapsedFrameTimeInSecondsBlue = 0;
+			
+			frameIndexBlue++;
+			
+			if(frameIndexBlue >= Texture.blueGhost.length)
+			{
+				frameIndexBlue = 0;
+			}
+		}
+	}
+	
+	private void manageFlashingGhostAnimationTiming()
+	{
+		elapsedFrameTimeInSecondsFlash += Game.secondsPerTick;
+		
+		if(elapsedFrameTimeInSecondsFlash >= targetTimePerFrameInSeconds)
+		{
+			elapsedFrameTimeInSecondsFlash = 0;
+			
+			frameIndexFlash++;
+			
+			if(frameIndexFlash >= Texture.flashGhost.length)
+			{
+				frameIndexFlash = 0;
+			}
+		}
+	}
+	
+	public static void turnAllGhostsVulnerable()
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
@@ -146,13 +231,14 @@ public class Ghost extends Character
 		numberOfEatenGhosts = 0;
 	}
 	
-	public static void turnAllHostile()
+	public static void turnAllGhostsHostile()
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
 			ghostArray[i].isVulnerable = false;
 		}
 	}
+	
 	
 	private void loadZoneDirectionsArray()
 	{	
@@ -331,11 +417,8 @@ public class Ghost extends Character
 		}
 	}
 	
-	private void generateNextDirection()
-	{
-		nextDir = randomGen.nextInt(4);
-	}
 	
+
 	private void moveRandomly()
 	{
 		updateDistanceToPacman();
@@ -445,94 +528,32 @@ public class Ghost extends Character
 		}
 	}
 
-	private void selectGhostMovementType()
-	{
-		switch(movementType)
-		{
-			case randomMovement: moveRandomly(); break;
-			case methodicalMovement: moveMethodically(); break;
-			case findingPath: findingPath(); break;	
-		}			
-	}
 	
-	private void animation()
+	public static boolean isInSpawnBox(Ghost ghost)
 	{
-		timeImage ++;
-		
-		if(timeImage == targetTimeImage)
-		{
-			timeImage = 0;
-			imageIndexEnemy ++;
-		}
-		
-		flashAnimationTime++;
-		
-		if(flashAnimationTime == flashAnimationTargetTime)
-		{
-			flashAnimationTime = 0;
-			
-			if(Texture.flashAnimationPhase == 3)
-			{
-				Texture.flashAnimationPhase = 0;
-			}
-			else
-			{
-				Texture.flashAnimationPhase++;
-			}
-		}
+		return ((ghost.x < 368 && ghost.x > 272) && (ghost.y < 336 && ghost.y > 304)) ? true : false;
 	}
 	
 	
-	private void flashGhost(Graphics g)
-	{
-		g.drawImage(Texture.flashGhost[Texture.flashAnimationPhase], x, y, width, height, null);
-	}
-	
-	private void stayBlue(Graphics g)
-	{
-		g.drawImage(Texture.blueGhost[imageIndexEnemy], x, y, width, height, null);
-	}
-	
-	private void look(int direction, Graphics g)
-	{
-		g.drawImage(Texture.ghostLook[ghostID][direction][imageIndexEnemy], x, y, width, height, null);
-	}
-
 	public void render(Graphics g)
 	{
-		if(imageIndexEnemy == 2)
+		if(!isVulnerable)
 		{
-			imageIndexEnemy = 0;
+			g.drawImage(Texture.ghostLook[ghostID][currentDir][frameIndexHostile], x, y, width, height, null);
 		}
-
-		if(isVulnerable == false)
-		{
-			look(currentDir, g);
-		}
-		else
+		else if(isVulnerable)
 		{
 			if(VulnerableGhost.isFlashing)
 			{
-				flashGhost(g);
+				g.drawImage(Texture.flashGhost[frameIndexFlash], x, y, width, height, null);
 			}
 			else if(!VulnerableGhost.isFlashing)
 			{
-				stayBlue(g);
+				g.drawImage(Texture.blueGhost[frameIndexBlue], x, y, width, height, null);
 			}
 		}
 	}
-	
-	public void tick()
-	{		
-		Character.portalEvents(this);
-		
-		if(portalCrossingStatus == Character.notCrossingPortal)
-		{
-			selectGhostMovementType();
-		}
-		
-		animation();
-	}
+
 
 	int getPortalCrossingStatus() 
 	{
