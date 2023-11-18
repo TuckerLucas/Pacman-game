@@ -9,8 +9,11 @@ public class VulnerableGhost extends Ghost
 	public static boolean isFlashing = false;
 	public static double timeInstantToBeginFlashingInSeconds = 5.0;
 	
-	public VulnerableGhost()
+	private int ghostID;
+	
+	public VulnerableGhost(int ID)
 	{
+		ghostID = ID;
 		spawnGhost(spawnBoxX, spawnBoxY);
 	}
 	

@@ -225,7 +225,7 @@ public abstract class Ghost extends Character
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
-			ghostArray[i] = new VulnerableGhost();
+			ghostArray[i] = new VulnerableGhost(i);
 		}
 		
 		numberOfEatenGhosts = 0;
@@ -235,7 +235,7 @@ public abstract class Ghost extends Character
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
-			ghostArray[i] = new HostileGhost();
+			ghostArray[i] = new HostileGhost(i);
 		}
 	}
 	

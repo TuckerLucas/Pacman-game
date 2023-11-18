@@ -139,10 +139,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static void loadGameElements()
 	{
 		Pacman.pacman = new AlivePacman();
-		Ghost.ghostArray[0] = new HostileGhost();
-		Ghost.ghostArray[1] = new HostileGhost();
-		Ghost.ghostArray[2] = new HostileGhost();
-		Ghost.ghostArray[3] = new HostileGhost();
+		Ghost.ghostArray[0] = new HostileGhost(0);
+		Ghost.ghostArray[1] = new HostileGhost(1);
+		Ghost.ghostArray[2] = new HostileGhost(2);
+		Ghost.ghostArray[3] = new HostileGhost(3);
 		
 		// Load other game objects based on game status
 		switch(gameStatus)
