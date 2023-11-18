@@ -135,51 +135,14 @@ public class Game extends Canvas implements Runnable, KeyListener
 		}
 	}
 	
-	private static void initialGhosts()
-	{
-		Ghost blinky = new Ghost();
-		Ghost inky = new Ghost();
-		Ghost pinky = new Ghost();
-		Ghost clyde = new Ghost();
-		
-		blinky.ghostID = 0;
-		inky.ghostID = 1;
-		pinky.ghostID = 2;
-		clyde.ghostID = 3;
-		
-		blinky.movementType = Ghost.randomMovement;
-		inky.movementType = Ghost.randomMovement;
-		pinky.movementType = Ghost.randomMovement;
-		clyde.movementType = Ghost.randomMovement;
-		
-		blinky.portalCrossingStatus= Character.notCrossingPortal;
-		inky.portalCrossingStatus= Character.notCrossingPortal;
-		pinky.portalCrossingStatus= Character.notCrossingPortal;
-		clyde.portalCrossingStatus= Character.notCrossingPortal;
-		
-		blinky.isVulnerable = false;
-		inky.isVulnerable = false;
-		pinky.isVulnerable = false;
-		clyde.isVulnerable = false;
-		
-		Ghost.ghostArray[0] = new Ghost(blinky);
-		Ghost.ghostArray[1] = new Ghost(inky);
-		Ghost.ghostArray[2] = new Ghost(pinky);
-		Ghost.ghostArray[3] = new Ghost(clyde);
-	}
-	
 	// Load the required game elements
 	public static void loadGameElements()
 	{
 		Pacman.pacman = new AlivePacman();
-		
-		initialGhosts();
-		
-		/*
 		Ghost.ghostArray[0] = new Ghost(0, Ghost.randomMovement, Character.notCrossingPortal, false); 
 		Ghost.ghostArray[1] = new Ghost(1, Ghost.randomMovement, Character.notCrossingPortal, false);
 		Ghost.ghostArray[2] = new Ghost(2, Ghost.randomMovement, Character.notCrossingPortal, false);
-		Ghost.ghostArray[3] = new Ghost(3, Ghost.randomMovement, Character.notCrossingPortal, false);*/
+		Ghost.ghostArray[3] = new Ghost(3, Ghost.randomMovement, Character.notCrossingPortal, false);
 
 		// Load other game objects based on game status
 		switch(gameStatus)
