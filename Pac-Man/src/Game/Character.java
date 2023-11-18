@@ -114,7 +114,7 @@ public abstract class Character extends Rectangle
 		}
 		else if(character instanceof Ghost)
 		{
-			Ghost.ghostArray[character.getID()] = new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
+			Ghost.ghostArray[character.getID()] = new HostileGhost();
 		}
 	}
 	
@@ -216,5 +216,4 @@ public abstract class Character extends Rectangle
 	abstract int getNextDirection();
 	abstract int getID();
 	abstract int getMovementType();
-	abstract boolean getVulnerabilityStatus();
 }

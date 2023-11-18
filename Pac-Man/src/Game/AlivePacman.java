@@ -90,7 +90,7 @@ public class AlivePacman extends Pacman
 			return;
 		}
 		
-		if(Ghost.ghostArray[intersectedGhost].isVulnerable)
+		if(Ghost.ghostArray[intersectedGhost] instanceof VulnerableGhost)
 		{
 			eatGhost();
 		}
@@ -118,7 +118,7 @@ public class AlivePacman extends Pacman
 	{
 		Sounds.playSoundEffect(Sounds.ghostEatenSoundPath);
 		
-		Ghost.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, Ghost.randomMovement, notCrossingPortal, false);
+		Ghost.ghostArray[intersectedGhost] = new HostileGhost();
 		
 		Ghost.numberOfEatenGhosts++;
 		
