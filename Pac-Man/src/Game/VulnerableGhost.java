@@ -17,10 +17,10 @@ public class VulnerableGhost extends Ghost
 	
 	private Random randomGen;
 	
-	public VulnerableGhost(int ID)
-	{
+	public VulnerableGhost(int lastHostileX, int lastHostileY, int ID)
+	{	
 		ghostID = ID;
-		spawnGhost(spawnBoxX, spawnBoxY);
+		spawnGhost(lastHostileX, lastHostileY);
 		randomGen = new Random();
 	}
 	

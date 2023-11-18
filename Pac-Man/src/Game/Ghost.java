@@ -36,8 +36,6 @@ public abstract class Ghost extends Character
 	
 	private int portalCrossingStatus;
 	
-	//public boolean isVulnerable = false;
-	
 	public static int flashAnimationTime = 0;
 	public static int flashAnimationTargetTime = 20;
 	
@@ -76,13 +74,12 @@ public abstract class Ghost extends Character
 		
 	}
 	
-	public Ghost(int ID, int movementStatus, int portalStatus, boolean vulnerabilityStatus)
+	public Ghost(int ID, int movementStatus, int portalStatus)
 	{		
 		loadZoneDirectionsArray();
 		
 		ghostID = ID;                  			
-		movementType = movementStatus; 			
-		//isVulnerable = vulnerabilityStatus; 	
+		movementType = movementStatus; 				
 		portalCrossingStatus = portalStatus;	
 		
 		switch(portalCrossingStatus)
@@ -225,7 +222,7 @@ public abstract class Ghost extends Character
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
-			ghostArray[i] = new VulnerableGhost(i);
+			ghostArray[i] = new VulnerableGhost(ghostArray[i].x, ghostArray[i].y, i);
 		}
 		
 		numberOfEatenGhosts = 0;
@@ -235,7 +232,7 @@ public abstract class Ghost extends Character
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
-			ghostArray[i] = new HostileGhost(i);
+			ghostArray[i] = new HostileGhost(ghostArray[i].x, ghostArray[i].y, i);
 		}
 	}
 	
