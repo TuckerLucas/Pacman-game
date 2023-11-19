@@ -8,16 +8,16 @@ public class HostileGhost extends Ghost
 
 	public HostileGhost()
 	{
-		spawnGhost(spawnBoxX, spawnBoxY);
+		
 	}
 	
 	void tick()
 	{
-		manageHostileGhostAnimationTiming();
+		
 	}
 	
 	void render(Graphics g)
 	{
-		g.drawImage(Texture.ghostLook[ghostID][currentDir][frameIndexHostile], x, y, width, height, null);
+		
 	}
 }
