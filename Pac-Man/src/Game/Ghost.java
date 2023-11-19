@@ -419,7 +419,7 @@ public abstract class Ghost extends Character
 	
 	
 
-	protected void moveRandomly()
+	private void moveRandomly()
 	{
 		/*
 		updateDistanceToPacman();
