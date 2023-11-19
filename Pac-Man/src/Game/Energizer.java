@@ -83,12 +83,12 @@ public class Energizer extends Food
 		Energizer.isActive = true;	
 		VulnerableGhost.isFlashing = false;
 		
-		Ghost.turnAllGhostsVulnerable();
+		Ghost.turnAllVulnerable();
 	}
 	
 	public static void deactivate()
 	{		
-		Ghost.turnAllGhostsHostile();
+		Ghost.turnAllHostile();
 	}
 	
 	public int getFoodPoints()

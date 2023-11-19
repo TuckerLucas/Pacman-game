@@ -282,6 +282,8 @@ public class Game extends Canvas implements Runnable, KeyListener
 				BonusScore.isBeingDisplayed = false;
 				
 				Energizer.isActive = false;				
+
+				Ghost.turnAllVulnerable();
 				
 				Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
 				
