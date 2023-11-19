@@ -6,11 +6,8 @@ public class HostileGhost extends Ghost
 {
 	private static final long serialVersionUID = 1L;
 
-	private int ghostID;
-	
-	public HostileGhost(int ID)
+	public HostileGhost()
 	{
-		ghostID = ID;
 		spawnGhost(spawnBoxX, spawnBoxY);
 	}
 	
