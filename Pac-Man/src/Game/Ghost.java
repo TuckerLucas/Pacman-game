@@ -25,8 +25,6 @@ public class Ghost extends Character
 	private boolean coolDown = false;
 	private int coolDownTime = 0;
 	private int coolDownTargetTime = 60*3; 
-	private int timeImage = 0;		
-	private int targetTimeImage = 4;
 	
 	private zoneDirections zoneDirectionsArray[] = new zoneDirections[16];
 	
@@ -34,16 +32,16 @@ public class Ghost extends Character
 	private int deltaY;
 	private int detectionRange;
 	
+	public static boolean isFlashing = false;
+	
 	public static int numberOfEatenGhosts = 0;
 	
 	private int portalCrossingStatus;
 	
-	private int imageIndexEnemy = 0;
-	
 	public boolean isVulnerable = false;
 	
-	public static int flashAnimationTime = 0;
-	public static int flashAnimationTargetTime = 20;
+	public static double flashAnimationTimeInSeconds = 0;
+	public static double flashAnimationTargetTimeInSeconds = 0.2;
 	
 	public int ghostID;
 	private int pacmanZone = 1;
@@ -56,9 +54,11 @@ public class Ghost extends Character
 	public static int minimumTimeToBeSpentInSpawnBoxInSeconds = 60*6; 
 	
 	public static double elapsedFrameTimeInSeconds = 0.0;	
-	public static double targetTimePerFrameInSeconds = 0.1;
+	public static double targetTimePerFrameInSeconds = 0.05;
 	
-	public static int frameIndex = 0;
+	private int frameIndex = 0;
+	
+	public static double timeInstantToBeginFlashingInSeconds = 5.0;
 	
 	class zoneDirections
 	{	
@@ -150,6 +150,7 @@ public class Ghost extends Character
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
+			Ghost.isFlashing = false;
 			ghostArray[i].isVulnerable = false;
 		}
 	}
@@ -403,8 +404,7 @@ public class Ghost extends Character
 			movementType = findingPath;
 		}
 		
-		methodicalTime++;								
-		
+		methodicalTime++;					
 		if(methodicalTime == methodicalTargetTime) 				
 		{			
 			methodicalTime = 0;				
@@ -455,21 +455,29 @@ public class Ghost extends Character
 		}			
 	}
 	
-	private void animation()
+	private void manageAnimationTiming()
 	{
-		timeImage ++;
+		elapsedFrameTimeInSeconds += Game.secondsPerTick;
 		
-		if(timeImage == targetTimeImage)
+		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
 		{
-			timeImage = 0;
-			imageIndexEnemy ++;
+			elapsedFrameTimeInSeconds = 0;
+			frameIndex++;
+			
+			if(frameIndex == Texture.ghostLook[ghostID][currentDir].length)
+			{
+				frameIndex = 0;
+			}
 		}
+	}
+	
+	private void manageFlashingAnimationTiming()
+	{
+		flashAnimationTimeInSeconds += Game.secondsPerTick;
 		
-		flashAnimationTime++;
-		
-		if(flashAnimationTime == flashAnimationTargetTime)
+		if(flashAnimationTimeInSeconds >= flashAnimationTargetTimeInSeconds)
 		{
-			flashAnimationTime = 0;
+			flashAnimationTimeInSeconds = 0;
 			
 			if(Texture.flashAnimationPhase == 3)
 			{
@@ -482,7 +490,6 @@ public class Ghost extends Character
 		}
 	}
 	
-	
 	private void flashGhost(Graphics g)
 	{
 		g.drawImage(Texture.flashGhost[Texture.flashAnimationPhase], x, y, width, height, null);
@@ -490,32 +497,27 @@ public class Ghost extends Character
 	
 	private void stayBlue(Graphics g)
 	{
-		g.drawImage(Texture.blueGhost[imageIndexEnemy], x, y, width, height, null);
+		g.drawImage(Texture.blueGhost[frameIndex], x, y, width, height, null);
 	}
 	
 	private void look(int direction, Graphics g)
 	{
-		g.drawImage(Texture.ghostLook[ghostID][direction][imageIndexEnemy], x, y, width, height, null);
+		g.drawImage(Texture.ghostLook[ghostID][direction][frameIndex], x, y, width, height, null);
 	}
 
 	public void render(Graphics g)
 	{
-		if(imageIndexEnemy == 2)
-		{
-			imageIndexEnemy = 0;
-		}
-
 		if(isVulnerable == false)
 		{
 			look(currentDir, g);
 		}
 		else
 		{
-			if(VulnerableGhost.isFlashing)
+			if(isFlashing)
 			{
 				flashGhost(g);
 			}
-			else if(!VulnerableGhost.isFlashing)
+			else if(!isFlashing)
 			{
 				stayBlue(g);
 			}
@@ -531,7 +533,14 @@ public class Ghost extends Character
 			selectGhostMovementType();
 		}
 		
-		animation();
+		if(!isFlashing)
+		{
+			manageAnimationTiming();
+		}
+		else
+		{
+			manageFlashingAnimationTiming();
+		}
 	}
 
 	int getPortalCrossingStatus() 
