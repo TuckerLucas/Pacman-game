@@ -14,15 +14,16 @@ public class HostileGhost extends Ghost
 	
 	private Random randomGen;
 	
-	public HostileGhost(int xCoordinate, int yCoordinate, int ID)
-	{	
+	public HostileGhost(int ID)
+	{
 		ghostID = ID;
-		spawnGhost(xCoordinate, yCoordinate);
+		spawnGhost(spawnBoxX, spawnBoxY);
 		randomGen = new Random();
 	}
 	
 	void tick()
 	{
+		portalEvents(this);
 		moveRandomly();
 		manageHostileGhostAnimationTiming();
 	}
