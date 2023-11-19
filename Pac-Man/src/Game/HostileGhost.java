@@ -11,13 +11,4 @@ public class HostileGhost extends Ghost
 		
 	}
 	
-	void tick()
-	{
-		
-	}
-	
-	void render(Graphics g)
-	{
-		
-	}
 }

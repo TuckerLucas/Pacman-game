@@ -3,7 +3,7 @@ package Game;
 import java.awt.Graphics;
 import java.util.Random;
 
-public abstract class Ghost extends Character
+public class Ghost extends Character
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -36,7 +36,7 @@ public abstract class Ghost extends Character
 	
 	private int portalCrossingStatus;
 	
-	//public boolean isVulnerable = false;
+	public boolean isVulnerable = false;
 	
 	public static int flashAnimationTime = 0;
 	public static int flashAnimationTargetTime = 20;
@@ -82,7 +82,7 @@ public abstract class Ghost extends Character
 		
 		ghostID = ID;                  			
 		movementType = movementStatus; 			
-		//isVulnerable = vulnerabilityStatus; 	
+		isVulnerable = vulnerabilityStatus; 	
 		portalCrossingStatus = portalStatus;	
 		
 		switch(portalCrossingStatus)
@@ -134,7 +134,7 @@ public abstract class Ghost extends Character
 		nextDir = randomGen.nextInt(4);
 	}
 	
-	/*
+	
 	public void tick()
 	{		
 		portalEvents(this);
@@ -158,7 +158,7 @@ public abstract class Ghost extends Character
 			}
 		}
 	}
-*/
+
 	private void selectGhostMovementType()
 	{
 		switch(movementType)
@@ -170,7 +170,7 @@ public abstract class Ghost extends Character
 	}
 	
 	
-	public void manageHostileGhostAnimationTiming()
+	private void manageHostileGhostAnimationTiming()
 	{
 		elapsedFrameTimeInSecondsHostile += Game.secondsPerTick;
 		
@@ -187,7 +187,7 @@ public abstract class Ghost extends Character
 		}
 	}
 	
-	public void manageVulnerableGhostAnimationTiming()
+	private void manageVulnerableGhostAnimationTiming()
 	{
 		elapsedFrameTimeInSecondsBlue += Game.secondsPerTick;
 		
@@ -204,7 +204,7 @@ public abstract class Ghost extends Character
 		}
 	}
 	
-	public void manageFlashingGhostAnimationTiming()
+	private void manageFlashingGhostAnimationTiming()
 	{
 		elapsedFrameTimeInSecondsFlash += Game.secondsPerTick;
 		
@@ -225,7 +225,7 @@ public abstract class Ghost extends Character
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
-			ghostArray[i] = new VulnerableGhost();
+			ghostArray[i].isVulnerable = true;
 		}
 		
 		numberOfEatenGhosts = 0;
@@ -235,7 +235,7 @@ public abstract class Ghost extends Character
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
-			ghostArray[i] = new HostileGhost();
+			ghostArray[i].isVulnerable = false;
 		}
 	}
 	
@@ -421,7 +421,6 @@ public abstract class Ghost extends Character
 
 	private void moveRandomly()
 	{
-		/*
 		updateDistanceToPacman();
 		
 		if(coolDown == true)
@@ -441,7 +440,7 @@ public abstract class Ghost extends Character
 			{
 				movementType = methodicalMovement;
 			}
-		}*/
+		}
 		
 		if(canMove(this, nextDir))
 		{
@@ -535,7 +534,7 @@ public abstract class Ghost extends Character
 		return ((ghost.x < 368 && ghost.x > 272) && (ghost.y < 336 && ghost.y > 304)) ? true : false;
 	}
 	
-	/*
+	
 	public void render(Graphics g)
 	{
 		if(!isVulnerable)
@@ -553,11 +552,9 @@ public abstract class Ghost extends Character
 				g.drawImage(Texture.blueGhost[frameIndexBlue], x, y, width, height, null);
 			}
 		}
-	}*/
+	}
 
-	abstract void tick();
-	abstract void render(Graphics g);
-	
+
 	int getPortalCrossingStatus() 
 	{
 		return portalCrossingStatus;
@@ -568,7 +565,10 @@ public abstract class Ghost extends Character
 		return movementType;
 	}
 
-
+	boolean getVulnerabilityStatus() 
+	{
+		return isVulnerable;
+	}
 	
 	public int getCurrentDirection()
 	{

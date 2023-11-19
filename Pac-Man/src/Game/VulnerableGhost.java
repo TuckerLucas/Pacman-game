@@ -18,14 +18,4 @@ public class VulnerableGhost extends Ghost
 	{
 		isFlashing = true;
 	}
-	
-	void tick()
-	{
-		
-	}
-	
-	void render(Graphics g)
-	{
-		
-	}
 }
