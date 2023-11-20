@@ -6,6 +6,8 @@ public class AlivePacman extends Pacman
 {	
 	private static final long serialVersionUID = 1L;
 
+	private int totalNumberOfFrames = Texture.pacmanLook[currentDir].length;
+			
 	public AlivePacman()
 	{
 		spawnPacman(pacmanSpawnXCoordinate, pacmanSpawnYCoordinate);
@@ -64,7 +66,7 @@ public class AlivePacman extends Pacman
 			
 			frameIndex++;
 			
-			if(frameIndex >= Texture.pacmanLook[currentDir].length)
+			if(frameIndex >= totalNumberOfFrames)
 			{
 				frameIndex = 0;
 			}
@@ -119,7 +121,7 @@ public class AlivePacman extends Pacman
 		Sounds.playSoundEffect(Sounds.ghostEatenSoundPath);
 		
 		Ghost.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, Ghost.randomMovement, notCrossingPortal, false);
-		
+				
 		Ghost.numberOfEatenGhosts++;
 		
 		if(Ghost.numberOfEatenGhosts == Ghost.ghostArray.length)

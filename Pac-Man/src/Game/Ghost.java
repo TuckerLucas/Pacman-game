@@ -25,8 +25,6 @@ public class Ghost extends Character
 	private boolean coolDown = false;
 	private int coolDownTime = 0;
 	private int coolDownTargetTime = 60*3; 
-	private int elapsedFrameTimeInSeconds = 0;		
-	private int targetTimeImage = 4;
 	
 	private zoneDirections zoneDirectionsArray[] = new zoneDirections[16];
 	
@@ -42,8 +40,11 @@ public class Ghost extends Character
 	
 	public boolean isVulnerable = false;
 	
-	public static int flashAnimationTime = 0;
-	public static int flashAnimationTargetTime = 20;
+	private double elapsedFrameTimeInSeconds = 0;		
+	private double targetTimePerFrameInSeconds = 0.05;
+	
+	public static double elapsedFlashFrameTimeInSeconds = 0;
+	public static double targetTimePerFlashFrameInSeconds = 0.33;
 	
 	public int ghostID;
 	private int pacmanZone = 1;
@@ -55,6 +56,11 @@ public class Ghost extends Character
 	
 	public static boolean isFlashing = false;
 	public static double timeInstantToBeginFlashingInSeconds = 5.0;
+	
+	public static int flashFrameIndex = 0;
+	
+	private int totalNumberOfFrames = Texture.ghostLook[0][0].length;
+	private int totalNumberOfFlashFrames = Texture.flashGhost.length;
 	
 	class zoneDirections
 	{	
@@ -244,27 +250,29 @@ public class Ghost extends Character
 	
 	private void manageAnimationTiming()
 	{
-		elapsedFrameTimeInSeconds++;
+		elapsedFrameTimeInSeconds += Game.secondsPerTick;
 		
-		if(elapsedFrameTimeInSeconds == targetTimeImage)
+		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
 		{
 			elapsedFrameTimeInSeconds = 0;
 			frameIndex++;
+			
+			if(frameIndex == totalNumberOfFrames)
+			{
+				frameIndex = 0;
+			}
 		}
 		
-		flashAnimationTime++;
+		elapsedFlashFrameTimeInSeconds += Game.secondsPerTick;
 		
-		if(flashAnimationTime == flashAnimationTargetTime)
+		if(elapsedFlashFrameTimeInSeconds >= targetTimePerFlashFrameInSeconds)
 		{
-			flashAnimationTime = 0;
+			elapsedFlashFrameTimeInSeconds = 0;
+			flashFrameIndex++;
 			
-			if(Texture.flashAnimationPhase == 3)
+			if(flashFrameIndex == totalNumberOfFlashFrames)
 			{
-				Texture.flashAnimationPhase = 0;
-			}
-			else
-			{
-				Texture.flashAnimationPhase++;
+				flashFrameIndex = 0;
 			}
 		}
 	}
@@ -498,7 +506,7 @@ public class Ghost extends Character
 
 	private void flashGhost(Graphics g)
 	{
-		g.drawImage(Texture.flashGhost[Texture.flashAnimationPhase], x, y, width, height, null);
+		g.drawImage(Texture.flashGhost[flashFrameIndex], x, y, width, height, null);
 	}
 	
 	private void stayBlue(Graphics g)
@@ -513,11 +521,6 @@ public class Ghost extends Character
 
 	public void render(Graphics g)
 	{
-		if(frameIndex == 2)
-		{
-			frameIndex = 0;
-		}
-
 		if(isVulnerable == false)
 		{
 			look(currentDir, g);
