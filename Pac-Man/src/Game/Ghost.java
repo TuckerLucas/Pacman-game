@@ -53,12 +53,8 @@ public class Ghost extends Character
 	
 	public static Ghost ghostArray[] = new Ghost[4];
 	
-	public static int minimumTimeToBeSpentInSpawnBoxInSeconds = 60*6; 
-	
-	public static double elapsedFrameTimeInSeconds = 0.0;	
-	public static double targetTimePerFrameInSeconds = 0.1;
-	
-	public static int frameIndex = 0;
+	public static boolean isFlashing = false;
+	public static double timeInstantToBeginFlashingInSeconds = 5.0;
 	
 	class zoneDirections
 	{	
@@ -119,39 +115,6 @@ public class Ghost extends Character
 		
 		randomGen = new Random();
 		generateNextDirection();
-	}
-	
-	public static boolean isInSpawnBox(Ghost ghost)
-	{
-		return ((ghost.x < 368 && ghost.x > 272) && (ghost.y < 336 && ghost.y > 304)) ? true : false;
-	}
-	
-	public static boolean canLeaveSpawnBox(int timeSpentInSpawnBoxInSeconds)
-	{
-		return (timeSpentInSpawnBoxInSeconds == minimumTimeToBeSpentInSpawnBoxInSeconds) ? true : false;
-	}
-	
-	private void spawnGhost(int xCoordinate, int yCoordinate)
-	{
-		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
-	}
-	
-	public static void turnAllVulnerable()
-	{
-		for(int i = 0; i < ghostArray.length; i++)
-		{
-			ghostArray[i].isVulnerable = true;
-		}
-		
-		numberOfEatenGhosts = 0;
-	}
-	
-	public static void turnAllHostile()
-	{
-		for(int i = 0; i < ghostArray.length; i++)
-		{
-			ghostArray[i].isVulnerable = false;
-		}
 	}
 	
 	private void loadZoneDirectionsArray()
@@ -250,91 +213,62 @@ public class Ghost extends Character
 		}
 	}
 
-	private void updateDistanceToPacman()
+	private void spawnGhost(int xCoordinate, int yCoordinate)
 	{
-		deltaX = x - Pacman.pacman.x; 
-		deltaY = y - Pacman.pacman.y;
+		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
 	}
 	
-	private boolean pacmanIsClose()
+	
+	public void tick()
+	{		
+		portalEvents(this);
+		
+		if(portalCrossingStatus == notCrossingPortal)
+		{
+			selectGhostMovementType();
+		}
+		
+		animation();
+	}
+
+	
+	private void selectGhostMovementType()
 	{
-		return ((deltaX < detectionRange && deltaX > -detectionRange) && 
-				(deltaY < detectionRange && deltaY > -detectionRange)) 
-				? true : false;
+		switch(movementType)
+		{
+			case randomMovement: moveRandomly(); break;
+			case methodicalMovement: moveMethodically(); break;
+			case findingPath: findingPath(); break;	
+		}			
 	}
 	
-	private void updatePacmanZone()
-	{	
-		if(deltaX > 0 && deltaY == 0)										
+	private void animation()
+	{
+		timeImage ++;
+		
+		if(timeImage == targetTimeImage)
 		{
-			pacmanZone = 0;	
+			timeImage = 0;
+			imageIndexEnemy ++;
 		}
-		else if(deltaX > 0 && deltaY > 0 && deltaX > deltaY)			
+		
+		flashAnimationTime++;
+		
+		if(flashAnimationTime == flashAnimationTargetTime)
 		{
-			pacmanZone = 1;										
-		}
-		else if(deltaX > 0 && deltaY > 0 && deltaX == deltaY)					
-		{
-			pacmanZone = 2;										
-		}
-		else if(deltaX > 0 && deltaY > 0 && deltaY > deltaX)						
-		{
-			pacmanZone = 3;										
-		}
-		else if(deltaX == 0 && deltaY > 0)									
-		{
-			pacmanZone = 4;		
-		}
-		else if(deltaX < 0 && deltaY > 0 && deltaY > -deltaX)						
-		{
-			pacmanZone = 5;										
-		}
-		else if(deltaX < 0 && deltaY > 0 && -deltaX == deltaY)					
-		{
-			pacmanZone = 6;										
-		}
-		else if(deltaX < 0 && deltaY > 0 && -deltaX > deltaY)						
-		{
-			pacmanZone = 7;										
-		}
-		else if(deltaX < 0 && deltaY == 0)										
-		{
-			pacmanZone = 8;										
-		}
-		else if(deltaX < 0 && deltaY < 0 && -deltaX > -deltaY)						
-		{
-			pacmanZone = 9;										
-		}
-		else if(deltaX < 0 && deltaY < 0 && -deltaY == -deltaX)						
-		{
-			pacmanZone = 10;									
-		}
-		else if(deltaX < 0 && deltaY < 0 && -deltaY > -deltaX)						
-		{
-			pacmanZone = 11;									
-		}
-		else if(deltaX == 0 && deltaY < 0)										
-		{
-			pacmanZone = 12;									
-		}
-		else if(deltaX > 0 && deltaY < 0 && -deltaY > deltaX)						
-		{
-			pacmanZone = 13;									
-		}
-		else if(deltaX > 0 && deltaY < 0 && deltaX == -deltaY)	 					
-		{
-			pacmanZone = 14;									
-		}
-		else if(deltaX > 0 && deltaY < 0 && deltaX > -deltaY)	 					
-		{
-			pacmanZone = 15;									
+			flashAnimationTime = 0;
+			
+			if(Texture.flashAnimationPhase == 3)
+			{
+				Texture.flashAnimationPhase = 0;
+			}
+			else
+			{
+				Texture.flashAnimationPhase++;
+			}
 		}
 	}
 	
-	private void generateNextDirection()
-	{
-		nextDir = randomGen.nextInt(4);
-	}
 	
 	private void moveRandomly()
 	{
@@ -445,44 +379,123 @@ public class Ghost extends Character
 		}
 	}
 
-	private void selectGhostMovementType()
+	
+	private void updateDistanceToPacman()
 	{
-		switch(movementType)
-		{
-			case randomMovement: moveRandomly(); break;
-			case methodicalMovement: moveMethodically(); break;
-			case findingPath: findingPath(); break;	
-		}			
+		deltaX = x - Pacman.pacman.x; 
+		deltaY = y - Pacman.pacman.y;
 	}
 	
-	private void animation()
+	private boolean pacmanIsClose()
 	{
-		timeImage ++;
-		
-		if(timeImage == targetTimeImage)
+		return ((deltaX < detectionRange && deltaX > -detectionRange) && 
+				(deltaY < detectionRange && deltaY > -detectionRange)) 
+				? true : false;
+	}
+	
+	public static boolean isInSpawnBox(Ghost ghost)
+	{
+		return ((ghost.x < 368 && ghost.x > 272) && (ghost.y < 336 && ghost.y > 304)) ? true : false;
+	}
+	
+	private void generateNextDirection()
+	{
+		nextDir = randomGen.nextInt(4);
+	}
+	
+	private void updatePacmanZone()
+	{	
+		if(deltaX > 0 && deltaY == 0)										
 		{
-			timeImage = 0;
-			imageIndexEnemy ++;
+			pacmanZone = 0;	
 		}
-		
-		flashAnimationTime++;
-		
-		if(flashAnimationTime == flashAnimationTargetTime)
+		else if(deltaX > 0 && deltaY > 0 && deltaX > deltaY)			
 		{
-			flashAnimationTime = 0;
-			
-			if(Texture.flashAnimationPhase == 3)
-			{
-				Texture.flashAnimationPhase = 0;
-			}
-			else
-			{
-				Texture.flashAnimationPhase++;
-			}
+			pacmanZone = 1;										
+		}
+		else if(deltaX > 0 && deltaY > 0 && deltaX == deltaY)					
+		{
+			pacmanZone = 2;										
+		}
+		else if(deltaX > 0 && deltaY > 0 && deltaY > deltaX)						
+		{
+			pacmanZone = 3;										
+		}
+		else if(deltaX == 0 && deltaY > 0)									
+		{
+			pacmanZone = 4;		
+		}
+		else if(deltaX < 0 && deltaY > 0 && deltaY > -deltaX)						
+		{
+			pacmanZone = 5;										
+		}
+		else if(deltaX < 0 && deltaY > 0 && -deltaX == deltaY)					
+		{
+			pacmanZone = 6;										
+		}
+		else if(deltaX < 0 && deltaY > 0 && -deltaX > deltaY)						
+		{
+			pacmanZone = 7;										
+		}
+		else if(deltaX < 0 && deltaY == 0)										
+		{
+			pacmanZone = 8;										
+		}
+		else if(deltaX < 0 && deltaY < 0 && -deltaX > -deltaY)						
+		{
+			pacmanZone = 9;										
+		}
+		else if(deltaX < 0 && deltaY < 0 && -deltaY == -deltaX)						
+		{
+			pacmanZone = 10;									
+		}
+		else if(deltaX < 0 && deltaY < 0 && -deltaY > -deltaX)						
+		{
+			pacmanZone = 11;									
+		}
+		else if(deltaX == 0 && deltaY < 0)										
+		{
+			pacmanZone = 12;									
+		}
+		else if(deltaX > 0 && deltaY < 0 && -deltaY > deltaX)						
+		{
+			pacmanZone = 13;									
+		}
+		else if(deltaX > 0 && deltaY < 0 && deltaX == -deltaY)	 					
+		{
+			pacmanZone = 14;									
+		}
+		else if(deltaX > 0 && deltaY < 0 && deltaX > -deltaY)	 					
+		{
+			pacmanZone = 15;									
 		}
 	}
 	
+
+	public static void turnAllVulnerable()
+	{
+		for(int i = 0; i < ghostArray.length; i++)
+		{
+			ghostArray[i].isVulnerable = true;
+		}
+		
+		numberOfEatenGhosts = 0;
+	}
 	
+	public static void turnAllHostile()
+	{
+		for(int i = 0; i < ghostArray.length; i++)
+		{
+			ghostArray[i].isVulnerable = false;
+		}
+	}
+	
+	public static void startFlashing()
+	{
+		isFlashing = true;
+	}
+	
+
 	private void flashGhost(Graphics g)
 	{
 		g.drawImage(Texture.flashGhost[Texture.flashAnimationPhase], x, y, width, height, null);
@@ -511,28 +524,17 @@ public class Ghost extends Character
 		}
 		else
 		{
-			if(VulnerableGhost.isFlashing)
+			if(isFlashing)
 			{
 				flashGhost(g);
 			}
-			else if(!VulnerableGhost.isFlashing)
+			else if(!isFlashing)
 			{
 				stayBlue(g);
 			}
 		}
 	}
 	
-	public void tick()
-	{		
-		Character.portalEvents(this);
-		
-		if(portalCrossingStatus == Character.notCrossingPortal)
-		{
-			selectGhostMovementType();
-		}
-		
-		animation();
-	}
 
 	int getPortalCrossingStatus() 
 	{
