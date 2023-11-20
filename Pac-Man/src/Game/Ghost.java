@@ -25,7 +25,7 @@ public class Ghost extends Character
 	private boolean coolDown = false;
 	private int coolDownTime = 0;
 	private int coolDownTargetTime = 60*3; 
-	private int timeImage = 0;		
+	private int elapsedFrameTimeInSeconds = 0;		
 	private int targetTimeImage = 4;
 	
 	private zoneDirections zoneDirectionsArray[] = new zoneDirections[16];
@@ -38,7 +38,7 @@ public class Ghost extends Character
 	
 	private int portalCrossingStatus;
 	
-	private int imageIndexEnemy = 0;
+	private int frameIndex = 0;
 	
 	public boolean isVulnerable = false;
 	
@@ -228,7 +228,7 @@ public class Ghost extends Character
 			selectGhostMovementType();
 		}
 		
-		animation();
+		manageAnimationTiming();
 	}
 
 	
@@ -242,14 +242,14 @@ public class Ghost extends Character
 		}			
 	}
 	
-	private void animation()
+	private void manageAnimationTiming()
 	{
-		timeImage ++;
+		elapsedFrameTimeInSeconds++;
 		
-		if(timeImage == targetTimeImage)
+		if(elapsedFrameTimeInSeconds == targetTimeImage)
 		{
-			timeImage = 0;
-			imageIndexEnemy ++;
+			elapsedFrameTimeInSeconds = 0;
+			frameIndex++;
 		}
 		
 		flashAnimationTime++;
@@ -503,19 +503,19 @@ public class Ghost extends Character
 	
 	private void stayBlue(Graphics g)
 	{
-		g.drawImage(Texture.blueGhost[imageIndexEnemy], x, y, width, height, null);
+		g.drawImage(Texture.blueGhost[frameIndex], x, y, width, height, null);
 	}
 	
 	private void look(int direction, Graphics g)
 	{
-		g.drawImage(Texture.ghostLook[ghostID][direction][imageIndexEnemy], x, y, width, height, null);
+		g.drawImage(Texture.ghostLook[ghostID][direction][frameIndex], x, y, width, height, null);
 	}
 
 	public void render(Graphics g)
 	{
-		if(imageIndexEnemy == 2)
+		if(frameIndex == 2)
 		{
-			imageIndexEnemy = 0;
+			frameIndex = 0;
 		}
 
 		if(isVulnerable == false)
