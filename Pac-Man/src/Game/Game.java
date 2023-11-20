@@ -368,6 +368,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 					Game.gameStatus = Game.play;
 				}
 				
+				BonusScore.isBeingDisplayed = false;
 				Energizer.deactivate();
 				
 				break;

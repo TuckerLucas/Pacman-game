@@ -69,9 +69,9 @@ public class Energizer extends Food
 	{
 		elapsedTimeWhileActiveInSeconds += Game.secondsPerTick;
 		
-		if(elapsedTimeWhileActiveInSeconds >= Ghost.timeInstantToBeginFlashingInSeconds)
+		if(elapsedTimeWhileActiveInSeconds >= VulnerableGhost.timeInstantToBeginFlashingInSeconds)
 		{
-			Ghost.isFlashing = true;
+			VulnerableGhost.startFlashing();
 		}
 	}
 	
@@ -81,7 +81,7 @@ public class Energizer extends Food
 		
 		Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
 		Energizer.isActive = true;	
-		Ghost.isFlashing = false;
+		VulnerableGhost.isFlashing = false;
 		
 		Ghost.turnAllVulnerable();
 	}

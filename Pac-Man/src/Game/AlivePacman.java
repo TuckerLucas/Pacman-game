@@ -136,8 +136,6 @@ public class AlivePacman extends Pacman
 		Sounds.playSoundEffect(Sounds.pacmanDeathSoundPath);
 		
 		pacman = new DeadPacman(x, y);
-		
-		BonusScore.isBeingDisplayed = false;
 		Game.gameStatus = Game.lifeLost;
 	}
 	
