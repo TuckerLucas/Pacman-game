@@ -235,6 +235,7 @@ public class Ghost extends Character
 		}
 		
 		manageAnimationTiming();
+		manageFlashAnimationTiming();
 	}
 
 	
@@ -263,6 +264,11 @@ public class Ghost extends Character
 			}
 		}
 		
+		
+	}
+	
+	private void manageFlashAnimationTiming()
+	{
 		elapsedFlashFrameTimeInSeconds += Game.secondsPerTick;
 		
 		if(elapsedFlashFrameTimeInSeconds >= targetTimePerFlashFrameInSeconds)
