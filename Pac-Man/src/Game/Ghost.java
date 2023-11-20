@@ -508,38 +508,22 @@ public class Ghost extends Character
 	{
 		isFlashing = true;
 	}
-	
-
-	private void flashGhost(Graphics g)
-	{
-		g.drawImage(Texture.flashGhost[flashFrameIndex], x, y, width, height, null);
-	}
-	
-	private void stayBlue(Graphics g)
-	{
-		g.drawImage(Texture.blueGhost[frameIndex], x, y, width, height, null);
-	}
-	
-	private void look(int direction, Graphics g)
-	{
-		g.drawImage(Texture.ghostLook[ghostID][direction][frameIndex], x, y, width, height, null);
-	}
 
 	public void render(Graphics g)
 	{
 		if(isVulnerable == false)
 		{
-			look(currentDir, g);
+			g.drawImage(Texture.ghostLook[ghostID][currentDir][frameIndex], x, y, width, height, null);
 		}
 		else
 		{
 			if(isFlashing)
 			{
-				flashGhost(g);
+				g.drawImage(Texture.flashGhost[flashFrameIndex], x, y, width, height, null);
 			}
 			else if(!isFlashing)
 			{
-				stayBlue(g);
+				g.drawImage(Texture.blueGhost[frameIndex], x, y, width, height, null);
 			}
 		}
 	}
