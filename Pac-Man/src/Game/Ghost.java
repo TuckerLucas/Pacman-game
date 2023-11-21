@@ -1,3 +1,8 @@
+// Remove finding path as a movement type 
+// When entering find path (from methodical) if pacman leaves the radius
+// in the meantime movement type will switch to random when we want methodical
+// to continue
+// Should call the find path function from inside methodical
 package Game;
 
 import java.awt.Graphics;
