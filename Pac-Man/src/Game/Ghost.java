@@ -49,10 +49,15 @@ public class Ghost extends Character
 	private double targetTimePerFrameInSeconds = 0.05;
 	private int totalNumberOfFrames = Texture.ghostLook[0][0].length;
 	
-	public static int flashFrameIndex = 0;
-	public static double elapsedFlashFrameTimeInSeconds = 0;
-	public static double targetTimePerFlashFrameInSeconds = 0.33;
-	private int totalNumberOfFlashFrames = Texture.flashGhost.length;
+	private int frameIndexVulnerable = 0;
+	private double elapsedFrameTimeInSecondsVulnerable = 0;		
+	private double targetTimePerFrameInSecondsVulnerable = 0.05;
+	private int totalNumberOfFramesVulnerable = Texture.blueGhost.length;
+	
+	public static int frameIndexFlashing = 0;
+	public static double elapsedFrameTimeInSecondsFlashing = 0;
+	public static double targetTimePerFrameInSecondsFlashing = 0.33;
+	private int totalNumberOfFramesFlashing = Texture.flashGhost.length;
 	
 	public boolean isFlashing = false;
 	public static double timeInstantToBeginFlashingInSeconds = 5.0;
@@ -205,7 +210,8 @@ public class Ghost extends Character
 		}
 		
 		manageAnimationTiming();
-		manageFlashAnimationTiming();
+		manageVulnerableAnimationTiming();
+		manageFlashingAnimationTiming();
 	}
 
 	
@@ -235,18 +241,38 @@ public class Ghost extends Character
 		}
 	}
 	
-	private void manageFlashAnimationTiming()
+	private void manageVulnerableAnimationTiming()
 	{
-		elapsedFlashFrameTimeInSeconds += Game.secondsPerTick;
+		elapsedFrameTimeInSecondsVulnerable += Game.secondsPerTick;
 		
-		if(elapsedFlashFrameTimeInSeconds >= targetTimePerFlashFrameInSeconds)
+		if(elapsedFrameTimeInSecondsVulnerable >= targetTimePerFrameInSecondsVulnerable)
 		{
-			elapsedFlashFrameTimeInSeconds = 0;
-			flashFrameIndex++;
+			elapsedFrameTimeInSecondsVulnerable = 0;
+			frameIndexVulnerable++;
 			
-			if(flashFrameIndex == totalNumberOfFlashFrames)
+			if(frameIndexVulnerable == totalNumberOfFramesVulnerable)
 			{
-				flashFrameIndex = 0;
+				frameIndexVulnerable = 0;
+			}
+		}
+	}
+	
+	private void manageFlashingAnimationTiming()
+	{
+		// Needs a mechanism change to make tentacles move at same speed
+		// as when ghost is in other states. Currently does not in order
+		// to show blue or white color for longer which makes the speed 
+		// reduced.
+		elapsedFrameTimeInSecondsFlashing += Game.secondsPerTick;
+		
+		if(elapsedFrameTimeInSecondsFlashing >= targetTimePerFrameInSecondsFlashing)
+		{
+			elapsedFrameTimeInSecondsFlashing = 0;
+			frameIndexFlashing++;
+			
+			if(frameIndexFlashing == totalNumberOfFramesFlashing)
+			{
+				frameIndexFlashing = 0;
 			}
 		}
 	}
@@ -501,11 +527,11 @@ public class Ghost extends Character
 		{
 			if(isFlashing)
 			{
-				g.drawImage(Texture.flashGhost[flashFrameIndex], x, y, width, height, null);
+				g.drawImage(Texture.flashGhost[frameIndexFlashing], x, y, width, height, null);
 			}
 			else if(!isFlashing)
 			{
-				g.drawImage(Texture.blueGhost[frameIndex], x, y, width, height, null);
+				g.drawImage(Texture.blueGhost[frameIndexVulnerable], x, y, width, height, null);
 			}
 		}
 	}
