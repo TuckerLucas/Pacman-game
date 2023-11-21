@@ -9,19 +9,22 @@ public class Ghost extends Character
 	
 	private Random randomGen;
 	
+	public int ghostID;
+	private int portalCrossingStatus;
+	private int movementType;
+	public boolean isVulnerable = false;
+	
 	public static final int randomMovement = 0;
 	public static final int methodicalMovement = 1;
 	public static final int findingPath = 2;
 	
-	private int movementType;
-
 	private boolean findDir1Blocked = false;
 	
 	private int nextDir = 0;
 	public int currentDir = 0;
 	
 	private int methodicalTime = 0;
-	private int methodicalTargetTime; 
+	private int methodicalTargetTime = 60 * 10; 
 	private boolean coolDown = false;
 	private int coolDownTime = 0;
 	private int coolDownTargetTime = 60*3; 
@@ -30,23 +33,10 @@ public class Ghost extends Character
 	
 	private int deltaX;
 	private int deltaY;
-	private int detectionRange;
+	private int detectionRange = 80;
 	
 	public static int numberOfEatenGhosts = 0;
 	
-	private int portalCrossingStatus;
-	
-	private int frameIndex = 0;
-	
-	public boolean isVulnerable = false;
-	
-	private double elapsedFrameTimeInSeconds = 0;		
-	private double targetTimePerFrameInSeconds = 0.05;
-	
-	public static double elapsedFlashFrameTimeInSeconds = 0;
-	public static double targetTimePerFlashFrameInSeconds = 0.33;
-	
-	public int ghostID;
 	private int pacmanZone = 1;
 	
 	public static int spawnBoxX = 320;
@@ -54,13 +44,18 @@ public class Ghost extends Character
 	
 	public static Ghost ghostArray[] = new Ghost[4];
 	
-	public static boolean isFlashing = false;
-	public static double timeInstantToBeginFlashingInSeconds = 5.0;
+	private int frameIndex = 0;
+	private double elapsedFrameTimeInSeconds = 0;		
+	private double targetTimePerFrameInSeconds = 0.05;
+	private int totalNumberOfFrames = Texture.ghostLook[0][0].length;
 	
 	public static int flashFrameIndex = 0;
-	
-	private int totalNumberOfFrames = Texture.ghostLook[0][0].length;
+	public static double elapsedFlashFrameTimeInSeconds = 0;
+	public static double targetTimePerFlashFrameInSeconds = 0.33;
 	private int totalNumberOfFlashFrames = Texture.flashGhost.length;
+	
+	public boolean isFlashing = false;
+	public static double timeInstantToBeginFlashingInSeconds = 5.0;
 	
 	class zoneDirections
 	{	
@@ -68,11 +63,6 @@ public class Ghost extends Character
 		int methodicalDir2;
 		int findDir1;
 		int findDir2;
-	}
-	
-	public Ghost()
-	{
-		
 	}
 	
 	public Ghost(int ID, int movementStatus, int portalStatus, boolean vulnerabilityStatus)
@@ -96,26 +86,6 @@ public class Ghost extends Character
 			case Character.crossingPortalFromRightSide:
 				spawnGhost(portalLeftSideCrossingPointXCoordinate, portalYCoordinate);		
 				currentDir = right;									
-				break;
-		}
-
-		switch(Game.difficulty)
-		{
-			case 1:
-				detectionRange = 80;
-				methodicalTargetTime = 60 * 10;
-				break;
-			case 2:
-				detectionRange = 100;
-				methodicalTargetTime = 60 * 15;
-				break;
-			case 3:
-				detectionRange = 120;
-				methodicalTargetTime = 60 * 20;
-				break;
-			case 4:
-				detectionRange = 150;
-				methodicalTargetTime = 60 * 25;
 				break;
 		}
 		
@@ -263,8 +233,6 @@ public class Ghost extends Character
 				frameIndex = 0;
 			}
 		}
-		
-		
 	}
 	
 	private void manageFlashAnimationTiming()
@@ -506,7 +474,21 @@ public class Ghost extends Character
 	
 	public static void startFlashing()
 	{
-		isFlashing = true;
+		for(int i = 0; i < ghostArray.length; i++)
+		{
+			if(ghostArray[i].isVulnerable)
+			{
+				ghostArray[i].isFlashing = true;
+			}
+		}
+	}
+	
+	public static void stopFlashing()
+	{
+		for(int i = 0; i < ghostArray.length; i++)
+		{
+			ghostArray[i].isFlashing = false;
+		}
 	}
 
 	public void render(Graphics g)
@@ -515,7 +497,7 @@ public class Ghost extends Character
 		{
 			g.drawImage(Texture.ghostLook[ghostID][currentDir][frameIndex], x, y, width, height, null);
 		}
-		else
+		else if(isVulnerable == true)
 		{
 			if(isFlashing)
 			{
