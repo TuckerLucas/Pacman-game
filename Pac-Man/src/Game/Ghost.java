@@ -326,7 +326,7 @@ public class Ghost extends Character
 	{
 		updateDistanceToPacman();
 		
-		if(Energizer.isActive == true || isInSpawnBox(this))
+		if(Energizer.isActive == true || isInSpawnBox(this)) //is vulnerable instead of isActive?
 		{
 			movementType = randomMovement;
 		}
