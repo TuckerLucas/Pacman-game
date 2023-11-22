@@ -28,11 +28,11 @@ public class Ghost extends Character
 	private int nextDir = 0;
 	public int currentDir = 0;
 	
-	private int methodicalTime = 0;
-	private int methodicalTargetTime = 60 * 10; 
-	private boolean coolDown = false;
-	private int coolDownTime = 0;
-	private int coolDownTargetTime = 60*3; 
+	private int timeMovingMethodicallyInSeconds = 0;
+	private int targetTimeMovingMethodicallyInSeconds = 10; 
+	private boolean isCoolingDown = false;
+	private int coolDownTimeInSeconds = 0;
+	private int coolDownTargetTimeInSeconds = 3; 
 	
 	private zoneDirections zoneDirectionsArray[] = new zoneDirections[16];
 	
@@ -287,18 +287,17 @@ public class Ghost extends Character
 	{
 		updateDistanceToPacman();
 		
-		if(coolDown == true)
+		if(isCoolingDown == true)
 		{
-			coolDownTime++;
+			coolDownTimeInSeconds += Game.secondsPerTick;
 			
-			if(coolDownTime == coolDownTargetTime)
+			if(coolDownTimeInSeconds == coolDownTargetTimeInSeconds)
 			{
-				coolDown = false;
-				
-				coolDownTime = 0;
+				isCoolingDown = false;
+				coolDownTimeInSeconds = 0;
 			}
 		}
-		else if(coolDown == false)
+		else if(isCoolingDown == false)
 		{
 			if(pacmanIsClose() && !isVulnerable && !isInSpawnBox(this))
 			{
@@ -350,12 +349,12 @@ public class Ghost extends Character
 			movementType = findingPath;
 		}
 		
-		methodicalTime++;								
+		timeMovingMethodicallyInSeconds += Game.secondsPerTick;								
 		
-		if(methodicalTime == methodicalTargetTime) 				
+		if(timeMovingMethodicallyInSeconds == targetTimeMovingMethodicallyInSeconds) 				
 		{			
-			methodicalTime = 0;				
-			coolDown 	 = true;			
+			timeMovingMethodicallyInSeconds = 0;				
+			isCoolingDown = true;			
 			movementType = randomMovement;	
 		}
 	}
