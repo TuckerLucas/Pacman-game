@@ -325,11 +325,6 @@ public class Ghost extends Character
 	{
 		updateDistanceToPacman();
 		
-		if(Energizer.isActive == true || isInSpawnBox(this)) //is vulnerable instead of isActive?
-		{
-			movementType = randomMovement;
-		}
-		
 		if(!isFindingPath)
 		{
 			updatePacmanZone();
@@ -355,7 +350,6 @@ public class Ghost extends Character
 		{
 			if(canMove(this, zoneDirectionsArray[pacmanZone].methodicalDir1))
 			{
-				System.out.println(findDir1Blocked);
 				findDir1Blocked = false;
 				isFindingPath = false;
 			}
@@ -393,6 +387,7 @@ public class Ghost extends Character
 			movementType = randomMovement;	
 		}
 	}
+	
 	
 	private void updateDistanceToPacman()
 	{
