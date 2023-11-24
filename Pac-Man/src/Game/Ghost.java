@@ -24,15 +24,16 @@ public class Ghost extends Character
 	public static final int findingPath = 2;
 	
 	private boolean findDir1Blocked = false;
+	private boolean isFindingPath = false;
 	
 	private int nextDir = 0;
 	public int currentDir = 0;
 	
-	private int timeMovingMethodicallyInSeconds = 0;
-	private int targetTimeMovingMethodicallyInSeconds = 10; 
+	private double timeMovingMethodicallyInSeconds = 0.0;
+	private double targetTimeMovingMethodicallyInSeconds = 10.0; 
 	private boolean isCoolingDown = false;
-	private int coolDownTimeInSeconds = 0;
-	private int coolDownTargetTimeInSeconds = 3; 
+	private double coolDownTimeInSeconds = 0.0;
+	private double coolDownTargetTimeInSeconds = 3.0; 
 	
 	private zoneDirections zoneDirectionsArray[] = new zoneDirections[16];
 	
@@ -226,7 +227,6 @@ public class Ghost extends Character
 		{
 			case randomMovement: moveRandomly(); break;
 			case methodicalMovement: moveMethodically(); break;
-			case findingPath: findingPath(); break;	
 		}			
 	}
 	
@@ -291,7 +291,7 @@ public class Ghost extends Character
 		{
 			coolDownTimeInSeconds += Game.secondsPerTick;
 			
-			if(coolDownTimeInSeconds == coolDownTargetTimeInSeconds)
+			if(coolDownTimeInSeconds >= coolDownTargetTimeInSeconds)
 			{
 				isCoolingDown = false;
 				coolDownTimeInSeconds = 0;
@@ -320,7 +320,7 @@ public class Ghost extends Character
 		
 		generateNextDirection();
 	}
-	
+
 	private void moveMethodically()
 	{
 		updateDistanceToPacman();
@@ -329,68 +329,70 @@ public class Ghost extends Character
 		{
 			movementType = randomMovement;
 		}
-
-		updatePacmanZone();
 		
-		if(canMove(this, zoneDirectionsArray[pacmanZone].methodicalDir1))
+		if(!isFindingPath)
 		{
-			currentDir = zoneDirectionsArray[pacmanZone].methodicalDir1;
+			updatePacmanZone();
 			
-			move(this, zoneDirectionsArray[pacmanZone].methodicalDir1);
+			if(canMove(this, zoneDirectionsArray[pacmanZone].methodicalDir1))
+			{
+				currentDir = zoneDirectionsArray[pacmanZone].methodicalDir1;
+				
+				move(this, zoneDirectionsArray[pacmanZone].methodicalDir1);
+			}
+			else if(canMove(this, zoneDirectionsArray[pacmanZone].methodicalDir2))
+			{
+				currentDir = zoneDirectionsArray[pacmanZone].methodicalDir2;
+				
+				move(this, zoneDirectionsArray[pacmanZone].methodicalDir2);
+			}
+			else
+			{
+				isFindingPath = true;
+			}
 		}
-		else if(canMove(this, zoneDirectionsArray[pacmanZone].methodicalDir2))
+		else if(isFindingPath)
 		{
-			currentDir = zoneDirectionsArray[pacmanZone].methodicalDir2;
-			
-			move(this, zoneDirectionsArray[pacmanZone].methodicalDir2);
-		}
-		else
-		{
-			movementType = findingPath;
+			if(canMove(this, zoneDirectionsArray[pacmanZone].methodicalDir1))
+			{
+				System.out.println(findDir1Blocked);
+				findDir1Blocked = false;
+				isFindingPath = false;
+			}
+			else
+			{
+				if(findDir1Blocked == false)
+				{
+					
+					if(canMove(this, zoneDirectionsArray[pacmanZone].findDir1))
+					{
+						currentDir = zoneDirectionsArray[pacmanZone].findDir1;
+						
+						move(this, zoneDirectionsArray[pacmanZone].findDir1);
+					}
+					else
+					{
+						findDir1Blocked = true;
+					}
+				}
+				else if(findDir1Blocked == true)
+				{
+					currentDir = zoneDirectionsArray[pacmanZone].findDir2;
+					
+					move(this, zoneDirectionsArray[pacmanZone].findDir2);
+				}
+			}
 		}
 		
-		timeMovingMethodicallyInSeconds += Game.secondsPerTick;								
+		timeMovingMethodicallyInSeconds += Game.secondsPerTick;	
 		
-		if(timeMovingMethodicallyInSeconds == targetTimeMovingMethodicallyInSeconds) 				
+		if(timeMovingMethodicallyInSeconds >= targetTimeMovingMethodicallyInSeconds) 				
 		{			
 			timeMovingMethodicallyInSeconds = 0;				
 			isCoolingDown = true;			
 			movementType = randomMovement;	
 		}
 	}
-
-	private void findingPath()
-	{
-		if(canMove(this, zoneDirectionsArray[pacmanZone].methodicalDir1))
-		{
-			findDir1Blocked = false;
-			
-			movementType = methodicalMovement;
-		}
-		else
-		{
-			if(findDir1Blocked == false)
-			{
-				if(canMove(this, zoneDirectionsArray[pacmanZone].findDir1))
-				{
-					currentDir = zoneDirectionsArray[pacmanZone].findDir1;
-					
-					move(this, zoneDirectionsArray[pacmanZone].findDir1);
-				}
-				else
-				{
-					findDir1Blocked = true;
-				}
-			}
-			else if(findDir1Blocked == true)
-			{
-				currentDir = zoneDirectionsArray[pacmanZone].findDir2;
-				
-				move(this, zoneDirectionsArray[pacmanZone].findDir2);
-			}
-		}
-	}
-
 	
 	private void updateDistanceToPacman()
 	{
