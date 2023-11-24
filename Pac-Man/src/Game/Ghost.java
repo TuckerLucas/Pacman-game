@@ -407,7 +407,7 @@ public class Ghost extends Character
 	
 	public static boolean isInSpawnBox(Ghost ghost)
 	{
-		return ((ghost.x < 368 && ghost.x > 272) && (ghost.y < 336 && ghost.y > 304)) ? true : false;
+		return ((ghost.x < 368 && ghost.x > 272) && (ghost.y < 336 && ghost.y > 256)) ? true : false;
 	}
 	
 	private void generateNextDirection()

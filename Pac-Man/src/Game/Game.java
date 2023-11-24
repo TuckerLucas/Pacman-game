@@ -229,7 +229,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 	
 	private void drawPacmanDying(Graphics g)
 	{
-		//Pacman.portalCrossingStatus = Character.notCrossingPortal;
 		Pacman.pacman.render(g);
 		
 		if(gameStatus != lose)
