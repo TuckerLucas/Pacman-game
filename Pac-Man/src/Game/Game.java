@@ -352,25 +352,26 @@ public class Game extends Canvas implements Runnable, KeyListener
 				if(!DeadPacman.pacmanDeathAnimationHasFinished)
 				{
 					Pacman.pacman.tick();
-					return;
+					
+					if(DeadPacman.pacmanDeathAnimationHasFinished)
+					{
+						Pacman.numberOfLives--;
+						
+						DeadPacman.pacmanDeathAnimationHasFinished = false;
+						
+						if(Pacman.numberOfLives == 0) 
+						{
+							Game.gameStatus = Game.lose;
+						}
+						else
+						{	
+							Game.loadGameElements();
+							Game.gameStatus = Game.play;
+						}
+						
+						Energizer.deactivate();
+					}
 				}
-				
-				Pacman.numberOfLives--;
-				
-				DeadPacman.pacmanDeathAnimationHasFinished = false;
-				
-				if(Pacman.numberOfLives == 0) 
-				{
-					Game.gameStatus = Game.lose;
-				}
-				else
-				{	
-					Game.loadGameElements();
-					Game.gameStatus = Game.play;
-				}
-				
-				
-				Energizer.deactivate();
 				
 				break;
 		}
