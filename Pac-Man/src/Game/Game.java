@@ -143,7 +143,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 		Ghost.ghostArray[1] = new Ghost(1, Ghost.randomMovement, Character.notCrossingPortal, false);
 		Ghost.ghostArray[2] = new Ghost(2, Ghost.randomMovement, Character.notCrossingPortal, false);
 		Ghost.ghostArray[3] = new Ghost(3, Ghost.randomMovement, Character.notCrossingPortal, false);
-
+		
 		// Load other game objects based on game status
 		switch(gameStatus)
 		{

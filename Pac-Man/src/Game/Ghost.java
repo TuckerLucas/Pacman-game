@@ -30,10 +30,10 @@ public class Ghost extends Character
 	public int currentDir = 0;
 	
 	private double timeMovingMethodicallyInSeconds = 0.0;
-	private double targetTimeMovingMethodicallyInSeconds = 10.0; 
+	private double targetTimeMovingMethodicallyInSeconds = 12.0; 
 	private boolean isCoolingDown = false;
 	private double coolDownTimeInSeconds = 0.0;
-	private double coolDownTargetTimeInSeconds = 3.0; 
+	private double coolDownTargetTimeInSeconds = 5.0; 
 	
 	private zoneDirections zoneDirectionsArray[] = new zoneDirections[16];
 	
@@ -209,6 +209,7 @@ public class Ghost extends Character
 	public void tick()
 	{		
 		portalEvents(this);
+		updateDistanceToPacman();
 		
 		if(portalCrossingStatus == notCrossingPortal)
 		{
@@ -285,8 +286,6 @@ public class Ghost extends Character
 	
 	private void moveRandomly()
 	{
-		updateDistanceToPacman();
-		
 		if(isCoolingDown == true)
 		{
 			coolDownTimeInSeconds += Game.secondsPerTick;
@@ -323,8 +322,6 @@ public class Ghost extends Character
 
 	private void moveMethodically()
 	{
-		updateDistanceToPacman();
-		
 		if(!isFindingPath)
 		{
 			updatePacmanZone();
