@@ -2,10 +2,6 @@ package Game;
 
 public class Zone 
 {
-	private static int deltaX;
-	private static int deltaY;
-	private static int detectionRange = 80;
-	
 	public Zone()
 	{
 		
@@ -101,87 +97,4 @@ public class Zone
 				break;
 		}
 	}	
-	
-	public static void updateDistanceToPacman(int x, int y)
-	{
-		deltaX = x - Pacman.pacman.x; 
-		deltaY = y - Pacman.pacman.y;
-	}
-	
-	public static boolean pacmanIsClose()
-	{
-		return ((deltaX < detectionRange && deltaX > -detectionRange) && 
-				(deltaY < detectionRange && deltaY > -detectionRange)) 
-				? true : false;
-	}
-	
-	public static int updatePacmanZone()
-	{	
-		if(deltaX > 0 && deltaY == 0)										
-		{
-			return 0;	
-		}
-		else if(deltaX > 0 && deltaY > 0 && deltaX > deltaY)			
-		{
-			return 1;										
-		}
-		else if(deltaX > 0 && deltaY > 0 && deltaX == deltaY)					
-		{
-			return 2;										
-		}
-		else if(deltaX > 0 && deltaY > 0 && deltaY > deltaX)						
-		{
-			return 3;										
-		}
-		else if(deltaX == 0 && deltaY > 0)									
-		{
-			return 4;		
-		}
-		else if(deltaX < 0 && deltaY > 0 && deltaY > -deltaX)						
-		{
-			return 5;										
-		}
-		else if(deltaX < 0 && deltaY > 0 && -deltaX == deltaY)					
-		{
-			return 6;										
-		}
-		else if(deltaX < 0 && deltaY > 0 && -deltaX > deltaY)						
-		{
-			return 7;										
-		}
-		else if(deltaX < 0 && deltaY == 0)										
-		{
-			return 8;										
-		}
-		else if(deltaX < 0 && deltaY < 0 && -deltaX > -deltaY)						
-		{
-			return 9;										
-		}
-		else if(deltaX < 0 && deltaY < 0 && -deltaY == -deltaX)						
-		{
-			return 10;									
-		}
-		else if(deltaX < 0 && deltaY < 0 && -deltaY > -deltaX)						
-		{
-			return 11;									
-		}
-		else if(deltaX == 0 && deltaY < 0)										
-		{
-			return 12;									
-		}
-		else if(deltaX > 0 && deltaY < 0 && -deltaY > deltaX)						
-		{
-			return 13;									
-		}
-		else if(deltaX > 0 && deltaY < 0 && deltaX == -deltaY)	 					
-		{
-			return 14;									
-		}
-		else if(deltaX > 0 && deltaY < 0 && deltaX > -deltaY)	 					
-		{
-			return 15;									
-		}
-		
-		return 0;
-	}
 }

@@ -12,7 +12,7 @@ public class Ghost extends Character
 {
 	private static final long serialVersionUID = 1L;
 	
-	protected Random randomGen;
+	private Random randomGen;
 	
 	public int ghostID;
 	private int portalCrossingStatus;
@@ -35,6 +35,11 @@ public class Ghost extends Character
 	private double coolDownTimeInSeconds = 0.0;
 	private double coolDownTargetTimeInSeconds = 5.0; 
 	
+	private int deltaX;
+	private int deltaY;
+	private int detectionRange = 80;
+	private int pacmanZone = 1;
+	
 	public static int numberOfEatenGhosts = 0;
 	
 	public static int spawnBoxX = 320;
@@ -52,9 +57,9 @@ public class Ghost extends Character
 	private double targetTimePerFrameInSecondsVulnerable = 0.05;
 	private int totalNumberOfFramesVulnerable = Texture.blueGhost.length;
 	
-	private int frameIndexFlashing = 0;
-	private double elapsedFrameTimeInSecondsFlashing = 0;
-	private double targetTimePerFrameInSecondsFlashing = 0.33;
+	public static int frameIndexFlashing = 0;
+	public static double elapsedFrameTimeInSecondsFlashing = 0;
+	public static double targetTimePerFrameInSecondsFlashing = 0.33;
 	private int totalNumberOfFramesFlashing = Texture.flashGhost.length;
 	
 	public boolean isFlashing = false;
@@ -73,13 +78,10 @@ public class Ghost extends Character
 		int findDir2;
 	}
 	
-	public Ghost()
-	{
-		
-	}
-	
 	public Ghost(int ID, int movementStatus, int portalStatus, boolean vulnerabilityStatus)
 	{		
+		//loadZoneDirectionsArray();
+		
 		ghostID = ID;                  			
 		movementType = movementStatus; 			
 		isVulnerable = vulnerabilityStatus; 	
@@ -104,7 +106,7 @@ public class Ghost extends Character
 		generateNextDirection();
 	}
 	
-	protected void spawnGhost(int xCoordinate, int yCoordinate)
+	private void spawnGhost(int xCoordinate, int yCoordinate)
 	{
 		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
 	}
@@ -113,7 +115,7 @@ public class Ghost extends Character
 	public void tick()
 	{		
 		portalEvents(this);
-		Zone.updateDistanceToPacman(x, y);
+		updateDistanceToPacman();
 		
 		if(portalCrossingStatus == notCrossingPortal)
 		{
@@ -126,7 +128,7 @@ public class Ghost extends Character
 	}
 
 	
-	protected void selectGhostMovementType()
+	private void selectGhostMovementType()
 	{
 		switch(movementType)
 		{
@@ -134,7 +136,6 @@ public class Ghost extends Character
 			case methodicalMovement: moveMethodically(); break;
 		}			
 	}
-	
 	
 	private void manageAnimationTiming()
 	{
@@ -189,7 +190,7 @@ public class Ghost extends Character
 	}
 	
 	
-	protected void moveRandomly()
+	private void moveRandomly()
 	{
 		if(isCoolingDown == true)
 		{
@@ -203,7 +204,7 @@ public class Ghost extends Character
 		}
 		else if(isCoolingDown == false)
 		{
-			if(Zone.pacmanIsClose() && !isVulnerable && !isInSpawnBox(this))
+			if(pacmanIsClose() && !isVulnerable && !isInSpawnBox(this))
 			{
 				movementType = methodicalMovement;
 			}
@@ -225,11 +226,12 @@ public class Ghost extends Character
 		generateNextDirection();
 	}
 
-	protected void moveMethodically()
+	private void moveMethodically()
 	{
 		if(!isFindingPath)
 		{
-			Zone.updateMethodicalDirections(this, Zone.updatePacmanZone());
+			updatePacmanZone();
+			Zone.updateMethodicalDirections(this, pacmanZone);
 			
 			if(canMove(this, methodicalDir1))
 			{
@@ -290,14 +292,95 @@ public class Ghost extends Character
 	}
 	
 	
+	private void updateDistanceToPacman()
+	{
+		deltaX = x - Pacman.pacman.x; 
+		deltaY = y - Pacman.pacman.y;
+	}
+	
+	private boolean pacmanIsClose()
+	{
+		return ((deltaX < detectionRange && deltaX > -detectionRange) && 
+				(deltaY < detectionRange && deltaY > -detectionRange)) 
+				? true : false;
+	}
+	
 	public static boolean isInSpawnBox(Ghost ghost)
 	{
 		return ((ghost.x < 368 && ghost.x > 272) && (ghost.y < 336 && ghost.y > 256)) ? true : false;
 	}
 	
-	protected void generateNextDirection()
+	private void generateNextDirection()
 	{
 		nextDir = randomGen.nextInt(4);
+	}
+	
+	private void updatePacmanZone()
+	{	
+		if(deltaX > 0 && deltaY == 0)										
+		{
+			pacmanZone = 0;	
+		}
+		else if(deltaX > 0 && deltaY > 0 && deltaX > deltaY)			
+		{
+			pacmanZone = 1;										
+		}
+		else if(deltaX > 0 && deltaY > 0 && deltaX == deltaY)					
+		{
+			pacmanZone = 2;										
+		}
+		else if(deltaX > 0 && deltaY > 0 && deltaY > deltaX)						
+		{
+			pacmanZone = 3;										
+		}
+		else if(deltaX == 0 && deltaY > 0)									
+		{
+			pacmanZone = 4;		
+		}
+		else if(deltaX < 0 && deltaY > 0 && deltaY > -deltaX)						
+		{
+			pacmanZone = 5;										
+		}
+		else if(deltaX < 0 && deltaY > 0 && -deltaX == deltaY)					
+		{
+			pacmanZone = 6;										
+		}
+		else if(deltaX < 0 && deltaY > 0 && -deltaX > deltaY)						
+		{
+			pacmanZone = 7;										
+		}
+		else if(deltaX < 0 && deltaY == 0)										
+		{
+			pacmanZone = 8;										
+		}
+		else if(deltaX < 0 && deltaY < 0 && -deltaX > -deltaY)						
+		{
+			pacmanZone = 9;										
+		}
+		else if(deltaX < 0 && deltaY < 0 && -deltaY == -deltaX)						
+		{
+			pacmanZone = 10;									
+		}
+		else if(deltaX < 0 && deltaY < 0 && -deltaY > -deltaX)						
+		{
+			pacmanZone = 11;									
+		}
+		else if(deltaX == 0 && deltaY < 0)										
+		{
+			pacmanZone = 12;									
+		}
+		else if(deltaX > 0 && deltaY < 0 && -deltaY > deltaX)						
+		{
+			pacmanZone = 13;									
+		}
+		else if(deltaX > 0 && deltaY < 0 && deltaX == -deltaY)	 					
+		{
+			pacmanZone = 14;									
+		}
+		else if(deltaX > 0 && deltaY < 0 && deltaX > -deltaY)	 					
+		{
+			pacmanZone = 15;									
+		}
 	}
 	
 
@@ -338,7 +421,6 @@ public class Ghost extends Character
 		}
 	}
 
-	
 	public void render(Graphics g)
 	{
 		if(isVulnerable == false)
