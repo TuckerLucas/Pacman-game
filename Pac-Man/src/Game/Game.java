@@ -64,8 +64,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 	private int targetFrames = 30;
 	private static boolean showText = true;
 	
-	public static int directionsArray[] = new int[4];
-	
 	// Paths to required resources
 	private static String scoresPath = "res/Files/Scores.txt";
 
