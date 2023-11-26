@@ -1,16 +1,3 @@
-/**************************************************************
-* Created by: Lucas Tucker (tucker.lucas.1404@gmail.com)
-* 
-* File: Texture.java
-* 
-* Description: 
-* 
-* This file contains the arrays for the game sprite animations
-* and the method to load the arrays with the correct sprites
-* for each animation.
-* 
-/**************************************************************/
-
 package Game;
 
 import java.awt.image.BufferedImage;
