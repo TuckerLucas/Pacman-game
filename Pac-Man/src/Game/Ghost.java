@@ -1,8 +1,3 @@
-// Remove finding path as a movement type 
-// When entering find path (from methodical) if pacman leaves the radius
-// in the meantime movement type will switch to random when we want methodical
-// to continue
-// Should call the find path function from inside methodical
 package Game;
 
 import java.awt.Graphics;
@@ -15,8 +10,8 @@ public class Ghost extends Character
 	protected Random randomGen;
 	
 	public int ghostID;
-	private int portalCrossingStatus;
-	private int movementType;
+	protected int portalCrossingStatus;
+	protected int movementType;
 	public boolean isVulnerable = false;
 	
 	public static final int randomMovement = 0;
