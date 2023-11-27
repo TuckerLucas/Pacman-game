@@ -1,8 +1,7 @@
-// Remove finding path as a movement type 
-// When entering find path (from methodical) if pacman leaves the radius
-// in the meantime movement type will switch to random when we want methodical
-// to continue
-// Should call the find path function from inside methodical
+// Bug: Ghosts move methodically when vulnerable if they were already moving 
+// like this before being vulnerable. Need to not allow ghosts to move methodically
+// when energizer activates.
+
 package Game;
 
 import java.awt.Graphics;
@@ -322,6 +321,16 @@ public class Ghost extends Character
 
 	private void moveMethodically()
 	{
+		if(isVulnerable)
+		{
+			timeMovingMethodicallyInSeconds = 0;
+			findDir1Blocked = false;
+			isFindingPath = false;
+			isCoolingDown = false;
+			movementType = randomMovement;
+			return;
+		}
+		
 		if(!isFindingPath)
 		{
 			updatePacmanZone();
