@@ -6,12 +6,33 @@ import java.io.IOException;
 
 public class Texture
 {
-	public static BufferedImage spritesheet;
+	private BufferedImage spritesheet;
 	
-	public static int spriteSize = 16;
+	private int spriteSize = 16;
 	
 	public static int objectWidth  = 32;
 	public static int objectHeight = 32;
+	
+	private int spriteColumn1 = 0;
+	private int spriteColumn2 = spriteSize*1;
+	private int spriteColumn3 = spriteSize*2;
+	private int spriteColumn4 = spriteSize*3;
+	private int spriteColumn5 = spriteSize*4;
+	private int spriteColumn6 = spriteSize*5;
+	private int spriteColumn7 = spriteSize*6;
+	private int spriteColumn8 = spriteSize*7;
+	
+	private int spriteLine1 = 0;
+	private int spriteLine2 = spriteSize*1;
+	private int spriteLine3 = spriteSize*2;
+	private int spriteLine4 = spriteSize*3;
+	private int spriteLine5 = spriteSize*4;
+	private int spriteLine6 = spriteSize*5;
+	private int spriteLine7 = spriteSize*6;
+	private int spriteLine8 = spriteSize*7;
+	private int spriteLine9 = spriteSize*8;
+	
+	private String spritesheetImagePath = "/Images/spritesheet.png";
 	
 	public static BufferedImage[][] pacmanLook;
 	public static BufferedImage[] pacmanDie;
@@ -24,27 +45,6 @@ public class Texture
 	public static BufferedImage[] bonusScore400;
 	public static BufferedImage[] bonusScore800;
 	public static BufferedImage[] bonusScore1600;
-
-	public static int spriteColumn1 = 0;
-	public static int spriteColumn2 = spriteSize*1;
-	public static int spriteColumn3 = spriteSize*2;
-	public static int spriteColumn4 = spriteSize*3;
-	public static int spriteColumn5 = spriteSize*4;
-	public static int spriteColumn6 = spriteSize*5;
-	public static int spriteColumn7 = spriteSize*6;
-	public static int spriteColumn8 = spriteSize*7;
-	
-	public static int spriteLine1 = 0;
-	public static int spriteLine2 = spriteSize*1;
-	public static int spriteLine3 = spriteSize*2;
-	public static int spriteLine4 = spriteSize*3;
-	public static int spriteLine5 = spriteSize*4;
-	public static int spriteLine6 = spriteSize*5;
-	public static int spriteLine7 = spriteSize*6;
-	public static int spriteLine8 = spriteSize*7;
-	public static int spriteLine9 = spriteSize*8;
-	
-	private static String spritesheetImagePath = "/Images/spritesheet.png";
 	
 	public static Texture texture;
 	
@@ -79,6 +79,7 @@ public class Texture
 		bonusScore400 = new BufferedImage[2];
 		bonusScore800 = new BufferedImage[2];
 		bonusScore1600 = new BufferedImage[2];
+		
 		
 		pacmanLook[0][0] = getSprite(spriteColumn5, spriteLine5, spriteSize, spriteSize);		
 		pacmanLook[0][1] = getSprite(spriteColumn6, spriteLine5, spriteSize, spriteSize);	
@@ -165,15 +166,19 @@ public class Texture
 		
 		bonusScore200[0] = getSprite(spriteColumn1, spriteLine8, spriteSize*2, spriteSize);
 		bonusScore200[1] = getSprite(spriteColumn1, spriteLine9, spriteSize*2, spriteSize);
+		
 		bonusScore400[0] = getSprite(spriteColumn3, spriteLine8, spriteSize*2, spriteSize);
 		bonusScore400[1] = getSprite(spriteColumn3, spriteLine9, spriteSize*2, spriteSize);
+		
 		bonusScore800[0] = getSprite(spriteColumn5, spriteLine8, spriteSize*2, spriteSize);
 		bonusScore800[1] = getSprite(spriteColumn5, spriteLine9, spriteSize*2, spriteSize);
+		
 		bonusScore1600[0] = getSprite(spriteColumn7, spriteLine8, spriteSize*2, spriteSize);
 		bonusScore1600[1] = getSprite(spriteColumn7, spriteLine9, spriteSize*2, spriteSize);
 	}
 	
-	public static BufferedImage getSprite(int spriteX, int spriteY, int spriteWidth, int spriteHeight)
+	
+	private BufferedImage getSprite(int spriteX, int spriteY, int spriteWidth, int spriteHeight)
 	{
 		return spritesheet.getSubimage(spriteX, spriteY, spriteWidth, spriteHeight);
 	}
