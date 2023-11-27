@@ -251,7 +251,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 				BonusScore.bonusScore.tick();
 				Energizer.energizer.tick();
 				Level.level.tick();
-				Texture.texture.tick();
 
 				break;
 				

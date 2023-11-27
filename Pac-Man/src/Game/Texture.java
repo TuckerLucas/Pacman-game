@@ -14,18 +14,16 @@ public class Texture
 	public static int objectHeight = 32;
 	
 	public static BufferedImage[][] pacmanLook;
-	
 	public static BufferedImage[] pacmanDie;
-	
 	public static BufferedImage[][][] ghostLook;
-	
 	public static BufferedImage[] blueGhost;
 	public static BufferedImage[] whiteGhost;
 	public static BufferedImage[] flashGhost;
-	
 	public static BufferedImage[] energizer;
-	
-	public static BufferedImage[] bonusScore;
+	public static BufferedImage[] bonusScore200;
+	public static BufferedImage[] bonusScore400;
+	public static BufferedImage[] bonusScore800;
+	public static BufferedImage[] bonusScore1600;
 
 	public static int spriteColumn1 = 0;
 	public static int spriteColumn2 = spriteSize*1;
@@ -77,7 +75,10 @@ public class Texture
 		whiteGhost = new BufferedImage[2];
 		flashGhost = new BufferedImage[4];
 		energizer = new BufferedImage[2];
-		bonusScore = new BufferedImage[2];
+		bonusScore200 = new BufferedImage[2];
+		bonusScore400 = new BufferedImage[2];
+		bonusScore800 = new BufferedImage[2];
+		bonusScore1600 = new BufferedImage[2];
 		
 		pacmanLook[0][0] = getSprite(spriteColumn5, spriteLine5, spriteSize, spriteSize);		
 		pacmanLook[0][1] = getSprite(spriteColumn6, spriteLine5, spriteSize, spriteSize);	
@@ -161,42 +162,20 @@ public class Texture
 		
 		energizer[0] = getSprite(spriteColumn7, spriteLine7, spriteSize, spriteSize);
 		energizer[1] = getSprite(spriteColumn8, spriteLine7, spriteSize, spriteSize);
+		
+		bonusScore200[0] = getSprite(spriteColumn1, spriteLine8, spriteSize*2, spriteSize);
+		bonusScore200[1] = getSprite(spriteColumn1, spriteLine9, spriteSize*2, spriteSize);
+		bonusScore400[0] = getSprite(spriteColumn3, spriteLine8, spriteSize*2, spriteSize);
+		bonusScore400[1] = getSprite(spriteColumn3, spriteLine9, spriteSize*2, spriteSize);
+		bonusScore800[0] = getSprite(spriteColumn5, spriteLine8, spriteSize*2, spriteSize);
+		bonusScore800[1] = getSprite(spriteColumn5, spriteLine9, spriteSize*2, spriteSize);
+		bonusScore1600[0] = getSprite(spriteColumn7, spriteLine8, spriteSize*2, spriteSize);
+		bonusScore1600[1] = getSprite(spriteColumn7, spriteLine9, spriteSize*2, spriteSize);
 	}
 	
 	public static BufferedImage getSprite(int spriteX, int spriteY, int spriteWidth, int spriteHeight)
 	{
 		return spritesheet.getSubimage(spriteX, spriteY, spriteWidth, spriteHeight);
-	}
-	
-	public void tick()
-	{
-		switch(Ghost.numberOfEatenGhosts)
-		{
-			case 1: 
-				Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn1, Texture.spriteLine8, 
-				32, Texture.spriteSize);
-				Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn1, Texture.spriteLine9, 
-				32, Texture.spriteSize);
-				break;
-			case 2: 
-				Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn3, Texture.spriteLine8, 
-				32, Texture.spriteSize);
-				Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn3, Texture.spriteLine9, 
-				32, Texture.spriteSize);
-				break;
-			case 3: 
-				Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn5, Texture.spriteLine8, 
-				32, Texture.spriteSize);
-				Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn5, Texture.spriteLine9, 
-				32, Texture.spriteSize);
-				break;
-			case 4:
-				Texture.bonusScore[0] = Texture.getSprite(Texture.spriteColumn7, Texture.spriteLine8, 
-				32, Texture.spriteSize);
-				Texture.bonusScore[1] = Texture.getSprite(Texture.spriteColumn7, Texture.spriteLine9, 
-				32, Texture.spriteSize);
-				break;
-		}
 	}
 }
 

@@ -16,7 +16,7 @@ public class BonusScore extends Rectangle
 	private double targetTimePerFrameInSeconds = 0.1;
 	
 	private static int frameIndex = 0;
-	private static int totalNumberOfFrames = Texture.bonusScore.length;
+	private static int totalNumberOfFrames = Texture.bonusScore200.length;
 	
 	public static BonusScore bonusScore;
 	
@@ -84,7 +84,21 @@ public class BonusScore extends Rectangle
 	{
 		if(isBeingDisplayed)
 		{
-			g.drawImage(Texture.bonusScore[frameIndex], x, y, width, height, null);
+			switch(Ghost.numberOfEatenGhosts)
+			{
+				case 1: 
+					g.drawImage(Texture.bonusScore200[frameIndex], x, y, width, height, null);
+					break;
+				case 2: 
+					g.drawImage(Texture.bonusScore400[frameIndex], x, y, width, height, null);
+					break;
+				case 3: 
+					g.drawImage(Texture.bonusScore800[frameIndex], x, y, width, height, null);
+					break;
+				case 4:
+					g.drawImage(Texture.bonusScore1600[frameIndex], x, y, width, height, null);
+					break;
+			}
 		}
 	}
 }
