@@ -6,7 +6,7 @@ public class AlivePacman extends Pacman
 {	
 	private static final long serialVersionUID = 1L;
 
-	private int totalNumberOfFrames = Texture.pacmanLook[currentDir].length;
+	private int totalNumberOfFrames = Animation.alivePacmanSprites[currentDir].length;
 			
 	public AlivePacman()
 	{
@@ -39,7 +39,7 @@ public class AlivePacman extends Pacman
 	
 	private void spawnPacman(int xCoordinate, int yCoordinate)
 	{
-		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
+		setBounds(xCoordinate, yCoordinate, Level.objectWidth, Level.objectHeight);
 	}
 	
 	public void tick()
@@ -143,6 +143,6 @@ public class AlivePacman extends Pacman
 	
 	public void render(Graphics g)
 	{
-		g.drawImage(Texture.pacmanLook[currentDir][frameIndex], x, y, width, height, null);
+		g.drawImage(Animation.alivePacmanSprites[currentDir][frameIndex], x, y, width, height, null);
 	}
 }

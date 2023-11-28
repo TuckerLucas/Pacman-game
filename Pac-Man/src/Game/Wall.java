@@ -12,7 +12,7 @@ public class Wall extends Rectangle
 	
 	public Wall(int x, int y)
 	{	
-		setBounds(x, y, Texture.objectWidth, Texture.objectHeight);
+		setBounds(x, y, Level.objectWidth, Level.objectHeight);
 	}
 	
 	public void render(Graphics g)

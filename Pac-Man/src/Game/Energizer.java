@@ -17,13 +17,13 @@ public class Energizer extends Food
 	private double targetTimePerFrameInSeconds = 0.2;
 	
 	private static int frameIndex = 0;
-	private int totalNumberOfFrames = Texture.energizer.length;	
+	private int totalNumberOfFrames = Animation.energizerSprites.length;	
 	
 	public static Energizer energizer;
 	
 	public Energizer(int x, int y)
 	{
-		setBounds(x, y, Texture.objectWidth, Texture.objectHeight);
+		setBounds(x, y, Level.objectWidth, Level.objectHeight);
 	}
 	
 	public void tick()
@@ -98,6 +98,6 @@ public class Energizer extends Food
 	
 	public void render(Graphics g)
 	{
-		g.drawImage(Texture.energizer[frameIndex], x, y, width, height, null);	
+		g.drawImage(Animation.energizerSprites[frameIndex], x, y, width, height, null);	
 	}
 }

@@ -52,17 +52,17 @@ public class Ghost extends Character
 	private int frameIndex = 0;
 	private double elapsedFrameTimeInSeconds = 0;		
 	private double targetTimePerFrameInSeconds = 0.05;
-	private int totalNumberOfFrames = Texture.ghostLook[0][0].length;
+	private int totalNumberOfFrames = Animation.hostileGhostSprites[0][0].length;
 	
 	private int frameIndexVulnerable = 0;
 	private double elapsedFrameTimeInSecondsVulnerable = 0;		
 	private double targetTimePerFrameInSecondsVulnerable = 0.05;
-	private int totalNumberOfFramesVulnerable = Texture.blueGhost.length;
+	private int totalNumberOfFramesVulnerable = Animation.vulnerableGhostSprites.length;
 	
 	public static int frameIndexFlashing = 0;
 	public static double elapsedFrameTimeInSecondsFlashing = 0;
 	public static double targetTimePerFrameInSecondsFlashing = 0.33;
-	private int totalNumberOfFramesFlashing = Texture.flashGhost.length;
+	private int totalNumberOfFramesFlashing = Animation.flashingGhostSprites.length;
 	
 	public boolean isFlashing = false;
 	public static double timeInstantToBeginFlashingInSeconds = 5.0;
@@ -201,7 +201,7 @@ public class Ghost extends Character
 
 	private void spawnGhost(int xCoordinate, int yCoordinate)
 	{
-		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
+		setBounds(xCoordinate, yCoordinate, Level.objectWidth, Level.objectHeight);
 	}
 	
 	
@@ -528,17 +528,17 @@ public class Ghost extends Character
 	{
 		if(isVulnerable == false)
 		{
-			g.drawImage(Texture.ghostLook[ghostID][currentDir][frameIndex], x, y, width, height, null);
+			g.drawImage(Animation.hostileGhostSprites[ghostID][currentDir][frameIndex], x, y, width, height, null);
 		}
 		else if(isVulnerable == true)
 		{
 			if(isFlashing)
 			{
-				g.drawImage(Texture.flashGhost[frameIndexFlashing], x, y, width, height, null);
+				g.drawImage(Animation.flashingGhostSprites[frameIndexFlashing], x, y, width, height, null);
 			}
 			else if(!isFlashing)
 			{
-				g.drawImage(Texture.blueGhost[frameIndexVulnerable], x, y, width, height, null);
+				g.drawImage(Animation.vulnerableGhostSprites[frameIndexVulnerable], x, y, width, height, null);
 			}
 		}
 	}

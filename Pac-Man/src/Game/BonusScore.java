@@ -16,13 +16,13 @@ public class BonusScore extends Rectangle
 	private double targetTimePerFrameInSeconds = 0.1;
 	
 	private static int frameIndex = 0;
-	private static int totalNumberOfFrames = Texture.bonusScore200.length;
+	private static int totalNumberOfFrames = 2;
 	
 	public static BonusScore bonusScore;
 	
 	public BonusScore()
 	{
-		setBounds(0, 0, Texture.objectWidth * 2, Texture.objectHeight);
+		setBounds(0, 0, Level.objectWidth*2, Level.objectHeight);
 	}
 	
 	public void tick()
@@ -87,16 +87,16 @@ public class BonusScore extends Rectangle
 			switch(Ghost.numberOfEatenGhosts)
 			{
 				case 1: 
-					g.drawImage(Texture.bonusScore200[frameIndex], x, y, width, height, null);
+					g.drawImage(Animation.bonusScore200Sprites[frameIndex], x, y, width, height, null);
 					break;
 				case 2: 
-					g.drawImage(Texture.bonusScore400[frameIndex], x, y, width, height, null);
+					g.drawImage(Animation.bonusScore400Sprites[frameIndex], x, y, width, height, null);
 					break;
 				case 3: 
-					g.drawImage(Texture.bonusScore800[frameIndex], x, y, width, height, null);
+					g.drawImage(Animation.bonusScore800Sprites[frameIndex], x, y, width, height, null);
 					break;
 				case 4:
-					g.drawImage(Texture.bonusScore1600[frameIndex], x, y, width, height, null);
+					g.drawImage(Animation.bonusScore1600Sprites[frameIndex], x, y, width, height, null);
 					break;
 			}
 		}

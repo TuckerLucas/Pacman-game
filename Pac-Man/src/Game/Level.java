@@ -28,6 +28,9 @@ public class Level
 	private static int gameWidth;
 	private static int gameHeight;
 		
+	public static int objectWidth = 32;
+	public static int objectHeight = 32;
+	
 	// Variables for object loading via colour identification
 	private final int black 	= 0xFF000000;
 	private final int gray		= 0xFF808080;
@@ -176,7 +179,7 @@ public class Level
 		// Draw life symbols depending on number of user lives left
 		for(int i = 0; i < Pacman.numberOfLives; i++)
 		{
-			g.drawImage(Texture.pacmanLook[0][2], livesSymbolsX[i], 
+			g.drawImage(Animation.alivePacmanSprites[0][2], livesSymbolsX[i], 
 					livesSymbolsY, 32, 32, null);
 		}
 		/*******************************************************/

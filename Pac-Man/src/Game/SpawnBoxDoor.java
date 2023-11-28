@@ -12,7 +12,7 @@ public class SpawnBoxDoor extends Rectangle
 	
 	public SpawnBoxDoor(int x, int y)
 	{
-		setBounds(x, y, Texture.objectWidth, Texture.objectHeight);
+		setBounds(x, y, Level.objectWidth, Level.objectHeight);
 	}
 	
 	public void render(Graphics g)

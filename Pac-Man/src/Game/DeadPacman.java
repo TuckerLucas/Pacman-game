@@ -15,7 +15,7 @@ public class DeadPacman extends Pacman
 	
 	private void spawnDeadPacman(int xCoordinate, int yCoordinate)
 	{
-		setBounds(xCoordinate, yCoordinate, Texture.objectWidth, Texture.objectHeight);
+		setBounds(xCoordinate, yCoordinate, Level.objectWidth, Level.objectHeight);
 	}
 	
 	public void tick()
@@ -33,7 +33,7 @@ public class DeadPacman extends Pacman
 			
 			frameIndex++;
 			
-			if(frameIndex >= Texture.pacmanDie.length)
+			if(frameIndex >= Animation.deadPacmanSprites.length)
 			{
 				frameIndex = 0;
 				pacmanDeathAnimationHasFinished = true;
@@ -43,6 +43,6 @@ public class DeadPacman extends Pacman
 	
 	public void render(Graphics g)
 	{	
-		g.drawImage(Texture.pacmanDie[frameIndex], x, y, width, height, null);
+		g.drawImage(Animation.deadPacmanSprites[frameIndex], x, y, width, height, null);
 	}
 }

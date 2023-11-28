@@ -76,7 +76,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 	{
 		addKeyListener(this);
 		gameStatus = init;			
-		Texture.texture = new Texture();
+		Animation.animation = new Animation();
 		
 		getGameHighScore();
 	}
