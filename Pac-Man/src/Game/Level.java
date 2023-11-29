@@ -1,16 +1,3 @@
-/**************************************************************
-* Created by: Lucas Tucker (tucker.lucas.1404@gmail.com)
-* 
-* File: Level.java
-* 
-* Description: 
-* 
-* This file is responsible for loading the game objects in the 
-* map as well as relevant game data regarding score, highscore
-* and lives.
-* 
-/**************************************************************/
-
 package Game;
 
 import java.awt.Color;
@@ -24,52 +11,47 @@ import javax.imageio.ImageIO;
 
 public class Level
 {
-	// Variables for game size
 	private static int gameWidth;
 	private static int gameHeight;
 		
 	public static int objectWidth = 32;
 	public static int objectHeight = 32;
 	
-	// Variables for object loading via colour identification
-	private final int black 	= 0xFF000000;
-	private final int gray		= 0xFF808080;
+	private final int black = 0xFF000000;
+	private final int gray = 0xFF808080;
 	private final int darkYellow = 0xFFFFD800;
-	private final int red 		= 0xFFFF0000;
-	private final int cyan 		= 0xFF00FFFF;
-	private final int orange 	= 0xFFFF8726;
-	private final int purple 	= 0xFFE7CCFF;
-	private final int white 	= 0xFFFFFFFF;
-	private final int lightYellow 	= 0xFFFFFF00;
+	private final int red = 0xFFFF0000;
+	private final int cyan = 0xFF00FFFF;
+	private final int orange = 0xFFFF8726;
+	private final int purple = 0xFFE7CCFF;
+	private final int white = 0xFFFFFFFF;
+	private final int lightYellow = 0xFFFFFF00;
+	
+	private String mapImagePath = "/Images/map.png";
 	
 	public static Level level;
 	
 	public Level()	
 	{
-		Food.foodList = new ArrayList<>();	
-		
 		try 
 		{
-			// Get map sketch image via the passed path
-			BufferedImage map = ImageIO.read(getClass().getResource("/Images/map.png"));
+			Food.foodList = new ArrayList<>();	
+			BufferedImage map = ImageIO.read(getClass().getResource(mapImagePath));
 			
 			gameWidth = map.getWidth();		
 			gameHeight = map.getHeight();		
 			
 			Wall.wallMatrix = new Wall[gameWidth][gameHeight];
 			
-			// Get RGB array of the whole map and store it
 			int pixels[] = new int[gameWidth * gameHeight];	
 			map.getRGB(0, 0, gameWidth, gameHeight, pixels, 0, gameWidth);
 			
-			// Analyse RGB array line by line
 			for(int x = 0; x < gameWidth; x++)
 			{
 				for(int y = 0; y < gameHeight; y++)
 				{
 					int color = pixels[x + (y * gameWidth)];
 					
-					// Load objects based on map sketch color
 					switch(color)
 					{
 						case black:
@@ -140,31 +122,22 @@ public class Level
 			e.printStackTrace();
 		}
 	}
-
-	// Draw user score and lives data at the bottom of the game screen
+	
 	private static void drawData(Graphics g)
 	{	
-		// Variable for vertical data positioning in game window
 		int gameDataY = 745;
-		
-		// Variables for horizontal score data positioning in game window
 		int scoreStrX = 20;			
 		int scoreValX = 105;		
 		int highscoreStrX = 210;	
 		int highscoreValX = 350;	
 		
-		// Set letter color size and font
 		Game.setLetteringStyle(g, Color.white, Font.DIALOG_INPUT, 23);
 		
-		// Draw game score and highscore data
-		/*******************************************************/
 		g.drawString("SCORE: ", scoreStrX, gameDataY);	
 		g.drawString(String.valueOf(Game.score), scoreValX, gameDataY);
 		g.drawString("HIGHSCORE: ", highscoreStrX, gameDataY);	
 		g.drawString(String.valueOf(Game.highscore), highscoreValX, gameDataY);
-		/*******************************************************/
 		
-		// Variables for life data positioning in game window
 		int livesStrX = 470;
 		int livesSymbolsY = 720;
 		int life1SymbolX = 555;
@@ -172,17 +145,13 @@ public class Level
 		int life3SymbolX = 625;
 		int livesSymbolsX[] = {life1SymbolX, life2SymbolX, life3SymbolX};
 		
-		// Draw game lives data
-		/*******************************************************/
 		g.drawString("LIVES:", livesStrX, gameDataY);
 		
-		// Draw life symbols depending on number of user lives left
 		for(int i = 0; i < Pacman.numberOfLives; i++)
 		{
 			g.drawImage(Animation.alivePacmanSprites[0][2], livesSymbolsX[i], 
 					livesSymbolsY, 32, 32, null);
 		}
-		/*******************************************************/
 	}
 	
 	public void render(Graphics g)
