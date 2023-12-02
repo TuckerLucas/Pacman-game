@@ -33,41 +33,31 @@ public class Game extends Canvas implements Runnable, KeyListener
 {
 	private static final long serialVersionUID = 1L;
 	
-	// Game running variables
 	private static Thread thread;
 	private static boolean isRunning = false;	
 
-	// Game boundaries variables
 	public static final int WIDTH = 672;
 	public static final int	HEIGHT = 784;	// 704 game + 80 data
 	
-	// Game difficulty variable
-	public static int difficulty = 1;
-	
-	// Game status variables
-	public static int gameStatus 	 = 0;
-	public static final int init 	 = 1;		
-	public static final int play 	 = 2;
-	public static final int win 	 = 3;
-	public static final int lose 	 = 4; 
+	public static int gameStatus = 0;
+	public static final int init = 1;		
+	public static final int play = 2;
+	public static final int win = 3;
+	public static final int lose = 4; 
 	public static final int lifeLost = 5;
 	
-	// Score variables
 	public static int highscore;
 	public static int score = 0;
 	
-	// Game key flag variables
 	public boolean enter = false;					
 	public boolean space = false;
 	
-	// Animation variables
-	private int blinkTime 	 = 0;							
+	private int blinkTime = 0;							
 	private int targetFrames = 30;
 	private static boolean showText = true;
 	
 	public static int directionsArray[] = new int[4];
 	
-	// Paths to required resources
 	private static String scoresPath = "res/Files/Scores.txt";
 
 	private static double targetTick = 60.0; 				
@@ -82,32 +72,25 @@ public class Game extends Canvas implements Runnable, KeyListener
 		getGameHighScore();
 	}
 
-	
-	// Start a new game thread
 	public synchronized void startGame()
 	{
-		// Check if game is already running
 		if(isRunning)
 		{
 			return;
 		}
 			
-		// Start the game
 		isRunning = true;
 		thread = new Thread(this);
 		thread.start();
 	}
 	
-	// Stop the running game thread
 	public synchronized static void stopGame()
 	{
-		// Check if game is running
 		if(!isRunning)
 		{
 			return;
 		}
 		
-		// Stop the game
 		isRunning = false;
 		
 		try
@@ -136,7 +119,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 		}
 	}
 	
-	// Load the required game elements
 	public static void loadGameElements()
 	{
 		Pacman.pacman = new AlivePacman();
@@ -145,7 +127,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 		Ghost.ghostArray[2] = new Ghost(2, Ghost.randomMovement, Character.notCrossingPortal, false);
 		Ghost.ghostArray[3] = new Ghost(3, Ghost.randomMovement, Character.notCrossingPortal, false);
 		
-		// Load other game objects based on game status
 		switch(gameStatus)
 		{
 			case init:
@@ -172,7 +153,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 		}
 	}
 
-	// Make game's screen text blink
 	private void blinkText()
 	{
 		if(showText)
@@ -183,19 +163,15 @@ public class Game extends Canvas implements Runnable, KeyListener
 		showText = true;
 	}
 
-	// Set game's screen lettering style
 	public static void setLetteringStyle(Graphics g, Color color, String font, int fontSize)
 	{
-		// Lettering colour, size and font
 		g.setColor(color);												
 		g.setFont(new Font(font, Font.BOLD, fontSize)); 
 	}
 	
-	
-	// Draw game's initial screen
+
 	private void drawInitScreen(Graphics g)
 	{	
-		// Display text
 		if(showText)
 		{
 			g.drawString("ENTER", 266, 350); 
@@ -203,10 +179,8 @@ public class Game extends Canvas implements Runnable, KeyListener
 		g.drawString("PRESS       TO START!", 170, 350); 
 	}
 
-	// Draw game's winning screen
 	private void drawWinScreen(Graphics g)
 	{		
-		// Display text
 		g.drawString("WELL DONE!", 210, 0);
 		if(showText)
 		{
@@ -215,10 +189,8 @@ public class Game extends Canvas implements Runnable, KeyListener
 		g.drawString("PRESS       TO CONTINUE GAME", 60, 350);
 	}
 	
-	// Draw game's losing screen
 	public static void drawLoseScreen(Graphics g)
 	{		
-		// Display text
 		g.drawString("BAD LUCK!", 270, 100);
 		if(showText)
 		{
@@ -383,7 +355,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 		}
 	}
 	
-	// Render/draw game's screens based on game status 
 	private void render()
 	{
 		BufferStrategy bs = getBufferStrategy();
@@ -396,12 +367,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 		
 		Graphics g = bs.getDrawGraphics();
 		
-		// Configure screen background and lettering
 		g.setColor(Color.black);
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 		setLetteringStyle(g, Color.white, Font.DIALOG_INPUT, 26);
 		
-		// Render screens based on status of the game
 		switch(gameStatus)
 		{
 			case init: drawInitScreen(g); break;
@@ -422,7 +391,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 		double delta = 0;						// Time difference between game instants
 		double ns = 1000000000 / targetTick; 	// Time interval between ticks
 				
-		// Game loop
 		while(isRunning)				
 		{	
 			long now = System.nanoTime();		// This game instant
@@ -440,8 +408,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 		stopGame();							
 	}
 
-	
-	// Listen for pressed keys
 	@Override
 	public void keyPressed(KeyEvent e)
 	{
@@ -487,14 +453,12 @@ public class Game extends Canvas implements Runnable, KeyListener
 		}
 	}
 
-	// Unimplemented method
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
 
 	}
 	
-	// Unimplemented method
 	@Override
 	public void keyTyped(KeyEvent e)
 	{
