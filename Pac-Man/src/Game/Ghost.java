@@ -45,11 +45,6 @@ public class Ghost extends Character
 	
 	public static Ghost ghostArray[] = new Ghost[4];
 	
-	private int frameIndexVulnerable = 0;
-	private double elapsedFrameTimeInSecondsVulnerable = 0;		
-	private double targetTimePerFrameInSecondsVulnerable = 0.05;
-	private int totalNumberOfFramesVulnerable = Animation.vulnerableGhostSprites.length;
-	
 	public static int frameIndexFlashing = 0;
 	public static double elapsedFrameTimeInSecondsFlashing = 0;
 	public static double targetTimePerFrameInSecondsFlashing = 0.33;
@@ -212,7 +207,7 @@ public class Ghost extends Character
 		}
 		
 		HostileGhost.manageAnimationTiming();
-		manageVulnerableAnimationTiming();
+		VulnerableGhost.manageAnimationTiming();
 		manageFlashingAnimationTiming();
 	}
 
@@ -226,21 +221,7 @@ public class Ghost extends Character
 		}			
 	}
 	
-	private void manageVulnerableAnimationTiming()
-	{
-		elapsedFrameTimeInSecondsVulnerable += Game.secondsPerTick;
-		
-		if(elapsedFrameTimeInSecondsVulnerable >= targetTimePerFrameInSecondsVulnerable)
-		{
-			elapsedFrameTimeInSecondsVulnerable = 0;
-			frameIndexVulnerable++;
-			
-			if(frameIndexVulnerable == totalNumberOfFramesVulnerable)
-			{
-				frameIndexVulnerable = 0;
-			}
-		}
-	}
+
 	
 	private void manageFlashingAnimationTiming()
 	{
@@ -518,7 +499,7 @@ public class Ghost extends Character
 			}
 			else if(!isFlashing)
 			{
-				g.drawImage(Animation.vulnerableGhostSprites[frameIndexVulnerable], x, y, width, height, null);
+				g.drawImage(Animation.vulnerableGhostSprites[VulnerableGhost.frameIndexVulnerable], x, y, width, height, null);
 			}
 		}
 	}
