@@ -24,6 +24,7 @@ import java.awt.image.BufferStrategy;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import GUI.CLayout;
 import GUI.LeaderboardPanel;
@@ -148,7 +149,8 @@ public class Game extends Canvas implements Runnable, KeyListener
 		switch(gameStatus)
 		{
 			case init:
-				
+
+				Food.foodList = new ArrayList<>();	
 				SpawnBoxDoor.spawnBoxDoor = new SpawnBoxDoor(0, 0);
 				Energizer.energizer = new Energizer(0, 0);
 				

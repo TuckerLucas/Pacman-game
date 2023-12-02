@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -35,16 +34,14 @@ public class Level
 	{
 		try 
 		{
-			Food.foodList = new ArrayList<>();	
 			BufferedImage map = ImageIO.read(getClass().getResource(mapImagePath));
 			
 			gameWidth = map.getWidth();		
 			gameHeight = map.getHeight();		
 			
-			Wall.wallMatrix = new Wall[gameWidth][gameHeight];
+			int pixels[] = map.getRGB(0, 0, gameWidth, gameHeight, null, 0, gameWidth);
 			
-			int pixels[] = new int[gameWidth * gameHeight];	
-			map.getRGB(0, 0, gameWidth, gameHeight, pixels, 0, gameWidth);
+			Wall.wallMatrix = new Wall[gameWidth][gameHeight];
 			
 			for(int x = 0; x < gameWidth; x++)
 			{
@@ -57,61 +54,52 @@ public class Level
 						case black:
 							
 							Wall.wallMatrix[x][y] = new Wall(x*32, y*32);
-							
 							break;
 							
 						case gray:			
 							
 							SpawnBoxDoor.spawnBoxDoor.x = x*32;
 							SpawnBoxDoor.spawnBoxDoor.y = y*32;
-							
 							break;
 							
 						case darkYellow:			
 							
 							Pacman.pacman.x = x*32;
 							Pacman.pacman.y = y*32;
-							
 							break;
 						
 						case red:			
 							
 							Ghost.ghostArray[0].x = x*32;
 							Ghost.ghostArray[0].y = y*32;
-							
 							break;
 							
 						case cyan:			
 							
 							Ghost.ghostArray[1].x = x*32;
 							Ghost.ghostArray[1].y = y*32;
-							
 							break;
 							
 						case purple:
 							
 							Ghost.ghostArray[2].x = x*32;
 							Ghost.ghostArray[2].y = y*32;
-							
 							break;
 							
 						case orange:
 							
 							Ghost.ghostArray[3].x = x*32;
 							Ghost.ghostArray[3].y = y*32;
-							
 							break;
 							
 						case white:
 							
 							Food.foodList.add(new Pellet(x*32, y*32));
-							
 							break;
 							
 						case lightYellow:
 							
 							Food.foodList.add(new Energizer(x*32, y*32));
-							
 							break;
 					}
 				}	
@@ -149,8 +137,7 @@ public class Level
 		
 		for(int i = 0; i < Pacman.numberOfLives; i++)
 		{
-			g.drawImage(Animation.alivePacmanSprites[0][2], livesSymbolsX[i], 
-					livesSymbolsY, 32, 32, null);
+			g.drawImage(Animation.alivePacmanSprites[0][2], livesSymbolsX[i], livesSymbolsY, 32, 32, null);
 		}
 	}
 	
