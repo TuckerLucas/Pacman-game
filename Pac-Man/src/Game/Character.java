@@ -114,7 +114,7 @@ public abstract class Character extends Rectangle
 		}
 		else if(character instanceof HostileGhost)
 		{
-			Ghost.ghostArray[character.getID()] = new HostileGhost();//new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
+			Ghost.ghostArray[character.getID()] = new HostileGhost(character.getID());//new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
 		}
 		else if(character instanceof VulnerableGhost)
 		{
