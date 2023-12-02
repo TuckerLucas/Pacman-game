@@ -45,11 +45,6 @@ public class Ghost extends Character
 	
 	public static Ghost ghostArray[] = new Ghost[4];
 	
-	public static int frameIndexFlashing = 0;
-	public static double elapsedFrameTimeInSecondsFlashing = 0;
-	public static double targetTimePerFrameInSecondsFlashing = 0.33;
-	private int totalNumberOfFramesFlashing = Animation.flashingGhostSprites.length;
-	
 	public boolean isFlashing = false;
 	public static double timeInstantToBeginFlashingInSeconds = 5.0;
 	
@@ -208,7 +203,7 @@ public class Ghost extends Character
 		
 		HostileGhost.manageAnimationTiming();
 		VulnerableGhost.manageAnimationTiming();
-		manageFlashingAnimationTiming();
+		FlashingGhost.manageAnimationTiming();
 	}
 
 	
@@ -220,29 +215,6 @@ public class Ghost extends Character
 			case methodicalMovement: moveMethodically(); break;
 		}			
 	}
-	
-
-	
-	private void manageFlashingAnimationTiming()
-	{
-		// Needs a mechanism change to make tentacles move at same speed
-		// as when ghost is in other states. Currently does not in order
-		// to show blue or white color for longer which makes the speed 
-		// reduced.
-		elapsedFrameTimeInSecondsFlashing += Game.secondsPerTick;
-		
-		if(elapsedFrameTimeInSecondsFlashing >= targetTimePerFrameInSecondsFlashing)
-		{
-			elapsedFrameTimeInSecondsFlashing = 0;
-			frameIndexFlashing++;
-			
-			if(frameIndexFlashing == totalNumberOfFramesFlashing)
-			{
-				frameIndexFlashing = 0;
-			}
-		}
-	}
-	
 	
 	private void moveRandomly()
 	{
@@ -495,11 +467,11 @@ public class Ghost extends Character
 		{
 			if(isFlashing)
 			{
-				g.drawImage(Animation.flashingGhostSprites[frameIndexFlashing], x, y, width, height, null);
+				g.drawImage(Animation.flashingGhostSprites[FlashingGhost.frameIndex], x, y, width, height, null);
 			}
 			else if(!isFlashing)
 			{
-				g.drawImage(Animation.vulnerableGhostSprites[VulnerableGhost.frameIndexVulnerable], x, y, width, height, null);
+				g.drawImage(Animation.vulnerableGhostSprites[VulnerableGhost.frameIndex], x, y, width, height, null);
 			}
 		}
 	}
