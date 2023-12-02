@@ -45,11 +45,6 @@ public class Ghost extends Character
 	
 	public static Ghost ghostArray[] = new Ghost[4];
 	
-	private int frameIndex = 0;
-	private double elapsedFrameTimeInSeconds = 0;		
-	private double targetTimePerFrameInSeconds = 0.05;
-	private int totalNumberOfFrames = Animation.hostileGhostSprites[0][0].length;
-	
 	private int frameIndexVulnerable = 0;
 	private double elapsedFrameTimeInSecondsVulnerable = 0;		
 	private double targetTimePerFrameInSecondsVulnerable = 0.05;
@@ -69,6 +64,11 @@ public class Ghost extends Character
 		int methodicalDir2;
 		int findDir1;
 		int findDir2;
+	}
+	
+	public Ghost()
+	{
+		
 	}
 	
 	public Ghost(int ID, int movementStatus, int portalStatus, boolean vulnerabilityStatus)
@@ -211,7 +211,7 @@ public class Ghost extends Character
 			selectGhostMovementType();
 		}
 		
-		manageAnimationTiming();
+		HostileGhost.manageAnimationTiming();
 		manageVulnerableAnimationTiming();
 		manageFlashingAnimationTiming();
 	}
@@ -224,22 +224,6 @@ public class Ghost extends Character
 			case randomMovement: moveRandomly(); break;
 			case methodicalMovement: moveMethodically(); break;
 		}			
-	}
-	
-	private void manageAnimationTiming()
-	{
-		elapsedFrameTimeInSeconds += Game.secondsPerTick;
-		
-		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
-		{
-			elapsedFrameTimeInSeconds = 0;
-			frameIndex++;
-			
-			if(frameIndex == totalNumberOfFrames)
-			{
-				frameIndex = 0;
-			}
-		}
 	}
 	
 	private void manageVulnerableAnimationTiming()
@@ -524,7 +508,7 @@ public class Ghost extends Character
 	{
 		if(isVulnerable == false)
 		{
-			g.drawImage(Animation.hostileGhostSprites[ghostID][currentDir][frameIndex], x, y, width, height, null);
+			g.drawImage(Animation.hostileGhostSprites[ghostID][currentDir][HostileGhost.frameIndex], x, y, width, height, null);
 		}
 		else if(isVulnerable == true)
 		{
