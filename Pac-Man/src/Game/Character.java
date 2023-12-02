@@ -114,11 +114,11 @@ public abstract class Character extends Rectangle
 		}
 		else if(character instanceof HostileGhost)
 		{
-			Ghost.ghostArray[character.getID()] = new HostileGhost(character.getID());//new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
+			Ghost.ghostArray[character.getID()] = new HostileGhost(character.getID(), Ghost.spawnBoxX, Ghost.spawnBoxY);//new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
 		}
 		else if(character instanceof VulnerableGhost)
 		{
-			Ghost.ghostArray[character.getID()] = new VulnerableGhost();//new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
+			Ghost.ghostArray[character.getID()] = new VulnerableGhost(character.getID(), Ghost.spawnBoxX, Ghost.spawnBoxY);//new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
 		}
 		else if(character instanceof FlashingGhost)
 		{

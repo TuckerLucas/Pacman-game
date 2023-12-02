@@ -12,7 +12,7 @@ public abstract class Ghost extends Character
 	public int ghostID;
 	private int portalCrossingStatus;
 	private int movementType;
-	public boolean isVulnerable = false;
+	//public boolean isVulnerable = false;
 	
 	public static final int randomMovement = 0;
 	public static final int methodicalMovement = 1;
@@ -67,7 +67,7 @@ public abstract class Ghost extends Character
 		
 		ghostID = ID;                  			
 		movementType = movementStatus; 			
-		isVulnerable = vulnerabilityStatus; 	
+		//isVulnerable = vulnerabilityStatus; 	
 		portalCrossingStatus = portalStatus;	
 		
 		switch(portalCrossingStatus)
@@ -219,6 +219,7 @@ public abstract class Ghost extends Character
 	
 	private void moveRandomly()
 	{
+		/*
 		if(isCoolingDown == true)
 		{
 			coolDownTimeInSeconds += Game.secondsPerTick;
@@ -235,7 +236,7 @@ public abstract class Ghost extends Character
 			{
 				movementType = methodicalMovement;
 			}
-		}
+		}*/
 		
 		if(canMove(this, nextDir))
 		{
@@ -255,7 +256,7 @@ public abstract class Ghost extends Character
 
 	private void moveMethodically()
 	{
-		if(isVulnerable)
+		if(this instanceof VulnerableGhost)
 		{
 			timeMovingMethodicallyInSeconds = 0;
 			findDir1Blocked = false;
@@ -425,7 +426,7 @@ public abstract class Ghost extends Character
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
-			ghostArray[i].isVulnerable = true;
+			ghostArray[i] = new VulnerableGhost(i, Ghost.spawnBoxX, Ghost.spawnBoxY);
 		}
 		
 		numberOfEatenGhosts = 0;
@@ -435,7 +436,7 @@ public abstract class Ghost extends Character
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
-			ghostArray[i].isVulnerable = false;
+			ghostArray[i] = new HostileGhost(i, Ghost.spawnBoxX, Ghost.spawnBoxY);;
 		}
 	}
 	
@@ -443,7 +444,7 @@ public abstract class Ghost extends Character
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
-			if(ghostArray[i].isVulnerable)
+			if(ghostArray[i] instanceof VulnerableGhost)
 			{
 				ghostArray[i].isFlashing = true;
 			}
@@ -491,7 +492,7 @@ public abstract class Ghost extends Character
 
 	boolean getVulnerabilityStatus() 
 	{
-		return isVulnerable;
+		return false;
 	}
 	
 	public int getCurrentDirection()

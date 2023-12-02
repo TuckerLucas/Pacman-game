@@ -11,9 +11,12 @@ public class VulnerableGhost extends Ghost
 	private static double targetTimePerFrameInSeconds = 0.2;
 	private static int totalNumberOfFrames = Animation.vulnerableGhostSprites.length;
 	
-	public VulnerableGhost()
+	public VulnerableGhost(int ID, int xx, int yy)
 	{
-		
+		ghostID = ID;
+		x = xx;
+		y = yy;
+		spawnGhost(x, y);
 	}
 	
 	public void tick()

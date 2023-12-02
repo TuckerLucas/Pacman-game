@@ -11,10 +11,12 @@ public class HostileGhost extends Ghost
 	private static double targetTimePerFrameInSeconds = 0.2;
 	private static int totalNumberOfFrames = Animation.hostileGhostSprites[0][0].length;
 	
-	public HostileGhost(int ID)
+	public HostileGhost(int ID, int xx, int yy)
 	{
 		ghostID = ID;
-		spawnGhost(spawnBoxX, spawnBoxY);
+		x = xx;
+		y = yy;
+		spawnGhost(x, y);
 	}
 	
 	public void tick()
