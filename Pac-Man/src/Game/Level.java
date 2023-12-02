@@ -128,19 +128,6 @@ public class Level
 	
 	public void render(Graphics g)
 	{
-		Pacman.pacman.render(g);
-		
-		if(Game.gameStatus != Game.lifeLost)
-		{
-			Ghost.ghostArray[0].render(g);
-			Ghost.ghostArray[1].render(g);
-			Ghost.ghostArray[2].render(g);
-			Ghost.ghostArray[3].render(g);
-		}
-
-		SpawnBoxDoor.spawnBoxDoor.render(g);
-		BonusScore.bonusScore.render(g);
-		
 		for(int x = 0; x < gameWidth; x++)
 		{
 			for(int y = 0; y < gameHeight; y++)
@@ -156,6 +143,19 @@ public class Level
 		{	
 			Food.foodList.get(i).render(g);
 		}
+		
+		Pacman.pacman.render(g);
+		
+		if(Game.gameStatus != Game.lifeLost)
+		{
+			Ghost.ghostArray[0].render(g);
+			Ghost.ghostArray[1].render(g);
+			Ghost.ghostArray[2].render(g);
+			Ghost.ghostArray[3].render(g);
+		}
+
+		SpawnBoxDoor.spawnBoxDoor.render(g);
+		BonusScore.bonusScore.render(g);
 		
 		displayGameStats(g);
 	}
