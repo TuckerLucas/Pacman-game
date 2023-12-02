@@ -112,32 +112,18 @@ public class Level
 	}
 	
 	private static void drawData(Graphics g)
-	{	
-		int gameDataY = 745;
-		int scoreStrX = 20;			
-		int scoreValX = 105;		
-		int highscoreStrX = 210;	
-		int highscoreValX = 350;	
-		
+	{							
 		Game.setLetteringStyle(g, Color.white, Font.DIALOG_INPUT, 23);
 		
-		g.drawString("SCORE: ", scoreStrX, gameDataY);	
-		g.drawString(String.valueOf(Game.score), scoreValX, gameDataY);
-		g.drawString("HIGHSCORE: ", highscoreStrX, gameDataY);	
-		g.drawString(String.valueOf(Game.highscore), highscoreValX, gameDataY);
-		
-		int livesStrX = 470;
-		int livesSymbolsY = 720;
-		int life1SymbolX = 555;
-		int life2SymbolX = 590;
-		int life3SymbolX = 625;
-		int livesSymbolsX[] = {life1SymbolX, life2SymbolX, life3SymbolX};
-		
-		g.drawString("LIVES:", livesStrX, gameDataY);
+		g.drawString("SCORE: ", 20, 745);	
+		g.drawString(String.valueOf(Game.score), 105, 745);
+		g.drawString("HIGHSCORE: ", 210, 745);	
+		g.drawString(String.valueOf(Game.highscore), 350, 745);
+		g.drawString("LIVES:", 470, 745);
 		
 		for(int i = 0; i < Pacman.numberOfLives; i++)
 		{
-			g.drawImage(Animation.alivePacmanSprites[0][2], livesSymbolsX[i], livesSymbolsY, 32, 32, null);
+			g.drawImage(Animation.alivePacmanSprites[0][2], 555 + (35 * i), 720, 32, 32, null);
 		}
 	}
 	
