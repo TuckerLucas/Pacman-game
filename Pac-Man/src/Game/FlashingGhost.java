@@ -11,9 +11,12 @@ public class FlashingGhost extends Ghost
 	private static double targetTimePerFrameInSeconds = 0.2;
 	private static int totalNumberOfFrames = Animation.flashingGhostSprites.length;
 	
-	public FlashingGhost()
+	public FlashingGhost(int ID, int xx, int yy)
 	{
-		
+		ghostID = ID;
+		x = xx;
+		y = yy;
+		spawnGhost(x, y);
 	}
 	
 	public void tick()

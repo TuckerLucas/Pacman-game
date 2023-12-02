@@ -81,7 +81,7 @@ public class Energizer extends Food
 		
 		Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
 		Energizer.isActive = true;	
-		Ghost.stopFlashing();
+		//Ghost.stopFlashing();
 		
 		Ghost.turnAllVulnerable();
 	}

@@ -45,7 +45,7 @@ public abstract class Ghost extends Character
 	
 	public static Ghost ghostArray[] = new Ghost[4];
 	
-	public boolean isFlashing = false;
+	//public boolean isFlashing = false;
 	public static double timeInstantToBeginFlashingInSeconds = 5.0;
 	
 	class zoneDirections
@@ -436,7 +436,7 @@ public abstract class Ghost extends Character
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
-			ghostArray[i] = new HostileGhost(i, ghostArray[i].x, ghostArray[i].y);;
+			ghostArray[i] = new HostileGhost(i, ghostArray[i].x, ghostArray[i].y);
 		}
 	}
 	
@@ -446,39 +446,10 @@ public abstract class Ghost extends Character
 		{
 			if(ghostArray[i] instanceof VulnerableGhost)
 			{
-				ghostArray[i].isFlashing = true;
+				ghostArray[i] = new FlashingGhost(i, ghostArray[i].x, ghostArray[i].y);
 			}
 		}
 	}
-	
-	public static void stopFlashing()
-	{
-		for(int i = 0; i < ghostArray.length; i++)
-		{
-			ghostArray[i].isFlashing = false;
-		}
-	}
-
-	/*
-	public void render(Graphics g)
-	{
-		if(isVulnerable == false)
-		{
-			g.drawImage(Animation.hostileGhostSprites[ghostID][currentDir][HostileGhost.frameIndex], x, y, width, height, null);
-		}
-		else if(isVulnerable == true)
-		{
-			if(isFlashing)
-			{
-				g.drawImage(Animation.flashingGhostSprites[FlashingGhost.frameIndex], x, y, width, height, null);
-			}
-			else if(!isFlashing)
-			{
-				g.drawImage(Animation.vulnerableGhostSprites[VulnerableGhost.frameIndex], x, y, width, height, null);
-			}
-		}
-	}*/
-	
 
 	int getPortalCrossingStatus() 
 	{
