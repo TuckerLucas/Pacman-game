@@ -88,34 +88,6 @@ public class SettingsPanel extends JPanel
         	}
         ); 
 		
-		DifficultyButton.addActionListener
-        (
-        	new ActionListener() 
-        	{
-        		public void actionPerformed(ActionEvent e) 
-        		{
-        			switch(Game.Game.difficulty)
-        			{
-        				case 1: Game.Game.difficulty = 2;
-        						DifficultyButton.setText("DIFFICULTY: MEDIUM");
-        						break;
-        				
-        				case 2: Game.Game.difficulty = 3;
-        						DifficultyButton.setText("DIFFICULTY: HARD");
-        						break;
-        				
-        				case 3: Game.Game.difficulty = 4;
-        						DifficultyButton.setText("DIFFICULTY: CRUSHING");
-        						break;
-        					
-        				case 4: Game.Game.difficulty = 1;
-        						DifficultyButton.setText("DIFFICULTY: EASY");
-        						break;
-        			}
-        		}
-        	}
-        );
-		
 		BackButton.addActionListener  
         (  
             new ActionListener() 
