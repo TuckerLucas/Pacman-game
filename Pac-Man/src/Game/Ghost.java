@@ -12,7 +12,6 @@ public abstract class Ghost extends Character
 	public int ghostID;
 	private int portalCrossingStatus;
 	private int movementType;
-	//public boolean isVulnerable = false;
 	
 	public static final int randomMovement = 0;
 	public static final int methodicalMovement = 1;
@@ -45,8 +44,11 @@ public abstract class Ghost extends Character
 	
 	public static Ghost ghostArray[] = new Ghost[4];
 	
-	//public boolean isFlashing = false;
 	public static double timeInstantToBeginFlashingInSeconds = 5.0;
+	
+	public static int frameIndex = 0;
+	private static double elapsedFrameTimeInSeconds = 0;		
+	private static double targetTimePerFrameInSeconds = 0.2;
 	
 	class zoneDirections
 	{	
@@ -489,6 +491,22 @@ public abstract class Ghost extends Character
 	public int getID()
 	{
 		return ghostID;
+	}
+	
+	public static void manageAnimationTiming(int totalNumberOfFrames)
+	{
+		elapsedFrameTimeInSeconds += Game.secondsPerTick;
+		
+		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
+		{
+			elapsedFrameTimeInSeconds = 0;
+			frameIndex++;
+			
+			if(frameIndex == totalNumberOfFrames)
+			{
+				frameIndex = 0;
+			}
+		}
 	}
 	
 	abstract void tick();
