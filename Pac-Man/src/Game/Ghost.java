@@ -185,7 +185,7 @@ public abstract class Ghost extends Character
 		}
 	}
 
-	private void spawnGhost(int xCoordinate, int yCoordinate)
+	protected void spawnGhost(int xCoordinate, int yCoordinate)
 	{
 		setBounds(xCoordinate, yCoordinate, Level.objectWidth, Level.objectHeight);
 	}

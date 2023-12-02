@@ -13,7 +13,7 @@ public class HostileGhost extends Ghost
 	
 	public HostileGhost()
 	{
-		
+		spawnGhost(spawnBoxX, spawnBoxY);
 	}
 	
 	public void tick()
