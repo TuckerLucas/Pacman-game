@@ -3,7 +3,7 @@ package Game;
 import java.awt.Graphics;
 import java.util.Random;
 
-public class Ghost extends Character
+public abstract class Ghost extends Character
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -191,20 +191,21 @@ public class Ghost extends Character
 	}
 	
 	
-	public void tick()
-	{		
-		portalEvents(this);
-		updateDistanceToPacman();
-		
-		if(portalCrossingStatus == notCrossingPortal)
-		{
-			selectGhostMovementType();
-		}
-		
-		HostileGhost.manageAnimationTiming();
-		VulnerableGhost.manageAnimationTiming();
-		FlashingGhost.manageAnimationTiming();
-	}
+//	public void tick()
+//	{	
+//		/*
+//		portalEvents(this);
+//		updateDistanceToPacman();
+//		
+//		if(portalCrossingStatus == notCrossingPortal)
+//		{
+//			selectGhostMovementType();
+//		}*/
+//		
+//		HostileGhost.manageAnimationTiming();
+//		VulnerableGhost.manageAnimationTiming();
+//		FlashingGhost.manageAnimationTiming();
+//	}
 
 	
 	private void selectGhostMovementType()
@@ -457,6 +458,7 @@ public class Ghost extends Character
 		}
 	}
 
+	/*
 	public void render(Graphics g)
 	{
 		if(isVulnerable == false)
@@ -474,7 +476,7 @@ public class Ghost extends Character
 				g.drawImage(Animation.vulnerableGhostSprites[VulnerableGhost.frameIndex], x, y, width, height, null);
 			}
 		}
-	}
+	}*/
 	
 
 	int getPortalCrossingStatus() 
@@ -516,4 +518,7 @@ public class Ghost extends Character
 	{
 		return ghostID;
 	}
+	
+	abstract void tick();
+	abstract void render(Graphics g);
 }

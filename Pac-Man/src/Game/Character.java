@@ -112,9 +112,17 @@ public abstract class Character extends Rectangle
 		{
 			Pacman.pacman = new AlivePacman(side, character.getNextDirection());
 		}
-		else if(character instanceof Ghost)
+		else if(character instanceof HostileGhost)
 		{
-			Ghost.ghostArray[character.getID()] = new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
+			Ghost.ghostArray[character.getID()] = new HostileGhost();//new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
+		}
+		else if(character instanceof VulnerableGhost)
+		{
+			Ghost.ghostArray[character.getID()] = new VulnerableGhost();//new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
+		}
+		else if(character instanceof FlashingGhost)
+		{
+			Ghost.ghostArray[character.getID()] = new FlashingGhost();//new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus());
 		}
 	}
 	
