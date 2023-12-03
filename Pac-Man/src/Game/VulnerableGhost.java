@@ -8,11 +8,11 @@ public class VulnerableGhost extends Ghost
 	
 	private static int totalNumberOfFrames = Animation.vulnerableGhostSprites.length;
 	
-	public VulnerableGhost(int ID, int xx, int yy)
+	public VulnerableGhost(Ghost ghost)
 	{
-		ghostID = ID;
-		x = xx;
-		y = yy;
+		ghostID = ghost.ghostID;
+		x = ghost.x;
+		y = ghost.y;
 		spawnGhost(x, y);
 	}
 	

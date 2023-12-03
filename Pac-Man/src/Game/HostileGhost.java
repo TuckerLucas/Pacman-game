@@ -16,6 +16,14 @@ public class HostileGhost extends Ghost
 		spawnGhost(x, y);
 	}
 	
+	public HostileGhost(Ghost ghost)
+	{
+		ghostID = ghost.ghostID;
+		x = ghost.x;
+		y = ghost.y;
+		spawnGhost(x, y);
+	}
+	
 	public void tick()
 	{
 		manageAnimationTiming(totalNumberOfFrames);
