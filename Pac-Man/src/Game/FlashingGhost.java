@@ -2,7 +2,7 @@ package Game;
 
 import java.awt.Graphics;
 
-public class FlashingGhost extends Ghost
+public class FlashingGhost extends VulnerableGhost
 {
 	private static final long serialVersionUID = 1L;
 
