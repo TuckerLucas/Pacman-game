@@ -46,10 +46,6 @@ public abstract class Ghost extends Character
 	
 	public static double timeInstantToBeginFlashingInSeconds = 5.0;
 	
-	public static int frameIndex = 0;
-	private static double elapsedFrameTimeInSeconds = 0;		
-	private static double targetTimePerFrameInSeconds = 0.2;
-	
 	class zoneDirections
 	{	
 		int methodicalDir1;
@@ -490,22 +486,6 @@ public abstract class Ghost extends Character
 	public int getID()
 	{
 		return ghostID;
-	}
-	
-	public static void manageAnimationTiming(int totalNumberOfFrames)
-	{
-		elapsedFrameTimeInSeconds += Game.secondsPerTick;
-		
-		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
-		{
-			elapsedFrameTimeInSeconds = 0;
-			frameIndex++;
-			
-			if(frameIndex == totalNumberOfFrames)
-			{
-				frameIndex = 0;
-			}
-		}
 	}
 	
 	abstract void tick();
