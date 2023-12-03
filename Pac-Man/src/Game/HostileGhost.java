@@ -31,6 +31,16 @@ public class HostileGhost extends Ghost
 		spawnGhost(x, y);
 	}
 	
+	public HostileGhost(Ghost ghost, int xx, int yy)
+	{
+		ghostID = ghost.ghostID;
+		x = xx;
+		y = yy;
+		currentDir = ghost.currentDir;
+		nextDir = ghost.nextDir;
+		spawnGhost(x, y);
+	}
+	
 	public void tick()
 	{
 		moveRandomly();
