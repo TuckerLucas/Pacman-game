@@ -8,11 +8,13 @@ public class HostileGhost extends Ghost
 	
 	private static int totalNumberOfFrames = Animation.hostileGhostSprites[0][0].length;
 	
-	public HostileGhost(int ID, int xx, int yy)
+	public HostileGhost(int ID, int xx, int yy, int cD, int nD)
 	{
 		ghostID = ID;
 		x = xx;
 		y = yy;
+		currentDir = cD;
+		nextDir = nD;
 		spawnGhost(x, y);
 	}
 	
@@ -21,11 +23,14 @@ public class HostileGhost extends Ghost
 		ghostID = ghost.ghostID;
 		x = ghost.x;
 		y = ghost.y;
+		currentDir = ghost.currentDir;
+		nextDir = ghost.nextDir;
 		spawnGhost(x, y);
 	}
 	
 	public void tick()
 	{
+		moveRandomly();
 		manageAnimationTiming(totalNumberOfFrames);
 	}
 	

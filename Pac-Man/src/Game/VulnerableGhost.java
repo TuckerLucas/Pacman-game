@@ -13,6 +13,8 @@ public class VulnerableGhost extends Ghost
 		ghostID = ghost.ghostID;
 		x = ghost.x;
 		y = ghost.y;
+		currentDir = ghost.currentDir;
+		nextDir = ghost.nextDir;
 		spawnGhost(x, y);
 	}
 	

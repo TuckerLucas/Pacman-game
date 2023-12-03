@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -52,6 +53,7 @@ public class Level
 	private void loadElementsByColor(int pixels[])
 	{
 		Wall.wallMatrix = new Wall[gameWidth][gameHeight];
+		Ghost.randomGen = new Random();
 		
 		for(int x = 0; x < gameWidth; x++)
 		{

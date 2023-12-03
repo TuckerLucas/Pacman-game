@@ -7,7 +7,7 @@ public abstract class Ghost extends Character
 {
 	private static final long serialVersionUID = 1L;
 	
-	private Random randomGen;
+	public static Random randomGen;
 	
 	public int ghostID;
 	private int portalCrossingStatus;
@@ -20,7 +20,7 @@ public abstract class Ghost extends Character
 	private boolean findDir1Blocked = false;
 	private boolean isFindingPath = false;
 	
-	private int nextDir = 0;
+	protected int nextDir = 0;
 	public int currentDir = 0;
 	
 	private double timeMovingMethodicallyInSeconds = 0.0;
@@ -68,8 +68,7 @@ public abstract class Ghost extends Character
 		loadZoneDirectionsArray();
 		
 		ghostID = ID;                  			
-		movementType = movementStatus; 			
-		//isVulnerable = vulnerabilityStatus; 	
+		movementType = movementStatus; 				
 		portalCrossingStatus = portalStatus;	
 		
 		switch(portalCrossingStatus)
@@ -87,7 +86,7 @@ public abstract class Ghost extends Character
 				break;
 		}
 		
-		randomGen = new Random();
+		
 		generateNextDirection();
 	}
 	
@@ -219,7 +218,7 @@ public abstract class Ghost extends Character
 		}			
 	}
 	
-	private void moveRandomly()
+	protected void moveRandomly()
 	{
 		/*
 		if(isCoolingDown == true)
