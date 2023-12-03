@@ -29,7 +29,7 @@ public abstract class Ghost extends Character
 	private double coolDownTimeInSeconds = 0.0;
 	private double coolDownTargetTimeInSeconds = 5.0; 
 	
-	private zoneDirections zoneDirectionsArray[] = new zoneDirections[16];
+	private static zoneDirections zoneDirectionsArray[] = new zoneDirections[16];
 	
 	private int deltaX;
 	private int deltaY;
@@ -46,7 +46,7 @@ public abstract class Ghost extends Character
 	
 	public static double timeInstantToBeginFlashingInSeconds = 5.0;
 	
-	class zoneDirections
+	static class zoneDirections
 	{	
 		int methodicalDir1;
 		int methodicalDir2;
@@ -86,7 +86,7 @@ public abstract class Ghost extends Character
 		generateNextDirection();
 	}
 	
-	private void loadZoneDirectionsArray()
+	public static void loadZoneDirectionsArray()
 	{	
 		for(int zone = 0; zone < zoneDirectionsArray.length; zone++)
 		{
@@ -205,7 +205,7 @@ public abstract class Ghost extends Character
 //	}
 
 	
-	private void selectGhostMovementType()
+	protected void selectGhostMovementType()
 	{
 		switch(movementType)
 		{
@@ -234,6 +234,11 @@ public abstract class Ghost extends Character
 				movementType = methodicalMovement;
 			}
 		}*/
+		
+		if(this instanceof HostileGhost && pacmanIsClose() && !isInSpawnBox(this))
+		{
+			movementType = methodicalMovement;
+		}
 		
 		if(canMove(this, nextDir))
 		{
@@ -327,7 +332,7 @@ public abstract class Ghost extends Character
 	}
 	
 	
-	private void updateDistanceToPacman()
+	protected void updateDistanceToPacman()
 	{
 		deltaX = x - Pacman.pacman.x; 
 		deltaY = y - Pacman.pacman.y;

@@ -43,7 +43,8 @@ public class HostileGhost extends Ghost
 	
 	public void tick()
 	{
-		moveRandomly();
+		updateDistanceToPacman();
+		selectGhostMovementType();
 		manageAnimationTiming();
 	}
 	

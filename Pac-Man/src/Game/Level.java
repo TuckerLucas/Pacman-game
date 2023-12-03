@@ -54,6 +54,7 @@ public class Level
 	{
 		Wall.wallMatrix = new Wall[gameWidth][gameHeight];
 		Ghost.randomGen = new Random();
+		Ghost.loadZoneDirectionsArray();
 		
 		for(int x = 0; x < gameWidth; x++)
 		{
