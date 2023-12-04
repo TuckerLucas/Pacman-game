@@ -10,7 +10,7 @@ public abstract class Ghost extends Character
 	public static Random randomGen;
 	
 	public int ghostID;
-	private int portalCrossingStatus;
+	protected int portalCrossingStatus;
 	private int movementType;
 	
 	public static final int randomMovement = 0;
