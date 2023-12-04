@@ -223,6 +223,5 @@ public abstract class Character extends Rectangle
 	abstract void setPortalCrossingStatus(int portalStatus);
 	abstract int getNextDirection();
 	abstract int getID();
-	abstract int getMovementType();
 	abstract boolean getVulnerabilityStatus();
 }

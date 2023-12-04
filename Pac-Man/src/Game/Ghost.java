@@ -384,11 +384,6 @@ public abstract class Ghost extends Character
 		return portalCrossingStatus;
 	}
 
-	int getMovementType() 
-	{
-		return movementType;
-	}
-
 	boolean getVulnerabilityStatus() 
 	{
 		return false;
