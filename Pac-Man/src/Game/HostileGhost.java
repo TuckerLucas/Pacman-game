@@ -11,29 +11,14 @@ public class HostileGhost extends Ghost
 	private static double targetTimePerFrameInSeconds = 0.2;
 	private static int totalNumberOfFrames = Animation.hostileGhostSprites[0][0].length;
 	
-	public HostileGhost(int ID, int xx, int yy, int cD, int nD, int portalStatus)
+	public HostileGhost(int ID, int xx, int yy, int cD, int nD)
 	{
 		ghostID = ID;
 		x = xx;
 		y = yy;
-		portalCrossingStatus = portalStatus;
 		currentDir = cD;
 		nextDir = nD;
-		
-		switch(portalCrossingStatus)
-		{
-			case Character.notCrossingPortal:
-				spawnGhost(x, y);		
-				break;
-			case Character.crossingPortalFromLeftSide:
-				spawnGhost(portalRightSideCrossingPointXCoordinate, portalYCoordinate);	
-				currentDir = left;									
-				break;
-			case Character.crossingPortalFromRightSide:
-				spawnGhost(portalLeftSideCrossingPointXCoordinate, portalYCoordinate);		
-				currentDir = right;									
-				break;
-		}
+		spawnGhost(x, y);
 	}
 	
 	public HostileGhost(Ghost ghost)
@@ -41,24 +26,9 @@ public class HostileGhost extends Ghost
 		ghostID = ghost.ghostID;
 		x = ghost.x;
 		y = ghost.y;
-		portalCrossingStatus = ghost.portalCrossingStatus;
 		currentDir = ghost.currentDir;
 		nextDir = ghost.nextDir;
-		
-		switch(portalCrossingStatus)
-		{
-			case Character.notCrossingPortal:
-				spawnGhost(x, y);		
-				break;
-			case Character.crossingPortalFromLeftSide:
-				spawnGhost(portalRightSideCrossingPointXCoordinate, portalYCoordinate);	
-				currentDir = left;									
-				break;
-			case Character.crossingPortalFromRightSide:
-				spawnGhost(portalLeftSideCrossingPointXCoordinate, portalYCoordinate);		
-				currentDir = right;									
-				break;
-		}
+		spawnGhost(x, y);
 	}
 	
 	public HostileGhost(Ghost ghost, int xx, int yy)
@@ -66,35 +36,15 @@ public class HostileGhost extends Ghost
 		ghostID = ghost.ghostID;
 		x = xx;
 		y = yy;
-		portalCrossingStatus = ghost.portalCrossingStatus;
 		currentDir = ghost.currentDir;
 		nextDir = ghost.nextDir;
-		
-		
-		switch(portalCrossingStatus)
-		{
-			case Character.notCrossingPortal:
-				spawnGhost(x, y);		
-				break;
-			case Character.crossingPortalFromLeftSide:
-				spawnGhost(portalRightSideCrossingPointXCoordinate, portalYCoordinate);	
-				currentDir = left;									
-				break;
-			case Character.crossingPortalFromRightSide:
-				spawnGhost(portalLeftSideCrossingPointXCoordinate, portalYCoordinate);		
-				currentDir = right;									
-				break;
-		}
+		spawnGhost(x, y);
 	}
 	
 	public void tick()
 	{
-		portalEvents(this);
 		updateDistanceToPacman();
-		if(portalCrossingStatus == notCrossingPortal)
-		{
-			selectGhostMovementType();
-		}
+		selectGhostMovementType();
 		manageAnimationTiming();
 	}
 	
