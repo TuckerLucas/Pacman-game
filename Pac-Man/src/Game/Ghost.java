@@ -54,38 +54,6 @@ public abstract class Ghost extends Character
 		int findDir2;
 	}
 	
-	public Ghost()
-	{
-		
-	}
-	
-	public Ghost(int ID, int movementStatus, int portalStatus, boolean vulnerabilityStatus)
-	{		
-		loadZoneDirectionsArray();
-		
-		ghostID = ID;                  			
-		movementType = movementStatus; 				
-		portalCrossingStatus = portalStatus;	
-		
-		switch(portalCrossingStatus)
-		{
-			case Character.notCrossingPortal:
-				spawnGhost(spawnBoxX, spawnBoxY);		
-				break;
-			case Character.crossingPortalFromLeftSide:
-				spawnGhost(portalRightSideCrossingPointXCoordinate, portalYCoordinate);	
-				currentDir = left;									
-				break;
-			case Character.crossingPortalFromRightSide:
-				spawnGhost(portalLeftSideCrossingPointXCoordinate, portalYCoordinate);		
-				currentDir = right;									
-				break;
-		}
-		
-		
-		generateNextDirection();
-	}
-	
 	public static void loadZoneDirectionsArray()
 	{	
 		for(int zone = 0; zone < zoneDirectionsArray.length; zone++)
