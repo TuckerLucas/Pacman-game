@@ -133,13 +133,13 @@ public abstract class Character extends Rectangle
 			return;
 		}
 		
-		if(canMove(character, direction))
+		if(!canMove(character, direction))
 		{
-			shiftCharacterInGivenDirection(character, direction);
+			keepMovingUntilCanChangeDirection(character, direction);
 		}
 		else
 		{
-			keepMovingUntilCanChangeDirection(character, direction);
+			shiftCharacterInGivenDirection(character, direction);
 		}
 	}
 
@@ -178,18 +178,7 @@ public abstract class Character extends Rectangle
 		}
 		return true;
 	}
-	
-	private static void shiftCharacterInGivenDirection(Character character, int direction)
-	{
-		switch(direction)
-		{
-			case right: character.x += pixelsTravelledPerTick; break;
-			case left: character.x -= pixelsTravelledPerTick; break;
-			case upwards: character.y -= pixelsTravelledPerTick; break;
-			case downwards: character.y += pixelsTravelledPerTick; break;
-		}
-	}
-	
+
 	private static void keepMovingUntilCanChangeDirection(Character character, int direction)
 	{
 		if(direction == right || direction == left)
@@ -216,6 +205,16 @@ public abstract class Character extends Rectangle
 		}
 	}
 	
+	private static void shiftCharacterInGivenDirection(Character character, int direction)
+	{
+		switch(direction)
+		{
+			case right: character.x += pixelsTravelledPerTick; break;
+			case left: character.x -= pixelsTravelledPerTick; break;
+			case upwards: character.y -= pixelsTravelledPerTick; break;
+			case downwards: character.y += pixelsTravelledPerTick; break;
+		}
+	}
 	
 	abstract int getCurrentDirection();
 	abstract void setCurrentDirection(int dir);

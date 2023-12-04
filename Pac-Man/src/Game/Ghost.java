@@ -51,6 +51,50 @@ public abstract class Ghost extends Character
 		int findDir2;
 	}
 	
+	protected void spawnGhost(int xCoordinate, int yCoordinate)
+	{
+		setBounds(xCoordinate, yCoordinate, Level.objectWidth, Level.objectHeight);
+	}
+	
+	public static boolean isInSpawnBox(Ghost ghost)
+	{
+		return ((ghost.x < 368 && ghost.x > 272) && (ghost.y < 336 && ghost.y > 256)) ? true : false;
+	}
+	
+	private void generateNextDirection()
+	{
+		nextDir = randomGen.nextInt(4);
+	}
+	
+	public static void turnAllVulnerable()
+	{
+		for(int i = 0; i < ghostArray.length; i++)
+		{
+			ghostArray[i] = new VulnerableGhost(ghostArray[i]);
+		}
+		
+		numberOfEatenGhosts = 0;
+	}
+	
+	public static void turnAllHostile()
+	{
+		for(int i = 0; i < ghostArray.length; i++)
+		{
+			ghostArray[i] = new HostileGhost(ghostArray[i]);
+		}
+	}
+	
+	public static void startFlashing()
+	{
+		for(int i = 0; i < ghostArray.length; i++)
+		{
+			if(ghostArray[i] instanceof VulnerableGhost)
+			{
+				ghostArray[i] = new FlashingGhost(ghostArray[i]);
+			}
+		}
+	}
+	
 	public static void loadZoneDirectionsArray()
 	{	
 		for(int zone = 0; zone < zoneDirectionsArray.length; zone++)
@@ -147,10 +191,7 @@ public abstract class Ghost extends Character
 		}
 	}
 
-	protected void spawnGhost(int xCoordinate, int yCoordinate)
-	{
-		setBounds(xCoordinate, yCoordinate, Level.objectWidth, Level.objectHeight);
-	}
+
 	
 	protected void selectGhostMovementType()
 	{
@@ -271,15 +312,9 @@ public abstract class Ghost extends Character
 				? true : false;
 	}
 	
-	public static boolean isInSpawnBox(Ghost ghost)
-	{
-		return ((ghost.x < 368 && ghost.x > 272) && (ghost.y < 336 && ghost.y > 256)) ? true : false;
-	}
+
 	
-	private void generateNextDirection()
-	{
-		nextDir = randomGen.nextInt(4);
-	}
+
 	
 	private void updatePacmanZone()
 	{	
@@ -350,34 +385,7 @@ public abstract class Ghost extends Character
 	}
 	
 
-	public static void turnAllVulnerable()
-	{
-		for(int i = 0; i < ghostArray.length; i++)
-		{
-			ghostArray[i] = new VulnerableGhost(ghostArray[i]);
-		}
-		
-		numberOfEatenGhosts = 0;
-	}
-	
-	public static void turnAllHostile()
-	{
-		for(int i = 0; i < ghostArray.length; i++)
-		{
-			ghostArray[i] = new HostileGhost(ghostArray[i]);
-		}
-	}
-	
-	public static void startFlashing()
-	{
-		for(int i = 0; i < ghostArray.length; i++)
-		{
-			if(ghostArray[i] instanceof VulnerableGhost)
-			{
-				ghostArray[i] = new FlashingGhost(ghostArray[i]);
-			}
-		}
-	}
+
 
 	int getPortalCrossingStatus() 
 	{
