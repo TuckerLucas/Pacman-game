@@ -25,9 +25,6 @@ public abstract class Ghost extends Character
 	
 	private double timeMovingMethodicallyInSeconds = 0.0;
 	private double targetTimeMovingMethodicallyInSeconds = 12.0; 
-	private boolean isCoolingDown = false;
-	private double coolDownTimeInSeconds = 0.0;
-	private double coolDownTargetTimeInSeconds = 5.0; 
 	
 	private static zoneDirections zoneDirectionsArray[] = new zoneDirections[16];
 	
@@ -155,24 +152,6 @@ public abstract class Ghost extends Character
 		setBounds(xCoordinate, yCoordinate, Level.objectWidth, Level.objectHeight);
 	}
 	
-	
-//	public void tick()
-//	{	
-//		/*
-//		portalEvents(this);
-//		updateDistanceToPacman();
-//		
-//		if(portalCrossingStatus == notCrossingPortal)
-//		{
-//			selectGhostMovementType();
-//		}*/
-//		
-//		HostileGhost.manageAnimationTiming();
-//		VulnerableGhost.manageAnimationTiming();
-//		FlashingGhost.manageAnimationTiming();
-//	}
-
-	
 	protected void selectGhostMovementType()
 	{
 		switch(movementType)
@@ -183,26 +162,7 @@ public abstract class Ghost extends Character
 	}
 	
 	protected void moveRandomly()
-	{
-		/*
-		if(isCoolingDown == true)
-		{
-			coolDownTimeInSeconds += Game.secondsPerTick;
-			
-			if(coolDownTimeInSeconds >= coolDownTargetTimeInSeconds)
-			{
-				isCoolingDown = false;
-				coolDownTimeInSeconds = 0;
-			}
-		}
-		else if(isCoolingDown == false)
-		{
-			if(pacmanIsClose() && !isVulnerable && !isInSpawnBox(this))
-			{
-				movementType = methodicalMovement;
-			}
-		}*/
-		
+	{		
 		if(this instanceof HostileGhost && pacmanIsClose() && !isInSpawnBox(this))
 		{
 			movementType = methodicalMovement;
@@ -231,7 +191,6 @@ public abstract class Ghost extends Character
 			timeMovingMethodicallyInSeconds = 0;
 			findDir1Blocked = false;
 			isFindingPath = false;
-			isCoolingDown = false;
 			movementType = randomMovement;
 			return;
 		}
@@ -293,8 +252,7 @@ public abstract class Ghost extends Character
 		
 		if(timeMovingMethodicallyInSeconds >= targetTimeMovingMethodicallyInSeconds) 				
 		{			
-			timeMovingMethodicallyInSeconds = 0;				
-			isCoolingDown = true;			
+			timeMovingMethodicallyInSeconds = 0;	
 			movementType = randomMovement;	
 		}
 	}
