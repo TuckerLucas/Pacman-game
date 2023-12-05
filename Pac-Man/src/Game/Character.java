@@ -52,13 +52,7 @@ public abstract class Character extends Rectangle
 	{
 		character.setPortalCrossingStatus(side);
 		character.setCurrentDirection(side);
-		
-		if(!(character instanceof Pacman))
-		{
-			move(character, side);
-		}
-		
-				
+			
 		if(isAtPortalCrossingPoint(character, side))
 		{
 			makeCharacterCrossPortal(character, side);
