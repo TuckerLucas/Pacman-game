@@ -10,7 +10,7 @@ public abstract class Ghost extends Character
 	public static Random randomGen;
 	
 	public int ghostID;
-	private int portalCrossingStatus;
+	protected int portalCrossingStatus;
 	
 	public static final int randomMovement = 0;
 	public static final int methodicalMovement = 1;
@@ -27,7 +27,6 @@ public abstract class Ghost extends Character
 	public static Ghost ghostArray[] = new Ghost[4];
 	
 	public static double timeInstantToBeginFlashingInSeconds = 5.0;
-	
 	
 	protected void spawnGhost(int xCoordinate, int yCoordinate)
 	{
@@ -48,7 +47,7 @@ public abstract class Ghost extends Character
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
-			ghostArray[i] = new VulnerableGhost(ghostArray[i]);
+			ghostArray[i] = new VulnerableGhost(ghostArray[i], ghostArray[i].x, ghostArray[i].y);
 		}
 		
 		numberOfEatenGhosts = 0;
@@ -58,7 +57,7 @@ public abstract class Ghost extends Character
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
-			ghostArray[i] = new HostileGhost(ghostArray[i]);
+			ghostArray[i] = new HostileGhost(ghostArray[i], ghostArray[i].x, ghostArray[i].y);
 		}
 	}
 	
@@ -68,7 +67,7 @@ public abstract class Ghost extends Character
 		{
 			if(ghostArray[i] instanceof VulnerableGhost)
 			{
-				ghostArray[i] = new FlashingGhost(ghostArray[i]);
+				ghostArray[i] = new FlashingGhost(ghostArray[i], ghostArray[i].x, ghostArray[i].y);
 			}
 		}
 	}
@@ -91,7 +90,6 @@ public abstract class Ghost extends Character
 		generateNextDirection();
 	}
 	
-
 	int getPortalCrossingStatus() 
 	{
 		return portalCrossingStatus;

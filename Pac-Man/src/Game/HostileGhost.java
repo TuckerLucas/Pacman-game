@@ -11,26 +11,19 @@ public class HostileGhost extends Ghost
 	private static double targetTimePerFrameInSeconds = 0.2;
 	private static int totalNumberOfFrames = Animation.hostileGhostSprites[0][0].length;
 	
-	public HostileGhost(int ID, int xx, int yy, int cD, int nD)
+	// initial info loading
+	public HostileGhost(int ID, int xx, int yy, int cD, int nD, int pS)
 	{
 		ghostID = ID;
 		x = xx;
 		y = yy;
+		portalCrossingStatus = pS;
 		currentDir = cD;
 		nextDir = nD;
 		spawnGhost(x, y);
 	}
 	
-	public HostileGhost(Ghost ghost)
-	{
-		ghostID = ghost.ghostID;
-		x = ghost.x;
-		y = ghost.y;
-		currentDir = ghost.currentDir;
-		nextDir = ghost.nextDir;
-		spawnGhost(x, y);
-	}
-	
+	// eat ghost and turn all hostile
 	public HostileGhost(Ghost ghost, int xx, int yy)
 	{
 		ghostID = ghost.ghostID;
@@ -43,8 +36,7 @@ public class HostileGhost extends Ghost
 	
 	public void tick()
 	{
-		//updateDistanceToPacman();
-		//selectGhostMovementType();
+		portalEvents(this);
 		moveRandomly();
 		manageAnimationTiming();
 	}

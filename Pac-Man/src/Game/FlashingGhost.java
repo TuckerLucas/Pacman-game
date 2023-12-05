@@ -11,11 +11,11 @@ public class FlashingGhost extends VulnerableGhost
 	private static double targetTimePerFrameInSeconds = 0.2;
 	private static int totalNumberOfFrames = Animation.flashingGhostSprites.length;
 	
-	public FlashingGhost(Ghost ghost)
+	public FlashingGhost(Ghost ghost, int xx, int yy)
 	{
 		ghostID = ghost.ghostID;
-		x = ghost.x;
-		y = ghost.y;
+		x = xx;
+		y = yy;
 		currentDir = ghost.currentDir;
 		nextDir = ghost.nextDir;
 		spawnGhost(x, y);
@@ -23,6 +23,7 @@ public class FlashingGhost extends VulnerableGhost
 	
 	public void tick()
 	{
+		portalEvents(this);
 		moveRandomly();
 		manageAnimationTiming();
 	}

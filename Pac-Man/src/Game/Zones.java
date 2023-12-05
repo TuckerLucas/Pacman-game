@@ -2,6 +2,7 @@ package Game;
 
 public class Zones 
 {
+	/*
 	static class zoneDirections
 	{	
 		int methodicalDir1;
@@ -24,7 +25,7 @@ public class Zones
 	private boolean findDir1Blocked = false;
 	private boolean isFindingPath = false;
 	
-	/*
+	
 	public static void loadZoneDirectionsArray()
 	{	
 		for(int zone = 0; zone < zoneDirectionsArray.length; zone++)

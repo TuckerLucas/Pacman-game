@@ -114,16 +114,16 @@ public abstract class Character extends Rectangle
 		}
 		else if(character instanceof HostileGhost)
 		{
-			Ghost.ghostArray[character.getID()] = new HostileGhost(Ghost.ghostArray[character.getID()]);
-		}
-		else if(character instanceof VulnerableGhost)
-		{
-			Ghost.ghostArray[character.getID()] = new VulnerableGhost(Ghost.ghostArray[character.getID()]);
+			Ghost.ghostArray[character.getID()] = new HostileGhost(Ghost.ghostArray[character.getID()], 0, 320);
 		}
 		else if(character instanceof FlashingGhost)
 		{
-			Ghost.ghostArray[character.getID()] = new FlashingGhost(Ghost.ghostArray[character.getID()]);	
+			Ghost.ghostArray[character.getID()] = new FlashingGhost(Ghost.ghostArray[character.getID()], 0, 320);	
 		}
+		else if(character instanceof VulnerableGhost)
+		{
+			Ghost.ghostArray[character.getID()] = new VulnerableGhost(Ghost.ghostArray[character.getID()], 0, 320);
+		}	
 	}
 	
 	public static void move(Character character, int direction)

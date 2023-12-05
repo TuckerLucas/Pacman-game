@@ -16,11 +16,11 @@ public class VulnerableGhost extends Ghost
 		
 	}
 	
-	public VulnerableGhost(Ghost ghost)
+	public VulnerableGhost(Ghost ghost, int xx, int yy)
 	{
 		ghostID = ghost.ghostID;
-		x = ghost.x;
-		y = ghost.y;
+		x = xx;
+		y = yy;
 		currentDir = ghost.currentDir;
 		nextDir = ghost.nextDir;
 		spawnGhost(x, y);
@@ -28,6 +28,7 @@ public class VulnerableGhost extends Ghost
 	
 	public void tick()
 	{
+		portalEvents(this);
 		moveRandomly();
 		manageAnimationTiming();
 	}
