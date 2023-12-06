@@ -11,19 +11,17 @@ public abstract class Ghost extends Character
 	
 	public int ghostID;
 	
-	public static final int randomMovement = 0;
-	public static final int methodicalMovement = 1;
-	public static final int findingPath = 2;
-	
 	protected int nextDir = 0;
 	public int currentDir = 0;
 	
 	public static int numberOfEatenGhosts = 0;
 	
-	public static int spawnBoxX = 320;
-	public static int spawnBoxY = 320;
-	
 	public static Ghost ghostArray[] = new Ghost[4];
+	
+	public static Ghost blinky;
+	public static Ghost inky;
+	public static Ghost pinky;
+	public static Ghost clyde;
 	
 	public static double timeInstantToBeginFlashingInSeconds = 5.0;
 	

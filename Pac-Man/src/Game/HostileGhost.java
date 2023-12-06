@@ -50,7 +50,7 @@ public class HostileGhost extends Ghost
 		portalEvents(this);
 		updateDistanceToPacman();
 		
-		if(pacmanIsClose())
+		if(pacmanIsClose() && !isInSpawnBox(this))
 		{
 			moveMethodically();
 		}
