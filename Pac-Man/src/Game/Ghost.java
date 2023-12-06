@@ -10,7 +10,6 @@ public abstract class Ghost extends Character
 	public static Random randomGen;
 	
 	public int ghostID;
-	protected int portalCrossingStatus;
 	
 	public static final int randomMovement = 0;
 	public static final int methodicalMovement = 1;
@@ -27,11 +26,6 @@ public abstract class Ghost extends Character
 	public static Ghost ghostArray[] = new Ghost[4];
 	
 	public static double timeInstantToBeginFlashingInSeconds = 5.0;
-	
-	protected void spawnGhost(int xCoordinate, int yCoordinate)
-	{
-		setBounds(xCoordinate, yCoordinate, Level.objectWidth, Level.objectHeight);
-	}
 	
 	public static boolean isInSpawnBox(Ghost ghost)
 	{
@@ -89,11 +83,6 @@ public abstract class Ghost extends Character
 		
 		generateNextDirection();
 	}
-	
-	int getPortalCrossingStatus() 
-	{
-		return portalCrossingStatus;
-	}
 
 	boolean getVulnerabilityStatus() 
 	{
@@ -108,11 +97,6 @@ public abstract class Ghost extends Character
 	public void setCurrentDirection(int dir)
 	{
 		currentDir = dir;
-	}
-	
-	public void setPortalCrossingStatus(int portalStatus)
-	{
-		portalCrossingStatus = portalStatus;
 	}
 	
 	public int getNextDirection()

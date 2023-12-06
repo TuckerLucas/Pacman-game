@@ -12,18 +12,16 @@ public class HostileGhost extends Ghost
 	private static int totalNumberOfFrames = Animation.hostileGhostSprites[0][0].length;
 	
 	// initial info loading
-	public HostileGhost(int ID, int xx, int yy, int cD, int nD, int pS)
+	public HostileGhost(int ID, int xx, int yy, int cD, int nD)
 	{
 		ghostID = ID;
 		x = xx;
 		y = yy;
-		portalCrossingStatus = pS;
 		currentDir = cD;
 		nextDir = nD;
-		spawnGhost(x, y);
+		setBounds(x, y, Level.objectWidth, Level.objectHeight);
 	}
 	
-	// eat ghost and turn all hostile
 	public HostileGhost(Ghost ghost, int xx, int yy)
 	{
 		ghostID = ghost.ghostID;
@@ -31,7 +29,7 @@ public class HostileGhost extends Ghost
 		y = yy;
 		currentDir = ghost.currentDir;
 		nextDir = ghost.nextDir;
-		spawnGhost(x, y);
+		setBounds(x, y, Level.objectWidth, Level.objectHeight);
 	}
 	
 	public void tick()

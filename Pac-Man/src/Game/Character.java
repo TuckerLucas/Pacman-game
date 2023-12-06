@@ -50,18 +50,11 @@ public abstract class Character extends Rectangle
 	
 	private static void managePortalCrossingFromGivenSide(Character character, int side)
 	{
-		character.setPortalCrossingStatus(side);
 		character.setCurrentDirection(side);
 			
 		if(isAtPortalCrossingPoint(character, side))
 		{
 			makeCharacterCrossPortal(character, side);
-		}
-		
-		// Check opposite portal side's entry, hence side ^= 1
-		if(isAtPortalEntry(character, side ^= 1))	
-		{
-			character.setPortalCrossingStatus(notCrossingPortal);
 		}
 	}
 	
@@ -85,6 +78,7 @@ public abstract class Character extends Rectangle
 		return false;
 	}
 
+	/*
 	private static boolean isAtPortalEntry(Character character, int side)
 	{
 		if(side == left)
@@ -97,7 +91,7 @@ public abstract class Character extends Rectangle
 		}
 		
 		return false;
-	}
+	}*/
 	
 	
 	private static void makeCharacterCrossPortal(Character character, int side)
@@ -233,8 +227,6 @@ public abstract class Character extends Rectangle
 	
 	abstract int getCurrentDirection();
 	abstract void setCurrentDirection(int dir);
-	abstract int getPortalCrossingStatus();
-	abstract void setPortalCrossingStatus(int portalStatus);
 	abstract int getNextDirection();
 	abstract int getID();
 	abstract boolean getVulnerabilityStatus();

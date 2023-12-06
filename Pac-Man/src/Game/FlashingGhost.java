@@ -18,7 +18,7 @@ public class FlashingGhost extends VulnerableGhost
 		y = yy;
 		currentDir = ghost.currentDir;
 		nextDir = ghost.nextDir;
-		spawnGhost(x, y);
+		setBounds(x, y, Level.objectWidth, Level.objectHeight);
 	}
 	
 	public void tick()
