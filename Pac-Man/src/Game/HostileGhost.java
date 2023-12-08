@@ -15,10 +15,6 @@ public class HostileGhost extends Ghost
 	private static int deltaY;
 	private static int detectionRange = 90;
 	
-	public static int movementType;
-	public static final int movingRandomly = 0;
-	public static final int movingMethodically = 1;
-	
 	private double timeMovingMethodicallyInSeconds = 0.0;
 	private double targetTimeMovingMethodicallyInSeconds = 12.0; 
 	private boolean findDir1Blocked = false;
@@ -29,14 +25,13 @@ public class HostileGhost extends Ghost
 	private static double targetTimePerFrameInSeconds = 0.2;
 	private static int totalNumberOfFrames = Animation.hostileGhostSprites[0][0].length;
 	
-	public HostileGhost(int ID, int xx, int yy, int cD, int nD, int mT)
+	public HostileGhost(int ID, int xx, int yy, int cD, int nD)
 	{
 		ghostID = ID;
 		x = xx;
 		y = yy;
 		currentDir = cD;
 		nextDir = nD;
-		movementType = mT;
 		setBounds(x, y, Level.objectWidth, Level.objectHeight);
 	}
 	
@@ -54,7 +49,16 @@ public class HostileGhost extends Ghost
 	{
 		portalEvents(this);
 		updateDistanceToPacman();
-		selectMovementType();
+		
+		if(pacmanIsClose() && !isInSpawnBox(this))
+		{
+			moveMethodically();
+		}
+		else
+		{
+			moveRandomly();
+		}
+		
 		manageAnimationTiming();
 	}
 	
@@ -74,20 +78,11 @@ public class HostileGhost extends Ghost
 		}
 	}
 	
-	public static boolean pacmanIsClose()
+	private boolean pacmanIsClose()
 	{
 		return ((deltaX < detectionRange && deltaX > -detectionRange) && 
 				(deltaY < detectionRange && deltaY > -detectionRange)) 
 				? true : false;
-	}
-	
-	private void selectMovementType()
-	{
-		switch(movementType)
-		{
-			case movingRandomly: moveRandomly(this); break;
-			case movingMethodically: moveMethodically(); break;
-		}
 	}
 	
 	private void moveMethodically()
@@ -150,7 +145,6 @@ public class HostileGhost extends Ghost
 		if(timeMovingMethodicallyInSeconds >= targetTimeMovingMethodicallyInSeconds) 				
 		{			
 			timeMovingMethodicallyInSeconds = 0;
-			movementType = movingRandomly;
 		}
 	}
 	
