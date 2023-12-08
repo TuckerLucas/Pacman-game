@@ -54,11 +54,11 @@ public abstract class Character extends Rectangle
 			
 		if(isAtPortalCrossingPoint(character, side))
 		{
-			//makeCharacterCrossPortal(character, side);
+			makeCharacterCrossPortal(character, side);
 		}
 	}
 	
-	private static boolean isInPortalCorridor(Rectangle character)
+	protected static boolean isInPortalCorridor(Rectangle character)
 	{
 		return ((character.x < portalLeftSideEntryXCoordinate || character.x > portalRightSideEntryXCoordinate) 
 				&& character.y == portalYCoordinate) ? true : false;
@@ -93,9 +93,11 @@ public abstract class Character extends Rectangle
 		return false;
 	}*/
 	
-	/*
+	
 	private static void makeCharacterCrossPortal(Character character, int side)
 	{
+		int id = character.getID();
+		
 		if(character instanceof Pacman)
 		{
 			Pacman.pacman = new AlivePacman(side, character.getNextDirection());
@@ -104,36 +106,72 @@ public abstract class Character extends Rectangle
 		{
 			if(side == left)
 			{
-				Ghost.ghostArray[character.getID()] = new HostileGhost(Ghost.ghostArray[character.getID()], 640, 320);
+				switch(id)
+				{
+					case 0: Ghost.blinky = new HostileGhost(Ghost.blinky, 640, 320); break;
+					case 1: Ghost.inky = new HostileGhost(Ghost.inky, 640, 320); break;
+					case 2: Ghost.pinky = new HostileGhost(Ghost.pinky, 640, 320); break;
+					case 3: Ghost.clyde = new HostileGhost(Ghost.clyde, 640, 320); break;
+				}
 			}
 			else if(side == right)
 			{
-				Ghost.ghostArray[character.getID()] = new HostileGhost(Ghost.ghostArray[character.getID()], 0, 320);
+				switch(id)
+				{
+					case 0: Ghost.blinky = new HostileGhost(Ghost.blinky, 0, 320); break;
+					case 1: Ghost.inky = new HostileGhost(Ghost.inky, 0, 320); break;
+					case 2: Ghost.pinky = new HostileGhost(Ghost.pinky, 0, 320); break;
+					case 3: Ghost.clyde = new HostileGhost(Ghost.clyde, 0, 320); break;
+				}
 			}
 		}
 		else if(character instanceof FlashingGhost)
 		{
 			if(side == left)
 			{
-				Ghost.ghostArray[character.getID()] = new FlashingGhost(Ghost.ghostArray[character.getID()], 640, 320);
+				switch(id)
+				{
+					case 0: Ghost.blinky = new FlashingGhost(Ghost.blinky, 640, 320); break;
+					case 1: Ghost.inky = new FlashingGhost(Ghost.inky, 640, 320); break;
+					case 2: Ghost.pinky = new FlashingGhost(Ghost.pinky, 640, 320); break;
+					case 3: Ghost.clyde = new FlashingGhost(Ghost.clyde, 640, 320); break;
+				}
 			}
 			else if(side == right)
 			{
-				Ghost.ghostArray[character.getID()] = new FlashingGhost(Ghost.ghostArray[character.getID()], 0, 320);
+				switch(id)
+				{
+					case 0: Ghost.blinky = new FlashingGhost(Ghost.blinky, 0, 320); break;
+					case 1: Ghost.inky = new FlashingGhost(Ghost.inky, 0, 320); break;
+					case 2: Ghost.pinky = new FlashingGhost(Ghost.pinky, 0, 320); break;
+					case 3: Ghost.clyde = new FlashingGhost(Ghost.clyde, 0, 320); break;
+				}
 			}
 		}
 		else if(character instanceof VulnerableGhost)
 		{
 			if(side == left)
 			{
-				Ghost.ghostArray[character.getID()] = new VulnerableGhost(Ghost.ghostArray[character.getID()], 640, 320);
+				switch(id)
+				{
+					case 0: Ghost.blinky = new VulnerableGhost(Ghost.blinky, 640, 320); break;
+					case 1: Ghost.inky = new VulnerableGhost(Ghost.inky, 640, 320); break;
+					case 2: Ghost.pinky = new VulnerableGhost(Ghost.pinky, 640, 320); break;
+					case 3: Ghost.clyde = new VulnerableGhost(Ghost.clyde, 640, 320); break;
+				}
 			}
 			else if(side == right)
 			{
-				Ghost.ghostArray[character.getID()] = new VulnerableGhost(Ghost.ghostArray[character.getID()], 0, 320);
+				switch(id)
+				{
+					case 0: Ghost.blinky = new VulnerableGhost(Ghost.blinky, 0, 320); break;
+					case 1: Ghost.inky = new VulnerableGhost(Ghost.inky, 0, 320); break;
+					case 2: Ghost.pinky = new VulnerableGhost(Ghost.pinky, 0, 320); break;
+					case 3: Ghost.clyde = new VulnerableGhost(Ghost.clyde, 0, 320); break;
+				}
 			}
 		}	
-	}*/
+	}
 	
 	public static void move(Character character, int direction)
 	{
