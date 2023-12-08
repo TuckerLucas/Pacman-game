@@ -16,8 +16,6 @@ public abstract class Pacman extends Character
 	public static int currentDir;
 	public static int nextDir;
 	
-	public static int portalCrossingStatus = notCrossingPortal;
-	
 	public static double elapsedFrameTimeInSeconds = 0.0;	
 	public static double targetTimePerFrameInSeconds = 0.1;
 	
@@ -38,16 +36,6 @@ public abstract class Pacman extends Character
 	public void setCurrentDirection(int dir)
 	{
 		currentDir = dir;
-	}
-	
-	int getPortalCrossingStatus() 
-	{
-		return -1;
-	}
-	
-	public void setPortalCrossingStatus(int portalStatus)
-	{
-		portalCrossingStatus = portalStatus;
 	}
 	
 	public int getNextDirection()

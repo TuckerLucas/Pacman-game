@@ -53,7 +53,7 @@ public class AlivePacman extends Pacman
 		portalEvents(this);
 		manageAnimationTiming();
 		foodCollision();
-		//ghostCollision();
+		ghostCollision();
 	}
 
 	public void manageAnimationTiming()
@@ -85,43 +85,88 @@ public class AlivePacman extends Pacman
 		}
 	}	
 	
-	/*
+	
 	private void ghostCollision()
 	{
-		if(!pacmanIntersectedGhost())
+		if(Ghost.blinky.intersects(this))
 		{
-			return;
+			if(Ghost.blinky instanceof VulnerableGhost)
+			{
+				Ghost.blinky = new HostileGhost(Ghost.blinky, 320, 320);
+				eatGhost();
+			}
+			else 
+			{
+				die();
+			}
 		}
-		
-		if(intersectedGhost instanceof VulnerableGhost)
+		else if(Ghost.inky.intersects(this))
 		{
-			eatGhost();
+			if(Ghost.inky instanceof VulnerableGhost)
+			{
+				Ghost.inky = new HostileGhost(Ghost.inky, 320, 320);
+				eatGhost();
+			}
+			else 
+			{
+				die();
+			}
 		}
-		else 
+		else if(Ghost.pinky.intersects(this))
 		{
-			die();
+			if(Ghost.pinky instanceof VulnerableGhost)
+			{
+				Ghost.pinky = new HostileGhost(Ghost.pinky, 320, 320);
+				eatGhost();
+			}
+			else 
+			{
+				die();
+			}
+		}
+		else if(Ghost.clyde.intersects(this))
+		{
+			if(Ghost.clyde instanceof VulnerableGhost)
+			{
+				Ghost.clyde = new HostileGhost(Ghost.clyde, 320, 320);
+				eatGhost();
+			}
+			else 
+			{
+				die();
+			}
 		}
 	}
 	
 	public boolean pacmanIntersectedGhost()
 	{
-		for(int i = 0; i < Ghost.ghostArray.length; i++)
+		if(Ghost.blinky.intersects(this))
 		{
-			if(Ghost.ghostArray[i].intersects(this))
-			{	
-				intersectedGhost = i;
-				
-				return true;
-			}
+			intersectedGhost = Ghost.blinky;
+			return true;
 		}
+		else if(Ghost.inky.intersects(this))
+		{
+			intersectedGhost = Ghost.inky;
+			return true;
+		}
+		else if(Ghost.pinky.intersects(this))
+		{
+			intersectedGhost = Ghost.pinky;
+			return true;
+		}
+		else if(Ghost.clyde.intersects(this))
+		{
+			intersectedGhost = Ghost.clyde;
+			return true;
+		}
+		
 		return false;
 	}
 	
 	private void eatGhost()
 	{
 		Sounds.playSoundEffect(Sounds.ghostEatenSoundPath);
-		
-		Ghost.ghostArray[intersectedGhost] = new HostileGhost(Ghost.ghostArray[intersectedGhost], 320, 320);
 				
 		Ghost.numberOfEatenGhosts++;
 		
@@ -140,7 +185,7 @@ public class AlivePacman extends Pacman
 		
 		pacman = new DeadPacman(x, y);
 		Game.gameStatus = Game.lifeLost;
-	}*/
+	}
 	
 	public void render(Graphics g)
 	{

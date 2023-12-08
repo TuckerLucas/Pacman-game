@@ -53,10 +53,14 @@ public abstract class Ghost extends Character
 	
 	public static void startFlashing()
 	{
-		Ghost.blinky = new FlashingGhost(blinky, blinky.x, blinky.y);
-		Ghost.inky = new FlashingGhost(inky, inky.x, inky.y);
-		Ghost.pinky = new FlashingGhost(pinky, pinky.x, pinky.y);
-		Ghost.clyde = new FlashingGhost(clyde, clyde.x, clyde.y);	
+		if(Ghost.blinky instanceof VulnerableGhost)
+			Ghost.blinky = new FlashingGhost(blinky, blinky.x, blinky.y);
+		if(Ghost.inky instanceof VulnerableGhost)
+			Ghost.inky = new FlashingGhost(inky, inky.x, inky.y);
+		if(Ghost.pinky instanceof VulnerableGhost)
+			Ghost.pinky = new FlashingGhost(pinky, pinky.x, pinky.y);
+		if(Ghost.clyde instanceof VulnerableGhost)
+			Ghost.clyde = new FlashingGhost(clyde, clyde.x, clyde.y);	
 	}
 	
 	protected void moveRandomly()
