@@ -7,34 +7,14 @@ public class AlivePacman extends Pacman
 	private static final long serialVersionUID = 1L;
 
 	private int totalNumberOfFrames = Animation.alivePacmanSprites[currentDir].length;
-			
-	public AlivePacman()
+
+	public AlivePacman(int cD, int nD, int xx, int yy)
 	{
-		spawnPacman(pacmanSpawnXCoordinate, pacmanSpawnYCoordinate);
-		nextDir = stopped;
-		currentDir = right;
-	}
-	
-	public AlivePacman(int spawnType, int nD)
-	{
-		switch(spawnType)
-		{
-			case crossingPortalFromLeftSide:
-				
-				spawnPacman(portalRightSideCrossingPointXCoordinate, portalYCoordinate);
-				currentDir = left;
-				nextDir = nD;
-				
-				break;
-				
-			case crossingPortalFromRightSide:
-				
-				spawnPacman(portalLeftSideCrossingPointXCoordinate, portalYCoordinate);
-				currentDir = right;
-				nextDir = nD;
-				
-				break;
-		}
+		x = xx;
+		y = yy;
+		currentDir = cD;
+		nextDir = nD;
+		setBounds(x, y, Level.objectWidth, Level.objectHeight);
 	}
 	
 	private void spawnPacman(int xCoordinate, int yCoordinate)

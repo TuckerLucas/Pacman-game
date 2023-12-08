@@ -110,7 +110,14 @@ public abstract class Character extends Rectangle
 	{
 		if(character instanceof Pacman)
 		{
-			Pacman.pacman = new AlivePacman(side, character.getNextDirection());
+			if(side == left)
+			{
+				Pacman.pacman = new AlivePacman(left, character.getNextDirection(), 640, 320);
+			}
+			else if(side == right)
+			{
+				Pacman.pacman = new AlivePacman(right, character.getNextDirection(), 0, 320);
+			}
 		}
 		else if(character instanceof Ghost)
 		{
