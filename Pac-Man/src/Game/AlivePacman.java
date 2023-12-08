@@ -17,11 +17,6 @@ public class AlivePacman extends Pacman
 		setBounds(x, y, Level.objectWidth, Level.objectHeight);
 	}
 	
-	private void spawnPacman(int xCoordinate, int yCoordinate)
-	{
-		setBounds(xCoordinate, yCoordinate, Level.objectWidth, Level.objectHeight);
-	}
-	
 	public void tick()
 	{	
 		if(canMove(this, nextDir))
