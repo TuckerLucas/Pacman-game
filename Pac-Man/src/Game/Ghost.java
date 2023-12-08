@@ -16,8 +16,6 @@ public abstract class Ghost extends Character
 	
 	public static int numberOfEatenGhosts = 0;
 	
-	public static Ghost ghostArray[] = new Ghost[4];
-	
 	public static Ghost blinky;
 	public static Ghost inky;
 	public static Ghost pinky;
@@ -37,31 +35,28 @@ public abstract class Ghost extends Character
 	
 	public static void turnAllVulnerable()
 	{
-		for(int i = 0; i < ghostArray.length; i++)
-		{
-			ghostArray[i] = new VulnerableGhost(ghostArray[i], ghostArray[i].x, ghostArray[i].y);
-		}
+		Ghost.blinky = new VulnerableGhost(blinky, blinky.x, blinky.y);
+		Ghost.inky = new VulnerableGhost(inky, inky.x, inky.y);
+		Ghost.pinky = new VulnerableGhost(pinky, pinky.x, pinky.y);
+		Ghost.clyde = new VulnerableGhost(clyde, clyde.x, clyde.y);
 		
 		numberOfEatenGhosts = 0;
 	}
 	
 	public static void turnAllHostile()
 	{
-		for(int i = 0; i < ghostArray.length; i++)
-		{
-			ghostArray[i] = new HostileGhost(ghostArray[i], ghostArray[i].x, ghostArray[i].y);
-		}
+		Ghost.blinky = new HostileGhost(blinky, blinky.x, blinky.y);
+		Ghost.inky = new HostileGhost(inky, inky.x, inky.y);
+		Ghost.pinky = new HostileGhost(pinky, pinky.x, pinky.y);
+		Ghost.clyde = new HostileGhost(clyde, clyde.x, clyde.y);
 	}
 	
 	public static void startFlashing()
 	{
-		for(int i = 0; i < ghostArray.length; i++)
-		{
-			if(ghostArray[i] instanceof VulnerableGhost)
-			{
-				ghostArray[i] = new FlashingGhost(ghostArray[i], ghostArray[i].x, ghostArray[i].y);
-			}
-		}
+		Ghost.blinky = new FlashingGhost(blinky, blinky.x, blinky.y);
+		Ghost.inky = new FlashingGhost(inky, inky.x, inky.y);
+		Ghost.pinky = new FlashingGhost(pinky, pinky.x, pinky.y);
+		Ghost.clyde = new FlashingGhost(clyde, clyde.x, clyde.y);	
 	}
 	
 	protected void moveRandomly()

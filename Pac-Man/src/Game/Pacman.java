@@ -8,7 +8,7 @@ public abstract class Pacman extends Character
 	
 	public static int numberOfLives = 3;
 	
-	protected int intersectedGhost;
+	protected Ghost intersectedGhost;
 	
 	public static int pacmanSpawnXCoordinate = 320;
 	public static int pacmanSpawnYCoordinate = 512;

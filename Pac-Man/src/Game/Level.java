@@ -83,26 +83,26 @@ public class Level
 					
 					case red:			
 						
-						Ghost.ghostArray[0].x = x*objectWidth;
-						Ghost.ghostArray[0].y = y*objectHeight;
+						Ghost.blinky.x = x*objectWidth;
+						Ghost.blinky.y = y*objectHeight;
 						break;
 						
 					case cyan:			
 						
-						Ghost.ghostArray[1].x = x*objectWidth;
-						Ghost.ghostArray[1].y = y*objectHeight;
+						Ghost.inky.x = x*objectWidth;
+						Ghost.inky.y = y*objectHeight;
 						break;
 						
 					case purple:
 						
-						Ghost.ghostArray[2].x = x*objectWidth;
-						Ghost.ghostArray[2].y = y*objectHeight;
+						Ghost.pinky.x = x*objectWidth;
+						Ghost.pinky.y = y*objectHeight;
 						break;
 						
 					case orange:
 						
-						Ghost.ghostArray[3].x = x*objectWidth;
-						Ghost.ghostArray[3].y = y*objectHeight;
+						Ghost.clyde.x = x*objectWidth;
+						Ghost.clyde.y = y*objectHeight;
 						break;
 						
 					case white:
@@ -151,10 +151,10 @@ public class Level
 		
 		if(Game.gameStatus != Game.lifeLost)
 		{
-			Ghost.ghostArray[0].render(g);
-			Ghost.ghostArray[1].render(g);
-			Ghost.ghostArray[2].render(g);
-			Ghost.ghostArray[3].render(g);
+			Ghost.blinky.render(g);
+			Ghost.inky.render(g);
+			Ghost.pinky.render(g);
+			Ghost.clyde.render(g);
 		}
 
 		SpawnBoxDoor.spawnBoxDoor.render(g);

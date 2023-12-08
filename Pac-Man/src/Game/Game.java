@@ -122,10 +122,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 	public static void loadGameElements()
 	{
 		Pacman.pacman = new AlivePacman();
-		Ghost.ghostArray[0] = new HostileGhost(0, 320, 320, Character.right, Character.right); 
-		Ghost.ghostArray[1] = new HostileGhost(1, 320, 320, Character.right, Character.right);
-		Ghost.ghostArray[2] = new HostileGhost(2, 320, 320, Character.right, Character.right);
-		Ghost.ghostArray[3] = new HostileGhost(3, 320, 320, Character.right, Character.right);
+		Ghost.blinky = new HostileGhost(0, 320, 320, Character.right, Character.right); 
+		Ghost.inky = new HostileGhost(1, 320, 320, Character.right, Character.right);
+		Ghost.pinky = new HostileGhost(2, 320, 320, Character.right, Character.right);
+		Ghost.clyde = new HostileGhost(3, 320, 320, Character.right, Character.right);
 		
 		switch(gameStatus)
 		{
@@ -218,10 +218,10 @@ public class Game extends Canvas implements Runnable, KeyListener
 			case play:
 				
 				Pacman.pacman.tick();
-				Ghost.ghostArray[0].tick(); 
-				Ghost.ghostArray[1].tick();
-				Ghost.ghostArray[2].tick();
-				Ghost.ghostArray[3].tick();
+				Ghost.blinky.tick(); 
+				Ghost.inky.tick();
+				Ghost.pinky.tick();
+				Ghost.clyde.tick();
 				BonusScore.bonusScore.tick();
 				Energizer.energizer.tick();
 				Level.level.tick();

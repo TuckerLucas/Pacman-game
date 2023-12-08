@@ -54,7 +54,7 @@ public abstract class Character extends Rectangle
 			
 		if(isAtPortalCrossingPoint(character, side))
 		{
-			makeCharacterCrossPortal(character, side);
+			//makeCharacterCrossPortal(character, side);
 		}
 	}
 	
@@ -93,7 +93,7 @@ public abstract class Character extends Rectangle
 		return false;
 	}*/
 	
-	
+	/*
 	private static void makeCharacterCrossPortal(Character character, int side)
 	{
 		if(character instanceof Pacman)
@@ -133,7 +133,7 @@ public abstract class Character extends Rectangle
 				Ghost.ghostArray[character.getID()] = new VulnerableGhost(Ghost.ghostArray[character.getID()], 0, 320);
 			}
 		}	
-	}
+	}*/
 	
 	public static void move(Character character, int direction)
 	{

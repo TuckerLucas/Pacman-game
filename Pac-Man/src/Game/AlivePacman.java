@@ -53,7 +53,7 @@ public class AlivePacman extends Pacman
 		portalEvents(this);
 		manageAnimationTiming();
 		foodCollision();
-		ghostCollision();
+		//ghostCollision();
 	}
 
 	public void manageAnimationTiming()
@@ -84,7 +84,8 @@ public class AlivePacman extends Pacman
 			}
 		}
 	}	
-
+	
+	/*
 	private void ghostCollision()
 	{
 		if(!pacmanIntersectedGhost())
@@ -92,7 +93,7 @@ public class AlivePacman extends Pacman
 			return;
 		}
 		
-		if(Ghost.ghostArray[intersectedGhost] instanceof VulnerableGhost)
+		if(intersectedGhost instanceof VulnerableGhost)
 		{
 			eatGhost();
 		}
@@ -124,7 +125,7 @@ public class AlivePacman extends Pacman
 				
 		Ghost.numberOfEatenGhosts++;
 		
-		if(Ghost.numberOfEatenGhosts == Ghost.ghostArray.length)
+		if(Ghost.numberOfEatenGhosts == 4)
 		{
 			Energizer.deactivate();
 		}
@@ -139,7 +140,7 @@ public class AlivePacman extends Pacman
 		
 		pacman = new DeadPacman(x, y);
 		Game.gameStatus = Game.lifeLost;
-	}
+	}*/
 	
 	public void render(Graphics g)
 	{
