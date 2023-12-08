@@ -87,10 +87,10 @@ public class HostileGhost extends Ghost
 	
 	private void moveMethodically()
 	{
-		updateMethodicalDirections();
-		
 		if(!isFindingPath)
 		{
+			updateMethodicalDirections();
+			
 			if(canMove(this, methodicalDir1))
 			{
 				currentDir = methodicalDir1;
