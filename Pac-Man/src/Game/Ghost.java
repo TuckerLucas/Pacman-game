@@ -64,8 +64,13 @@ public abstract class Ghost extends Character
 		}
 	}
 	
-	protected void moveRandomly()
+	protected void moveRandomly(Ghost ghost)
 	{	
+		if(ghost instanceof HostileGhost && HostileGhost.pacmanIsClose() && !isInSpawnBox(this))
+		{
+			HostileGhost.movementType = HostileGhost.movingMethodically;
+		}
+		
 		if(canMove(this, nextDir))
 		{
 			currentDir = nextDir;

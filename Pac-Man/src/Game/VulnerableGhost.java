@@ -29,7 +29,7 @@ public class VulnerableGhost extends Ghost
 	public void tick()
 	{
 		portalEvents(this);
-		moveRandomly();
+		moveRandomly(this);
 		manageAnimationTiming();
 	}
 	
