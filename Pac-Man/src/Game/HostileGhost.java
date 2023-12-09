@@ -13,7 +13,7 @@ public class HostileGhost extends Ghost
 	
 	private static int deltaX;
 	private static int deltaY;
-	private static int detectionRange = 800;
+	private static int detectionRange = 90;
 	
 	private double timeMovingMethodicallyInSeconds = 0.0;
 	private double targetTimeMovingMethodicallyInSeconds = 12.0; 
@@ -49,7 +49,7 @@ public class HostileGhost extends Ghost
 		{
 			moveMethodically();
 		}
-		else if(!isInSpawnBox(this))
+		else
 		{
 			moveRandomly();
 		}
@@ -222,7 +222,7 @@ public class HostileGhost extends Ghost
 		{
 			methodicalDir1 = left;
 			methodicalDir2 = downwards;
-			findDir1 = upwards;									
+			findDir1 = upwards;	
 		}
 	}
 	

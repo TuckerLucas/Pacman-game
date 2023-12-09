@@ -12,7 +12,7 @@ public abstract class Ghost extends Character
 	public int ghostID;
 	
 	protected int nextDir = 0;
-	public int currentDir = 0;
+	protected int currentDir = 0;
 	
 	public static int numberOfEatenGhosts = 0;
 	
