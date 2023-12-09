@@ -39,6 +39,12 @@ public class Animation
 	public static BufferedImage[] bonusScore800Sprites;
 	public static BufferedImage[] bonusScore1600Sprites;
 	
+	public static int frameIndex = 0;
+	public static int frameIndexFlashingGhosts = 0;
+	protected static double elapsedFrameTimeInSeconds = 0;		
+	protected static double targetTimePerFrameInSeconds = 0.05;
+	private static int totalNumberOfFrames = 2;
+	
 	private BufferedImage spritesheet;
 	
 	private String spritesheetImagePath = "/Images/spritesheet.png";
@@ -172,6 +178,34 @@ public class Animation
 		bonusScore1600Sprites[1] = getSprite(spriteColumn7, spriteLine9, spriteWidthInPixels*2, spriteHeightInPixels);
 	}
 	
+	public void tick()
+	{
+		manageAnimationTiming();
+	}
+	
+	private void manageAnimationTiming()
+	{
+		elapsedFrameTimeInSeconds += Game.secondsPerTick;
+		
+		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
+		{
+			elapsedFrameTimeInSeconds = 0;
+			frameIndex++;
+			frameIndexFlashingGhosts++;		 
+			
+			if(frameIndex == totalNumberOfFrames)
+			{
+				frameIndex = 0;
+			}
+			
+			// Flashing ghosts require more frames than other animations
+			// Hence they have their own frame index variable
+			if(frameIndexFlashingGhosts == 4)
+			{
+				frameIndexFlashingGhosts = 0;
+			}
+		}
+	}
 	
 	private BufferedImage getSprite(int x, int y, int width, int height)
 	{

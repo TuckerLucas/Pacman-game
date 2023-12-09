@@ -13,17 +13,12 @@ public class HostileGhost extends Ghost
 	
 	private static int deltaX;
 	private static int deltaY;
-	private static int detectionRange = 90;
+	private static int detectionRange = 800;
 	
 	private double timeMovingMethodicallyInSeconds = 0.0;
 	private double targetTimeMovingMethodicallyInSeconds = 12.0; 
 	private boolean findDir1Blocked = false;
 	private boolean isFindingPath = false;
-	
-	private static int frameIndex = 0;
-	private static double elapsedFrameTimeInSeconds = 0;		
-	private static double targetTimePerFrameInSeconds = 0.2;
-	private static int totalNumberOfFrames = Animation.hostileGhostSprites[0][0].length;
 	
 	public HostileGhost(int ID, int xx, int yy, int cD, int nD)
 	{
@@ -54,27 +49,9 @@ public class HostileGhost extends Ghost
 		{
 			moveMethodically();
 		}
-		else
+		else if(!isInSpawnBox(this))
 		{
 			moveRandomly();
-		}
-		
-		manageAnimationTiming();
-	}
-	
-	private static void manageAnimationTiming()
-	{
-		elapsedFrameTimeInSeconds += Game.secondsPerTick;
-		
-		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
-		{
-			elapsedFrameTimeInSeconds = 0;
-			frameIndex++;
-			
-			if(frameIndex == totalNumberOfFrames)
-			{
-				frameIndex = 0;
-			}
 		}
 	}
 	
@@ -119,11 +96,9 @@ public class HostileGhost extends Ghost
 			{
 				if(findDir1Blocked == false)
 				{
-					
 					if(canMove(this, findDir1))
 					{
 						currentDir = findDir1;
-						
 						move(this, findDir1);
 					}
 					else
@@ -134,7 +109,6 @@ public class HostileGhost extends Ghost
 				else if(findDir1Blocked == true)
 				{
 					currentDir = findDir2;
-					
 					move(this, findDir2);
 				}
 			}
@@ -260,6 +234,6 @@ public class HostileGhost extends Ghost
 	
 	public void render(Graphics g)
 	{
-		g.drawImage(Animation.hostileGhostSprites[ghostID][currentDir][frameIndex], x, y, width, height, null);
+		g.drawImage(Animation.hostileGhostSprites[ghostID][currentDir][Animation.frameIndex], x, y, width, height, null);
 	}
 }

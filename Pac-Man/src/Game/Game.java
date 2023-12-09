@@ -210,7 +210,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 			Level.level.render(g);
 		}
 	}
-
+	
 	private void tick()
 	{
 		switch(gameStatus)
@@ -225,6 +225,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 				BonusScore.bonusScore.tick();
 				Energizer.energizer.tick();
 				Level.level.tick();
+				Animation.animation.tick();
 
 				break;
 				
