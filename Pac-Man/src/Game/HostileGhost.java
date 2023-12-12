@@ -19,6 +19,10 @@ public class HostileGhost extends Ghost
 	private double targetTimeMovingMethodicallyInSeconds = 12.0; 
 	private boolean findDir1Blocked = false;
 	private boolean isFindingPath = false;
+
+	public static final int randomMovement = 0;
+	public static final int methodicalMovement = 1;
+	public static int movementType = randomMovement;
 	
 	public HostileGhost(int ID, int xx, int yy, int cD, int nD)
 	{
@@ -44,22 +48,23 @@ public class HostileGhost extends Ghost
 	{
 		portalEvents(this);
 		updateDistanceToPacman();
-		
-		if(pacmanIsClose() && !isInSpawnBox(this) && !isInPortalCorridor(this))
-		{
-			moveMethodically();
-		}
-		else
-		{
-			moveRandomly();
-		}
+		selectMovementType();
 	}
 	
-	private boolean pacmanIsClose()
+	public static boolean pacmanIsClose()
 	{
 		return ((deltaX < detectionRange && deltaX > -detectionRange) && 
 				(deltaY < detectionRange && deltaY > -detectionRange)) 
 				? true : false;
+	}
+	
+	private void selectMovementType()
+	{
+		switch(movementType)
+		{
+			case randomMovement: moveRandomly(this); break;
+			case methodicalMovement: moveMethodically(); break;
+		}
 	}
 	
 	private void moveMethodically()
@@ -115,10 +120,11 @@ public class HostileGhost extends Ghost
 		}
 		
 		timeMovingMethodicallyInSeconds += Game.secondsPerTick;	
-		
+		System.out.println(timeMovingMethodicallyInSeconds);
 		if(timeMovingMethodicallyInSeconds >= targetTimeMovingMethodicallyInSeconds) 				
 		{			
 			timeMovingMethodicallyInSeconds = 0;
+			movementType = randomMovement;
 		}
 	}
 	

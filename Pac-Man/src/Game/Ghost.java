@@ -63,8 +63,13 @@ public abstract class Ghost extends Character
 			Ghost.clyde = new FlashingGhost(clyde, clyde.x, clyde.y);	
 	}
 	
-	protected void moveRandomly()
+	protected void moveRandomly(Ghost ghost)
 	{	
+		if(ghost instanceof HostileGhost && HostileGhost.pacmanIsClose())
+		{
+			HostileGhost.movementType = HostileGhost.methodicalMovement;	
+		}
+		
 		if(canMove(this, nextDir))
 		{
 			currentDir = nextDir;

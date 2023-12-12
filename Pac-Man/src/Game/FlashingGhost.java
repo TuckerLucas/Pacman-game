@@ -19,7 +19,7 @@ public class FlashingGhost extends VulnerableGhost
 	public void tick()
 	{
 		portalEvents(this);
-		moveRandomly();
+		moveRandomly(this);
 	}
 	
 	public void render(Graphics g)
