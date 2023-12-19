@@ -1,2 +1,2 @@
-# Pacman-Java
-Pacman game coded in Java
+# Pacman - A standalone app with UI
+A Pacman game standalone application with User Interface coded in Java. 
