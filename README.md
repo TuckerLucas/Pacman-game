@@ -15,6 +15,7 @@ The standalone application includes several features, such as:
 * Pacman game with:
   + 1 playable character (pacman) and 4 ghosts;
   + Portals for crossing from one side of the map to the other;
+  + Metrics for tracking player score and lifes;
   + Energizers to turn the ghosts vulnerable for pacman to eat and gain bonus score;
   + Spawn box for ghosts to spawn in when eaten;
   + Animations (which apply to the characters, energizers and displayed bonus scores after eating a ghost);
