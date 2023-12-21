@@ -9,7 +9,7 @@ public class Main
 		JFrame window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
-		window.setTitle("2D Adventure");
+		window.setTitle("PACMAN");
 		
 		Game game = new Game();
 		window.add(game);
