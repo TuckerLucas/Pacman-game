@@ -217,7 +217,7 @@ public class Game extends Canvas implements Runnable
 		
 		g.setColor(Color.white);
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 36F));
-		text = "PLAY PACMAN";
+		text = "PLAY";
 		x = getXForCenteredText(g, text);
 		y += 32*8;
 		g.drawString(text, x, y);
