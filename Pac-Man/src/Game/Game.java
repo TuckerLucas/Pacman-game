@@ -18,6 +18,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -25,6 +26,7 @@ import java.awt.image.BufferStrategy;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class Game extends Canvas implements Runnable, KeyListener
@@ -63,6 +65,8 @@ public class Game extends Canvas implements Runnable, KeyListener
 	
 	public int commandNum = 0;
 	
+	Font maruMonica;
+	
 	public Game()
 	{
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -74,6 +78,20 @@ public class Game extends Canvas implements Runnable, KeyListener
 		Animation.animation = new Animation();
 		
 		getGameHighScore();
+		
+		try 
+		{
+			InputStream is = getClass().getResourceAsStream("/font/x12y16pxMaruMonica.ttf");
+			maruMonica = Font.createFont(Font.TRUETYPE_FONT,  is);
+		} 
+		catch (FontFormatException e) 
+		{
+			e.printStackTrace();
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
 	}
 
 	public synchronized void startGame()
@@ -181,6 +199,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		// TITLE NAME
+		g.setFont(maruMonica);
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 92F));
 		String text = "PACMAN";
 		int x = getXForCenteredText(g, text);
