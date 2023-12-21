@@ -205,7 +205,7 @@ public class Game extends Canvas implements Runnable
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 92F));
 		String text = "PACMAN";
 		int x = getXForCenteredText(g, text);
-		int y = 32*3;
+		int y = 32*5;
 		
 		// SHADOW
 		g.setColor(Color.orange);
@@ -219,7 +219,7 @@ public class Game extends Canvas implements Runnable
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 36F));
 		text = "PLAY PACMAN";
 		x = getXForCenteredText(g, text);
-		y += 32*12;
+		y += 32*8;
 		g.drawString(text, x, y);
 		
 		if(commandNum == 0)
@@ -227,12 +227,42 @@ public class Game extends Canvas implements Runnable
 			g.drawString(">",  x - 32,  y);
 		}
 		
-		text = "QUIT";
+		text = "LEADERBOARD";
 		x = getXForCenteredText(g, text);
-		y += 32;
+		y += 40;
 		g.drawString(text, x, y);
 		
 		if(commandNum == 1)
+		{
+			g.drawString(">",  x - 32,  y);
+		}
+		
+		text = "SETTINGS";
+		x = getXForCenteredText(g, text);
+		y += 40;
+		g.drawString(text, x, y);
+		
+		if(commandNum == 2)
+		{
+			g.drawString(">",  x - 32,  y);
+		}
+		
+		text = "AUTHOR'S NOTE";
+		x = getXForCenteredText(g, text);
+		y += 40;
+		g.drawString(text, x, y);
+		
+		if(commandNum == 3)
+		{
+			g.drawString(">",  x - 32,  y);
+		}
+		
+		text = "QUIT";
+		x = getXForCenteredText(g, text);
+		y += 40;
+		g.drawString(text, x, y);
+		
+		if(commandNum == 4)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
