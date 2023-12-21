@@ -82,17 +82,17 @@ public class CLayout
 		new Sounds(Sounds.introMusicSoundPath);
 	}
 	
-	// main function
-	public static void main(String[] args) 
-	{
-		SwingUtilities.invokeLater(new Runnable() 
-		{
-			public void run() 
-			{
-				// Start the application
-				new CLayout();
-			}
-		});
-	}
+//	// main function
+//	public static void main(String[] args) 
+//	{
+//		SwingUtilities.invokeLater(new Runnable() 
+//		{
+//			public void run() 
+//			{
+//				// Start the application
+//				new CLayout();
+//			}
+//		});
+//	}
 
 }

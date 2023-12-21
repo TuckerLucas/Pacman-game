@@ -16,6 +16,7 @@ package Game;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -65,6 +66,12 @@ public class Game extends Canvas implements Runnable, KeyListener
 	
 	public Game()
 	{
+		this.setPreferredSize(new Dimension(600, 780));
+		this.setBackground(Color.black);
+		//this.setDoubleBuffered(true);
+		//this.addKeyListener(keyH);
+		this.setFocusable(true);
+		
 		addKeyListener(this);
 		gameStatus = init;			
 		Animation.animation = new Animation();
@@ -451,6 +458,11 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 				break;
 		}
+	}
+	
+	public void setupGame()
+	{
+		gameStatus = init;
 	}
 
 	@Override
