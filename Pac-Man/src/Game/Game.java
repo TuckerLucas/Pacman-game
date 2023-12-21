@@ -29,7 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class Game extends Canvas implements Runnable, KeyListener
+public class Game extends Canvas implements Runnable
 {	
 	private static final long serialVersionUID = 1L;
 	
@@ -67,13 +67,15 @@ public class Game extends Canvas implements Runnable, KeyListener
 	
 	Font maruMonica;
 	
+	public KeyHandler keyH = new KeyHandler(this);
+	
 	public Game()
 	{
 		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		this.setBackground(Color.black);
 		this.setFocusable(true);
 		
-		addKeyListener(this);
+		addKeyListener(keyH);
 		gameStatus = init;			
 		Animation.animation = new Animation();
 		
@@ -217,7 +219,7 @@ public class Game extends Canvas implements Runnable, KeyListener
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 36F));
 		text = "PLAY PACMAN";
 		x = getXForCenteredText(g, text);
-		y += 32*6;
+		y += 32*12;
 		g.drawString(text, x, y);
 		
 		if(commandNum == 0)
@@ -472,90 +474,5 @@ public class Game extends Canvas implements Runnable, KeyListener
 		stopGame();							
 	}
 
-	@Override
-	public void keyPressed(KeyEvent e)
-	{
-		switch(gameStatus)
-		{
-			case play: 
-				
-				switch(e.getKeyCode())
-				{
-					case KeyEvent.VK_D:	// fall through
-					case KeyEvent.VK_RIGHT: Pacman.nextDir = Character.right; break;
-					case KeyEvent.VK_A:	// fall through
-					case KeyEvent.VK_LEFT: Pacman.nextDir = Character.left; break;
-					case KeyEvent.VK_W:	// fall through
-					case KeyEvent.VK_UP: Pacman.nextDir = Character.upwards; break;
-					case KeyEvent.VK_S:	// fall through
-					case KeyEvent.VK_DOWN: Pacman.nextDir = Character.downwards; break;
-				}
-				
-				break;
-				
-			case lose:
-				
-				if(e.getKeyCode() == KeyEvent.VK_SPACE)
-				{
-					space = true;
-				}
-				
-				// fall through
-				
-			case init:	
-				
-				if(e.getKeyCode() == KeyEvent.VK_W)
-				{
-					commandNum--;
-					
-					if(commandNum < 0)
-					{
-						commandNum = 1;
-					}
-				}
-				
-				if(e.getKeyCode() == KeyEvent.VK_S)
-				{
-					commandNum++;
-					
-					if(commandNum > 1)
-					{
-						commandNum = 0;
-					}
-				}
-				
-				if(e.getKeyCode() == KeyEvent.VK_ENTER)
-				{
-					if(commandNum == 0)
-					{
-						enter = true;
-					}
-					if(commandNum == 1)
-					{
-						System.exit(0);
-					}
-				}
-				
-			case win:
-				
-				if(e.getKeyCode() == KeyEvent.VK_ENTER)
-				{
-					enter = true;					
-				}
-				
-				break;
-		}
-	}
 
-	@Override
-	public void keyReleased(KeyEvent e)
-	{
-
-	}
-	
-	@Override
-	public void keyTyped(KeyEvent e)
-	{
-		
-	}
 }
