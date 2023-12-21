@@ -27,11 +27,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import GUI.CLayout;
-import GUI.LeaderboardPanel;
-
 public class Game extends Canvas implements Runnable, KeyListener
-{
+{	
 	private static final long serialVersionUID = 1L;
 	
 	private static Thread thread;
@@ -64,12 +61,12 @@ public class Game extends Canvas implements Runnable, KeyListener
 	private static double targetTick = 60.0; 				
 	public static double secondsPerTick = 1.0 / targetTick;
 	
+	public int commandNum = 0;
+	
 	public Game()
 	{
-		this.setPreferredSize(new Dimension(600, 780));
+		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		this.setBackground(Color.black);
-		//this.setDoubleBuffered(true);
-		//this.addKeyListener(keyH);
 		this.setFocusable(true);
 		
 		addKeyListener(this);
@@ -179,11 +176,53 @@ public class Game extends Canvas implements Runnable, KeyListener
 
 	private void drawInitScreen(Graphics g)
 	{	
-		if(showText)
+		// BACKGROUND COLOR
+		g.setColor(new Color(0, 0, 0));
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		// TITLE NAME
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 92F));
+		String text = "PACMAN";
+		int x = getXForCenteredText(g, text);
+		int y = 32*3;
+		
+		// SHADOW
+		g.setColor(Color.orange);
+		g.drawString(text, x + 3, y + 3);
+		
+		// MAIN COLOR
+		g.setColor(Color.yellow);
+		g.drawString(text, x, y);
+		
+		g.setColor(Color.white);
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 36F));
+		text = "PLAY PACMAN";
+		x = getXForCenteredText(g, text);
+		y += 32*6;
+		g.drawString(text, x, y);
+		
+		if(commandNum == 0)
 		{
-			g.drawString("ENTER", 266, 350); 
+			g.drawString(">",  x - 32,  y);
 		}
-		g.drawString("PRESS       TO START!", 170, 350); 
+		
+		text = "QUIT";
+		x = getXForCenteredText(g, text);
+		y += 32;
+		g.drawString(text, x, y);
+		
+		if(commandNum == 1)
+		{
+			g.drawString(">",  x - 32,  y);
+		}
+	}
+	
+	public int getXForCenteredText(Graphics g, String text)
+	{
+		int length = (int)g.getFontMetrics().getStringBounds(text, g).getWidth();
+		int x = WIDTH/2 - length/2;
+		
+		return x;
 	}
 
 	private void drawWinScreen(Graphics g)
@@ -319,7 +358,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 				{
 					space = false;
 					score = 0;
-					CLayout.cardLayout.show(CLayout.panelContainer, "Home");
 					gameStatus = init;
 				}
 				
@@ -447,7 +485,37 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 			case init:	
 				
-				// fall through
+				if(e.getKeyCode() == KeyEvent.VK_W)
+				{
+					commandNum--;
+					
+					if(commandNum < 0)
+					{
+						commandNum = 1;
+					}
+				}
+				
+				if(e.getKeyCode() == KeyEvent.VK_S)
+				{
+					commandNum++;
+					
+					if(commandNum > 1)
+					{
+						commandNum = 0;
+					}
+				}
+				
+				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					if(commandNum == 0)
+					{
+						enter = true;
+					}
+					if(commandNum == 1)
+					{
+						System.exit(0);
+					}
+				}
 				
 			case win:
 				
@@ -458,11 +526,6 @@ public class Game extends Canvas implements Runnable, KeyListener
 				
 				break;
 		}
-	}
-	
-	public void setupGame()
-	{
-		gameStatus = init;
 	}
 
 	@Override
