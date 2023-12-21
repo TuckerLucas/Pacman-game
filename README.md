@@ -8,10 +8,7 @@ This project was initially developed in an academic context as part of a subject
 
 ## Features
 The standalone application includes several features, such as:
-* User Interface with:
-  + Username insertion menu prior to starting the game;
-  + Settings menu for sound enabling/disabling;
-  + Project/author information menu.
+* User Interface;
 * Pacman game with:
   + 1 playable character (pacman) and 4 ghosts;
   + Portals for crossing from one side of the map to the other;
@@ -23,9 +20,7 @@ The standalone application includes several features, such as:
 
 ## Coming soon
 I have a list of features/bug fixes in mind which I'd like to implement in the near future to improve the project:
-* Include a leaderboard in the User Interface for player ranking (currently in progress);
-* Fix or remove the difficulty button from the settings menu as that currently does not work;
-* Change the User Interface aesthetics to solely accept keyboard inputs so as to give it more of an arcade feel;
+* Enable User Interface menu options other than play and exit which are already functional;
 * Change each ghost's AI slightly so that they don't cover the exact same path when chasing pacman as not to overlap;
 * Cool down period for ghosts to spend in spawn box after eaten in order to allow pacman to eat ghosts close to the spawn box without having an instant death.
 
