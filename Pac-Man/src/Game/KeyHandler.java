@@ -115,6 +115,10 @@ public class KeyHandler implements KeyListener
 		{
 			game.space = true;
 		}
+		if(code == KeyEvent.VK_ENTER)
+		{
+			game.enter = true;					
+		}
 	}
 	
 	public void winState(int code)

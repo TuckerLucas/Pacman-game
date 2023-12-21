@@ -178,7 +178,7 @@ public abstract class Character extends Rectangle
 		return true;
 	}
 	
-	private static void shiftCharacterInGivenDirection(Character character, int direction)
+	public static void shiftCharacterInGivenDirection(Character character, int direction)
 	{
 		switch(direction)
 		{
