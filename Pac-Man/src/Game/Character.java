@@ -16,8 +16,8 @@ public abstract class Character extends Rectangle
 	public static final int crossingPortalFromRightSide = 0;
 	public static final int crossingPortalFromLeftSide = 1;
 	
-	public static int portalLeftSideCrossingPointXCoordinate = 0;
-	public static int portalRightSideCrossingPointXCoordinate = 640;
+	public static int portalLeftSideCrossingPointXCoordinate = 0 - 32;
+	public static int portalRightSideCrossingPointXCoordinate = 640 + 32;
 	
 	private static int portalLeftSideEntryXCoordinate = 160;
 	private static int portalRightSideEntryXCoordinate = 480;
