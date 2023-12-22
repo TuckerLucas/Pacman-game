@@ -64,45 +64,45 @@ public class KeyHandler implements KeyListener
 	
 	public void initState(int code)
 	{
-		if(code == KeyEvent.VK_W)
+		if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP)
 		{
-			game.commandNum--;
+			game.commandNumInit--;
 			
-			if(game.commandNum < 0)
+			if(game.commandNumInit < 0)
 			{
-				game.commandNum = 4;
+				game.commandNumInit = 4;
 			}
 		}
 		
-		if(code == KeyEvent.VK_S)
+		if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
 		{
-			game.commandNum++;
+			game.commandNumInit++;
 			
-			if(game.commandNum > 4)
+			if(game.commandNumInit > 4)
 			{
-				game.commandNum = 0;
+				game.commandNumInit = 0;
 			}
 		}
 		
 		if(code == KeyEvent.VK_ENTER)
 		{
-			if(game.commandNum == 0)
+			if(game.commandNumInit == 0)
 			{
 				game.enter = true;
 			}
-			if(game.commandNum == 1)
+			if(game.commandNumInit == 1)
 			{
 				// LEADERBOARD
 			}
-			if(game.commandNum == 2)
+			if(game.commandNumInit == 2)
 			{
 				// SETTINGS
 			}
-			if(game.commandNum == 3)
+			if(game.commandNumInit == 3)
 			{
 				// AUTHOR'S NOTE
 			}
-			if(game.commandNum == 4)
+			if(game.commandNumInit == 4)
 			{
 				System.exit(0);
 			}
@@ -111,13 +111,45 @@ public class KeyHandler implements KeyListener
 	
 	public void loseState(int code)
 	{
+		if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP)
+		{
+			game.commandNumLose--;
+			
+			if(game.commandNumLose < 0)
+			{
+				game.commandNumLose = 2;
+			}
+		}
+		
+		if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
+		{
+			game.commandNumLose++;
+			
+			if(game.commandNumLose > 2)
+			{
+				game.commandNumLose = 0;
+			}
+		}
+		
 		if(code == KeyEvent.VK_SPACE)
 		{
 			game.space = true;
 		}
 		if(code == KeyEvent.VK_ENTER)
 		{
-			game.enter = true;					
+			if(game.commandNumLose == 0)
+			{
+				// HOME PANEL
+				game.space = true;
+			}
+			if(game.commandNumLose == 1)
+			{
+				game.enter = true;
+			}
+			if(game.commandNumLose == 2)
+			{
+				System.exit(0);
+			}						
 		}
 	}
 	
@@ -125,7 +157,7 @@ public class KeyHandler implements KeyListener
 	{
 		if(code == KeyEvent.VK_ENTER)
 		{
-			game.enter = true;					
+			game.enter = true;				
 		}
 	}
 }

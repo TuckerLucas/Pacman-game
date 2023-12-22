@@ -63,9 +63,10 @@ public class Game extends Canvas implements Runnable
 	private static double targetTick = 60.0; 				
 	public static double secondsPerTick = 1.0 / targetTick;
 	
-	public int commandNum = 0;
+	public int commandNumInit = 0;
+	public int commandNumLose = 0;
 	
-	Font maruMonica;
+	static Font maruMonica;
 	
 	public KeyHandler keyH = new KeyHandler(this);
 	
@@ -194,7 +195,7 @@ public class Game extends Canvas implements Runnable
 	}
 	
 
-	private void drawInitScreen(Graphics g)
+	public void drawInitScreen(Graphics g)
 	{	
 		// BACKGROUND COLOR
 		g.setColor(new Color(0, 0, 0));
@@ -208,6 +209,9 @@ public class Game extends Canvas implements Runnable
 		int y = 32*5;
 		
 		// SHADOW
+		g.setColor(Color.white);
+		g.drawString(text, x + 4, y + 4);
+		
 		g.setColor(Color.orange);
 		g.drawString(text, x + 3, y + 3);
 		
@@ -222,7 +226,7 @@ public class Game extends Canvas implements Runnable
 		y += 32*8;
 		g.drawString(text, x, y);
 		
-		if(commandNum == 0)
+		if(commandNumInit == 0)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -232,7 +236,7 @@ public class Game extends Canvas implements Runnable
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(commandNum == 1)
+		if(commandNumInit == 1)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -242,7 +246,7 @@ public class Game extends Canvas implements Runnable
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(commandNum == 2)
+		if(commandNumInit == 2)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -252,7 +256,7 @@ public class Game extends Canvas implements Runnable
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(commandNum == 3)
+		if(commandNumInit == 3)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -262,13 +266,13 @@ public class Game extends Canvas implements Runnable
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(commandNum == 4)
+		if(commandNumInit == 4)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
 	}
 	
-	public int getXForCenteredText(Graphics g, String text)
+	public static int getXForCenteredText(Graphics g, String text)
 	{
 		int length = (int)g.getFontMetrics().getStringBounds(text, g).getWidth();
 		int x = WIDTH/2 - length/2;
@@ -286,16 +290,67 @@ public class Game extends Canvas implements Runnable
 		g.drawString("PRESS       TO CONTINUE GAME", 60, 350);
 	}
 	
-	public static void drawLoseScreen(Graphics g)
+	public void drawLoseScreen(Graphics g)
 	{		
-		g.drawString("BAD LUCK!", 270, 100);
-		if(showText)
+		String text = "YOU LOST!";
+		
+		g.setFont(maruMonica);
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 92F));
+		int x = getXForCenteredText(g, text);
+		int y = 32*5;
+		
+		g.setColor(Color.white);
+		g.drawString(text, x + 4, y + 4);
+		
+		g.setColor(Color.black);
+		g.drawString(text, x + 3, y + 3);
+		
+		g.setColor(Color.red);
+		g.drawString(text, x, y);
+		
+		
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 60F));
+		text = "SCORE : " + score;
+		x = getXForCenteredText(g, text);
+		y += 32*5;
+		
+		g.setColor(Color.gray);
+		g.drawString(text, x+4, y+4);
+		g.setColor(Color.black);
+		g.drawString(text, x+3, y+3);
+		g.setColor(Color.white);
+		g.drawString(text, x, y);
+		
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 36F));
+		text = "HOME";
+		x = getXForCenteredText(g, text);
+		y += 32*5;
+		g.drawString(text, x, y);
+		
+		if(commandNumLose == 0)
 		{
-			g.drawString("ENTER", 156, 350);
-			g.drawString("SPACE", 156, 400);
+			g.drawString(">",  x - 32,  y);
 		}
-		g.drawString("PRESS       TO RESTART GAME", 60, 350);
-		g.drawString("PRESS       TO GO HOME", 60, 400);
+		
+		text = "PLAY AGAIN";
+		x = getXForCenteredText(g, text);
+		y += 40;
+		g.drawString(text, x, y);
+		
+		if(commandNumLose == 1)
+		{
+			g.drawString(">",  x - 32,  y);
+		}
+		
+		text = "QUIT";
+		x = getXForCenteredText(g, text);
+		y += 40;
+		g.drawString(text, x, y);
+		
+		if(commandNumLose == 2)
+		{
+			g.drawString(">",  x - 32,  y);
+		}
 	}
 	
 	private void drawPacmanDying(Graphics g)
