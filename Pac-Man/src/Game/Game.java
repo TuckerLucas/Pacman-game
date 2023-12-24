@@ -47,8 +47,6 @@ public class Game extends Canvas implements Runnable
 	private int targetFrames = 30;
 	private static boolean showText = true;
 	
-	public static int directionsArray[] = new int[4];
-	
 	private static String scoresPath = "res/Files/LeaderboardInfo.txt";
 
 	private static double targetTick = 60.0; 				
