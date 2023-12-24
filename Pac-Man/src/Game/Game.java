@@ -64,9 +64,10 @@ public class Game extends Canvas implements Runnable
 	{
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 		this.setBackground(Color.black);
+		this.addKeyListener(keyH);
 		this.setFocusable(true);
 		
-		addKeyListener(keyH);
+		
 		gameStatus = init;			
 		Animation.animation = new Animation();
 		
@@ -221,6 +222,7 @@ public class Game extends Canvas implements Runnable
 			g.drawString(">",  x - 32,  y);
 		}
 		
+		/*
 		text = "LEADERBOARD";
 		x = getXForCenteredText(g, text);
 		y += 40;
@@ -249,14 +251,14 @@ public class Game extends Canvas implements Runnable
 		if(commandNumInit == 3)
 		{
 			g.drawString(">",  x - 32,  y);
-		}
+		}*/
 		
 		text = "QUIT";
 		x = getXForCenteredText(g, text);
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(commandNumInit == 4)
+		if(commandNumInit == 1)
 		{
 			g.drawString(">",  x - 32,  y);
 		}

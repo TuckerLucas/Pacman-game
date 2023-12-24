@@ -70,7 +70,7 @@ public class KeyHandler implements KeyListener
 			
 			if(game.commandNumInit < 0)
 			{
-				game.commandNumInit = 4;
+				game.commandNumInit = 1;
 			}
 		}
 		
@@ -78,7 +78,7 @@ public class KeyHandler implements KeyListener
 		{
 			game.commandNumInit++;
 			
-			if(game.commandNumInit > 4)
+			if(game.commandNumInit > 1)
 			{
 				game.commandNumInit = 0;
 			}
@@ -90,6 +90,7 @@ public class KeyHandler implements KeyListener
 			{
 				game.enter = true;
 			}
+			/*
 			if(game.commandNumInit == 1)
 			{
 				// LEADERBOARD
@@ -101,8 +102,8 @@ public class KeyHandler implements KeyListener
 			if(game.commandNumInit == 3)
 			{
 				// AUTHOR'S NOTE
-			}
-			if(game.commandNumInit == 4)
+			}*/
+			if(game.commandNumInit == 1)
 			{
 				System.exit(0);
 			}
