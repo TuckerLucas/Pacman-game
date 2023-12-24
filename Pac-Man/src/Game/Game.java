@@ -17,15 +17,15 @@ public class Game extends Canvas implements Runnable
 {	
 	private static final long serialVersionUID = 1L;
 	
-	final int originalTileSize = 16;
-	final int scale = 2;
+	static final int originalTileSize = 16;
+	static final int scale = 2;
 	
-	public final int tileSize = originalTileSize * scale;
+	public static final int tileSize = originalTileSize * scale;
 	public final int maxScreenCol = 21;
 	public final int maxScreenRow = 22;
 	
-	public final int WIDTH = tileSize * maxScreenCol;
-	public final int HEIGHT = (tileSize * maxScreenRow) + 80;	// 704 game + 80 data
+	public final int screenWidth = tileSize * maxScreenCol;
+	public final int screenHeight = (tileSize * maxScreenRow) + 80;	// 704 game + 80 data
 	
 	private static Thread thread;
 	private static boolean isRunning = false;	
@@ -49,7 +49,7 @@ public class Game extends Canvas implements Runnable
 	
 	public static int directionsArray[] = new int[4];
 	
-	private static String scoresPath = "res/Files/Scores.txt";
+	private static String scoresPath = "res/Files/LeaderboardInfo.txt";
 
 	private static double targetTick = 60.0; 				
 	public static double secondsPerTick = 1.0 / targetTick;
@@ -64,7 +64,7 @@ public class Game extends Canvas implements Runnable
 	
 	public Game()
 	{
-		this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 		this.setBackground(Color.black);
 		this.setFocusable(true);
 		
@@ -191,7 +191,7 @@ public class Game extends Canvas implements Runnable
 	{	
 		// BACKGROUND COLOR
 		g.setColor(new Color(0, 0, 0));
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.fillRect(0, 0, screenWidth, screenHeight);
 		
 		// TITLE NAME
 		g.setFont(maruMonica);
@@ -267,7 +267,7 @@ public class Game extends Canvas implements Runnable
 	public int getXForCenteredText(Graphics g, String text)
 	{
 		int length = (int)g.getFontMetrics().getStringBounds(text, g).getWidth();
-		int x = WIDTH/2 - length/2;
+		int x = screenWidth/2 - length/2;
 		
 		return x;
 	}
@@ -484,11 +484,6 @@ public class Game extends Canvas implements Runnable
 				
 			case lose:
 				
-				/*
-				LeaderboardPanel.read_from_file();
-				LeaderboardPanel.swap_values();
-				LeaderboardPanel.write_to_file();*/
-				
 				BonusScore.isBeingDisplayed = false;
 				
 				Pacman.numberOfLives = 3;
@@ -573,7 +568,7 @@ public class Game extends Canvas implements Runnable
 		Graphics g = bs.getDrawGraphics();
 		
 		g.setColor(Color.black);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.fillRect(0, 0, screenWidth, screenHeight);
 		setLetteringStyle(g, Color.white, Font.DIALOG_INPUT, 26);
 		
 		switch(gameStatus)

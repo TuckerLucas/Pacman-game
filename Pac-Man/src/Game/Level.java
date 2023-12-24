@@ -13,8 +13,8 @@ public class Level
 	private static int gameWidth;
 	private static int gameHeight;
 		
-	public static int objectWidth = 32;
-	public static int objectHeight = 32;
+	public static int objectWidth = Game.tileSize;
+	public static int objectHeight = Game.tileSize;
 	
 	private final int black = 0xFF000000;
 	private final int gray = 0xFF808080;
