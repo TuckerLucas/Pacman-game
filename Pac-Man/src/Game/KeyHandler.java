@@ -64,133 +64,73 @@ public class KeyHandler implements KeyListener
 	
 	public void initState(int code)
 	{
-		if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP)
-		{
-			game.commandNumInit--;
-			
-			if(game.commandNumInit < 0)
-			{
-				game.commandNumInit = 1;
-			}
-		}
-		
-		if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
-		{
-			game.commandNumInit++;
-			
-			if(game.commandNumInit > 1)
-			{
-				game.commandNumInit = 0;
-			}
-		}
+		enableScrolling(code, 1);
 		
 		if(code == KeyEvent.VK_ENTER)
 		{
-			if(game.commandNumInit == 0)
+			switch(game.menuOptionIndex)
 			{
-				game.enter = true;
+				case 0: game.enter = true; break;
+				case 1: System.exit(0); break;
 			}
-			/*
-			if(game.commandNumInit == 1)
-			{
-				// LEADERBOARD
-			}
-			if(game.commandNumInit == 2)
-			{
-				// SETTINGS
-			}
-			if(game.commandNumInit == 3)
-			{
-				// AUTHOR'S NOTE
-			}*/
-			if(game.commandNumInit == 1)
-			{
-				System.exit(0);
-			}
+			
+			game.menuOptionIndex = 0;
 		}
 	}
 	
 	public void loseState(int code)
 	{
-		if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP)
-		{
-			game.commandNumLose--;
-			
-			if(game.commandNumLose < 0)
-			{
-				game.commandNumLose = 2;
-			}
-		}
+		enableScrolling(code, 2);
 		
-		if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
-		{
-			game.commandNumLose++;
-			
-			if(game.commandNumLose > 2)
-			{
-				game.commandNumLose = 0;
-			}
-		}
-		
-		if(code == KeyEvent.VK_SPACE)
-		{
-			game.space = true;
-		}
 		if(code == KeyEvent.VK_ENTER)
 		{
-			if(game.commandNumLose == 0)
+			switch(game.menuOptionIndex)
 			{
-				// HOME PANEL
-				game.space = true;
+				case 0: game.space = true; break;
+				case 1: game.enter = true; break;
+				case 2: System.exit(0); break;
 			}
-			if(game.commandNumLose == 1)
-			{
-				game.enter = true;
-			}
-			if(game.commandNumLose == 2)
-			{
-				System.exit(0);
-			}						
+			
+			game.menuOptionIndex = 0;
 		}
 	}
 	
 	public void winState(int code)
 	{
-		if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP)
-		{
-			game.commandNumWin--;
-			
-			if(game.commandNumWin < 0)
-			{
-				game.commandNumWin = 2;
-			}
-		}
-		
-		if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
-		{
-			game.commandNumWin++;
-			
-			if(game.commandNumWin > 2)
-			{
-				game.commandNumWin = 0;
-			}
-		}
+		enableScrolling(code, 2);
 		
 		if(code == KeyEvent.VK_ENTER)
 		{
-			if(game.commandNumWin == 0)
+			switch(game.menuOptionIndex)
 			{
-				game.enter = true;
+				case 0: game.enter = true; break;
+				case 1: game.space = true; break;
+				case 2: System.exit(0); break;
 			}
-			if(game.commandNumWin == 1)
+			
+			game.menuOptionIndex = 0;
+		}
+	}
+	
+	private void enableScrolling(int code, int maxIndex)
+	{
+		if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP)
+		{
+			game.menuOptionIndex--;
+			
+			if(game.menuOptionIndex < 0)
 			{
-				// HOME PANEL
-				game.space = true;
+				game.menuOptionIndex = maxIndex;
 			}
-			if(game.commandNumWin == 2)
+		}
+		else if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
+		{
+			game.menuOptionIndex++;
+			
+			if(game.menuOptionIndex > maxIndex)
 			{
-				System.exit(0);
-			}			
+				game.menuOptionIndex = 0;
+			}
 		}
 	}
 }

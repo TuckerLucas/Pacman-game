@@ -52,9 +52,7 @@ public class Game extends Canvas implements Runnable
 	private static double targetTick = 60.0; 				
 	public static double secondsPerTick = 1.0 / targetTick;
 	
-	public int commandNumInit = 0;
-	public int commandNumLose = 0;
-	public int commandNumWin = 0;
+	public int menuOptionIndex = 0;
 	
 	static Font maruMonica;
 	
@@ -217,7 +215,7 @@ public class Game extends Canvas implements Runnable
 		y += 32*8;
 		g.drawString(text, x, y);
 		
-		if(commandNumInit == 0)
+		if(menuOptionIndex == 0)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -228,7 +226,7 @@ public class Game extends Canvas implements Runnable
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(commandNumInit == 1)
+		if(menuOptionIndexInit == 1)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -238,7 +236,7 @@ public class Game extends Canvas implements Runnable
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(commandNumInit == 2)
+		if(menuOptionIndexInit == 2)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -248,7 +246,7 @@ public class Game extends Canvas implements Runnable
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(commandNumInit == 3)
+		if(menuOptionIndexInit == 3)
 		{
 			g.drawString(">",  x - 32,  y);
 		}*/
@@ -258,7 +256,7 @@ public class Game extends Canvas implements Runnable
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(commandNumInit == 1)
+		if(menuOptionIndex == 1)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -311,7 +309,7 @@ public class Game extends Canvas implements Runnable
 		y += 32*5;
 		g.drawString(text, x, y);
 		
-		if(commandNumWin == 0)
+		if(menuOptionIndex == 0)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -321,7 +319,7 @@ public class Game extends Canvas implements Runnable
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(commandNumWin == 1)
+		if(menuOptionIndex == 1)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -331,7 +329,7 @@ public class Game extends Canvas implements Runnable
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(commandNumWin == 2)
+		if(menuOptionIndex == 2)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -376,7 +374,7 @@ public class Game extends Canvas implements Runnable
 		y += 32*5;
 		g.drawString(text, x, y);
 		
-		if(commandNumLose == 0)
+		if(menuOptionIndex == 0)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -386,7 +384,7 @@ public class Game extends Canvas implements Runnable
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(commandNumLose == 1)
+		if(menuOptionIndex == 1)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -396,7 +394,7 @@ public class Game extends Canvas implements Runnable
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(commandNumLose == 2)
+		if(menuOptionIndex == 2)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
