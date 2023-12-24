@@ -45,7 +45,7 @@ public class Game extends Canvas implements Runnable
 	
 	private int blinkTime = 0;							
 	private int targetFrames = 30;
-	private static boolean showText = true;
+	public boolean showText = true;
 	
 	private static String scoresPath = "res/Files/LeaderboardInfo.txt";
 
@@ -58,13 +58,14 @@ public class Game extends Canvas implements Runnable
 	
 	public KeyHandler keyH = new KeyHandler(this);
 	
+	public UI ui = new UI(this);
+	
 	public Game()
 	{
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 		this.setBackground(Color.black);
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
-		
 		
 		gameStatus = init;			
 		Animation.animation = new Animation();
@@ -183,233 +184,6 @@ public class Game extends Canvas implements Runnable
 		g.setFont(new Font(font, Font.BOLD, fontSize)); 
 	}
 	
-
-	public void drawInitScreen(Graphics g)
-	{	
-		// BACKGROUND COLOR
-		g.setColor(new Color(0, 0, 0));
-		g.fillRect(0, 0, screenWidth, screenHeight);
-		
-		// TITLE NAME
-		g.setFont(maruMonica);
-		g.setFont(g.getFont().deriveFont(Font.BOLD, 92F));
-		String text = "PACMAN";
-		int x = getXForCenteredText(g, text);
-		int y = 32*5;
-		
-		// SHADOW
-		g.setColor(Color.white);
-		g.drawString(text, x + 4, y + 4);
-		
-		g.setColor(Color.orange);
-		g.drawString(text, x + 3, y + 3);
-		
-		// MAIN COLOR
-		g.setColor(Color.yellow);
-		g.drawString(text, x, y);
-		
-		g.setColor(Color.white);
-		g.setFont(g.getFont().deriveFont(Font.BOLD, 36F));
-		text = "PLAY";
-		x = getXForCenteredText(g, text);
-		y += 32*8;
-		g.drawString(text, x, y);
-		
-		if(menuOptionIndex == 0)
-		{
-			g.drawString(">",  x - 32,  y);
-		}
-		
-		/*
-		text = "LEADERBOARD";
-		x = getXForCenteredText(g, text);
-		y += 40;
-		g.drawString(text, x, y);
-		
-		if(menuOptionIndexInit == 1)
-		{
-			g.drawString(">",  x - 32,  y);
-		}
-		
-		text = "SETTINGS";
-		x = getXForCenteredText(g, text);
-		y += 40;
-		g.drawString(text, x, y);
-		
-		if(menuOptionIndexInit == 2)
-		{
-			g.drawString(">",  x - 32,  y);
-		}
-		
-		text = "AUTHOR'S NOTE";
-		x = getXForCenteredText(g, text);
-		y += 40;
-		g.drawString(text, x, y);
-		
-		if(menuOptionIndexInit == 3)
-		{
-			g.drawString(">",  x - 32,  y);
-		}*/
-		
-		text = "QUIT";
-		x = getXForCenteredText(g, text);
-		y += 40;
-		g.drawString(text, x, y);
-		
-		if(menuOptionIndex == 1)
-		{
-			g.drawString(">",  x - 32,  y);
-		}
-	}
-	
-	public int getXForCenteredText(Graphics g, String text)
-	{
-		int length = (int)g.getFontMetrics().getStringBounds(text, g).getWidth();
-		int x = screenWidth/2 - length/2;
-		
-		return x;
-	}
-
-	private void drawWinScreen(Graphics g)
-	{		
-		String text = "YOU WON!";
-		
-		g.setFont(maruMonica);
-		g.setFont(g.getFont().deriveFont(Font.BOLD, 92F));
-		int x = getXForCenteredText(g, text);
-		int y = 32*5;
-		
-		if(showText)
-		{
-			g.setColor(Color.white);
-			g.drawString(text, x + 4, y + 4);
-			
-			g.setColor(Color.black);
-			g.drawString(text, x + 3, y + 3);
-			
-			g.setColor(Color.green);
-			g.drawString(text, x, y);
-		}
-		
-		g.setFont(g.getFont().deriveFont(Font.BOLD, 60F));
-		text = "SCORE : " + score;
-		x = getXForCenteredText(g, text);
-		y += 32*5;
-		
-		g.setColor(Color.gray);
-		g.drawString(text, x+4, y+4);
-		g.setColor(Color.black);
-		g.drawString(text, x+3, y+3);
-		g.setColor(Color.white);
-		g.drawString(text, x, y);
-		
-		g.setFont(g.getFont().deriveFont(Font.BOLD, 36F));
-		text = "NEXT LEVEL";
-		x = getXForCenteredText(g, text);
-		y += 32*5;
-		g.drawString(text, x, y);
-		
-		if(menuOptionIndex == 0)
-		{
-			g.drawString(">",  x - 32,  y);
-		}
-		
-		text = "HOME";
-		x = getXForCenteredText(g, text);
-		y += 40;
-		g.drawString(text, x, y);
-		
-		if(menuOptionIndex == 1)
-		{
-			g.drawString(">",  x - 32,  y);
-		}
-		
-		text = "QUIT";
-		x = getXForCenteredText(g, text);
-		y += 40;
-		g.drawString(text, x, y);
-		
-		if(menuOptionIndex == 2)
-		{
-			g.drawString(">",  x - 32,  y);
-		}
-	}
-	
-	public void drawLoseScreen(Graphics g)
-	{		
-		String text = "YOU LOST!";
-		
-		g.setFont(maruMonica);
-		g.setFont(g.getFont().deriveFont(Font.BOLD, 92F));
-		int x = getXForCenteredText(g, text);
-		int y = 32*5;
-		
-		if(showText)
-		{
-			g.setColor(Color.white);
-			g.drawString(text, x + 4, y + 4);
-			
-			g.setColor(Color.black);
-			g.drawString(text, x + 3, y + 3);
-			
-			g.setColor(Color.red);
-			g.drawString(text, x, y);
-		}
-		
-		g.setFont(g.getFont().deriveFont(Font.BOLD, 60F));
-		text = "SCORE : " + score;
-		x = getXForCenteredText(g, text);
-		y += 32*5;
-		
-		g.setColor(Color.gray);
-		g.drawString(text, x+4, y+4);
-		g.setColor(Color.black);
-		g.drawString(text, x+3, y+3);
-		g.setColor(Color.white);
-		g.drawString(text, x, y);
-		
-		g.setFont(g.getFont().deriveFont(Font.BOLD, 36F));
-		text = "HOME";
-		x = getXForCenteredText(g, text);
-		y += 32*5;
-		g.drawString(text, x, y);
-		
-		if(menuOptionIndex == 0)
-		{
-			g.drawString(">",  x - 32,  y);
-		}
-		
-		text = "PLAY AGAIN";
-		x = getXForCenteredText(g, text);
-		y += 40;
-		g.drawString(text, x, y);
-		
-		if(menuOptionIndex == 1)
-		{
-			g.drawString(">",  x - 32,  y);
-		}
-		
-		text = "QUIT";
-		x = getXForCenteredText(g, text);
-		y += 40;
-		g.drawString(text, x, y);
-		
-		if(menuOptionIndex == 2)
-		{
-			g.drawString(">",  x - 32,  y);
-		}
-	}
-	
-	private void drawPacmanDying(Graphics g)
-	{
-		Pacman.pacman.render(g);
-		
-		if(gameStatus != lose)
-		{
-			Level.level.render(g);
-		}
-	}
-
 	private void tick()
 	{
 		switch(gameStatus)
@@ -569,14 +343,7 @@ public class Game extends Canvas implements Runnable
 		g.fillRect(0, 0, screenWidth, screenHeight);
 		setLetteringStyle(g, Color.white, Font.DIALOG_INPUT, 26);
 		
-		switch(gameStatus)
-		{
-			case init: drawInitScreen(g); break;
-			case win: drawWinScreen(g); break;
-			case lose: drawLoseScreen(g); break;
-			case lifeLost: drawPacmanDying(g); break; 
-			case play: Level.level.render(g); break;
-		}
+		ui.render(g);
 		
 		g.dispose();
 		bs.show();
@@ -605,6 +372,4 @@ public class Game extends Canvas implements Runnable
 		
 		stopGame();							
 	}
-
-
 }
