@@ -36,8 +36,6 @@ public class UI
 	public void render(Graphics g)
 	{
 		this.g = g;
-		g.setFont(maruMonica);
-		g.setColor(Color.white);
 		
 		if(game.gameStatus == game.init)
 		{
@@ -54,10 +52,12 @@ public class UI
 		if(game.gameStatus == game.lifeLost)
 		{
 			drawPacmanDying(g);
+			displayGameStats(g);
 		}
 		if(game.gameStatus == game.play)
 		{
 			Level.level.render(g);
+			displayGameStats(g);
 		}
 	}
 	
@@ -145,6 +145,14 @@ public class UI
 		int x = game.screenWidth/2 - length/2;
 		
 		return x;
+	}
+	
+	public int getYForCenteredText(Graphics g)
+	{
+		int height = (int)g.getFontMetrics().getHeight();
+		int y = game.screenHeight - (80/2 - height/2);
+		
+		return y;
 	}
 
 	private void drawWinScreen(Graphics g)
@@ -284,6 +292,30 @@ public class UI
 		if(game.gameStatus != game.lose)
 		{
 			Level.level.render(g);
+		}
+	}
+	
+	private void displayGameStats(Graphics g)
+	{	
+		g.setFont(maruMonica);
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 35F));
+		g.setColor(Color.white);
+		
+		int y = getYForCenteredText(g);
+		
+		g.drawString("SCORE : ", 20, y);	
+		g.drawString(String.valueOf(Game.score), 120, y);
+		
+		g.drawString("HIGHSCORE : ", 210, y);	
+		g.drawString(String.valueOf(Game.highscore), 365, y);
+		
+		g.drawString("LIVES:", 470, y);
+		
+		y = game.screenHeight - (80/2) - (game.tileSize/2) + 2; // 730
+
+		for(int i = 0; i < Pacman.numberOfLives; i++)
+		{
+			g.drawImage(Animation.alivePacmanSprites[0][2], 555 + ((game.tileSize + 5) * i), y, game.tileSize, game.tileSize, null);
 		}
 	}
 }

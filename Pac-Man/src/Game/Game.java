@@ -20,12 +20,12 @@ public class Game extends Canvas implements Runnable
 	static final int originalTileSize = 16;
 	static final int scale = 2;
 	
-	public static final int tileSize = originalTileSize * scale;
+	public final int tileSize = originalTileSize * scale;
 	public final int maxScreenCol = 21;
 	public final int maxScreenRow = 22;
 	
 	public final int screenWidth = tileSize * maxScreenCol;
-	public final int screenHeight = (tileSize * maxScreenRow) + 80;	// 704 game + 80 data
+	public final int screenHeight = ((tileSize * maxScreenRow) + 80);	// 704 game + 80 data
 	
 	private static Thread thread;
 	private static boolean isRunning = false;	
@@ -134,7 +134,7 @@ public class Game extends Canvas implements Runnable
 		}
 	}
 	
-	public static void loadGameElements()
+	public void loadGameElements()
 	{
 		Pacman.pacman = new AlivePacman(Character.right, Character.right, 320, 512);
 		Ghost.ghostArray[0] = new Ghost(0, Ghost.randomMovement, Character.notCrossingPortal, false); 
@@ -176,12 +176,6 @@ public class Game extends Canvas implements Runnable
 			return;
 		}
 		showText = true;
-	}
-
-	public static void setLetteringStyle(Graphics g, Color color, String font, int fontSize)
-	{
-		g.setColor(color);												
-		g.setFont(new Font(font, Font.BOLD, fontSize)); 
 	}
 	
 	private void tick()
@@ -341,7 +335,6 @@ public class Game extends Canvas implements Runnable
 		
 		g.setColor(Color.black);
 		g.fillRect(0, 0, screenWidth, screenHeight);
-		setLetteringStyle(g, Color.white, Font.DIALOG_INPUT, 26);
 		
 		ui.render(g);
 		

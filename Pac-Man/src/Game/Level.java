@@ -1,7 +1,5 @@
 package Game;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,8 +11,8 @@ public class Level
 	private static int gameWidth;
 	private static int gameHeight;
 		
-	public static int objectWidth = Game.tileSize;
-	public static int objectHeight = Game.tileSize;
+	public static int objectWidth = 32;
+	public static int objectHeight = 32;
 	
 	private final int black = 0xFF000000;
 	private final int gray = 0xFF808080;
@@ -156,23 +154,5 @@ public class Level
 
 		SpawnBoxDoor.spawnBoxDoor.render(g);
 		BonusScore.bonusScore.render(g);
-		
-		displayGameStats(g);
-	}
-	
-	private static void displayGameStats(Graphics g)
-	{							
-		Game.setLetteringStyle(g, Color.white, Font.DIALOG_INPUT, 23);
-		
-		g.drawString("SCORE: ", 20, 745);	
-		g.drawString(String.valueOf(Game.score), 105, 745);
-		g.drawString("HIGHSCORE: ", 210, 745);	
-		g.drawString(String.valueOf(Game.highscore), 350, 745);
-		g.drawString("LIVES:", 470, 745);
-		
-		for(int i = 0; i < Pacman.numberOfLives; i++)
-		{
-			g.drawImage(Animation.alivePacmanSprites[0][2], 555 + (35 * i), 720, objectWidth, objectHeight, null);
-		}
 	}
 }
