@@ -1,17 +1,3 @@
-/**************************************************************
-* Created by: Lucas Tucker (tucker.lucas.1404@gmail.com)
-* 
-* File: Game.java
-* 
-* Description: 
-* 
-* This file manages the game states and is responsible for 
-* loading the characters into the map as well as displaying
-* the appropriate content/messages to the user depending on the 
-* current state of the game.
-* 
-/**************************************************************/
-
 package Game;
 
 import java.awt.Canvas;
@@ -20,8 +6,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -65,6 +49,7 @@ public class Game extends Canvas implements Runnable
 	
 	public int commandNumInit = 0;
 	public int commandNumLose = 0;
+	public int commandNumWin = 0;
 	
 	static Font maruMonica;
 	
@@ -77,7 +62,7 @@ public class Game extends Canvas implements Runnable
 		this.setFocusable(true);
 		
 		addKeyListener(keyH);
-		gameStatus = init;			
+		gameStatus = win;			
 		Animation.animation = new Animation();
 		
 		getGameHighScore();
@@ -282,12 +267,67 @@ public class Game extends Canvas implements Runnable
 
 	private void drawWinScreen(Graphics g)
 	{		
-		g.drawString("WELL DONE!", 210, 0);
+		String text = "YOU WON!";
+		
+		g.setFont(maruMonica);
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 92F));
+		int x = getXForCenteredText(g, text);
+		int y = 32*5;
+		
 		if(showText)
 		{
-			g.drawString("ENTER", 156, 350);
+			g.setColor(Color.white);
+			g.drawString(text, x + 4, y + 4);
+			
+			g.setColor(Color.black);
+			g.drawString(text, x + 3, y + 3);
+			
+			g.setColor(Color.green);
+			g.drawString(text, x, y);
 		}
-		g.drawString("PRESS       TO CONTINUE GAME", 60, 350);
+		
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 60F));
+		text = "SCORE : " + score;
+		x = getXForCenteredText(g, text);
+		y += 32*5;
+		
+		g.setColor(Color.gray);
+		g.drawString(text, x+4, y+4);
+		g.setColor(Color.black);
+		g.drawString(text, x+3, y+3);
+		g.setColor(Color.white);
+		g.drawString(text, x, y);
+		
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 36F));
+		text = "NEXT LEVEL";
+		x = getXForCenteredText(g, text);
+		y += 32*5;
+		g.drawString(text, x, y);
+		
+		if(commandNumWin == 0)
+		{
+			g.drawString(">",  x - 32,  y);
+		}
+		
+		text = "HOME";
+		x = getXForCenteredText(g, text);
+		y += 40;
+		g.drawString(text, x, y);
+		
+		if(commandNumWin == 1)
+		{
+			g.drawString(">",  x - 32,  y);
+		}
+		
+		text = "QUIT";
+		x = getXForCenteredText(g, text);
+		y += 40;
+		g.drawString(text, x, y);
+		
+		if(commandNumWin == 2)
+		{
+			g.drawString(">",  x - 32,  y);
+		}
 	}
 	
 	public void drawLoseScreen(Graphics g)
@@ -299,15 +339,17 @@ public class Game extends Canvas implements Runnable
 		int x = getXForCenteredText(g, text);
 		int y = 32*5;
 		
-		g.setColor(Color.white);
-		g.drawString(text, x + 4, y + 4);
-		
-		g.setColor(Color.black);
-		g.drawString(text, x + 3, y + 3);
-		
-		g.setColor(Color.red);
-		g.drawString(text, x, y);
-		
+		if(showText)
+		{
+			g.setColor(Color.white);
+			g.drawString(text, x + 4, y + 4);
+			
+			g.setColor(Color.black);
+			g.drawString(text, x + 3, y + 3);
+			
+			g.setColor(Color.red);
+			g.drawString(text, x, y);
+		}
 		
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 60F));
 		text = "SCORE : " + score;
@@ -405,9 +447,7 @@ public class Game extends Canvas implements Runnable
 				
 				BonusScore.isBeingDisplayed = false;
 				
-				Energizer.isActive = false;				
-
-				Ghost.turnAllVulnerable();
+				Energizer.isActive = false;	
 				
 				Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
 				
@@ -424,6 +464,13 @@ public class Game extends Canvas implements Runnable
 					enter = false;
 					loadGameElements();
 					gameStatus = play;
+				}
+				
+				if(space == true)
+				{
+					space = false;
+					score = 0;
+					gameStatus = init;
 				}
 				
 				break;
@@ -485,12 +532,12 @@ public class Game extends Canvas implements Runnable
 						
 						if(Pacman.numberOfLives == 0) 
 						{
-							Game.gameStatus = Game.lose;
+							gameStatus = lose;
 						}
 						else
 						{	
-							Game.loadGameElements();
-							Game.gameStatus = Game.play;
+							loadGameElements();
+							gameStatus = play;
 						}
 						
 						Energizer.deactivate();
@@ -500,9 +547,9 @@ public class Game extends Canvas implements Runnable
 				break;
 		}
 		
-		if(Game.score >= Game.highscore)
+		if(score >= highscore)
 		{
-			Game.highscore = Game.score;
+			highscore = score;
 		}
 	}
 	
@@ -519,7 +566,7 @@ public class Game extends Canvas implements Runnable
 		Graphics g = bs.getDrawGraphics();
 		
 		g.setColor(Color.black);
-		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
 		setLetteringStyle(g, Color.white, Font.DIALOG_INPUT, 26);
 		
 		switch(gameStatus)

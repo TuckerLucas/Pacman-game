@@ -155,9 +155,41 @@ public class KeyHandler implements KeyListener
 	
 	public void winState(int code)
 	{
+		if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP)
+		{
+			game.commandNumWin--;
+			
+			if(game.commandNumWin < 0)
+			{
+				game.commandNumWin = 2;
+			}
+		}
+		
+		if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
+		{
+			game.commandNumWin++;
+			
+			if(game.commandNumWin > 2)
+			{
+				game.commandNumWin = 0;
+			}
+		}
+		
 		if(code == KeyEvent.VK_ENTER)
 		{
-			game.enter = true;				
+			if(game.commandNumWin == 0)
+			{
+				game.enter = true;
+			}
+			if(game.commandNumWin == 1)
+			{
+				// HOME PANEL
+				game.space = true;
+			}
+			if(game.commandNumWin == 2)
+			{
+				System.exit(0);
+			}			
 		}
 	}
 }
