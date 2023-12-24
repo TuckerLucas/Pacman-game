@@ -20,7 +20,7 @@ The standalone application includes several features, such as:
 
 ## Coming soon
 I have a list of features/bug fixes in mind which I'd like to implement in the near future to improve the project:
-* Enable User Interface menu options other than play and exit which are already functional;
+* Add more options to the title screen, such as: Leaderboard, Settings, How To Play, etc...
 * Change each ghost's AI slightly so that they don't cover the exact same path when chasing pacman as not to overlap;
 * Cool down period for ghosts to spend in spawn box after eaten in order to allow pacman to eat ghosts close to the spawn box without having an instant death.
 
