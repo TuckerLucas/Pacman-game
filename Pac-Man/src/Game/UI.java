@@ -138,22 +138,6 @@ public class UI
 			g.drawString(">",  x - 32,  y);
 		}
 	}
-	
-	public int getXForCenteredText(Graphics g, String text)
-	{
-		int length = (int)g.getFontMetrics().getStringBounds(text, g).getWidth();
-		int x = game.screenWidth/2 - length/2;
-		
-		return x;
-	}
-	
-	public int getYForCenteredText(Graphics g)
-	{
-		int height = (int)g.getFontMetrics().getHeight();
-		int y = game.screenHeight - (80/2 - height/2);
-		
-		return y;
-	}
 
 	private void drawWinScreen(Graphics g)
 	{		
@@ -317,5 +301,21 @@ public class UI
 		{
 			g.drawImage(Animation.alivePacmanSprites[0][2], 555 + ((game.tileSize + 5) * i), y, game.tileSize, game.tileSize, null);
 		}
+	}
+	
+	public int getXForCenteredText(Graphics g, String text)
+	{
+		int length = (int)g.getFontMetrics().getStringBounds(text, g).getWidth();
+		int x = game.screenWidth/2 - length/2;
+		
+		return x;
+	}
+	
+	public int getYForCenteredText(Graphics g)
+	{
+		int height = (int)g.getFontMetrics().getHeight();
+		int y = game.screenHeight - (80/2 - height/2);
+		
+		return y;
 	}
 }
