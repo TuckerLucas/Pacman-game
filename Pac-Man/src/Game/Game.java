@@ -17,11 +17,18 @@ public class Game extends Canvas implements Runnable
 {	
 	private static final long serialVersionUID = 1L;
 	
+	final int originalTileSize = 16;
+	final int scale = 2;
+	
+	public final int tileSize = originalTileSize * scale;
+	public final int maxScreenCol = 21;
+	public final int maxScreenRow = 22;
+	
+	public final int WIDTH = tileSize * maxScreenCol;
+	public final int HEIGHT = (tileSize * maxScreenRow) + 80;	// 704 game + 80 data
+	
 	private static Thread thread;
 	private static boolean isRunning = false;	
-
-	public static final int WIDTH = 672;
-	public static final int	HEIGHT = 784;	// 704 game + 80 data
 	
 	public static int gameStatus = 0;
 	public static final int init = 1;		
@@ -62,7 +69,7 @@ public class Game extends Canvas implements Runnable
 		this.setFocusable(true);
 		
 		addKeyListener(keyH);
-		gameStatus = win;			
+		gameStatus = init;			
 		Animation.animation = new Animation();
 		
 		getGameHighScore();
@@ -257,7 +264,7 @@ public class Game extends Canvas implements Runnable
 		}
 	}
 	
-	public static int getXForCenteredText(Graphics g, String text)
+	public int getXForCenteredText(Graphics g, String text)
 	{
 		int length = (int)g.getFontMetrics().getStringBounds(text, g).getWidth();
 		int x = WIDTH/2 - length/2;
