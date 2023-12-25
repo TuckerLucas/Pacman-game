@@ -36,6 +36,7 @@ public class Game extends Canvas implements Runnable
 	public static final int win = 3;
 	public static final int lose = 4; 
 	public static final int lifeLost = 5;
+	public static final int settings = 6;
 	
 	public static int highscore;
 	public static int score = 0;
@@ -71,20 +72,6 @@ public class Game extends Canvas implements Runnable
 		Animation.animation = new Animation();
 		
 		getGameHighScore();
-		
-		try 
-		{
-			InputStream is = getClass().getResourceAsStream("/font/x12y16pxMaruMonica.ttf");
-			maruMonica = Font.createFont(Font.TRUETYPE_FONT,  is);
-		} 
-		catch (FontFormatException e) 
-		{
-			e.printStackTrace();
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
 	}
 
 	public synchronized void startGame()
