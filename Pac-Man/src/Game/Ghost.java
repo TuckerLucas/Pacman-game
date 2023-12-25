@@ -1,7 +1,3 @@
-// Bug: Ghosts move methodically when vulnerable if they were already moving 
-// like this before being vulnerable. Need to not allow ghosts to move methodically
-// when energizer activates.
-
 package Game;
 
 import java.awt.Graphics;

@@ -290,8 +290,8 @@ public class UI
 		g.drawString("SCORE : ", 20, y);	
 		g.drawString(String.valueOf(Game.score), 120, y);
 		
-		g.drawString("HIGHSCORE : ", 210, y);	
-		g.drawString(String.valueOf(Game.highscore), 365, y);
+//		g.drawString("HIGHSCORE : ", 210, y);	
+//		g.drawString(String.valueOf(Game.highscore), 365, y);
 		
 		g.drawString("LIVES:", 470, y);
 		

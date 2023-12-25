@@ -8,10 +8,10 @@ public class AlivePacman extends Pacman
 
 	private int totalNumberOfFrames = Animation.alivePacmanSprites[currentDir].length;
 
-	public AlivePacman(int cD, int nD, int xx, int yy)
+	public AlivePacman(int cD, int nD, int x, int y)
 	{
-		x = xx;
-		y = yy;
+		this.x = x;
+		this.y = y;
 		currentDir = cD;
 		nextDir = nD;
 		setBounds(x, y, Level.objectWidth, Level.objectHeight);
