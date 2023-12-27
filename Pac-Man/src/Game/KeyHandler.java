@@ -35,15 +35,15 @@ public class KeyHandler implements KeyListener
 		}
 		else if(game.gameStatus == game.init)
 		{
-			initState(code);
+			initState(code, 2);
 		}
 		else if(game.gameStatus == game.win)
 		{
-			winState(code);
+			winState(code, 3);
 		}
 		else if(game.gameStatus == game.lose)
 		{
-			loseState(code);
+			loseState(code, 3);
 		}
 	}
 
@@ -62,9 +62,9 @@ public class KeyHandler implements KeyListener
 		}
 	}
 	
-	public void initState(int code)
+	public void initState(int code, int nMenuOptions)
 	{
-		enableScrolling(code, 1);
+		enableScrolling(code, nMenuOptions);
 		
 		if(code == KeyEvent.VK_ENTER)
 		{
@@ -78,9 +78,9 @@ public class KeyHandler implements KeyListener
 		}
 	}
 	
-	public void loseState(int code)
+	public void loseState(int code, int nMenuOptions)
 	{
-		enableScrolling(code, 2);
+		enableScrolling(code, nMenuOptions);
 		
 		if(code == KeyEvent.VK_ENTER)
 		{
@@ -95,9 +95,9 @@ public class KeyHandler implements KeyListener
 		}
 	}
 	
-	public void winState(int code)
+	public void winState(int code, int nMenuOptions)
 	{
-		enableScrolling(code, 2);
+		enableScrolling(code, nMenuOptions);
 		
 		if(code == KeyEvent.VK_ENTER)
 		{
@@ -112,8 +112,10 @@ public class KeyHandler implements KeyListener
 		}
 	}
 	
-	private void enableScrolling(int code, int maxIndex)
+	private void enableScrolling(int code, int nMenuOptions)
 	{
+		int maxIndex = nMenuOptions - 1;
+		
 		if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP)
 		{
 			game.menuOptionIndex--;

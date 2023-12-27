@@ -4,13 +4,11 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class Game extends Canvas implements Runnable
@@ -184,21 +182,11 @@ public class Game extends Canvas implements Runnable
 				
 			case init:
 				
-				blinkTime++;
-				
-				if(blinkTime == targetFrames)
-				{
-					blinkTime = 0;
-					blinkText();
-				}
-				
 				if(enter)
 				{
 					enter = false;
 					loadGameElements();
 					gameStatus = play;
-
-            		//Sounds.loop(Sounds.sirenSoundPath);
 				}
 				
 				break;
