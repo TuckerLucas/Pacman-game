@@ -41,6 +41,10 @@ public class UI
 		{
 			drawInitScreen(g);
 		}
+		if(game.gameStatus == game.settings)
+		{
+			drawSettingsScreen(g);
+		}
 		if(game.gameStatus == game.win)
 		{
 			drawWinScreen(g);
@@ -97,38 +101,55 @@ public class UI
 			g.drawString(">",  x - 32,  y);
 		}
 		
-		/*
-		text = "LEADERBOARD";
-		x = getXForCenteredText(g, text);
-		y += 40;
-		g.drawString(text, x, y);
-		
-		if(menuOptionIndexInit == 1)
-		{
-			g.drawString(">",  x - 32,  y);
-		}
-		
 		text = "SETTINGS";
 		x = getXForCenteredText(g, text);
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(menuOptionIndexInit == 2)
+		if(game.menuOptionIndex == 1)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
 		
-		text = "AUTHOR'S NOTE";
+		text = "QUIT";
 		x = getXForCenteredText(g, text);
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(menuOptionIndexInit == 3)
+		if(game.menuOptionIndex == 2)
 		{
 			g.drawString(">",  x - 32,  y);
-		}*/
+		}
+	}
+
+	public void drawSettingsScreen(Graphics g)
+	{
+		// BACKGROUND COLOR
+		g.setColor(new Color(0, 0, 0));
+		g.fillRect(0, 0, game.screenWidth, game.screenHeight);
 		
-		text = "QUIT";
+		// TITLE NAME
+		g.setFont(maruMonica);
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 92F));
+		String text = "SETTINGS";
+		int x = getXForCenteredText(g, text);
+		int y = 32*5;
+		
+		g.setColor(Color.white);
+		g.drawString(text, x, y);
+		
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 36F));
+		text = "SOUNDS";
+		x = getXForCenteredText(g, text);
+		y += 32*8;
+		g.drawString(text, x, y);
+		
+		if(game.menuOptionIndex == 0)
+		{
+			g.drawString(">",  x - 32,  y);
+		}
+		
+		text = "BACK";
 		x = getXForCenteredText(g, text);
 		y += 40;
 		g.drawString(text, x, y);
@@ -138,7 +159,7 @@ public class UI
 			g.drawString(">",  x - 32,  y);
 		}
 	}
-
+	
 	private void drawWinScreen(Graphics g)
 	{		
 		String text = "YOU WON!";

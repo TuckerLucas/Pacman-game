@@ -31,13 +31,17 @@ public class KeyHandler implements KeyListener
 	{
 		int code = e.getKeyCode();
 		
-		if(game.gameStatus == game.play)
+		if(game.gameStatus == game.init)
+		{
+			initState(code, 3);
+		}
+		else if(game.gameStatus == game.settings)
+		{
+			settingsState(code, 2);
+		}
+		else if(game.gameStatus == game.play)
 		{
 			playState(code);
-		}
-		else if(game.gameStatus == game.init)
-		{
-			initState(code, 2);
 		}
 		else if(game.gameStatus == game.win)
 		{
@@ -46,21 +50,6 @@ public class KeyHandler implements KeyListener
 		else if(game.gameStatus == game.lose)
 		{
 			loseState(code, 3);
-		}
-	}
-
-	public void playState(int code)
-	{
-		switch(code)
-		{
-			case KeyEvent.VK_D:	// fall through
-			case KeyEvent.VK_RIGHT: Pacman.nextDir = Character.right; break;
-			case KeyEvent.VK_A:	// fall through
-			case KeyEvent.VK_LEFT: Pacman.nextDir = Character.left; break;
-			case KeyEvent.VK_W:	// fall through
-			case KeyEvent.VK_UP: Pacman.nextDir = Character.upwards; break;
-			case KeyEvent.VK_S:	// fall through
-			case KeyEvent.VK_DOWN: Pacman.nextDir = Character.downwards; break;
 		}
 	}
 	
@@ -73,10 +62,42 @@ public class KeyHandler implements KeyListener
 			switch(game.menuOptionIndex)
 			{
 				case 0: game.loadGameElements(); game.gameStatus = game.play; break;
-				case 1: System.exit(0); break;
+				case 1: game.gameStatus = game.settings; break;
+				case 2: System.exit(0); break;
 			}
 			
 			game.menuOptionIndex = 0;
+		}
+	}
+	
+	public void settingsState(int code, int nMenuOptions)
+	{
+		enableScrolling(code, nMenuOptions);
+		
+		if(code == KeyEvent.VK_ENTER)
+		{
+			switch(game.menuOptionIndex)
+			{
+				case 0: break;
+				case 1: game.gameStatus = game.init; break;
+			}
+			
+			game.menuOptionIndex = 0;
+		}
+	}
+	
+	public void playState(int code)
+	{
+		switch(code)
+		{
+			case KeyEvent.VK_D:	// fall through
+			case KeyEvent.VK_RIGHT: Pacman.nextDir = Character.right; break;
+			case KeyEvent.VK_A:	// fall through
+			case KeyEvent.VK_LEFT: Pacman.nextDir = Character.left; break;
+			case KeyEvent.VK_W:	// fall through
+			case KeyEvent.VK_UP: Pacman.nextDir = Character.upwards; break;
+			case KeyEvent.VK_S:	// fall through
+			case KeyEvent.VK_DOWN: Pacman.nextDir = Character.downwards; break;
 		}
 	}
 	
