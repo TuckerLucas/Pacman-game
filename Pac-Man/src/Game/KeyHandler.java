@@ -7,6 +7,8 @@ public class KeyHandler implements KeyListener
 {
 	Game game;
 	
+	public boolean enterPressed, spacePressed;
+	
 	public KeyHandler(Game game)
 	{
 		this.game = game;
@@ -70,7 +72,7 @@ public class KeyHandler implements KeyListener
 		{
 			switch(game.menuOptionIndex)
 			{
-				case 0: game.enter = true; break;
+				case 0: game.loadGameElements(); game.gameStatus = game.play; break;
 				case 1: System.exit(0); break;
 			}
 			
@@ -86,8 +88,8 @@ public class KeyHandler implements KeyListener
 		{
 			switch(game.menuOptionIndex)
 			{
-				case 0: game.space = true; break;
-				case 1: game.enter = true; break;
+				case 0: game.score = 0; game.gameStatus = game.init; break;
+				case 1: game.score = 0; game.loadGameElements(); game.gameStatus = game.play; break;
 				case 2: System.exit(0); break;
 			}
 			
@@ -103,8 +105,8 @@ public class KeyHandler implements KeyListener
 		{
 			switch(game.menuOptionIndex)
 			{
-				case 0: game.enter = true; break;
-				case 1: game.space = true; break;
+				case 0: game.loadGameElements(); game.gameStatus = game.play; break;
+				case 1: game.score = 0; game.gameStatus = game.init; break;
 				case 2: System.exit(0); break;
 			}
 			

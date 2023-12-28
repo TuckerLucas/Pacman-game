@@ -39,9 +39,6 @@ public class Game extends Canvas implements Runnable
 	public static int highscore;
 	public static int score = 0;
 	
-	public boolean enter = false;					
-	public boolean space = false;
-	
 	private int blinkTime = 0;							
 	private int targetFrames = 30;
 	public boolean showText = true;
@@ -180,17 +177,6 @@ public class Game extends Canvas implements Runnable
 
 				break;
 				
-			case init:
-				
-				if(enter)
-				{
-					enter = false;
-					loadGameElements();
-					gameStatus = play;
-				}
-				
-				break;
-				
 			case win:
 				
 				BonusScore.isBeingDisplayed = false;
@@ -205,20 +191,6 @@ public class Game extends Canvas implements Runnable
 				{
 					blinkTime = 0;
 					blinkText();
-				}
-				
-				if(enter)
-				{
-					enter = false;
-					loadGameElements();
-					gameStatus = play;
-				}
-				
-				if(space == true)
-				{
-					space = false;
-					score = 0;
-					gameStatus = init;
 				}
 				
 				break;
@@ -240,21 +212,6 @@ public class Game extends Canvas implements Runnable
 				{
 					blinkTime = 0;
 					blinkText(); 
-				}
-				
-				if(enter == true)
-				{
-					enter = false;
-					score = 0;
-					loadGameElements();
-					gameStatus = play;
-				}
-				
-				if(space == true)
-				{
-					space = false;
-					score = 0;
-					gameStatus = init;
 				}
 				
 				break;
