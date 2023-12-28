@@ -135,6 +135,14 @@ public class UI
 		int x = getXForCenteredText(g, text);
 		int y = 32*5;
 		
+		// SHADOW
+		g.setColor(Color.gray);
+		g.drawString(text, x + 4, y + 4);
+		
+		g.setColor(Color.black);
+		g.drawString(text, x + 3, y + 3);
+		
+		// MAIN COLOR
 		g.setColor(Color.white);
 		g.drawString(text, x, y);
 		
