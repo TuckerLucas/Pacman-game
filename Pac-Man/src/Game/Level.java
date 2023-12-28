@@ -114,16 +114,6 @@ public class Level
 		}
 	}
 	
-	
-	public void tick()
-	{
-		if(Food.foodList.size() == 0)
-		{
-			Game.gameStatus = Game.win;
-		}
-	}
-	
-	
 	public void render(Graphics g)
 	{
 		for(int x = 0; x < gameWidth; x++)

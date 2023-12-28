@@ -29,12 +29,12 @@ public class Game extends Canvas implements Runnable
 	private static boolean isRunning = false;	
 	
 	public static int gameStatus = 0;
-	public static final int init = 1;		
-	public static final int play = 2;
-	public static final int win = 3;
-	public static final int lose = 4; 
+	final int init = 1;		
+	final int play = 2;
+	final int win = 3;
+	final int lose = 4; 
 	public static final int lifeLost = 5;
-	public static final int settings = 6;
+	final int settings = 6;
 	
 	public static int highscore;
 	public static int score = 0;
@@ -173,7 +173,11 @@ public class Game extends Canvas implements Runnable
 				Ghost.ghostArray[3].tick();
 				BonusScore.bonusScore.tick();
 				Energizer.energizer.tick();
-				Level.level.tick();
+
+				if(Food.foodList.size() == 0)
+				{
+					gameStatus = win;
+				}
 
 				break;
 				
