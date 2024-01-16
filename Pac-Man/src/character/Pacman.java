@@ -1,8 +1,10 @@
-package Game;
+package character;
 
 import java.awt.Graphics;
 
-public abstract class Pacman extends Character
+import main.Game;
+
+public class Pacman extends Character
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -25,9 +27,9 @@ public abstract class Pacman extends Character
 	
 	public static Pacman pacman;
 	
-	public Pacman()
+	public Pacman(Game game)
 	{
-
+		super(game);
 	}
 	
 	public int getCurrentDirection()
@@ -40,11 +42,6 @@ public abstract class Pacman extends Character
 		currentDir = dir;
 	}
 	
-	int getPortalCrossingStatus() 
-	{
-		return -1;
-	}
-	
 	public void setPortalCrossingStatus(int portalStatus)
 	{
 		portalCrossingStatus = portalStatus;
@@ -55,21 +52,6 @@ public abstract class Pacman extends Character
 		return nextDir;
 	}
 	
-	public int getID()
-	{
-		return -1;
-	}
-	
-	int getMovementType() 
-	{
-		return -1;
-	}
-
-	boolean getVulnerabilityStatus() 
-	{
-		return false;
-	}
-	
-	abstract void tick();
-	abstract void render(Graphics g);
+	public void tick() {};
+	public void render(Graphics g) {};
 }

@@ -1,4 +1,4 @@
-package Game;
+package main;
 
 import java.io.File;
 import javax.sound.sampled.AudioInputStream;

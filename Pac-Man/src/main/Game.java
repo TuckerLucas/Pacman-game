@@ -1,4 +1,4 @@
-package Game;
+package main;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -10,6 +10,19 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import food.Energizer;
+import food.Food;
+import character.AlivePacman;
+import Game.Animation;
+import Game.BonusScore;
+import character.Character;
+import character.DeadPacman;
+import character.Ghost;
+import Game.Level;
+import character.Pacman;
+import Game.SpawnBoxDoor;
 
 public class Game extends Canvas implements Runnable
 {	
@@ -28,16 +41,16 @@ public class Game extends Canvas implements Runnable
 	private static Thread thread;
 	private static boolean isRunning = false;	
 	
-	public static int gameStatus = 0;
+	public int gameStatus = 0;
 	final int init = 1;		
 	final int play = 2;
 	final int win = 3;
 	final int lose = 4; 
-	public static final int lifeLost = 5;
+	public final int lifeLost = 5;
 	final int settings = 6;
 	
 	public static int highscore;
-	public static int score = 0;
+	public int score = 0;
 	
 	private int blinkTime = 0;							
 	private int targetFrames = 30;
@@ -49,6 +62,9 @@ public class Game extends Canvas implements Runnable
 	public static double secondsPerTick = 1.0 / targetTick;
 	
 	public int menuOptionIndex = 0;
+	
+	public List<Food> foodList;
+	public BonusScore bonusScore;
 	
 	static Font maruMonica;
 	
@@ -118,19 +134,19 @@ public class Game extends Canvas implements Runnable
 	
 	public void loadGameElements()
 	{
-		Pacman.pacman = new AlivePacman(Character.right, Character.right, 320, 512);
-		Ghost.ghostArray[0] = new Ghost(0, Ghost.randomMovement, Character.notCrossingPortal, false); 
-		Ghost.ghostArray[1] = new Ghost(1, Ghost.randomMovement, Character.notCrossingPortal, false);
-		Ghost.ghostArray[2] = new Ghost(2, Ghost.randomMovement, Character.notCrossingPortal, false);
-		Ghost.ghostArray[3] = new Ghost(3, Ghost.randomMovement, Character.notCrossingPortal, false);
+		Pacman.pacman = new AlivePacman(Character.right, Character.right, 320, 512, this);
+		Ghost.ghostArray[0] = new Ghost(0, Ghost.randomMovement, Character.notCrossingPortal, false, this); 
+		Ghost.ghostArray[1] = new Ghost(1, Ghost.randomMovement, Character.notCrossingPortal, false, this);
+		Ghost.ghostArray[2] = new Ghost(2, Ghost.randomMovement, Character.notCrossingPortal, false, this);
+		Ghost.ghostArray[3] = new Ghost(3, Ghost.randomMovement, Character.notCrossingPortal, false, this);
 		
 		switch(gameStatus)
 		{
 			case init:
 
-				Food.foodList = new ArrayList<>();	
+				foodList = new ArrayList<>();	
 				SpawnBoxDoor.spawnBoxDoor = new SpawnBoxDoor(0, 0);
-				Energizer.energizer = new Energizer(0, 0);
+				Energizer.energizer = new Energizer(0, 0, this);
 				
 				// fall through
 				
@@ -141,9 +157,9 @@ public class Game extends Canvas implements Runnable
 			case lose:
 				
 				// Load bonus score object
-				BonusScore.bonusScore = new BonusScore();
+				bonusScore = new BonusScore(this);
 				
-				Level.level = new Level(); 
+				Level.level = new Level(this); 
 				break;
 				
 			default: break;
@@ -171,10 +187,10 @@ public class Game extends Canvas implements Runnable
 				Ghost.ghostArray[1].tick();
 				Ghost.ghostArray[2].tick();
 				Ghost.ghostArray[3].tick();
-				BonusScore.bonusScore.tick();
+				bonusScore.tick();
 				Energizer.energizer.tick();
 
-				if(Food.foodList.size() == 0)
+				if(foodList.size() == 0)
 				{
 					gameStatus = win;
 				}

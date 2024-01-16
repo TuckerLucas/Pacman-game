@@ -1,7 +1,10 @@
-package Game;
+package main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import character.Character;
+import character.Pacman;
 
 public class KeyHandler implements KeyListener
 {

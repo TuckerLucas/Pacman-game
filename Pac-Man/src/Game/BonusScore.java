@@ -3,8 +3,13 @@ package Game;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import character.Ghost;
+import main.Game;
+
 public class BonusScore extends Rectangle
 {
+	Game game;
+	
 	private static final long serialVersionUID = 1L;
 	
 	public static boolean isBeingDisplayed = false;
@@ -18,10 +23,9 @@ public class BonusScore extends Rectangle
 	private static int frameIndex = 0;
 	private static int totalNumberOfFrames = 2;
 	
-	public static BonusScore bonusScore;
-	
-	public BonusScore()
+	public BonusScore(Game game)
 	{
+		this.game = game;
 		setBounds(0, 0, Level.objectWidth*2, Level.objectHeight);
 	}
 	
@@ -58,10 +62,10 @@ public class BonusScore extends Rectangle
 		}
 	}
 	
-	public static void displayBonusScore(int xCoordinate, int yCoordinate)
+	public void displayBonusScore(int xCoordinate, int yCoordinate)
 	{
-		bonusScore.x = xCoordinate;
-		bonusScore.y = yCoordinate;
+		game.bonusScore.x = xCoordinate;
+		game.bonusScore.y = yCoordinate;
 		
 		isBeingDisplayed = true;
 		frameIndex = 0;
@@ -69,10 +73,10 @@ public class BonusScore extends Rectangle
 		elapsedAnimationTimeInSeconds = 0;
 	}
 
-	public static void sumBonusScoreToGameScore()
+	public void sumBonusScoreToGameScore()
 	{	
 		int bonusScore = (int)calculateBonusScore();
-		Game.score += bonusScore;
+		game.score += bonusScore;
 	}
 	
 	private static double calculateBonusScore()

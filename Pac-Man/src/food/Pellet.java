@@ -1,16 +1,22 @@
-package Game;
+package food;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
+import main.Game;
+import main.Sounds;
+
 public class Pellet extends Food
 {
+	Game game;
+	
 	private static final long serialVersionUID = 1L;
 	
 	private int points = 10;
 
-	public Pellet(int x, int y)
+	public Pellet(int x, int y, Game game)
 	{
+		super(game);
 		setBounds(x+12, y+12, 8, 8);
 	}
 	

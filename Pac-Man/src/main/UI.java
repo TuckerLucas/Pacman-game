@@ -1,4 +1,4 @@
-package Game;
+package main;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -6,6 +6,10 @@ import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.io.IOException;
 import java.io.InputStream;
+
+import character.Pacman;
+import Game.Animation;
+import Game.Level;
 
 public class UI 
 {
@@ -317,7 +321,7 @@ public class UI
 		int y = getYForCenteredText(g);
 		
 		g.drawString("SCORE : ", 20, y);	
-		g.drawString(String.valueOf(Game.score), 120, y);
+		g.drawString(String.valueOf(game.score), 120, y);
 		
 //		g.drawString("HIGHSCORE : ", 210, y);	
 //		g.drawString(String.valueOf(Game.highscore), 365, y);

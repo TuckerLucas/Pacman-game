@@ -6,8 +6,17 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import character.Ghost;
+import character.Pacman;
+import food.Energizer;
+import food.Pellet;
+import main.Game;
+
+
 public class Level
 {
+	Game game;
+	
 	private static int gameWidth;
 	private static int gameHeight;
 		
@@ -28,8 +37,10 @@ public class Level
 	
 	public static Level level;
 	
-	public Level()	
+	public Level(Game game)	
 	{
+		this.game = game;
+		
 		try 
 		{
 			BufferedImage map = ImageIO.read(getClass().getResource(mapImagePath));
@@ -102,12 +113,12 @@ public class Level
 						
 					case white:
 						
-						Food.foodList.add(new Pellet(x*objectWidth, y*objectHeight));
+						game.foodList.add(new Pellet(x*objectWidth, y*objectHeight, game));
 						break;
 						
 					case lightYellow:
 						
-						Food.foodList.add(new Energizer(x*objectWidth, y*objectHeight));
+						game.foodList.add(new Energizer(x*objectWidth, y*objectHeight, game));
 						break;
 				}
 			}	
@@ -127,14 +138,14 @@ public class Level
 			}
 		}
 		
-		for(int i = 0; i < Food.foodList.size(); i++)
+		for(int i = 0; i < game.foodList.size(); i++)
 		{	
-			Food.foodList.get(i).render(g);
+			game.foodList.get(i).render(g);
 		}
 		
 		Pacman.pacman.render(g);
 		
-		if(Game.gameStatus != Game.lifeLost)
+		if(game.gameStatus != game.lifeLost)
 		{
 			Ghost.ghostArray[0].render(g);
 			Ghost.ghostArray[1].render(g);
@@ -143,6 +154,6 @@ public class Level
 		}
 
 		SpawnBoxDoor.spawnBoxDoor.render(g);
-		BonusScore.bonusScore.render(g);
+		game.bonusScore.render(g);
 	}
 }

@@ -1,7 +1,11 @@
-package Game;
+package character;
 
 import java.awt.Graphics;
 import java.util.Random;
+
+import Game.Animation;
+import Game.Level;
+import main.Game;
 
 public class Ghost extends Character
 {
@@ -71,8 +75,10 @@ public class Ghost extends Character
 		int findDir2;
 	}
 	
-	public Ghost(int ID, int movementStatus, int portalStatus, boolean vulnerabilityStatus)
-	{		
+	public Ghost(int ID, int movementStatus, int portalStatus, boolean vulnerabilityStatus, Game game)
+	{	
+		super(game);
+		
 		loadZoneDirectionsArray();
 		
 		ghostID = ID;                  			
@@ -540,17 +546,17 @@ public class Ghost extends Character
 	}
 	
 
-	int getPortalCrossingStatus() 
+	public int getPortalCrossingStatus() 
 	{
 		return portalCrossingStatus;
 	}
 
-	int getMovementType() 
+	public int getMovementType() 
 	{
 		return movementType;
 	}
 
-	boolean getVulnerabilityStatus() 
+	public boolean getVulnerabilityStatus() 
 	{
 		return isVulnerable;
 	}

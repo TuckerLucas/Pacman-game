@@ -1,6 +1,12 @@
-package Game;
+package food;
 
 import java.awt.Graphics;
+
+import character.Ghost;
+import Game.Animation;
+import Game.Level;
+import main.Game;
+import main.Sounds;
 
 public class Energizer extends Food
 {
@@ -21,8 +27,10 @@ public class Energizer extends Food
 	
 	public static Energizer energizer;
 	
-	public Energizer(int x, int y)
+	public Energizer(int x, int y, Game game)
 	{
+		super(game);
+		
 		setBounds(x, y, Level.objectWidth, Level.objectHeight);
 	}
 	
