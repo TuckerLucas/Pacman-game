@@ -13,14 +13,14 @@ import Game.Level;
 
 public class UI 
 {
-	Game game;
+	GamePanel gp;
 	Graphics g;
 	
 	static Font maruMonica;
 	
-	public UI(Game game)
+	public UI(GamePanel gp)
 	{
-		this.game = game;
+		this.gp = gp;
 		
 		try 
 		{
@@ -41,28 +41,28 @@ public class UI
 	{
 		this.g = g;
 		
-		if(game.gameStatus == game.init)
+		if(gp.gameStatus == gp.init)
 		{
 			drawInitScreen(g);
 		}
-		if(game.gameStatus == game.settings)
+		if(gp.gameStatus == gp.settings)
 		{
 			drawSettingsScreen(g);
 		}
-		if(game.gameStatus == game.win)
+		if(gp.gameStatus == gp.win)
 		{
 			drawWinScreen(g);
 		}
-		if(game.gameStatus == game.lose)
+		if(gp.gameStatus == gp.lose)
 		{
 			drawLoseScreen(g);
 		}
-		if(game.gameStatus == game.lifeLost)
+		if(gp.gameStatus == gp.lifeLost)
 		{
 			drawPacmanDying(g);
 			displayGameStats(g);
 		}
-		if(game.gameStatus == game.play)
+		if(gp.gameStatus == gp.play)
 		{
 			Level.level.render(g);
 			displayGameStats(g);
@@ -73,7 +73,7 @@ public class UI
 	{	
 		// BACKGROUND COLOR
 		g.setColor(new Color(0, 0, 0));
-		g.fillRect(0, 0, game.screenWidth, game.screenHeight);
+		g.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 		
 		// TITLE NAME
 		g.setFont(maruMonica);
@@ -100,7 +100,7 @@ public class UI
 		y += 32*8;
 		g.drawString(text, x, y);
 		
-		if(game.menuOptionIndex == 0)
+		if(gp.menuOptionIndex == 0)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -110,7 +110,7 @@ public class UI
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(game.menuOptionIndex == 1)
+		if(gp.menuOptionIndex == 1)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -120,7 +120,7 @@ public class UI
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(game.menuOptionIndex == 2)
+		if(gp.menuOptionIndex == 2)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -130,7 +130,7 @@ public class UI
 	{
 		// BACKGROUND COLOR
 		g.setColor(new Color(0, 0, 0));
-		g.fillRect(0, 0, game.screenWidth, game.screenHeight);
+		g.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 		
 		// TITLE NAME
 		g.setFont(maruMonica);
@@ -156,7 +156,7 @@ public class UI
 		y += 32*8;
 		g.drawString(text, x, y);
 		
-		if(game.menuOptionIndex == 0)
+		if(gp.menuOptionIndex == 0)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -166,7 +166,7 @@ public class UI
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(game.menuOptionIndex == 1)
+		if(gp.menuOptionIndex == 1)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -181,7 +181,7 @@ public class UI
 		int x = getXForCenteredText(g, text);
 		int y = 32*5;
 		
-		if(game.showText)
+		if(gp.showText)
 		{
 			g.setColor(Color.white);
 			g.drawString(text, x + 4, y + 4);
@@ -194,7 +194,7 @@ public class UI
 		}
 		
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 60F));
-		text = "SCORE : " + game.score;
+		text = "SCORE : " + gp.score;
 		x = getXForCenteredText(g, text);
 		y += 32*5;
 		
@@ -211,7 +211,7 @@ public class UI
 		y += 32*5;
 		g.drawString(text, x, y);
 		
-		if(game.menuOptionIndex == 0)
+		if(gp.menuOptionIndex == 0)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -221,7 +221,7 @@ public class UI
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(game.menuOptionIndex == 1)
+		if(gp.menuOptionIndex == 1)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -231,7 +231,7 @@ public class UI
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(game.menuOptionIndex == 2)
+		if(gp.menuOptionIndex == 2)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -246,7 +246,7 @@ public class UI
 		int x = getXForCenteredText(g, text);
 		int y = 32*5;
 		
-		if(game.showText)
+		if(gp.showText)
 		{
 			g.setColor(Color.white);
 			g.drawString(text, x + 4, y + 4);
@@ -259,7 +259,7 @@ public class UI
 		}
 		
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 60F));
-		text = "SCORE : " + game.score;
+		text = "SCORE : " + gp.score;
 		x = getXForCenteredText(g, text);
 		y += 32*5;
 		
@@ -276,7 +276,7 @@ public class UI
 		y += 32*5;
 		g.drawString(text, x, y);
 		
-		if(game.menuOptionIndex == 0)
+		if(gp.menuOptionIndex == 0)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -286,7 +286,7 @@ public class UI
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(game.menuOptionIndex == 1)
+		if(gp.menuOptionIndex == 1)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -296,7 +296,7 @@ public class UI
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(game.menuOptionIndex == 2)
+		if(gp.menuOptionIndex == 2)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -306,7 +306,7 @@ public class UI
 	{
 		Pacman.pacman.render(g);
 		
-		if(game.gameStatus != game.lose)
+		if(gp.gameStatus != gp.lose)
 		{
 			Level.level.render(g);
 		}
@@ -321,25 +321,25 @@ public class UI
 		int y = getYForCenteredText(g);
 		
 		g.drawString("SCORE : ", 20, y);	
-		g.drawString(String.valueOf(game.score), 120, y);
+		g.drawString(String.valueOf(gp.score), 120, y);
 		
 //		g.drawString("HIGHSCORE : ", 210, y);	
 //		g.drawString(String.valueOf(Game.highscore), 365, y);
 		
 		g.drawString("LIVES:", 470, y);
 		
-		y = game.screenHeight - (80/2) - (game.tileSize/2) + 2; // 730
+		y = gp.screenHeight - (80/2) - (gp.tileSize/2) + 2; // 730
 
 		for(int i = 0; i < Pacman.numberOfLives; i++)
 		{
-			g.drawImage(Animation.alivePacmanSprites[0][2], 555 + ((game.tileSize + 5) * i), y, game.tileSize, game.tileSize, null);
+			g.drawImage(Animation.alivePacmanSprites[0][2], 555 + ((gp.tileSize + 5) * i), y, gp.tileSize, gp.tileSize, null);
 		}
 	}
 	
 	public int getXForCenteredText(Graphics g, String text)
 	{
 		int length = (int)g.getFontMetrics().getStringBounds(text, g).getWidth();
-		int x = game.screenWidth/2 - length/2;
+		int x = gp.screenWidth/2 - length/2;
 		
 		return x;
 	}
@@ -347,7 +347,7 @@ public class UI
 	public int getYForCenteredText(Graphics g)
 	{
 		int height = (int)g.getFontMetrics().getHeight();
-		int y = game.screenHeight - (80/2 - height/2);
+		int y = gp.screenHeight - (80/2 - height/2);
 		
 		return y;
 	}

@@ -24,7 +24,7 @@ import Game.Level;
 import character.Pacman;
 import Game.SpawnBoxDoor;
 
-public class Game extends Canvas implements Runnable
+public class GamePanel extends Canvas implements Runnable
 {	
 	private static final long serialVersionUID = 1L;
 	
@@ -59,7 +59,7 @@ public class Game extends Canvas implements Runnable
 	private static String scoresPath = "res/Files/LeaderboardInfo.txt";
 
 	private static double targetTick = 60.0; 				
-	public static double secondsPerTick = 1.0 / targetTick;
+	public double secondsPerTick = 1.0 / targetTick;
 	
 	public int menuOptionIndex = 0;
 	
@@ -72,7 +72,7 @@ public class Game extends Canvas implements Runnable
 	
 	public UI ui = new UI(this);
 	
-	public Game()
+	public GamePanel()
 	{
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 		this.setBackground(Color.black);

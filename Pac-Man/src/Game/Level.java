@@ -10,12 +10,11 @@ import character.Ghost;
 import character.Pacman;
 import food.Energizer;
 import food.Pellet;
-import main.Game;
-
+import main.GamePanel;
 
 public class Level
 {
-	Game game;
+	GamePanel gp;
 	
 	private static int gameWidth;
 	private static int gameHeight;
@@ -37,9 +36,9 @@ public class Level
 	
 	public static Level level;
 	
-	public Level(Game game)	
+	public Level(GamePanel gp)	
 	{
-		this.game = game;
+		this.gp = gp;
 		
 		try 
 		{
@@ -113,12 +112,12 @@ public class Level
 						
 					case white:
 						
-						game.foodList.add(new Pellet(x*objectWidth, y*objectHeight, game));
+						gp.foodList.add(new Pellet(x*objectWidth, y*objectHeight, gp));
 						break;
 						
 					case lightYellow:
 						
-						game.foodList.add(new Energizer(x*objectWidth, y*objectHeight, game));
+						gp.foodList.add(new Energizer(x*objectWidth, y*objectHeight, gp));
 						break;
 				}
 			}	
@@ -138,14 +137,14 @@ public class Level
 			}
 		}
 		
-		for(int i = 0; i < game.foodList.size(); i++)
+		for(int i = 0; i < gp.foodList.size(); i++)
 		{	
-			game.foodList.get(i).render(g);
+			gp.foodList.get(i).render(g);
 		}
 		
 		Pacman.pacman.render(g);
 		
-		if(game.gameStatus != game.lifeLost)
+		if(gp.gameStatus != gp.lifeLost)
 		{
 			Ghost.ghostArray[0].render(g);
 			Ghost.ghostArray[1].render(g);
@@ -154,6 +153,6 @@ public class Level
 		}
 
 		SpawnBoxDoor.spawnBoxDoor.render(g);
-		game.bonusScore.render(g);
+		gp.bonusScore.render(g);
 	}
 }

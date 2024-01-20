@@ -2,7 +2,7 @@ package character;
 
 import java.awt.Graphics;
 
-import main.Game;
+import main.GamePanel;
 
 public class Pacman extends Character
 {
@@ -27,9 +27,9 @@ public class Pacman extends Character
 	
 	public static Pacman pacman;
 	
-	public Pacman(Game game)
+	public Pacman(GamePanel gp)
 	{
-		super(game);
+		super(gp);
 	}
 	
 	public int getCurrentDirection()

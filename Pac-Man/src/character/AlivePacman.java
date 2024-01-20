@@ -7,21 +7,21 @@ import food.Food;
 import food.Pellet;
 import Game.Animation;
 import Game.Level;
-import main.Game;
+import main.GamePanel;
 import main.Sounds;
 
 public class AlivePacman extends Pacman
 {	
-	Game game;
+	GamePanel gp;
 	
 	private static final long serialVersionUID = 1L;
 
 	private int totalNumberOfFrames = Animation.alivePacmanSprites[currentDir].length;
 
-	public AlivePacman(int cD, int nD, int x, int y, Game game)
+	public AlivePacman(int cD, int nD, int x, int y, GamePanel gp)
 	{
-		super(game);
-		this.game = game;
+		super(gp);
+		this.gp = gp;
 		this.x = x;
 		this.y = y;
 		currentDir = cD;
@@ -45,7 +45,7 @@ public class AlivePacman extends Pacman
 
 	public void manageAnimationTiming()
 	{
-		elapsedFrameTimeInSeconds += Game.secondsPerTick;
+		elapsedFrameTimeInSeconds += gp.secondsPerTick;
 		
 		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
 		{
@@ -62,11 +62,11 @@ public class AlivePacman extends Pacman
 	
 	private void foodCollision()
 	{	
-		for(int i = 0; i < game.foodList.size(); i++) 		
+		for(int i = 0; i < gp.foodList.size(); i++) 		
 		{    
-			if(this.intersects(game.foodList.get(i)))							
+			if(this.intersects(gp.foodList.get(i)))							
 			{
-				eat(game.foodList.get(i));
+				eat(gp.foodList.get(i));
 				break;
 			}
 		}
@@ -83,8 +83,8 @@ public class AlivePacman extends Pacman
 			Pellet.getEaten();
 		}
 
-		game.score += food.getFoodPoints();
-		game.foodList.remove(food);
+		gp.score += food.getFoodPoints();
+		gp.foodList.remove(food);
 	}
 	
 	private void ghostCollision()
@@ -122,7 +122,7 @@ public class AlivePacman extends Pacman
 	{
 		Sounds.playSoundEffect(Sounds.ghostEatenSoundPath);
 		
-		Ghost.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, Ghost.randomMovement, notCrossingPortal, false, game);
+		Ghost.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, Ghost.randomMovement, notCrossingPortal, false, gp);
 				
 		Ghost.numberOfEatenGhosts++;
 		
@@ -131,16 +131,16 @@ public class AlivePacman extends Pacman
 			Energizer.deactivate();
 		}
 		
-		game.bonusScore.displayBonusScore(x, y);
-		game.bonusScore.sumBonusScoreToGameScore();
+		gp.bonusScore.displayBonusScore(x, y);
+		gp.bonusScore.sumBonusScoreToGameScore();
 	}
 	
 	private void die()
 	{
 		Sounds.playSoundEffect(Sounds.pacmanDeathSoundPath);
 		
-		pacman = new DeadPacman(x, y, game);
-		game.gameStatus = game.lifeLost;
+		pacman = new DeadPacman(x, y, gp);
+		gp.gameStatus = gp.lifeLost;
 	}
 	
 	public void render(Graphics g)

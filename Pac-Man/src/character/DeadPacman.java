@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import Game.Animation;
 import Game.Level;
-import main.Game;
+import main.GamePanel;
 
 public class DeadPacman extends Pacman
 {
@@ -12,9 +12,9 @@ public class DeadPacman extends Pacman
 	
 	public static boolean pacmanDeathAnimationHasFinished = false;
 	
-	public DeadPacman(int lastAliveX, int lastAliveY, Game game)
+	public DeadPacman(int lastAliveX, int lastAliveY, GamePanel gp)
 	{
-		super(game);
+		super(gp);
 		spawnDeadPacman(lastAliveX, lastAliveY);
 	}
 	
@@ -30,7 +30,7 @@ public class DeadPacman extends Pacman
 	
 	public void manageAnimationTiming()
 	{
-		elapsedFrameTimeInSeconds += Game.secondsPerTick;
+		elapsedFrameTimeInSeconds += gp.secondsPerTick;
 		
 		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
 		{

@@ -5,7 +5,7 @@ import java.util.Random;
 
 import Game.Animation;
 import Game.Level;
-import main.Game;
+import main.GamePanel;
 
 public class Ghost extends Character
 {
@@ -75,9 +75,9 @@ public class Ghost extends Character
 		int findDir2;
 	}
 	
-	public Ghost(int ID, int movementStatus, int portalStatus, boolean vulnerabilityStatus, Game game)
+	public Ghost(int ID, int movementStatus, int portalStatus, boolean vulnerabilityStatus, GamePanel gp)
 	{	
-		super(game);
+		super(gp);
 		
 		loadZoneDirectionsArray();
 		
@@ -234,7 +234,7 @@ public class Ghost extends Character
 	
 	private void manageAnimationTiming()
 	{
-		elapsedFrameTimeInSeconds += Game.secondsPerTick;
+		elapsedFrameTimeInSeconds += gp.secondsPerTick;
 		
 		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
 		{
@@ -250,7 +250,7 @@ public class Ghost extends Character
 	
 	private void manageVulnerableAnimationTiming()
 	{
-		elapsedFrameTimeInSecondsVulnerable += Game.secondsPerTick;
+		elapsedFrameTimeInSecondsVulnerable += gp.secondsPerTick;
 		
 		if(elapsedFrameTimeInSecondsVulnerable >= targetTimePerFrameInSecondsVulnerable)
 		{
@@ -266,11 +266,7 @@ public class Ghost extends Character
 	
 	private void manageFlashingAnimationTiming()
 	{
-		// Needs a mechanism change to make tentacles move at same speed
-		// as when ghost is in other states. Currently does not in order
-		// to show blue or white color for longer which makes the speed 
-		// reduced.
-		elapsedFrameTimeInSecondsFlashing += Game.secondsPerTick;
+		elapsedFrameTimeInSecondsFlashing += gp.secondsPerTick;
 		
 		if(elapsedFrameTimeInSecondsFlashing >= targetTimePerFrameInSecondsFlashing)
 		{
@@ -289,7 +285,7 @@ public class Ghost extends Character
 	{
 		if(isCoolingDown == true)
 		{
-			coolDownTimeInSeconds += Game.secondsPerTick;
+			coolDownTimeInSeconds += gp.secondsPerTick;
 			
 			if(coolDownTimeInSeconds >= coolDownTargetTimeInSeconds)
 			{
@@ -386,7 +382,7 @@ public class Ghost extends Character
 			}
 		}
 		
-		timeMovingMethodicallyInSeconds += Game.secondsPerTick;	
+		timeMovingMethodicallyInSeconds += gp.secondsPerTick;	
 		
 		if(timeMovingMethodicallyInSeconds >= targetTimeMovingMethodicallyInSeconds) 				
 		{			

@@ -8,13 +8,13 @@ import character.Pacman;
 
 public class KeyHandler implements KeyListener
 {
-	Game game;
+	GamePanel gp;
 	
 	public boolean enterPressed, spacePressed;
 	
-	public KeyHandler(Game game)
+	public KeyHandler(GamePanel gp)
 	{
-		this.game = game;
+		this.gp = gp;
 	}
 	
 	@Override
@@ -34,23 +34,23 @@ public class KeyHandler implements KeyListener
 	{
 		int code = e.getKeyCode();
 		
-		if(game.gameStatus == game.init)
+		if(gp.gameStatus == gp.init)
 		{
 			initState(code, 3);
 		}
-		else if(game.gameStatus == game.settings)
+		else if(gp.gameStatus == gp.settings)
 		{
 			settingsState(code, 2);
 		}
-		else if(game.gameStatus == game.play)
+		else if(gp.gameStatus == gp.play)
 		{
 			playState(code);
 		}
-		else if(game.gameStatus == game.win)
+		else if(gp.gameStatus == gp.win)
 		{
 			winState(code, 3);
 		}
-		else if(game.gameStatus == game.lose)
+		else if(gp.gameStatus == gp.lose)
 		{
 			loseState(code, 3);
 		}
@@ -62,14 +62,14 @@ public class KeyHandler implements KeyListener
 		
 		if(code == KeyEvent.VK_ENTER)
 		{
-			switch(game.menuOptionIndex)
+			switch(gp.menuOptionIndex)
 			{
-				case 0: game.loadGameElements(); game.gameStatus = game.play; break;
-				case 1: game.gameStatus = game.settings; break;
+				case 0: gp.loadGameElements(); gp.gameStatus = gp.play; break;
+				case 1: gp.gameStatus = gp.settings; break;
 				case 2: System.exit(0); break;
 			}
 			
-			game.menuOptionIndex = 0;
+			gp.menuOptionIndex = 0;
 		}
 	}
 	
@@ -79,13 +79,13 @@ public class KeyHandler implements KeyListener
 		
 		if(code == KeyEvent.VK_ENTER)
 		{
-			switch(game.menuOptionIndex)
+			switch(gp.menuOptionIndex)
 			{
 				case 0: break;
-				case 1: game.gameStatus = game.init; break;
+				case 1: gp.gameStatus = gp.init; break;
 			}
 			
-			game.menuOptionIndex = 0;
+			gp.menuOptionIndex = 0;
 		}
 	}
 	
@@ -110,14 +110,14 @@ public class KeyHandler implements KeyListener
 		
 		if(code == KeyEvent.VK_ENTER)
 		{
-			switch(game.menuOptionIndex)
+			switch(gp.menuOptionIndex)
 			{
-				case 0: game.score = 0; game.gameStatus = game.init; break;
-				case 1: game.score = 0; game.loadGameElements(); game.gameStatus = game.play; break;
+				case 0: gp.score = 0; gp.gameStatus = gp.init; break;
+				case 1: gp.score = 0; gp.loadGameElements(); gp.gameStatus = gp.play; break;
 				case 2: System.exit(0); break;
 			}
 			
-			game.menuOptionIndex = 0;
+			gp.menuOptionIndex = 0;
 		}
 	}
 	
@@ -127,14 +127,14 @@ public class KeyHandler implements KeyListener
 		
 		if(code == KeyEvent.VK_ENTER)
 		{
-			switch(game.menuOptionIndex)
+			switch(gp.menuOptionIndex)
 			{
-				case 0: game.loadGameElements(); game.gameStatus = game.play; break;
-				case 1: game.score = 0; game.gameStatus = game.init; break;
+				case 0: gp.loadGameElements(); gp.gameStatus = gp.play; break;
+				case 1: gp.score = 0; gp.gameStatus = gp.init; break;
 				case 2: System.exit(0); break;
 			}
 			
-			game.menuOptionIndex = 0;
+			gp.menuOptionIndex = 0;
 		}
 	}
 	
@@ -144,20 +144,20 @@ public class KeyHandler implements KeyListener
 		
 		if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP)
 		{
-			game.menuOptionIndex--;
+			gp.menuOptionIndex--;
 			
-			if(game.menuOptionIndex < 0)
+			if(gp.menuOptionIndex < 0)
 			{
-				game.menuOptionIndex = maxIndex;
+				gp.menuOptionIndex = maxIndex;
 			}
 		}
 		else if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
 		{
-			game.menuOptionIndex++;
+			gp.menuOptionIndex++;
 			
-			if(game.menuOptionIndex > maxIndex)
+			if(gp.menuOptionIndex > maxIndex)
 			{
-				game.menuOptionIndex = 0;
+				gp.menuOptionIndex = 0;
 			}
 		}
 	}

@@ -4,11 +4,11 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import character.Ghost;
-import main.Game;
+import main.GamePanel;
 
 public class BonusScore extends Rectangle
 {
-	Game game;
+	GamePanel gp;
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -23,9 +23,9 @@ public class BonusScore extends Rectangle
 	private static int frameIndex = 0;
 	private static int totalNumberOfFrames = 2;
 	
-	public BonusScore(Game game)
+	public BonusScore(GamePanel gp)
 	{
-		this.game = game;
+		this.gp = gp;
 		setBounds(0, 0, Level.objectWidth*2, Level.objectHeight);
 	}
 	
@@ -41,14 +41,14 @@ public class BonusScore extends Rectangle
 			return;
 		}
 		
-		elapsedAnimationTimeInSeconds += Game.secondsPerTick;
+		elapsedAnimationTimeInSeconds += gp.secondsPerTick;
 		
 		if(elapsedAnimationTimeInSeconds >= targetTimeForAnimationInSeconds)
 		{
 			isBeingDisplayed = false;
 		}
 		
-		elapsedFrameTimeInSeconds += Game.secondsPerTick;
+		elapsedFrameTimeInSeconds += gp.secondsPerTick;
 		
 		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
 		{
@@ -64,8 +64,8 @@ public class BonusScore extends Rectangle
 	
 	public void displayBonusScore(int xCoordinate, int yCoordinate)
 	{
-		game.bonusScore.x = xCoordinate;
-		game.bonusScore.y = yCoordinate;
+		gp.bonusScore.x = xCoordinate;
+		gp.bonusScore.y = yCoordinate;
 		
 		isBeingDisplayed = true;
 		frameIndex = 0;
@@ -76,7 +76,7 @@ public class BonusScore extends Rectangle
 	public void sumBonusScoreToGameScore()
 	{	
 		int bonusScore = (int)calculateBonusScore();
-		game.score += bonusScore;
+		gp.score += bonusScore;
 	}
 	
 	private static double calculateBonusScore()

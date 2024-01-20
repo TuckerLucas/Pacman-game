@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import character.Ghost;
 import Game.Animation;
 import Game.Level;
-import main.Game;
+import main.GamePanel;
 import main.Sounds;
 
 public class Energizer extends Food
@@ -27,9 +27,9 @@ public class Energizer extends Food
 	
 	public static Energizer energizer;
 	
-	public Energizer(int x, int y, Game game)
+	public Energizer(int x, int y, GamePanel gp)
 	{
-		super(game);
+		super(gp);
 		
 		setBounds(x, y, Level.objectWidth, Level.objectHeight);
 	}
@@ -42,7 +42,7 @@ public class Energizer extends Food
 	
 	public void manageAnimationTiming()
 	{
-		elapsedFrameTimeInSeconds += Game.secondsPerTick;
+		elapsedFrameTimeInSeconds += gp.secondsPerTick;
 		
 		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
 		{
@@ -75,7 +75,7 @@ public class Energizer extends Food
 	
 	public void checkIfEnergizerTimeNearlyOver()
 	{
-		elapsedTimeWhileActiveInSeconds += Game.secondsPerTick;
+		elapsedTimeWhileActiveInSeconds += gp.secondsPerTick;
 		
 		if(elapsedTimeWhileActiveInSeconds >= Ghost.timeInstantToBeginFlashingInSeconds)
 		{

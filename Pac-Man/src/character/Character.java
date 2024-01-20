@@ -2,12 +2,12 @@ package character;
 
 import java.awt.Rectangle;
 
-import main.Game;
+import main.GamePanel;
 import Game.Wall;
 
 public class Character extends Rectangle
 {
-	Game game;
+	GamePanel gp;
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -31,9 +31,9 @@ public class Character extends Rectangle
 	
 	public static int pixelsTravelledPerTick = 2;
 	
-	public Character(Game game)
+	public Character(GamePanel gp)
 	{
-		this.game = game;
+		this.gp = gp;
 	}
 	
 	protected void portalEvents(Character character)
@@ -117,22 +117,22 @@ public class Character extends Rectangle
 		{
 			if(side == left)
 			{
-				Pacman.pacman = new AlivePacman(left, character.getNextDirection(), 640, 320, game);
+				Pacman.pacman = new AlivePacman(left, character.getNextDirection(), 640, 320, gp);
 			}
 			else if(side == right)
 			{
-				Pacman.pacman = new AlivePacman(right, character.getNextDirection(), 0, 320, game);
+				Pacman.pacman = new AlivePacman(right, character.getNextDirection(), 0, 320, gp);
 			}
 		}
 		else if(character instanceof Ghost)
 		{
-			Ghost.ghostArray[character.getID()] = new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus(), game);
+			Ghost.ghostArray[character.getID()] = new Ghost(character.getID(), character.getMovementType(), character.getPortalCrossingStatus(), character.getVulnerabilityStatus(), gp);
 		}
 	}
 	
 	public void move(Character character, int direction)
 	{
-		if(game.gameStatus == game.lifeLost)
+		if(gp.gameStatus == gp.lifeLost)
 		{
 			return;
 		}

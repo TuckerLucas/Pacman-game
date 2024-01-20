@@ -3,17 +3,17 @@ package food;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import main.Game;
+import main.GamePanel;
 
 public class Food extends Rectangle
 {	
-	Game game;
+	GamePanel gp;
 	
 	private static final long serialVersionUID = 1L;
 	
-	public Food(Game game)
+	public Food(GamePanel gp)
 	{
-		this.game = game;
+		this.gp = gp;
 	}
 	
 	public int getFoodPoints() {return -1;};
