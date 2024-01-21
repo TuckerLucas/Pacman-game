@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import character.Ghost;
 import food.Energizer;
 import food.Pellet;
 import main.GamePanel;
@@ -82,26 +81,26 @@ public class Level
 					
 					case red:			
 						
-						Ghost.ghostArray[0].x = x*gp.tileSize;
-						Ghost.ghostArray[0].y = y*gp.tileSize;
+						gp.ghostArray[0].x = x*gp.tileSize;
+						gp.ghostArray[0].y = y*gp.tileSize;
 						break;
 						
 					case cyan:			
 						
-						Ghost.ghostArray[1].x = x*gp.tileSize;
-						Ghost.ghostArray[1].y = y*gp.tileSize;
+						gp.ghostArray[1].x = x*gp.tileSize;
+						gp.ghostArray[1].y = y*gp.tileSize;
 						break;
 						
 					case purple:
 						
-						Ghost.ghostArray[2].x = x*gp.tileSize;
-						Ghost.ghostArray[2].y = y*gp.tileSize;
+						gp.ghostArray[2].x = x*gp.tileSize;
+						gp.ghostArray[2].y = y*gp.tileSize;
 						break;
 						
 					case orange:
 						
-						Ghost.ghostArray[3].x = x*gp.tileSize;
-						Ghost.ghostArray[3].y = y*gp.tileSize;
+						gp.ghostArray[3].x = x*gp.tileSize;
+						gp.ghostArray[3].y = y*gp.tileSize;
 						break;
 						
 					case white:
@@ -140,10 +139,10 @@ public class Level
 		
 		if(gp.gameStatus != gp.lifeLost)
 		{
-			Ghost.ghostArray[0].render(g);
-			Ghost.ghostArray[1].render(g);
-			Ghost.ghostArray[2].render(g);
-			Ghost.ghostArray[3].render(g);
+			gp.ghostArray[0].render(g);
+			gp.ghostArray[1].render(g);
+			gp.ghostArray[2].render(g);
+			gp.ghostArray[3].render(g);
 		}
 
 		gp.spawnBoxDoor.render(g);

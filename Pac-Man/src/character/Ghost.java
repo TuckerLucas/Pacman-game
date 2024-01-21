@@ -39,14 +39,10 @@ public class Ghost extends Character
 	private int deltaY;
 	private int detectionRange = 80;
 	
-	public static int numberOfEatenGhosts = 0;
-	
 	private int pacmanZone = 1;
 	
 	public static int spawnBoxX = 320;
 	public static int spawnBoxY = 320;
-	
-	public static Ghost ghostArray[] = new Ghost[4];
 	
 	private int frameIndex = 0;
 	private double elapsedFrameTimeInSeconds = 0;		
@@ -480,44 +476,6 @@ public class Ghost extends Character
 		else if(deltaX > 0 && deltaY < 0 && deltaX > -deltaY)	 					
 		{
 			pacmanZone = 15;									
-		}
-	}
-	
-
-	public static void turnAllVulnerable()
-	{
-		for(int i = 0; i < ghostArray.length; i++)
-		{
-			ghostArray[i].isVulnerable = true;
-		}
-		
-		numberOfEatenGhosts = 0;
-	}
-	
-	public static void turnAllHostile()
-	{
-		for(int i = 0; i < ghostArray.length; i++)
-		{
-			ghostArray[i].isVulnerable = false;
-		}
-	}
-	
-	public static void startFlashing()
-	{
-		for(int i = 0; i < ghostArray.length; i++)
-		{
-			if(ghostArray[i].isVulnerable)
-			{
-				ghostArray[i].isFlashing = true;
-			}
-		}
-	}
-	
-	public static void stopFlashing()
-	{
-		for(int i = 0; i < ghostArray.length; i++)
-		{
-			ghostArray[i].isFlashing = false;
 		}
 	}
 

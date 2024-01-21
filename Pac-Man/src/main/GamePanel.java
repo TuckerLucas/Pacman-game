@@ -39,6 +39,8 @@ public class GamePanel extends Canvas implements Runnable
 	public final int screenWidth = tileSize * maxScreenCol;
 	public final int screenHeight = ((tileSize * maxScreenRow) + 80);	// 704 game + 80 data
 	
+	public int numberOfEatenGhosts = 0;
+	
 	Thread gameThread;	
 	
 	public int gameStatus = 0;
@@ -66,6 +68,7 @@ public class GamePanel extends Canvas implements Runnable
 	public List<Food> foodList;
 	public BonusScore bonusScore;
 	public Pacman pacman;
+	public Ghost ghostArray[] = new Ghost[4];
 	public Energizer energizer;
 	public SpawnBoxDoor spawnBoxDoor;
 	public Wall[][] wallMatrix;
@@ -126,10 +129,10 @@ public class GamePanel extends Canvas implements Runnable
 	public void loadGameElements()
 	{
 		pacman = new AlivePacman(Character.right, Character.right, 320, 512, this);
-		Ghost.ghostArray[0] = new Ghost(0, Ghost.randomMovement, Character.notCrossingPortal, false, this); 
-		Ghost.ghostArray[1] = new Ghost(1, Ghost.randomMovement, Character.notCrossingPortal, false, this);
-		Ghost.ghostArray[2] = new Ghost(2, Ghost.randomMovement, Character.notCrossingPortal, false, this);
-		Ghost.ghostArray[3] = new Ghost(3, Ghost.randomMovement, Character.notCrossingPortal, false, this);
+		ghostArray[0] = new Ghost(0, Ghost.randomMovement, Character.notCrossingPortal, false, this); 
+		ghostArray[1] = new Ghost(1, Ghost.randomMovement, Character.notCrossingPortal, false, this);
+		ghostArray[2] = new Ghost(2, Ghost.randomMovement, Character.notCrossingPortal, false, this);
+		ghostArray[3] = new Ghost(3, Ghost.randomMovement, Character.notCrossingPortal, false, this);
 		
 		switch(gameStatus)
 		{
@@ -167,6 +170,59 @@ public class GamePanel extends Canvas implements Runnable
 		showText = true;
 	}
 	
+	public void turnAllVulnerable()
+	{
+		for(int i = 0; i < ghostArray.length; i++)
+		{
+			ghostArray[i].isVulnerable = true;
+		}
+		
+		numberOfEatenGhosts = 0;
+	}
+	
+	public void turnAllHostile()
+	{
+		for(int i = 0; i < ghostArray.length; i++)
+		{
+			ghostArray[i].isVulnerable = false;
+		}
+	}
+	
+	public void startFlashing()
+	{
+		for(int i = 0; i < ghostArray.length; i++)
+		{
+			if(ghostArray[i].isVulnerable)
+			{
+				ghostArray[i].isFlashing = true;
+			}
+		}
+	}
+	
+	public void stopFlashing()
+	{
+		for(int i = 0; i < ghostArray.length; i++)
+		{
+			ghostArray[i].isFlashing = false;
+		}
+	}
+	
+	public void activate()
+	{	
+		Sounds.playSoundEffect(Sounds.eatenEnergizerSoundPath);
+		
+		Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
+		Energizer.isActive = true;	
+		stopFlashing();
+		
+		turnAllVulnerable();
+	}
+	
+	public void deactivate()
+	{	
+		turnAllHostile();
+	}
+	
 	private void tick()
 	{
 		switch(gameStatus)
@@ -174,10 +230,10 @@ public class GamePanel extends Canvas implements Runnable
 			case play:
 				
 				pacman.tick();
-				Ghost.ghostArray[0].tick(); 
-				Ghost.ghostArray[1].tick();
-				Ghost.ghostArray[2].tick();
-				Ghost.ghostArray[3].tick();
+				ghostArray[0].tick(); 
+				ghostArray[1].tick();
+				ghostArray[2].tick();
+				ghostArray[3].tick();
 				bonusScore.tick();
 				energizer.tick();
 
@@ -251,7 +307,7 @@ public class GamePanel extends Canvas implements Runnable
 							gameStatus = play;
 						}
 						
-						Energizer.deactivate();
+						deactivate();
 					}
 				}
 				

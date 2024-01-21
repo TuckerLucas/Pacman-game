@@ -75,7 +75,7 @@ public class AlivePacman extends Pacman
 	{	
 		if(food instanceof Energizer)
 		{
-			Energizer.activate();
+			gp.activate();
 		}
 		else if(food instanceof Pellet)
 		{
@@ -93,7 +93,7 @@ public class AlivePacman extends Pacman
 			return;
 		}
 		
-		if(Ghost.ghostArray[intersectedGhost].isVulnerable)
+		if(gp.ghostArray[intersectedGhost].isVulnerable)
 		{
 			eatGhost();
 		}
@@ -105,9 +105,9 @@ public class AlivePacman extends Pacman
 	
 	public boolean pacmanIntersectedGhost()
 	{
-		for(int i = 0; i < Ghost.ghostArray.length; i++)
+		for(int i = 0; i < gp.ghostArray.length; i++)
 		{
-			if(Ghost.ghostArray[i].intersects(this))
+			if(gp.ghostArray[i].intersects(this))
 			{	
 				intersectedGhost = i;
 				
@@ -121,13 +121,13 @@ public class AlivePacman extends Pacman
 	{
 		Sounds.playSoundEffect(Sounds.ghostEatenSoundPath);
 		
-		Ghost.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, Ghost.randomMovement, notCrossingPortal, false, gp);
+		gp.ghostArray[intersectedGhost] = new Ghost(intersectedGhost, Ghost.randomMovement, notCrossingPortal, false, gp);
 				
-		Ghost.numberOfEatenGhosts++;
+		gp.numberOfEatenGhosts++;
 		
-		if(Ghost.numberOfEatenGhosts == Ghost.ghostArray.length)
+		if(gp.numberOfEatenGhosts == gp.ghostArray.length)
 		{
-			Energizer.deactivate();
+			gp.deactivate();
 		}
 		
 		gp.bonusScore.displayBonusScore(x, y);

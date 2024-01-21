@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import character.Ghost;
 import Game.Animation;
 import main.GamePanel;
-import main.Sounds;
 
 public class Energizer extends Food
 {
@@ -66,7 +65,7 @@ public class Energizer extends Food
 		}
 		else if(elapsedTimeWhileActiveInSeconds >= activeTargetTimeInSeconds)		
 		{
-			deactivate();
+			gp.deactivate();
 		}
 	}
 	
@@ -76,24 +75,8 @@ public class Energizer extends Food
 		
 		if(elapsedTimeWhileActiveInSeconds >= Ghost.timeInstantToBeginFlashingInSeconds)
 		{
-			Ghost.startFlashing();
+			gp.startFlashing();
 		}
-	}
-	
-	public static void activate()
-	{	
-		Sounds.playSoundEffect(Sounds.eatenEnergizerSoundPath);
-		
-		Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
-		Energizer.isActive = true;	
-		Ghost.stopFlashing();
-		
-		Ghost.turnAllVulnerable();
-	}
-	
-	public static void deactivate()
-	{	
-		Ghost.turnAllHostile();
 	}
 	
 	public int getFoodPoints()

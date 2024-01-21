@@ -3,7 +3,6 @@ package Game;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import character.Ghost;
 import main.GamePanel;
 
 public class BonusScore extends Rectangle
@@ -79,16 +78,16 @@ public class BonusScore extends Rectangle
 		gp.score += bonusScore;
 	}
 	
-	private static double calculateBonusScore()
+	private double calculateBonusScore()
 	{
-		return Math.pow(2.0, (double)Ghost.numberOfEatenGhosts) * 100.0;
+		return Math.pow(2.0, (double)gp.numberOfEatenGhosts) * 100.0;
 	}
 	
 	public void render(Graphics g)
 	{
 		if(isBeingDisplayed)
 		{
-			switch(Ghost.numberOfEatenGhosts)
+			switch(gp.numberOfEatenGhosts)
 			{
 				case 1: 
 					g.drawImage(Animation.bonusScore200Sprites[frameIndex], x, y, width, height, null);
