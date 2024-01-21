@@ -33,8 +33,6 @@ public class Level
 	
 	private String mapImagePath = "/Images/map.png";
 	
-	public static Level level;
-	
 	public Level(GamePanel gp)	
 	{
 		this.gp = gp;

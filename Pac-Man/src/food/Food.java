@@ -16,6 +16,13 @@ public class Food extends Rectangle
 		this.gp = gp;
 	}
 	
-	public int getFoodPoints() {return -1;};
-	public void render(Graphics g) {};
+	public int getFoodPoints() 
+	{
+		return 0;
+	}
+	
+	public void render(Graphics g) 
+	{
+		
+	}
 }

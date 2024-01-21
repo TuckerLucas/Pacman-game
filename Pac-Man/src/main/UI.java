@@ -9,7 +9,6 @@ import java.io.InputStream;
 
 import character.Pacman;
 import Game.Animation;
-import Game.Level;
 
 public class UI 
 {
@@ -64,7 +63,7 @@ public class UI
 		}
 		if(gp.gameStatus == gp.play)
 		{
-			Level.level.render(g);
+			gp.level.render(g);
 			displayGameStats(g);
 		}
 	}
@@ -308,7 +307,7 @@ public class UI
 		
 		if(gp.gameStatus != gp.lose)
 		{
-			Level.level.render(g);
+			gp.level.render(g);
 		}
 	}
 	

@@ -70,6 +70,7 @@ public class GamePanel extends Canvas implements Runnable
 	public SpawnBoxDoor spawnBoxDoor;
 	public Wall[][] wallMatrix;
 	public Animation animation = new Animation();
+	public Level level;
 	Font maruMonica;
 	
 	public KeyHandler keyH = new KeyHandler(this);
@@ -149,7 +150,7 @@ public class GamePanel extends Canvas implements Runnable
 				// Load bonus score object
 				bonusScore = new BonusScore(this);
 				
-				Level.level = new Level(this); 
+				level = new Level(this); 
 				break;
 				
 			default: break;
