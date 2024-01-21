@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.util.Random;
 
 import Game.Animation;
-import Game.Level;
 import main.GamePanel;
 
 public class Ghost extends Character
@@ -203,7 +202,7 @@ public class Ghost extends Character
 
 	private void spawnGhost(int xCoordinate, int yCoordinate)
 	{
-		setBounds(xCoordinate, yCoordinate, Level.objectWidth, Level.objectHeight);
+		setBounds(xCoordinate, yCoordinate, gp.tileSize, gp.tileSize);
 	}
 	
 	

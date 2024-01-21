@@ -17,9 +17,6 @@ public class Level
 	
 	private static int gameWidth;
 	private static int gameHeight;
-		
-	public static int objectWidth = 32;
-	public static int objectHeight = 32;
 	
 	private final int black = 0xFF000000;
 	private final int gray = 0xFF808080;
@@ -68,53 +65,53 @@ public class Level
 				{
 					case black:
 						
-						gp.wallMatrix[x][y] = new Wall(x*objectWidth, y*objectHeight);
+						gp.wallMatrix[x][y] = new Wall(x*gp.tileSize, y*gp.tileSize, gp);
 						break;
 						
 					case gray:			
 						
-						gp.spawnBoxDoor.x = x*objectWidth;
-						gp.spawnBoxDoor.y = y*objectHeight;
+						gp.spawnBoxDoor.x = x*gp.tileSize;
+						gp.spawnBoxDoor.y = y*gp.tileSize;
 						break;
 						
 					case darkYellow:			
 						
-						gp.pacman.x = x*objectWidth;
-						gp.pacman.y = y*objectHeight;
+						gp.pacman.x = x*gp.tileSize;
+						gp.pacman.y = y*gp.tileSize;
 						break;
 					
 					case red:			
 						
-						Ghost.ghostArray[0].x = x*objectWidth;
-						Ghost.ghostArray[0].y = y*objectHeight;
+						Ghost.ghostArray[0].x = x*gp.tileSize;
+						Ghost.ghostArray[0].y = y*gp.tileSize;
 						break;
 						
 					case cyan:			
 						
-						Ghost.ghostArray[1].x = x*objectWidth;
-						Ghost.ghostArray[1].y = y*objectHeight;
+						Ghost.ghostArray[1].x = x*gp.tileSize;
+						Ghost.ghostArray[1].y = y*gp.tileSize;
 						break;
 						
 					case purple:
 						
-						Ghost.ghostArray[2].x = x*objectWidth;
-						Ghost.ghostArray[2].y = y*objectHeight;
+						Ghost.ghostArray[2].x = x*gp.tileSize;
+						Ghost.ghostArray[2].y = y*gp.tileSize;
 						break;
 						
 					case orange:
 						
-						Ghost.ghostArray[3].x = x*objectWidth;
-						Ghost.ghostArray[3].y = y*objectHeight;
+						Ghost.ghostArray[3].x = x*gp.tileSize;
+						Ghost.ghostArray[3].y = y*gp.tileSize;
 						break;
 						
 					case white:
 						
-						gp.foodList.add(new Pellet(x*objectWidth, y*objectHeight, gp));
+						gp.foodList.add(new Pellet(x*gp.tileSize, y*gp.tileSize, gp));
 						break;
 						
 					case lightYellow:
 						
-						gp.foodList.add(new Energizer(x*objectWidth, y*objectHeight, gp));
+						gp.foodList.add(new Energizer(x*gp.tileSize, y*gp.tileSize, gp));
 						break;
 				}
 			}	

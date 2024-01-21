@@ -136,7 +136,7 @@ public class GamePanel extends Canvas implements Runnable
 			case init:
 
 				foodList = new ArrayList<>();	
-				spawnBoxDoor = new SpawnBoxDoor(0, 0);
+				spawnBoxDoor = new SpawnBoxDoor(0, 0, this);
 				energizer = new Energizer(0, 0, this);
 				
 				// fall through

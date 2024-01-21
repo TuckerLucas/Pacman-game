@@ -3,7 +3,6 @@ package character;
 import java.awt.Graphics;
 
 import Game.Animation;
-import Game.Level;
 import main.GamePanel;
 
 public class DeadPacman extends Pacman
@@ -20,7 +19,7 @@ public class DeadPacman extends Pacman
 	
 	private void spawnDeadPacman(int xCoordinate, int yCoordinate)
 	{
-		setBounds(xCoordinate, yCoordinate, Level.objectWidth, Level.objectHeight);
+		setBounds(xCoordinate, yCoordinate, gp.tileSize, gp.tileSize);
 	}
 	
 	public void tick()

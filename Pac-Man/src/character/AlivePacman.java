@@ -6,7 +6,6 @@ import food.Energizer;
 import food.Food;
 import food.Pellet;
 import Game.Animation;
-import Game.Level;
 import main.GamePanel;
 import main.Sounds;
 
@@ -26,7 +25,7 @@ public class AlivePacman extends Pacman
 		this.y = y;
 		currentDir = cD;
 		nextDir = nD;
-		setBounds(x, y, Level.objectWidth, Level.objectHeight);
+		setBounds(x, y, gp.tileSize, gp.tileSize);
 	}
 	
 	public void tick()

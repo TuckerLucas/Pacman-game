@@ -4,7 +4,6 @@ import java.awt.Graphics;
 
 import character.Ghost;
 import Game.Animation;
-import Game.Level;
 import main.GamePanel;
 import main.Sounds;
 
@@ -29,7 +28,7 @@ public class Energizer extends Food
 	{
 		super(gp);
 		
-		setBounds(x, y, Level.objectWidth, Level.objectHeight);
+		setBounds(x, y, gp.tileSize, gp.tileSize);
 	}
 	
 	public void tick()

@@ -26,7 +26,7 @@ public class BonusScore extends Rectangle
 	public BonusScore(GamePanel gp)
 	{
 		this.gp = gp;
-		setBounds(0, 0, Level.objectWidth*2, Level.objectHeight);
+		setBounds(0, 0, gp.tileSize*2, gp.tileSize);
 	}
 	
 	public void tick()
