@@ -69,6 +69,7 @@ public class GamePanel extends Canvas implements Runnable
 	public Energizer energizer;
 	public SpawnBoxDoor spawnBoxDoor;
 	public Wall[][] wallMatrix;
+	public Animation animation = new Animation();
 	Font maruMonica;
 	
 	public KeyHandler keyH = new KeyHandler(this);
@@ -83,7 +84,6 @@ public class GamePanel extends Canvas implements Runnable
 		this.setFocusable(true);
 		
 		gameStatus = init;			
-		Animation.animation = new Animation();
 		
 		getGameHighScore();
 	}

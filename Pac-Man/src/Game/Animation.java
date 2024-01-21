@@ -43,8 +43,6 @@ public class Animation
 	
 	private String spritesheetImagePath = "/Images/spritesheet.png";
 	
-	public static Animation animation;
-	
 	public Animation()
 	{
 		getSpritesheet(spritesheetImagePath);
