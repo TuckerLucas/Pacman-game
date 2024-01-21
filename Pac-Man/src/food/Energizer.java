@@ -25,8 +25,6 @@ public class Energizer extends Food
 	private static int frameIndex = 0;
 	private int totalNumberOfFrames = Animation.energizerSprites.length;	
 	
-	public static Energizer energizer;
-	
 	public Energizer(int x, int y, GamePanel gp)
 	{
 		super(gp);

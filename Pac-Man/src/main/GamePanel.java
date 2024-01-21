@@ -65,6 +65,7 @@ public class GamePanel extends Canvas implements Runnable
 	public List<Food> foodList;
 	public BonusScore bonusScore;
 	public Pacman pacman;
+	public Energizer energizer;
 	Font maruMonica;
 	
 	public KeyHandler keyH = new KeyHandler(this);
@@ -132,7 +133,7 @@ public class GamePanel extends Canvas implements Runnable
 
 				foodList = new ArrayList<>();	
 				SpawnBoxDoor.spawnBoxDoor = new SpawnBoxDoor(0, 0);
-				Energizer.energizer = new Energizer(0, 0, this);
+				energizer = new Energizer(0, 0, this);
 				
 				// fall through
 				
@@ -174,7 +175,7 @@ public class GamePanel extends Canvas implements Runnable
 				Ghost.ghostArray[2].tick();
 				Ghost.ghostArray[3].tick();
 				bonusScore.tick();
-				Energizer.energizer.tick();
+				energizer.tick();
 
 				if(foodList.size() == 0)
 				{
