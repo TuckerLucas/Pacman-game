@@ -7,8 +7,6 @@ import java.awt.Rectangle;
 public class SpawnBoxDoor extends Rectangle 
 {
 	private static final long serialVersionUID = 1L;
-
-	public static SpawnBoxDoor spawnBoxDoor;
 	
 	public SpawnBoxDoor(int x, int y)
 	{

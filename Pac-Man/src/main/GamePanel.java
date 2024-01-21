@@ -66,6 +66,7 @@ public class GamePanel extends Canvas implements Runnable
 	public BonusScore bonusScore;
 	public Pacman pacman;
 	public Energizer energizer;
+	public SpawnBoxDoor spawnBoxDoor;
 	Font maruMonica;
 	
 	public KeyHandler keyH = new KeyHandler(this);
@@ -132,7 +133,7 @@ public class GamePanel extends Canvas implements Runnable
 			case init:
 
 				foodList = new ArrayList<>();	
-				SpawnBoxDoor.spawnBoxDoor = new SpawnBoxDoor(0, 0);
+				spawnBoxDoor = new SpawnBoxDoor(0, 0);
 				energizer = new Energizer(0, 0, this);
 				
 				// fall through

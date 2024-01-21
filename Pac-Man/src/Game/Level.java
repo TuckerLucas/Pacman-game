@@ -75,8 +75,8 @@ public class Level
 						
 					case gray:			
 						
-						SpawnBoxDoor.spawnBoxDoor.x = x*objectWidth;
-						SpawnBoxDoor.spawnBoxDoor.y = y*objectHeight;
+						gp.spawnBoxDoor.x = x*objectWidth;
+						gp.spawnBoxDoor.y = y*objectHeight;
 						break;
 						
 					case darkYellow:			
@@ -151,7 +151,7 @@ public class Level
 			Ghost.ghostArray[3].render(g);
 		}
 
-		SpawnBoxDoor.spawnBoxDoor.render(g);
+		gp.spawnBoxDoor.render(g);
 		gp.bonusScore.render(g);
 	}
 }
