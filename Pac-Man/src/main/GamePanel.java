@@ -64,7 +64,7 @@ public class GamePanel extends Canvas implements Runnable
 	
 	public List<Food> foodList;
 	public BonusScore bonusScore;
-	
+	public Pacman pacman;
 	Font maruMonica;
 	
 	public KeyHandler keyH = new KeyHandler(this);
@@ -120,7 +120,7 @@ public class GamePanel extends Canvas implements Runnable
 	
 	public void loadGameElements()
 	{
-		Pacman.pacman = new AlivePacman(Character.right, Character.right, 320, 512, this);
+		pacman = new AlivePacman(Character.right, Character.right, 320, 512, this);
 		Ghost.ghostArray[0] = new Ghost(0, Ghost.randomMovement, Character.notCrossingPortal, false, this); 
 		Ghost.ghostArray[1] = new Ghost(1, Ghost.randomMovement, Character.notCrossingPortal, false, this);
 		Ghost.ghostArray[2] = new Ghost(2, Ghost.randomMovement, Character.notCrossingPortal, false, this);
@@ -168,7 +168,7 @@ public class GamePanel extends Canvas implements Runnable
 		{
 			case play:
 				
-				Pacman.pacman.tick();
+				pacman.tick();
 				Ghost.ghostArray[0].tick(); 
 				Ghost.ghostArray[1].tick();
 				Ghost.ghostArray[2].tick();
@@ -228,7 +228,7 @@ public class GamePanel extends Canvas implements Runnable
 				
 				if(!DeadPacman.pacmanDeathAnimationHasFinished)
 				{
-					Pacman.pacman.tick();
+					pacman.tick();
 					
 					if(DeadPacman.pacmanDeathAnimationHasFinished)
 					{

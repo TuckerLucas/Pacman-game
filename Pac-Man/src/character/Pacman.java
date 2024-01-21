@@ -25,8 +25,6 @@ public class Pacman extends Character
 	
 	public static int frameIndex = 0;
 	
-	public static Pacman pacman;
-	
 	public Pacman(GamePanel gp)
 	{
 		super(gp);

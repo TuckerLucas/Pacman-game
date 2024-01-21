@@ -7,7 +7,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import character.Ghost;
-import character.Pacman;
 import food.Energizer;
 import food.Pellet;
 import main.GamePanel;
@@ -82,8 +81,8 @@ public class Level
 						
 					case darkYellow:			
 						
-						Pacman.pacman.x = x*objectWidth;
-						Pacman.pacman.y = y*objectHeight;
+						gp.pacman.x = x*objectWidth;
+						gp.pacman.y = y*objectHeight;
 						break;
 					
 					case red:			
@@ -142,7 +141,7 @@ public class Level
 			gp.foodList.get(i).render(g);
 		}
 		
-		Pacman.pacman.render(g);
+		gp.pacman.render(g);
 		
 		if(gp.gameStatus != gp.lifeLost)
 		{

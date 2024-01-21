@@ -304,7 +304,7 @@ public class UI
 	
 	private void drawPacmanDying(Graphics g)
 	{
-		Pacman.pacman.render(g);
+		gp.pacman.render(g);
 		
 		if(gp.gameStatus != gp.lose)
 		{

@@ -139,7 +139,7 @@ public class AlivePacman extends Pacman
 	{
 		Sounds.playSoundEffect(Sounds.pacmanDeathSoundPath);
 		
-		pacman = new DeadPacman(x, y, gp);
+		gp.pacman = new DeadPacman(x, y, gp);
 		gp.gameStatus = gp.lifeLost;
 	}
 	

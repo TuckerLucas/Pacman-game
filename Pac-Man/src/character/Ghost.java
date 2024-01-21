@@ -395,8 +395,8 @@ public class Ghost extends Character
 	
 	private void updateDistanceToPacman()
 	{
-		deltaX = x - Pacman.pacman.x; 
-		deltaY = y - Pacman.pacman.y;
+		deltaX = x - gp.pacman.x; 
+		deltaY = y - gp.pacman.y;
 	}
 	
 	private boolean pacmanIsClose()

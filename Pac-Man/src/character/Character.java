@@ -117,11 +117,11 @@ public class Character extends Rectangle
 		{
 			if(side == left)
 			{
-				Pacman.pacman = new AlivePacman(left, character.getNextDirection(), 640, 320, gp);
+				gp.pacman = new AlivePacman(left, character.getNextDirection(), 640, 320, gp);
 			}
 			else if(side == right)
 			{
-				Pacman.pacman = new AlivePacman(right, character.getNextDirection(), 0, 320, gp);
+				gp.pacman = new AlivePacman(right, character.getNextDirection(), 0, 320, gp);
 			}
 		}
 		else if(character instanceof Ghost)
