@@ -78,7 +78,7 @@ public class Level
 						gp.pacman.x = x*gp.tileSize;
 						gp.pacman.y = y*gp.tileSize;
 						break;
-					
+					/*
 					case red:			
 						
 						gp.ghostArray[0].x = x*gp.tileSize;
@@ -102,7 +102,7 @@ public class Level
 						gp.ghostArray[3].x = x*gp.tileSize;
 						gp.ghostArray[3].y = y*gp.tileSize;
 						break;
-						
+					*/	
 					case white:
 						
 						gp.foodList.add(new Pellet(x*gp.tileSize, y*gp.tileSize, gp));

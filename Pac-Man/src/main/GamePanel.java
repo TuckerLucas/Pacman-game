@@ -42,6 +42,7 @@ public class GamePanel extends Canvas implements Runnable
 	public double secondsPerTick = 1.0 / targetTick;
 	
 	// System
+	public AssetSetter aSetter = new AssetSetter(this);
 	public KeyHandler keyH = new KeyHandler(this);
 	public UI ui = new UI(this);
 	Thread gameThread;
@@ -72,7 +73,6 @@ public class GamePanel extends Canvas implements Runnable
 	private int blinkTime = 0;							
 	private int targetFrames = 30;
 	public boolean showText = true;
-	private String scoresPath = "res/Files/LeaderboardInfo.txt";
 	
 	public GamePanel()
 	{
@@ -84,6 +84,8 @@ public class GamePanel extends Canvas implements Runnable
 	
 	public void setupGame()
 	{
+		aSetter.setGhosts();
+		
 		gameState = titleState;			
 		
 		getGameHighScore();
@@ -113,7 +115,7 @@ public class GamePanel extends Canvas implements Runnable
 		try
 		{
 			BufferedReader reader;
-			reader = new BufferedReader(new FileReader(scoresPath));
+			reader = new BufferedReader(new FileReader("res/Files/LeaderboardInfo.txt"));
 			String line = reader.readLine();
 			highscore = Integer.parseInt(line);
 			reader.close();
