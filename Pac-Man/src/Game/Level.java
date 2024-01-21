@@ -18,16 +18,8 @@ public class Level
 	private static int gameHeight;
 	
 	private final int black = 0xFF000000;
-	private final int gray = 0xFF808080;
-	private final int darkYellow = 0xFFFFD800;
-	private final int red = 0xFFFF0000;
-	private final int cyan = 0xFF00FFFF;
-	private final int orange = 0xFFFF8726;
-	private final int purple = 0xFFE7CCFF;
 	private final int white = 0xFFFFFFFF;
 	private final int lightYellow = 0xFFFFFF00;
-	
-	private String mapImagePath = "/Images/map.png";
 	
 	public Level(GamePanel gp)	
 	{
@@ -35,7 +27,7 @@ public class Level
 		
 		try 
 		{
-			BufferedImage map = ImageIO.read(getClass().getResource(mapImagePath));
+			BufferedImage map = ImageIO.read(getClass().getResource("/Images/map.png"));
 			
 			gameWidth = map.getWidth();		
 			gameHeight = map.getHeight();		
@@ -66,43 +58,7 @@ public class Level
 						
 						gp.wallMatrix[x][y] = new Wall(x*gp.tileSize, y*gp.tileSize, gp);
 						break;
-						
-					case gray:			
-						
-						gp.spawnBoxDoor.x = x*gp.tileSize;
-						gp.spawnBoxDoor.y = y*gp.tileSize;
-						break;
-						
-					case darkYellow:			
-						
-						gp.pacman.x = x*gp.tileSize;
-						gp.pacman.y = y*gp.tileSize;
-						break;
-					/*
-					case red:			
-						
-						gp.ghostArray[0].x = x*gp.tileSize;
-						gp.ghostArray[0].y = y*gp.tileSize;
-						break;
-						
-					case cyan:			
-						
-						gp.ghostArray[1].x = x*gp.tileSize;
-						gp.ghostArray[1].y = y*gp.tileSize;
-						break;
-						
-					case purple:
-						
-						gp.ghostArray[2].x = x*gp.tileSize;
-						gp.ghostArray[2].y = y*gp.tileSize;
-						break;
-						
-					case orange:
-						
-						gp.ghostArray[3].x = x*gp.tileSize;
-						gp.ghostArray[3].y = y*gp.tileSize;
-						break;
-					*/	
+
 					case white:
 						
 						gp.foodList.add(new Pellet(x*gp.tileSize, y*gp.tileSize, gp));

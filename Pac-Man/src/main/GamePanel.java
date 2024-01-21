@@ -13,10 +13,8 @@ import java.util.List;
 
 import food.Energizer;
 import food.Food;
-import character.AlivePacman;
 import Game.Animation;
 import Game.BonusScore;
-import character.Character;
 import character.DeadPacman;
 import character.Ghost;
 import Game.Level;
@@ -85,6 +83,8 @@ public class GamePanel extends Canvas implements Runnable
 	public void setupGame()
 	{
 		aSetter.setGhosts();
+		aSetter.setPacman();
+		aSetter.setDoor();
 		
 		gameState = titleState;			
 		
@@ -128,18 +128,15 @@ public class GamePanel extends Canvas implements Runnable
 	
 	public void loadGameElements()
 	{
-		pacman = new AlivePacman(Character.right, Character.right, 320, 512, this);
-		ghostArray[0] = new Ghost(0, Ghost.randomMovement, Character.notCrossingPortal, false, this); 
-		ghostArray[1] = new Ghost(1, Ghost.randomMovement, Character.notCrossingPortal, false, this);
-		ghostArray[2] = new Ghost(2, Ghost.randomMovement, Character.notCrossingPortal, false, this);
-		ghostArray[3] = new Ghost(3, Ghost.randomMovement, Character.notCrossingPortal, false, this);
+		aSetter.setPacman();
 		
 		switch(gameState)
 		{
 			case titleState:
 
 				foodList = new ArrayList<>();	
-				spawnBoxDoor = new SpawnBoxDoor(0, 0, this);
+				//spawnBoxDoor = new SpawnBoxDoor(0, 0, this);
+				aSetter.setDoor();
 				energizer = new Energizer(0, 0, this);
 				
 				// fall through
@@ -152,11 +149,14 @@ public class GamePanel extends Canvas implements Runnable
 				
 				// Load bonus score object
 				bonusScore = new BonusScore(this);
-				
+				aSetter.setGhosts();
 				level = new Level(this); 
 				break;
+			
+			case lifeLostState:
 				
-			default: break;
+				aSetter.setGhosts();
+				break;
 		}
 	}
 

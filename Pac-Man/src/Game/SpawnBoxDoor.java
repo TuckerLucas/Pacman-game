@@ -12,7 +12,7 @@ public class SpawnBoxDoor extends Rectangle
 	
 	private static final long serialVersionUID = 1L;
 	
-	public SpawnBoxDoor(int x, int y, GamePanel gp)
+	public SpawnBoxDoor(GamePanel gp)
 	{
 		this.gp = gp;
 		setBounds(x, y, gp.tileSize, gp.tileSize);
