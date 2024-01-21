@@ -34,23 +34,23 @@ public class KeyHandler implements KeyListener
 	{
 		int code = e.getKeyCode();
 		
-		if(gp.gameStatus == gp.init)
+		if(gp.gameState == gp.titleState)
 		{
 			initState(code, 3);
 		}
-		else if(gp.gameStatus == gp.settings)
+		else if(gp.gameState == gp.settingsState)
 		{
 			settingsState(code, 2);
 		}
-		else if(gp.gameStatus == gp.play)
+		else if(gp.gameState == gp.playState)
 		{
 			playState(code);
 		}
-		else if(gp.gameStatus == gp.win)
+		else if(gp.gameState == gp.winState)
 		{
 			winState(code, 3);
 		}
-		else if(gp.gameStatus == gp.lose)
+		else if(gp.gameState == gp.gameOverState)
 		{
 			loseState(code, 3);
 		}
@@ -64,8 +64,8 @@ public class KeyHandler implements KeyListener
 		{
 			switch(gp.ui.menuOptionIndex)
 			{
-				case 0: gp.loadGameElements(); gp.gameStatus = gp.play; break;
-				case 1: gp.gameStatus = gp.settings; break;
+				case 0: gp.loadGameElements(); gp.gameState = gp.playState; break;
+				case 1: gp.gameState = gp.settingsState; break;
 				case 2: System.exit(0); break;
 			}
 			
@@ -82,7 +82,7 @@ public class KeyHandler implements KeyListener
 			switch(gp.ui.menuOptionIndex)
 			{
 				case 0: break;
-				case 1: gp.gameStatus = gp.init; break;
+				case 1: gp.gameState = gp.titleState; break;
 			}
 			
 			gp.ui.menuOptionIndex = 0;
@@ -112,8 +112,8 @@ public class KeyHandler implements KeyListener
 		{
 			switch(gp.ui.menuOptionIndex)
 			{
-				case 0: gp.score = 0; gp.gameStatus = gp.init; break;
-				case 1: gp.score = 0; gp.loadGameElements(); gp.gameStatus = gp.play; break;
+				case 0: gp.score = 0; gp.gameState = gp.titleState; break;
+				case 1: gp.score = 0; gp.loadGameElements(); gp.gameState = gp.playState; break;
 				case 2: System.exit(0); break;
 			}
 			
@@ -129,8 +129,8 @@ public class KeyHandler implements KeyListener
 		{
 			switch(gp.ui.menuOptionIndex)
 			{
-				case 0: gp.loadGameElements(); gp.gameStatus = gp.play; break;
-				case 1: gp.score = 0; gp.gameStatus = gp.init; break;
+				case 0: gp.loadGameElements(); gp.gameState = gp.playState; break;
+				case 1: gp.score = 0; gp.gameState = gp.titleState; break;
 				case 2: System.exit(0); break;
 			}
 			

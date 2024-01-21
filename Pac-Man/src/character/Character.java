@@ -131,7 +131,7 @@ public class Character extends Rectangle
 	
 	public void move(Character character, int direction)
 	{
-		if(gp.gameStatus == gp.lifeLost)
+		if(gp.gameState == gp.lifeLostState)
 		{
 			return;
 		}

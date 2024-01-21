@@ -137,7 +137,7 @@ public class Level
 		
 		gp.pacman.render(g);
 		
-		if(gp.gameStatus != gp.lifeLost)
+		if(gp.gameState != gp.lifeLostState)
 		{
 			gp.ghostArray[0].render(g);
 			gp.ghostArray[1].render(g);

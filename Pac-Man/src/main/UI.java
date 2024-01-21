@@ -41,28 +41,28 @@ public class UI
 	{
 		this.g = g;
 		
-		if(gp.gameStatus == gp.init)
+		if(gp.gameState == gp.titleState)
 		{
 			drawInitScreen(g);
 		}
-		if(gp.gameStatus == gp.settings)
+		if(gp.gameState == gp.settingsState)
 		{
 			drawSettingsScreen(g);
 		}
-		if(gp.gameStatus == gp.win)
+		if(gp.gameState == gp.winState)
 		{
 			drawWinScreen(g);
 		}
-		if(gp.gameStatus == gp.lose)
+		if(gp.gameState == gp.gameOverState)
 		{
 			drawLoseScreen(g);
 		}
-		if(gp.gameStatus == gp.lifeLost)
+		if(gp.gameState == gp.lifeLostState)
 		{
 			drawPacmanDying(g);
 			displayGameStats(g);
 		}
-		if(gp.gameStatus == gp.play)
+		if(gp.gameState == gp.playState)
 		{
 			gp.level.render(g);
 			displayGameStats(g);
@@ -306,7 +306,7 @@ public class UI
 	{
 		gp.pacman.render(g);
 		
-		if(gp.gameStatus != gp.lose)
+		if(gp.gameState != gp.gameOverState)
 		{
 			gp.level.render(g);
 		}

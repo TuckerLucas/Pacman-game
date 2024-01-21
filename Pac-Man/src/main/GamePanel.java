@@ -58,13 +58,13 @@ public class GamePanel extends Canvas implements Runnable
 	public Level level;
 	
 	// Game state
-	public int gameStatus = 0;
-	final int init = 1;		
-	final int play = 2;
-	final int win = 3;
-	final int lose = 4; 
-	public final int lifeLost = 5;
-	final int settings = 6;
+	public int gameState;
+	public final int titleState = 0;		
+	public final int playState = 1;
+	public final int winState = 2;
+	public final int gameOverState = 3; 
+	public final int lifeLostState = 4;
+	public final int settingsState = 5;
 	
 	public int numberOfEatenGhosts = 0;	
 	public int highscore;
@@ -80,11 +80,15 @@ public class GamePanel extends Canvas implements Runnable
 		this.setBackground(Color.black);
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
-		
-		gameStatus = init;			
+	}
+	
+	public void setupGame()
+	{
+		gameState = titleState;			
 		
 		getGameHighScore();
 	}
+	
 
 	public void startGameThread()
 	{
@@ -128,9 +132,9 @@ public class GamePanel extends Canvas implements Runnable
 		ghostArray[2] = new Ghost(2, Ghost.randomMovement, Character.notCrossingPortal, false, this);
 		ghostArray[3] = new Ghost(3, Ghost.randomMovement, Character.notCrossingPortal, false, this);
 		
-		switch(gameStatus)
+		switch(gameState)
 		{
-			case init:
+			case titleState:
 
 				foodList = new ArrayList<>();	
 				spawnBoxDoor = new SpawnBoxDoor(0, 0, this);
@@ -138,11 +142,11 @@ public class GamePanel extends Canvas implements Runnable
 				
 				// fall through
 				
-			case win:
+			case winState:
 				
 				// fall through
 				
-			case lose:
+			case gameOverState:
 				
 				// Load bonus score object
 				bonusScore = new BonusScore(this);
@@ -219,9 +223,9 @@ public class GamePanel extends Canvas implements Runnable
 	
 	private void tick()
 	{
-		switch(gameStatus)
+		switch(gameState)
 		{
-			case play:
+			case playState:
 				
 				pacman.tick();
 				ghostArray[0].tick(); 
@@ -233,12 +237,12 @@ public class GamePanel extends Canvas implements Runnable
 
 				if(foodList.size() == 0)
 				{
-					gameStatus = win;
+					gameState = winState;
 				}
 
 				break;
 				
-			case win:
+			case winState:
 				
 				BonusScore.isBeingDisplayed = false;
 				
@@ -256,7 +260,7 @@ public class GamePanel extends Canvas implements Runnable
 				
 				break;
 				
-			case lose:
+			case gameOverState:
 				
 				BonusScore.isBeingDisplayed = false;
 				
@@ -277,7 +281,7 @@ public class GamePanel extends Canvas implements Runnable
 				
 				break;
 				
-			case lifeLost:
+			case lifeLostState:
 				
 				BonusScore.isBeingDisplayed = false;
 				
@@ -293,12 +297,12 @@ public class GamePanel extends Canvas implements Runnable
 						
 						if(Pacman.numberOfLives == 0) 
 						{
-							gameStatus = lose;
+							gameState = gameOverState;
 						}
 						else
 						{	
 							loadGameElements();
-							gameStatus = play;
+							gameState = playState;
 						}
 						
 						deactivate();
