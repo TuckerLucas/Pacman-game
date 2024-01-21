@@ -16,6 +16,7 @@ public class UI
 	Graphics g;
 	
 	static Font maruMonica;
+	public int menuOptionIndex = 0;
 	
 	public UI(GamePanel gp)
 	{
@@ -99,7 +100,7 @@ public class UI
 		y += 32*8;
 		g.drawString(text, x, y);
 		
-		if(gp.menuOptionIndex == 0)
+		if(menuOptionIndex == 0)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -109,7 +110,7 @@ public class UI
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(gp.menuOptionIndex == 1)
+		if(menuOptionIndex == 1)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -119,7 +120,7 @@ public class UI
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(gp.menuOptionIndex == 2)
+		if(menuOptionIndex == 2)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -155,7 +156,7 @@ public class UI
 		y += 32*8;
 		g.drawString(text, x, y);
 		
-		if(gp.menuOptionIndex == 0)
+		if(menuOptionIndex == 0)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -165,7 +166,7 @@ public class UI
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(gp.menuOptionIndex == 1)
+		if(menuOptionIndex == 1)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -210,7 +211,7 @@ public class UI
 		y += 32*5;
 		g.drawString(text, x, y);
 		
-		if(gp.menuOptionIndex == 0)
+		if(menuOptionIndex == 0)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -220,7 +221,7 @@ public class UI
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(gp.menuOptionIndex == 1)
+		if(menuOptionIndex == 1)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -230,7 +231,7 @@ public class UI
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(gp.menuOptionIndex == 2)
+		if(menuOptionIndex == 2)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -275,7 +276,7 @@ public class UI
 		y += 32*5;
 		g.drawString(text, x, y);
 		
-		if(gp.menuOptionIndex == 0)
+		if(menuOptionIndex == 0)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -285,7 +286,7 @@ public class UI
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(gp.menuOptionIndex == 1)
+		if(menuOptionIndex == 1)
 		{
 			g.drawString(">",  x - 32,  y);
 		}
@@ -295,7 +296,7 @@ public class UI
 		y += 40;
 		g.drawString(text, x, y);
 		
-		if(gp.menuOptionIndex == 2)
+		if(menuOptionIndex == 2)
 		{
 			g.drawString(">",  x - 32,  y);
 		}

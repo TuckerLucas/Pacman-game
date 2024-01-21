@@ -3,7 +3,6 @@ package main;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.io.BufferedReader;
@@ -29,42 +28,25 @@ public class GamePanel extends Canvas implements Runnable
 {	
 	private static final long serialVersionUID = 1L;
 	
+	// Screen settings
 	final int originalTileSize = 16;
 	final int scale = 2;
-	
 	public final int tileSize = originalTileSize * scale;
 	public final int maxScreenCol = 21;
 	public final int maxScreenRow = 22;
-	
 	public final int screenWidth = tileSize * maxScreenCol;
 	public final int screenHeight = ((tileSize * maxScreenRow) + 80);	// 704 game + 80 data
 	
-	public int numberOfEatenGhosts = 0;
-	
-	Thread gameThread;	
-	
-	public int gameStatus = 0;
-	final int init = 1;		
-	final int play = 2;
-	final int win = 3;
-	final int lose = 4; 
-	public final int lifeLost = 5;
-	final int settings = 6;
-	
-	public int highscore;
-	public int score = 0;
-	
-	private int blinkTime = 0;							
-	private int targetFrames = 30;
-	public boolean showText = true;
-	
-	private String scoresPath = "res/Files/LeaderboardInfo.txt";
-
+	// Timing settings
 	private double targetTick = 60.0; 				
 	public double secondsPerTick = 1.0 / targetTick;
 	
-	public int menuOptionIndex = 0;
+	// System
+	public KeyHandler keyH = new KeyHandler(this);
+	public UI ui = new UI(this);
+	Thread gameThread;
 	
+	// Characters and objects
 	public List<Food> foodList;
 	public BonusScore bonusScore;
 	public Pacman pacman;
@@ -74,11 +56,23 @@ public class GamePanel extends Canvas implements Runnable
 	public Wall[][] wallMatrix;
 	public Animation animation = new Animation();
 	public Level level;
-	Font maruMonica;
 	
-	public KeyHandler keyH = new KeyHandler(this);
+	// Game state
+	public int gameStatus = 0;
+	final int init = 1;		
+	final int play = 2;
+	final int win = 3;
+	final int lose = 4; 
+	public final int lifeLost = 5;
+	final int settings = 6;
 	
-	public UI ui = new UI(this);
+	public int numberOfEatenGhosts = 0;	
+	public int highscore;
+	public int score = 0;
+	private int blinkTime = 0;							
+	private int targetFrames = 30;
+	public boolean showText = true;
+	private String scoresPath = "res/Files/LeaderboardInfo.txt";
 	
 	public GamePanel()
 	{

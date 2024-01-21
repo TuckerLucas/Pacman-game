@@ -62,14 +62,14 @@ public class KeyHandler implements KeyListener
 		
 		if(code == KeyEvent.VK_ENTER)
 		{
-			switch(gp.menuOptionIndex)
+			switch(gp.ui.menuOptionIndex)
 			{
 				case 0: gp.loadGameElements(); gp.gameStatus = gp.play; break;
 				case 1: gp.gameStatus = gp.settings; break;
 				case 2: System.exit(0); break;
 			}
 			
-			gp.menuOptionIndex = 0;
+			gp.ui.menuOptionIndex = 0;
 		}
 	}
 	
@@ -79,13 +79,13 @@ public class KeyHandler implements KeyListener
 		
 		if(code == KeyEvent.VK_ENTER)
 		{
-			switch(gp.menuOptionIndex)
+			switch(gp.ui.menuOptionIndex)
 			{
 				case 0: break;
 				case 1: gp.gameStatus = gp.init; break;
 			}
 			
-			gp.menuOptionIndex = 0;
+			gp.ui.menuOptionIndex = 0;
 		}
 	}
 	
@@ -110,14 +110,14 @@ public class KeyHandler implements KeyListener
 		
 		if(code == KeyEvent.VK_ENTER)
 		{
-			switch(gp.menuOptionIndex)
+			switch(gp.ui.menuOptionIndex)
 			{
 				case 0: gp.score = 0; gp.gameStatus = gp.init; break;
 				case 1: gp.score = 0; gp.loadGameElements(); gp.gameStatus = gp.play; break;
 				case 2: System.exit(0); break;
 			}
 			
-			gp.menuOptionIndex = 0;
+			gp.ui.menuOptionIndex = 0;
 		}
 	}
 	
@@ -127,14 +127,14 @@ public class KeyHandler implements KeyListener
 		
 		if(code == KeyEvent.VK_ENTER)
 		{
-			switch(gp.menuOptionIndex)
+			switch(gp.ui.menuOptionIndex)
 			{
 				case 0: gp.loadGameElements(); gp.gameStatus = gp.play; break;
 				case 1: gp.score = 0; gp.gameStatus = gp.init; break;
 				case 2: System.exit(0); break;
 			}
 			
-			gp.menuOptionIndex = 0;
+			gp.ui.menuOptionIndex = 0;
 		}
 	}
 	
@@ -144,20 +144,20 @@ public class KeyHandler implements KeyListener
 		
 		if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP)
 		{
-			gp.menuOptionIndex--;
+			gp.ui.menuOptionIndex--;
 			
-			if(gp.menuOptionIndex < 0)
+			if(gp.ui.menuOptionIndex < 0)
 			{
-				gp.menuOptionIndex = maxIndex;
+				gp.ui.menuOptionIndex = maxIndex;
 			}
 		}
 		else if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
 		{
-			gp.menuOptionIndex++;
+			gp.ui.menuOptionIndex++;
 			
-			if(gp.menuOptionIndex > maxIndex)
+			if(gp.ui.menuOptionIndex > maxIndex)
 			{
-				gp.menuOptionIndex = 0;
+				gp.ui.menuOptionIndex = 0;
 			}
 		}
 	}
