@@ -28,8 +28,8 @@ public class GamePanel extends Canvas implements Runnable
 {	
 	private static final long serialVersionUID = 1L;
 	
-	static final int originalTileSize = 16;
-	static final int scale = 2;
+	final int originalTileSize = 16;
+	final int scale = 2;
 	
 	public final int tileSize = originalTileSize * scale;
 	public final int maxScreenCol = 21;
@@ -38,8 +38,7 @@ public class GamePanel extends Canvas implements Runnable
 	public final int screenWidth = tileSize * maxScreenCol;
 	public final int screenHeight = ((tileSize * maxScreenRow) + 80);	// 704 game + 80 data
 	
-	private static Thread thread;
-	private static boolean isRunning = false;	
+	Thread gameThread;	
 	
 	public int gameStatus = 0;
 	final int init = 1;		
@@ -49,16 +48,16 @@ public class GamePanel extends Canvas implements Runnable
 	public final int lifeLost = 5;
 	final int settings = 6;
 	
-	public static int highscore;
+	public int highscore;
 	public int score = 0;
 	
 	private int blinkTime = 0;							
 	private int targetFrames = 30;
 	public boolean showText = true;
 	
-	private static String scoresPath = "res/Files/LeaderboardInfo.txt";
+	private String scoresPath = "res/Files/LeaderboardInfo.txt";
 
-	private static double targetTick = 60.0; 				
+	private double targetTick = 60.0; 				
 	public double secondsPerTick = 1.0 / targetTick;
 	
 	public int menuOptionIndex = 0;
@@ -66,7 +65,7 @@ public class GamePanel extends Canvas implements Runnable
 	public List<Food> foodList;
 	public BonusScore bonusScore;
 	
-	static Font maruMonica;
+	Font maruMonica;
 	
 	public KeyHandler keyH = new KeyHandler(this);
 	
@@ -85,30 +84,17 @@ public class GamePanel extends Canvas implements Runnable
 		getGameHighScore();
 	}
 
-	public synchronized void startGame()
+	public void startGameThread()
 	{
-		if(isRunning)
-		{
-			return;
-		}
-			
-		isRunning = true;
-		thread = new Thread(this);
-		thread.start();
+		gameThread = new Thread(this);
+		gameThread.start();
 	}
 	
-	public synchronized static void stopGame()
-	{
-		if(!isRunning)
-		{
-			return;
-		}
-		
-		isRunning = false;
-		
+	public void stopGame()
+	{	
 		try
 		{
-			thread.join();
+			gameThread.join();
 		}
 		catch(InterruptedException e)
 		{
@@ -116,7 +102,7 @@ public class GamePanel extends Canvas implements Runnable
 		}
 	}
 
-	public static void getGameHighScore()
+	public void getGameHighScore()
 	{
 		try
 		{
@@ -299,13 +285,13 @@ public class GamePanel extends Canvas implements Runnable
 	{					
 		long lastTime = System.nanoTime();		// Previous game instant
 		double delta = 0;						// Time difference between game instants
-		double ns = 1000000000 / targetTick; 	// Time interval between ticks
+		double drawInterval = 1000000000 / targetTick; 	// Time interval between ticks
 				
-		while(isRunning)				
+		while(gameThread != null)				
 		{	
-			long now = System.nanoTime();		// This game instant
-			delta += (now - lastTime) / ns;		// Calculate time difference between instants
-			lastTime = now;						// Update previous game instant
+			long currentTime = System.nanoTime();		// This game instant
+			delta += (currentTime - lastTime) / drawInterval;		// Calculate time difference between instants
+			lastTime = currentTime;						// Update previous game instant
 			
 			while(delta >= 1)					// Check if enough time has elapsed	to justify updating the game		
 			{
@@ -315,6 +301,6 @@ public class GamePanel extends Canvas implements Runnable
 			}
 		}
 		
-		stopGame();							
+		stopGame();
 	}
 }

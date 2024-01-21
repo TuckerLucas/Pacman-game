@@ -13,14 +13,14 @@ public class Main
 		window.setResizable(false);
 		window.setTitle("PACMAN");
 		
-		GamePanel gp = new GamePanel();
-		window.add(gp);
+		GamePanel gamePanel = new GamePanel();
+		window.add(gamePanel);
 		
 		window.pack();
 		
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
 		
-		gp.startGame();
+		gamePanel.startGameThread();
 	}
 }
