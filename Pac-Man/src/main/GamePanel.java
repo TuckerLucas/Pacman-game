@@ -23,6 +23,7 @@ import character.Ghost;
 import Game.Level;
 import character.Pacman;
 import Game.SpawnBoxDoor;
+import Game.Wall;
 
 public class GamePanel extends Canvas implements Runnable
 {	
@@ -67,6 +68,7 @@ public class GamePanel extends Canvas implements Runnable
 	public Pacman pacman;
 	public Energizer energizer;
 	public SpawnBoxDoor spawnBoxDoor;
+	public Wall[][] wallMatrix;
 	Font maruMonica;
 	
 	public KeyHandler keyH = new KeyHandler(this);

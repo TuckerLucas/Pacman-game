@@ -3,7 +3,6 @@ package character;
 import java.awt.Rectangle;
 
 import main.GamePanel;
-import Game.Wall;
 
 public class Character extends Rectangle
 {
@@ -147,7 +146,7 @@ public class Character extends Rectangle
 		}
 	}
 
-	public static boolean canMove(Character character, int direction)
+	public boolean canMove(Character character, int direction)
 	{
 		int nextX = 0, nextY = 0;
 		
@@ -167,13 +166,13 @@ public class Character extends Rectangle
 		bounds.width = character.width;
 		bounds.height = character.height;
 		
-		for(int xx = 0; xx < Wall.wallMatrix.length; xx++)
+		for(int xx = 0; xx < gp.wallMatrix.length; xx++)
 		{
-			for(int yy = 0; yy < Wall.wallMatrix[0].length; yy++)
+			for(int yy = 0; yy < gp.wallMatrix[0].length; yy++)
 			{
-				if(Wall.wallMatrix[xx][yy] != null)								
+				if(gp.wallMatrix[xx][yy] != null)								
 				{
-					if(bounds.intersects(Wall.wallMatrix[xx][yy]))						
+					if(bounds.intersects(gp.wallMatrix[xx][yy]))						
 					{
 						return false;								
 					}
@@ -194,7 +193,7 @@ public class Character extends Rectangle
 		}
 	}
 	
-	private static void keepMovingUntilCanChangeDirection(Character character, int direction)
+	private void keepMovingUntilCanChangeDirection(Character character, int direction)
 	{
 		if(direction == right || direction == left)
 		{

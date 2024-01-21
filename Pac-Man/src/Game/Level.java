@@ -58,7 +58,7 @@ public class Level
 	
 	private void loadElementsByColor(int pixels[])
 	{
-		Wall.wallMatrix = new Wall[gameWidth][gameHeight];
+		gp.wallMatrix = new Wall[gameWidth][gameHeight];
 		
 		for(int x = 0; x < gameWidth; x++)
 		{
@@ -70,7 +70,7 @@ public class Level
 				{
 					case black:
 						
-						Wall.wallMatrix[x][y] = new Wall(x*objectWidth, y*objectHeight);
+						gp.wallMatrix[x][y] = new Wall(x*objectWidth, y*objectHeight);
 						break;
 						
 					case gray:			
@@ -129,9 +129,9 @@ public class Level
 		{
 			for(int y = 0; y < gameHeight; y++)
 			{
-				if(Wall.wallMatrix[x][y] != null)
+				if(gp.wallMatrix[x][y] != null)
 				{
-					Wall.wallMatrix[x][y].render(g);
+					gp.wallMatrix[x][y].render(g);
 				}
 			}
 		}

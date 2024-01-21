@@ -7,8 +7,6 @@ import java.awt.Rectangle;
 public class Wall extends Rectangle 
 {
 	private static final long serialVersionUID = 1L;
-
-	public static Wall[][] wallMatrix;
 	
 	public Wall(int x, int y)
 	{	
