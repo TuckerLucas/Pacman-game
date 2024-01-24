@@ -11,7 +11,7 @@ public class BonusScore extends Rectangle
 	
 	private static final long serialVersionUID = 1L;
 	
-	public static boolean isBeingDisplayed = false;
+	public boolean isBeingDisplayed = false;
 	
 	private static double elapsedAnimationTimeInSeconds = 0.0;
 	private double targetTimeForAnimationInSeconds = 5.0;

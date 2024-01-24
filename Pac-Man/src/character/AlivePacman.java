@@ -69,6 +69,11 @@ public class AlivePacman extends Pacman
 				break;
 			}
 		}
+		
+		if(gp.foodList.size() == 0)
+		{
+			gp.gameState = gp.winState;
+		}
 	}	
 
 	public void eat(Food food)

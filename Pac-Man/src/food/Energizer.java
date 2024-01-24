@@ -12,8 +12,6 @@ public class Energizer extends Food
 		
 	private int points = 50;
 	
-	public static boolean isActive = false;
-	
 	public static double elapsedTimeWhileActiveInSeconds = 0.0; 
 	private final double activeTargetTimeInSeconds = 8.0;
 	
@@ -54,7 +52,7 @@ public class Energizer extends Food
 	
 	public void checkEnergizerActivity()
 	{
-		if(!isActive)
+		if(!gp.isActive)
 		{
 			return;
 		}

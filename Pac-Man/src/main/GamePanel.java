@@ -47,11 +47,11 @@ public class GamePanel extends Canvas implements Runnable
 	
 	// Characters and objects
 	public List<Food> foodList;
-	public BonusScore bonusScore;
+	public BonusScore bonusScore = new BonusScore(this);
 	public Pacman pacman;
 	public Ghost ghostArray[] = new Ghost[4];
 	public Energizer energizer;
-	public SpawnBoxDoor spawnBoxDoor;
+	public SpawnBoxDoor spawnBoxDoor = new SpawnBoxDoor(this);
 	public Wall[][] wallMatrix;
 	public Animation animation = new Animation();
 	public Level level;
@@ -65,11 +65,12 @@ public class GamePanel extends Canvas implements Runnable
 	public final int lifeLostState = 4;
 	public final int settingsState = 5;
 	
+	public boolean isActive = false;
 	public int numberOfEatenGhosts = 0;	
 	public int highscore;
 	public int score = 0;
-	private int blinkTime = 0;							
-	private int targetFrames = 30;
+	public int blinkTime = 0;							
+	public int targetFrames = 30;
 	public boolean showText = true;
 	
 	public GamePanel()
@@ -91,6 +92,30 @@ public class GamePanel extends Canvas implements Runnable
 		getGameHighScore();
 	}
 	
+	public void resetGame()
+	{
+		score = 0;
+		Pacman.numberOfLives = 3;
+		foodList = new ArrayList<>();	
+		aSetter.setDoor();
+		energizer = new Energizer(0, 0, this);
+		resetLevel();
+	}
+	
+	public void resetLevel()
+	{
+		bonusScore.isBeingDisplayed = false;
+		isActive = false;
+		Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
+		respawnCharacters();
+		level = new Level(this);
+	}
+	
+	public void respawnCharacters()
+	{
+		aSetter.setGhosts();
+		aSetter.setPacman();
+	}
 
 	public void startGameThread()
 	{
@@ -128,39 +153,16 @@ public class GamePanel extends Canvas implements Runnable
 	
 	public void loadGameElements()
 	{
-		aSetter.setPacman();
-		
 		switch(gameState)
 		{
-			case titleState:
-
-				foodList = new ArrayList<>();	
-				//spawnBoxDoor = new SpawnBoxDoor(0, 0, this);
-				aSetter.setDoor();
-				energizer = new Energizer(0, 0, this);
-				
-				// fall through
-				
-			case winState:
-				
-				// fall through
-				
-			case gameOverState:
-				
-				// Load bonus score object
-				bonusScore = new BonusScore(this);
-				aSetter.setGhosts();
-				level = new Level(this); 
-				break;
-			
-			case lifeLostState:
-				
-				aSetter.setGhosts();
-				break;
+			case titleState: resetGame(); break;
+			case winState: resetLevel(); break;
+			case gameOverState: resetGame(); break;
+			case lifeLostState: respawnCharacters(); break;
 		}
 	}
 
-	private void blinkText()
+	public void blinkText()
 	{
 		if(showText)
 		{
@@ -212,7 +214,7 @@ public class GamePanel extends Canvas implements Runnable
 		Sounds.playSoundEffect(Sounds.eatenEnergizerSoundPath);
 		
 		Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
-		Energizer.isActive = true;	
+		isActive = true;	
 		stopFlashing();
 		
 		turnAllVulnerable();
@@ -230,43 +232,18 @@ public class GamePanel extends Canvas implements Runnable
 			case playState:
 				
 				pacman.tick();
-				ghostArray[0].tick(); 
-				ghostArray[1].tick();
-				ghostArray[2].tick();
-				ghostArray[3].tick();
+				
+				for(int i = 0; i < ghostArray.length; i++)
+				{
+					ghostArray[i].tick();
+				}
+				
 				bonusScore.tick();
 				energizer.tick();
 
-				if(foodList.size() == 0)
-				{
-					gameState = winState;
-				}
-
-				break;
-				
-			case winState:
-				
-				BonusScore.isBeingDisplayed = false;
-				
-				Energizer.isActive = false;	
-				
-				Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
-				
-				blinkTime++;
-				
-				if(blinkTime == targetFrames)
-				{
-					blinkTime = 0;
-					blinkText();
-				}
-				
 				break;
 				
 			case gameOverState:
-				
-				BonusScore.isBeingDisplayed = false;
-				
-				Pacman.numberOfLives = 3;
 				
 				if(score >= highscore)
 				{
@@ -285,7 +262,7 @@ public class GamePanel extends Canvas implements Runnable
 				
 			case lifeLostState:
 				
-				BonusScore.isBeingDisplayed = false;
+				bonusScore.isBeingDisplayed = false;
 				
 				if(!DeadPacman.pacmanDeathAnimationHasFinished)
 				{

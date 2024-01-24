@@ -36,7 +36,7 @@ public class KeyHandler implements KeyListener
 		
 		if(gp.gameState == gp.titleState)
 		{
-			initState(code, 3);
+			titleState(code, 3);
 		}
 		else if(gp.gameState == gp.settingsState)
 		{
@@ -56,7 +56,7 @@ public class KeyHandler implements KeyListener
 		}
 	}
 	
-	public void initState(int code, int nMenuOptions)
+	public void titleState(int code, int nMenuOptions)
 	{
 		enableScrolling(code, nMenuOptions);
 		
@@ -113,7 +113,14 @@ public class KeyHandler implements KeyListener
 			switch(gp.ui.menuOptionIndex)
 			{
 				case 0: gp.score = 0; gp.gameState = gp.titleState; break;
-				case 1: gp.score = 0; gp.loadGameElements(); gp.gameState = gp.playState; break;
+				
+				case 1: 
+					gp.resetGame();
+					
+					gp.gameState = gp.playState; 
+					
+					break;
+					
 				case 2: System.exit(0); break;
 			}
 			
@@ -129,7 +136,21 @@ public class KeyHandler implements KeyListener
 		{
 			switch(gp.ui.menuOptionIndex)
 			{
-				case 0: gp.loadGameElements(); gp.gameState = gp.playState; break;
+				case 0: 
+					
+					gp.resetLevel(); 	
+					
+					gp.blinkTime++;
+					
+					if(gp.blinkTime == gp.targetFrames)
+					{
+						gp.blinkTime = 0;
+						gp.blinkText();
+					}
+					gp.gameState = gp.playState; 
+					
+					break;
+					
 				case 1: gp.score = 0; gp.gameState = gp.titleState; break;
 				case 2: System.exit(0); break;
 			}
