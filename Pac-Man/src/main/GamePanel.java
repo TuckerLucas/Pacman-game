@@ -15,7 +15,6 @@ import food.Energizer;
 import food.Food;
 import Game.Animation;
 import Game.BonusScore;
-import character.DeadPacman;
 import character.Ghost;
 import Game.Level;
 import character.Pacman;
@@ -104,7 +103,6 @@ public class GamePanel extends Canvas implements Runnable
 	
 	public void resetLevel()
 	{
-		bonusScore.isBeingDisplayed = false;
 		isActive = false;
 		Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
 		respawnCharacters();
@@ -113,6 +111,8 @@ public class GamePanel extends Canvas implements Runnable
 	
 	public void respawnCharacters()
 	{
+		bonusScore.isBeingDisplayed = false;
+		deactivate();
 		aSetter.setGhosts();
 		aSetter.setPacman();
 	}
@@ -148,17 +148,6 @@ public class GamePanel extends Canvas implements Runnable
 		catch(IOException e)
 		{
 			e.printStackTrace();
-		}
-	}
-	
-	public void loadGameElements()
-	{
-		switch(gameState)
-		{
-			case titleState: resetGame(); break;
-			case winState: resetLevel(); break;
-			case gameOverState: resetGame(); break;
-			case lifeLostState: respawnCharacters(); break;
 		}
 	}
 
@@ -243,50 +232,9 @@ public class GamePanel extends Canvas implements Runnable
 
 				break;
 				
-			case gameOverState:
-				
-				if(score >= highscore)
-				{
-	        		highscore = score;
-				}
-				
-				blinkTime++;
-				
-				if(blinkTime == targetFrames)
-				{
-					blinkTime = 0;
-					blinkText(); 
-				}
-				
-				break;
-				
 			case lifeLostState:
 				
-				bonusScore.isBeingDisplayed = false;
-				
-				if(!DeadPacman.pacmanDeathAnimationHasFinished)
-				{
-					pacman.tick();
-					
-					if(DeadPacman.pacmanDeathAnimationHasFinished)
-					{
-						Pacman.numberOfLives--;
-						
-						DeadPacman.pacmanDeathAnimationHasFinished = false;
-						
-						if(Pacman.numberOfLives == 0) 
-						{
-							gameState = gameOverState;
-						}
-						else
-						{	
-							loadGameElements();
-							gameState = playState;
-						}
-						
-						deactivate();
-					}
-				}
+				pacman.tick();
 				
 				break;
 		}

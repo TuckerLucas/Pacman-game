@@ -9,8 +9,6 @@ public class DeadPacman extends Pacman
 {
 	private static final long serialVersionUID = 1L;
 	
-	public static boolean pacmanDeathAnimationHasFinished = false;
-	
 	public DeadPacman(int lastAliveX, int lastAliveY, GamePanel gp)
 	{
 		super(gp);
@@ -40,7 +38,16 @@ public class DeadPacman extends Pacman
 			if(frameIndex >= Animation.deadPacmanSprites.length)
 			{
 				frameIndex = 0;
-				pacmanDeathAnimationHasFinished = true;
+				
+				if(Pacman.numberOfLives == 0)
+				{
+					gp.gameState = gp.gameOverState;
+				}
+				else
+				{
+					gp.respawnCharacters();
+					gp.gameState = gp.playState;
+				}
 			}
 		}
 	}

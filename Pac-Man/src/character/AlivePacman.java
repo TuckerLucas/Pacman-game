@@ -142,7 +142,8 @@ public class AlivePacman extends Pacman
 	private void die()
 	{
 		Sounds.playSoundEffect(Sounds.pacmanDeathSoundPath);
-		
+		Pacman.numberOfLives--;
+		gp.bonusScore.isBeingDisplayed = false;
 		gp.pacman = new DeadPacman(x, y, gp);
 		gp.gameState = gp.lifeLostState;
 	}
