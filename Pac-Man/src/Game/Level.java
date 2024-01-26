@@ -14,8 +14,8 @@ public class Level
 {
 	GamePanel gp;
 	
-	private static int gameWidth;
-	private static int gameHeight;
+	private int gameWidth;
+	private int gameHeight;
 	
 	private final int black = 0xFF000000;
 	private final int white = 0xFFFFFFFF;

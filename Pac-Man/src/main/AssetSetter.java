@@ -40,7 +40,8 @@ public class AssetSetter
 	
 	public void setPacman()
 	{
-		gp.pacman = new AlivePacman(Character.right, Character.right, 320, 512, gp);
+		gp.pacman.currentDir = Character.right;
+		gp.pacman = new AlivePacman(Character.right, 320, 512, gp);
 		gp.pacman.x = gp.tileSize*10;
 		gp.pacman.y = gp.tileSize*16;
 	}

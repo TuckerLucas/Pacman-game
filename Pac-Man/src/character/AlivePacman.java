@@ -17,13 +17,12 @@ public class AlivePacman extends Pacman
 
 	private int totalNumberOfFrames = Animation.alivePacmanSprites[currentDir].length;
 
-	public AlivePacman(int cD, int nD, int x, int y, GamePanel gp)
+	public AlivePacman(int nD, int x, int y, GamePanel gp)
 	{
 		super(gp);
 		this.gp = gp;
 		this.x = x;
 		this.y = y;
-		currentDir = cD;
 		nextDir = nD;
 		setBounds(x, y, gp.tileSize, gp.tileSize);
 	}

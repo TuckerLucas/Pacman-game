@@ -15,7 +15,7 @@ public class Pacman extends Character
 	public static int pacmanSpawnXCoordinate = 320;
 	public static int pacmanSpawnYCoordinate = 512;
 	
-	public static int currentDir;
+	public int currentDir;
 	public static int nextDir;
 	
 	public static int portalCrossingStatus = notCrossingPortal;

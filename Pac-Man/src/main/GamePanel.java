@@ -15,9 +15,11 @@ import food.Energizer;
 import food.Food;
 import Game.Animation;
 import Game.BonusScore;
+import character.Character;
 import character.Ghost;
 import Game.Level;
 import character.Pacman;
+import character.AlivePacman;
 import Game.SpawnBoxDoor;
 import Game.Wall;
 
@@ -45,13 +47,13 @@ public class GamePanel extends Canvas implements Runnable
 	Thread gameThread;
 	
 	// Characters and objects
+	public Animation animation = new Animation();
 	public List<Food> foodList = new ArrayList<>();
 	public BonusScore bonusScore = new BonusScore(this);
-	public Pacman pacman;
+	public Pacman pacman = new AlivePacman(Character.right, 320, 512, this);
 	public Ghost ghostArray[] = new Ghost[4];
 	public SpawnBoxDoor spawnBoxDoor = new SpawnBoxDoor(this);
 	public Wall[][] wallMatrix;
-	public Animation animation = new Animation();
 	public Energizer energizer = new Energizer(0, 0, this);
 	public Level level;
 	
