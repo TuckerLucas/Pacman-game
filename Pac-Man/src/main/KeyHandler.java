@@ -112,7 +112,7 @@ public class KeyHandler implements KeyListener
 		{
 			switch(gp.ui.menuOptionIndex)
 			{
-				case 0: gp.score = 0; gp.gameState = gp.titleState; break;
+				case 0: gp.gameState = gp.titleState; break;
 				case 1: gp.resetGame(); gp.gameState = gp.playState; break;
 				case 2: System.exit(0); break;
 			}
@@ -130,7 +130,7 @@ public class KeyHandler implements KeyListener
 			switch(gp.ui.menuOptionIndex)
 			{
 				case 0: gp.resetLevel(); gp.gameState = gp.playState; break;
-				case 1: gp.score = 0; gp.gameState = gp.titleState; break;
+				case 1: gp.gameState = gp.titleState; break;
 				case 2: System.exit(0); break;
 			}
 			

@@ -45,14 +45,14 @@ public class GamePanel extends Canvas implements Runnable
 	Thread gameThread;
 	
 	// Characters and objects
-	public List<Food> foodList;
+	public List<Food> foodList = new ArrayList<>();
 	public BonusScore bonusScore = new BonusScore(this);
 	public Pacman pacman;
 	public Ghost ghostArray[] = new Ghost[4];
-	public Energizer energizer;
 	public SpawnBoxDoor spawnBoxDoor = new SpawnBoxDoor(this);
 	public Wall[][] wallMatrix;
 	public Animation animation = new Animation();
+	public Energizer energizer = new Energizer(0, 0, this);
 	public Level level;
 	
 	// Game state
@@ -92,10 +92,7 @@ public class GamePanel extends Canvas implements Runnable
 	public void resetGame()
 	{
 		score = 0;
-		Pacman.numberOfLives = 3;
-		foodList = new ArrayList<>();	
-		aSetter.setDoor();
-		energizer = new Energizer(0, 0, this);
+		Pacman.numberOfLives = 3;	
 		resetLevel();
 	}
 	
@@ -103,6 +100,7 @@ public class GamePanel extends Canvas implements Runnable
 	{
 		isActive = false;
 		Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
+		aSetter.setDoor();
 		respawnCharacters();
 		level = new Level(this);
 	}

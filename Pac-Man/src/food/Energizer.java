@@ -24,7 +24,6 @@ public class Energizer extends Food
 	public Energizer(int x, int y, GamePanel gp)
 	{
 		super(gp);
-		
 		setBounds(x, y, gp.tileSize, gp.tileSize);
 	}
 	

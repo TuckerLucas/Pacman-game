@@ -24,52 +24,51 @@ public class Level
 	public Level(GamePanel gp)	
 	{
 		this.gp = gp;
-		
+		loadMap("/Images/map.png");
+	}
+	
+	private void loadMap(String filePath)
+	{
 		try 
 		{
-			BufferedImage map = ImageIO.read(getClass().getResource("/Images/map.png"));
+			BufferedImage map = ImageIO.read(getClass().getResource(filePath));
 			
 			gameWidth = map.getWidth();		
 			gameHeight = map.getHeight();		
 			
 			int pixels[] = map.getRGB(0, 0, gameWidth, gameHeight, null, 0, gameWidth);
 			
-			loadElementsByColor(pixels);
+			gp.wallMatrix = new Wall[gameWidth][gameHeight];
+			
+			for(int x = 0; x < gameWidth; x++)
+			{
+				for(int y = 0; y < gameHeight; y++)
+				{
+					int color = pixels[x + (y * gameWidth)];
+					
+					switch(color)
+					{
+						case black:
+							
+							gp.wallMatrix[x][y] = new Wall(x*gp.tileSize, y*gp.tileSize, gp);
+							break;
+
+						case white:
+							
+							gp.foodList.add(new Pellet(x*gp.tileSize, y*gp.tileSize, gp));
+							break;
+							
+						case lightYellow:
+							
+							gp.foodList.add(new Energizer(x*gp.tileSize, y*gp.tileSize, gp));
+							break;
+					}
+				}	
+			}
 		} 
 		catch (IOException e) 
 		{
 			e.printStackTrace();
-		}
-	}
-	
-	private void loadElementsByColor(int pixels[])
-	{
-		gp.wallMatrix = new Wall[gameWidth][gameHeight];
-		
-		for(int x = 0; x < gameWidth; x++)
-		{
-			for(int y = 0; y < gameHeight; y++)
-			{
-				int color = pixels[x + (y * gameWidth)];
-				
-				switch(color)
-				{
-					case black:
-						
-						gp.wallMatrix[x][y] = new Wall(x*gp.tileSize, y*gp.tileSize, gp);
-						break;
-
-					case white:
-						
-						gp.foodList.add(new Pellet(x*gp.tileSize, y*gp.tileSize, gp));
-						break;
-						
-					case lightYellow:
-						
-						gp.foodList.add(new Energizer(x*gp.tileSize, y*gp.tileSize, gp));
-						break;
-				}
-			}	
 		}
 	}
 	
