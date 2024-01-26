@@ -35,6 +35,19 @@ public class Character extends Rectangle
 		this.gp = gp;
 	}
 	
+	public void portalCross()
+	{
+		if(gp.pacman.x == 0 && gp.pacman.y == 320 && gp.pacman.currentDir == left)
+		{
+			gp.pacman = new AlivePacman(left, gp.pacman.nextDir, 640, 320, gp);
+		}
+		
+		if(gp.pacman.x == 640 && gp.pacman.y == 320 && gp.pacman.currentDir == right)
+		{
+			gp.pacman = new AlivePacman(right, gp.pacman.nextDir, 0, 320, gp);
+		}
+	}
+	
 	protected void portalEvents(Character character)
 	{		
 		if(isCrossingPortalFromGivenSide(character, left))
@@ -116,11 +129,11 @@ public class Character extends Rectangle
 		{
 			if(side == left)
 			{
-				gp.pacman = new AlivePacman(character.getNextDirection(), 640, 320, gp);
+				gp.pacman = new AlivePacman(left, gp.pacman.nextDir, 640, 320, gp);
 			}
 			else if(side == right)
 			{
-				gp.pacman = new AlivePacman(character.getNextDirection(), 0, 320, gp);
+				gp.pacman = new AlivePacman(right, gp.pacman.nextDir, 0, 320, gp);
 			}
 		}
 		else if(character instanceof Ghost)

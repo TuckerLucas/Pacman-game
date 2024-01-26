@@ -50,7 +50,7 @@ public class GamePanel extends Canvas implements Runnable
 	public Animation animation = new Animation();
 	public List<Food> foodList = new ArrayList<>();
 	public BonusScore bonusScore = new BonusScore(this);
-	public Pacman pacman = new AlivePacman(Character.right, 320, 512, this);
+	public Pacman pacman = new AlivePacman(Character.right, Character.right, 320, 512, this);
 	public Ghost ghostArray[] = new Ghost[4];
 	public SpawnBoxDoor spawnBoxDoor = new SpawnBoxDoor(this);
 	public Wall[][] wallMatrix;

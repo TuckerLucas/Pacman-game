@@ -4,7 +4,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import character.Character;
-import character.Pacman;
 
 public class KeyHandler implements KeyListener
 {
@@ -94,13 +93,13 @@ public class KeyHandler implements KeyListener
 		switch(code)
 		{
 			case KeyEvent.VK_D:	// fall through
-			case KeyEvent.VK_RIGHT: Pacman.nextDir = Character.right; break;
+			case KeyEvent.VK_RIGHT: gp.pacman.nextDir = Character.right; break;
 			case KeyEvent.VK_A:	// fall through
-			case KeyEvent.VK_LEFT: Pacman.nextDir = Character.left; break;
+			case KeyEvent.VK_LEFT: gp.pacman.nextDir = Character.left; break;
 			case KeyEvent.VK_W:	// fall through
-			case KeyEvent.VK_UP: Pacman.nextDir = Character.upwards; break;
+			case KeyEvent.VK_UP: gp.pacman.nextDir = Character.upwards; break;
 			case KeyEvent.VK_S:	// fall through
-			case KeyEvent.VK_DOWN: Pacman.nextDir = Character.downwards; break;
+			case KeyEvent.VK_DOWN: gp.pacman.nextDir = Character.downwards; break;
 		}
 	}
 	
