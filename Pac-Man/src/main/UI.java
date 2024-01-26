@@ -182,17 +182,14 @@ public class UI
 		int x = getXForCenteredText(g, text);
 		int y = 32*5;
 		
-		if(gp.showText)
-		{
-			g.setColor(Color.white);
-			g.drawString(text, x + 4, y + 4);
-			
-			g.setColor(Color.black);
-			g.drawString(text, x + 3, y + 3);
-			
-			g.setColor(Color.green);
-			g.drawString(text, x, y);
-		}
+		g.setColor(Color.white);
+		g.drawString(text, x + 4, y + 4);
+		
+		g.setColor(Color.black);
+		g.drawString(text, x + 3, y + 3);
+		
+		g.setColor(Color.green);
+		g.drawString(text, x, y);
 		
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 60F));
 		text = "SCORE : " + gp.score;
@@ -247,17 +244,14 @@ public class UI
 		int x = getXForCenteredText(g, text);
 		int y = 32*5;
 		
-		if(gp.showText)
-		{
-			g.setColor(Color.white);
-			g.drawString(text, x + 4, y + 4);
-			
-			g.setColor(Color.black);
-			g.drawString(text, x + 3, y + 3);
-			
-			g.setColor(Color.red);
-			g.drawString(text, x, y);
-		}
+		g.setColor(Color.white);
+		g.drawString(text, x + 4, y + 4);
+		
+		g.setColor(Color.black);
+		g.drawString(text, x + 3, y + 3);
+		
+		g.setColor(Color.red);
+		g.drawString(text, x, y);
 		
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 60F));
 		text = "SCORE : " + gp.score;

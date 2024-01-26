@@ -67,10 +67,8 @@ public class GamePanel extends Canvas implements Runnable
 	public boolean isActive = false;
 	public int numberOfEatenGhosts = 0;	
 	public int highscore;
-	public int score = 0;
-	public int blinkTime = 0;							
+	public int score = 0;							
 	public int targetFrames = 30;
-	public boolean showText = true;
 	
 	public GamePanel()
 	{
@@ -149,16 +147,6 @@ public class GamePanel extends Canvas implements Runnable
 		{
 			e.printStackTrace();
 		}
-	}
-
-	public void blinkText()
-	{
-		if(showText)
-		{
-			showText = false;
-			return;
-		}
-		showText = true;
 	}
 	
 	public void turnAllVulnerable()
