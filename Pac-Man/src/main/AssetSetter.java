@@ -31,8 +31,6 @@ public class AssetSetter
 	
 	public void setDoor()
 	{
-		gp.spawnBoxDoor = new SpawnBoxDoor(gp);
-		gp.spawnBoxDoor.x = gp.tileSize*10;
-		gp.spawnBoxDoor.y = gp.tileSize*9;
+		gp.spawnBoxDoor = new SpawnBoxDoor(gp, 320, 288);
 	}
 }

@@ -42,7 +42,28 @@ public class Character extends Rectangle
 		}
 		else
 		{
-			keepMovingUntilCanChangeDirection(character, direction);
+			if(direction == right || direction == left)
+			{
+				if(character.getCurrentDirection() == upwards && canMove(character, upwards))
+				{
+					shiftCharacterInGivenDirection(character, upwards);
+				}
+				if(character.getCurrentDirection() == downwards && canMove(character, downwards))
+				{
+					shiftCharacterInGivenDirection(character, downwards);
+				}
+			}
+			else if(direction == upwards || direction == downwards)
+			{
+				if(character.getCurrentDirection() == left && canMove(character, left))
+				{
+					shiftCharacterInGivenDirection(character, left);
+				}
+				if(character.getCurrentDirection() == right && canMove(character, right))
+				{
+					shiftCharacterInGivenDirection(character, right);
+				}
+			}
 		}
 	}
 
@@ -79,6 +100,7 @@ public class Character extends Rectangle
 				}
 			}
 		}
+		
 		return true;
 	}
 	
@@ -93,39 +115,5 @@ public class Character extends Rectangle
 		}
 	}
 	
-	private void keepMovingUntilCanChangeDirection(Character character, int direction)
-	{
-		if(direction == right || direction == left)
-		{
-			if(character.getCurrentDirection() == upwards && canMove(character, upwards))
-			{
-				shiftCharacterInGivenDirection(character, upwards);
-			}
-			if(character.getCurrentDirection() == downwards && canMove(character, downwards))
-			{
-				shiftCharacterInGivenDirection(character, downwards);
-			}
-		}
-		else if(direction == upwards || direction == downwards)
-		{
-			if(character.getCurrentDirection() == left && canMove(character, left))
-			{
-				shiftCharacterInGivenDirection(character, left);
-			}
-			if(character.getCurrentDirection() == right && canMove(character, right))
-			{
-				shiftCharacterInGivenDirection(character, right);
-			}
-		}
-	}
-	
-	
 	public int getCurrentDirection() {return -1;}
-	public void setCurrentDirection(int dir) {}
-	public int getPortalCrossingStatus() {return -1;}
-	public void setPortalCrossingStatus(int portalStatus) {}
-	public int getNextDirection(){return -1;}
-	public int getID(){return -1;}
-	public int getMovementType(){return -1;}
-	public boolean getVulnerabilityStatus(){return false;}
 }

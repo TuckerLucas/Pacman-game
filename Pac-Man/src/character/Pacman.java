@@ -12,13 +12,8 @@ public class Pacman extends Character
 	
 	protected int intersectedGhost;
 	
-	public static int pacmanSpawnXCoordinate = 320;
-	public static int pacmanSpawnYCoordinate = 512;
-	
 	public int currentDir;
 	public int nextDir;
-	
-	public static int portalCrossingStatus = notCrossingPortal;
 	
 	public static double elapsedFrameTimeInSeconds = 0.0;	
 	public static double targetTimePerFrameInSeconds = 0.1;
@@ -33,21 +28,6 @@ public class Pacman extends Character
 	public int getCurrentDirection()
 	{
 		return currentDir;
-	}
-	
-	public void setCurrentDirection(int dir)
-	{
-		currentDir = dir;
-	}
-	
-	public void setPortalCrossingStatus(int portalStatus)
-	{
-		portalCrossingStatus = portalStatus;
-	}
-	
-	public int getNextDirection()
-	{
-		return nextDir;
 	}
 	
 	public void tick() {};

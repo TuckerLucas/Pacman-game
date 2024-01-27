@@ -21,8 +21,6 @@ public class AlivePacman extends Pacman
 	{
 		super(gp);
 		this.gp = gp;
-		this.x = x;
-		this.y = y;
 		currentDir = cD;
 		nextDir = nD;
 		setBounds(x, y, gp.tileSize, gp.tileSize);

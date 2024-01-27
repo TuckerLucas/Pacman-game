@@ -52,7 +52,7 @@ public class GamePanel extends Canvas implements Runnable
 	public BonusScore bonusScore = new BonusScore(this);
 	public Pacman pacman = new AlivePacman(Character.right, Character.right, 320, 512, this);
 	public Ghost ghostArray[] = new Ghost[4];
-	public SpawnBoxDoor spawnBoxDoor = new SpawnBoxDoor(this);
+	public SpawnBoxDoor spawnBoxDoor = new SpawnBoxDoor(this, 320, 288);
 	public Wall[][] wallMatrix;
 	public Energizer energizer = new Energizer(0, 0, this);
 	public Level level;
@@ -102,7 +102,6 @@ public class GamePanel extends Canvas implements Runnable
 	{
 		isActive = false;
 		Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
-		aSetter.setDoor();
 		respawnCharacters();
 		level = new Level(this);
 	}

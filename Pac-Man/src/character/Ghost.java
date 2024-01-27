@@ -416,35 +416,10 @@ public class Ghost extends Character
 			}
 		}
 	}
-
-	public int getMovementType() 
-	{
-		return movementType;
-	}
-
-	public boolean getVulnerabilityStatus() 
-	{
-		return isVulnerable;
-	}
 	
 	public int getCurrentDirection()
 	{
 		return currentDir;
-	}
-	
-	public void setCurrentDirection(int dir)
-	{
-		currentDir = dir;
-	}
-	
-	public int getNextDirection()
-	{
-		return nextDir;
-	}
-	
-	public int getID()
-	{
-		return ghostID;
 	}
 	
 	private void loadZoneDirectionsArray()
