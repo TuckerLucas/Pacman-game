@@ -204,27 +204,21 @@ public class GamePanel extends Canvas implements Runnable
 	
 	private void tick()
 	{
-		switch(gameState)
+		if(gameState == playState)
 		{
-			case playState:
-				
-				pacman.tick();
-				
-				for(int i = 0; i < ghostArray.length; i++)
-				{
-					ghostArray[i].tick();
-				}
-				
-				bonusScore.tick();
-				energizer.tick();
-
-				break;
-				
-			case lifeLostState:
-				
-				pacman.tick();
-				
-				break;
+			pacman.tick();
+			
+			for(int i = 0; i < ghostArray.length; i++)
+			{
+				ghostArray[i].tick();
+			}
+			
+			bonusScore.tick();
+			energizer.tick();
+		}
+		else if(gameState == lifeLostState)
+		{
+			pacman.tick();
 		}
 		
 		if(score >= highscore)
