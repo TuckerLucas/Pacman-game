@@ -18,32 +18,15 @@ public class AssetSetter
 	{
 		int i = 0;
 		
-		gp.ghostArray[i] = new Ghost(i, Ghost.randomMovement, Character.notCrossingPortal, false, gp);
-		gp.ghostArray[i].x = gp.tileSize*10;
-		gp.ghostArray[i].y = gp.tileSize*8;
-		i++;
-		
-		gp.ghostArray[i] = new Ghost(i, Ghost.randomMovement, Character.notCrossingPortal, false, gp);
-		gp.ghostArray[i].x = gp.tileSize*9;
-		gp.ghostArray[i].y = gp.tileSize*10;
-		i++;
-		
-		gp.ghostArray[i] = new Ghost(i, Ghost.randomMovement, Character.notCrossingPortal, false, gp);
-		gp.ghostArray[i].x = gp.tileSize*10;
-		gp.ghostArray[i].y = gp.tileSize*10;
-		i++;
-		
-		gp.ghostArray[i] = new Ghost(i, Ghost.randomMovement, Character.notCrossingPortal, false, gp);
-		gp.ghostArray[i].x = gp.tileSize*11;
-		gp.ghostArray[i].y = gp.tileSize*10;
+		gp.ghostArray[i] = new Ghost(i, Character.right, 320, 256, Ghost.randomMovement, false, gp); i++;
+		gp.ghostArray[i] = new Ghost(i, Character.right, 288, 320, Ghost.randomMovement, false, gp); i++;
+		gp.ghostArray[i] = new Ghost(i, Character.upwards, 320, 320, Ghost.randomMovement, false, gp); i++;
+		gp.ghostArray[i] = new Ghost(i, Character.left, 352, 320, Ghost.randomMovement, false, gp);
 	}
 	
 	public void setPacman()
 	{
-		gp.pacman.currentDir = Character.right;
 		gp.pacman = new AlivePacman(Character.right, Character.right, 320, 512, gp);
-		gp.pacman.x = gp.tileSize*10;
-		gp.pacman.y = gp.tileSize*16;
 	}
 	
 	public void setDoor()

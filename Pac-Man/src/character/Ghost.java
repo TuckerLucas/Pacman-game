@@ -13,7 +13,6 @@ public class Ghost extends Character
 	private Random randomGen;
 	
 	public int ghostID;
-	public int portalCrossingStatus;
 	public int movementType;
 	public boolean isVulnerable = false;
 	
@@ -70,7 +69,7 @@ public class Ghost extends Character
 		int findDir2;
 	}
 	
-	public Ghost(int ID, int movementStatus, int portalStatus, boolean vulnerabilityStatus, GamePanel gp)
+	public Ghost(int ID, int cD, int x, int y, int movementStatus, boolean vulnerabilityStatus, GamePanel gp)
 	{	
 		super(gp);
 		
@@ -79,136 +78,18 @@ public class Ghost extends Character
 		ghostID = ID;                  			
 		movementType = movementStatus; 			
 		isVulnerable = vulnerabilityStatus; 	
-		portalCrossingStatus = portalStatus;	
-		
-		switch(portalCrossingStatus)
-		{
-			case Character.notCrossingPortal:
-				spawnGhost(spawnBoxX, spawnBoxY);		
-				break;
-			case Character.crossingPortalFromLeftSide:
-				spawnGhost(portalRightSideCrossingPointXCoordinate, portalYCoordinate);	
-				currentDir = left;									
-				break;
-			case Character.crossingPortalFromRightSide:
-				spawnGhost(portalLeftSideCrossingPointXCoordinate, portalYCoordinate);		
-				currentDir = right;									
-				break;
-		}
+		currentDir = cD;
+		setBounds(x, y, gp.tileSize, gp.tileSize);
 		
 		randomGen = new Random();
 		generateNextDirection();
 	}
 	
-	private void loadZoneDirectionsArray()
-	{	
-		for(int zone = 0; zone < zoneDirectionsArray.length; zone++)
-		{
-			zoneDirectionsArray[zone] = new zoneDirections();
-			
-			switch(zone)
-			{
-				case 0:
-					zoneDirectionsArray[zone].methodicalDir1 = left;
-					zoneDirectionsArray[zone].methodicalDir2 = -1;
-					zoneDirectionsArray[zone].findDir1 = downwards;
-					zoneDirectionsArray[zone].findDir2 = upwards;
-					break;
-				case 1:
-					zoneDirectionsArray[zone].methodicalDir1 = left;
-					zoneDirectionsArray[zone].methodicalDir2 = upwards;
-					zoneDirectionsArray[zone].findDir1 = downwards;
-					break;
-				case 2:
-					zoneDirectionsArray[zone].methodicalDir1 = upwards;
-					zoneDirectionsArray[zone].methodicalDir2 = left;
-					zoneDirectionsArray[zone].findDir1 = right;
-					break;
-				case 3:
-					zoneDirectionsArray[zone].methodicalDir1 = upwards;
-					zoneDirectionsArray[zone].methodicalDir2 = left;
-					zoneDirectionsArray[zone].findDir1 = right;
-					break;
-				case 4:
-					zoneDirectionsArray[zone].methodicalDir1 = upwards;
-					zoneDirectionsArray[zone].methodicalDir2 = -1;
-					zoneDirectionsArray[zone].findDir1 = right;
-					zoneDirectionsArray[zone].findDir2 = left;
-					break;
-				case 5:
-					zoneDirectionsArray[zone].methodicalDir1 = upwards;
-					zoneDirectionsArray[zone].methodicalDir2 = right;
-					zoneDirectionsArray[zone].findDir1 = left;
-					break;
-				case 6:
-					zoneDirectionsArray[zone].methodicalDir1 = upwards;
-					zoneDirectionsArray[zone].methodicalDir2 = right;
-					zoneDirectionsArray[zone].findDir1 = left;
-					break;
-				case 7:
-					zoneDirectionsArray[zone].methodicalDir1 = right;
-					zoneDirectionsArray[zone].methodicalDir2 = upwards;
-					zoneDirectionsArray[zone].findDir1 = downwards;
-					break;
-				case 8:
-					zoneDirectionsArray[zone].methodicalDir1 = right;
-					zoneDirectionsArray[zone].methodicalDir2 = -1;
-					zoneDirectionsArray[zone].findDir1 = upwards;
-					zoneDirectionsArray[zone].findDir2 = downwards;
-					break;
-				case 9:
-					zoneDirectionsArray[zone].methodicalDir1 = right;
-					zoneDirectionsArray[zone].methodicalDir2 = downwards;
-					zoneDirectionsArray[zone].findDir1 = upwards;
-					break;
-				case 10:
-					zoneDirectionsArray[zone].methodicalDir1 = downwards;
-					zoneDirectionsArray[zone].methodicalDir2 = right;
-					zoneDirectionsArray[zone].findDir1 = left;
-					break;
-				case 11:
-					zoneDirectionsArray[zone].methodicalDir1 = downwards;
-					zoneDirectionsArray[zone].methodicalDir2 = right;
-					zoneDirectionsArray[zone].findDir1 = left;
-					break;
-				case 12:
-					zoneDirectionsArray[zone].methodicalDir1 = downwards;
-					zoneDirectionsArray[zone].methodicalDir2 = -1;
-					zoneDirectionsArray[zone].findDir1 = right;
-					zoneDirectionsArray[zone].findDir2 = left;
-					break;
-				case 13:
-					zoneDirectionsArray[zone].methodicalDir1 = downwards;
-					zoneDirectionsArray[zone].methodicalDir2 = left;
-					zoneDirectionsArray[zone].findDir1 = right;
-					break;
-				case 14:
-					zoneDirectionsArray[zone].methodicalDir1 = downwards;
-					zoneDirectionsArray[zone].methodicalDir2 = left;
-					zoneDirectionsArray[zone].findDir1 = right;
-					break;
-				case 15:
-					zoneDirectionsArray[zone].methodicalDir1 = left;
-					zoneDirectionsArray[zone].methodicalDir2 = downwards;
-					zoneDirectionsArray[zone].findDir1 = upwards;
-					break;
-			}
-		}
-	}
-
-	private void spawnGhost(int xCoordinate, int yCoordinate)
-	{
-		setBounds(xCoordinate, yCoordinate, gp.tileSize, gp.tileSize);
-	}
-	
-	
 	public void tick()
-	{		
-		portalEvents(this);
-		updateDistanceToPacman();
-		
-		if(portalCrossingStatus == notCrossingPortal)
+	{	
+		if(!isCrossingPortal(ghostID))
 		{
+			updateDistanceToPacman();
 			selectGhostMovementType();
 		}
 		
@@ -217,6 +98,44 @@ public class Ghost extends Character
 		manageFlashingAnimationTiming();
 	}
 
+	public boolean isCrossingPortal(int i)
+	{
+		if((gp.ghostArray[i].x < 160 || gp.ghostArray[i].x > 480) && gp.ghostArray[i].y == 320)
+		{
+			if(gp.ghostArray[i].currentDir == left)
+			{
+				if(gp.ghostArray[i].x == 0 && gp.ghostArray[i].y == 320)
+				{
+					gp.ghostArray[i] = new Ghost(i, left, 640, 320, gp.ghostArray[i].movementType, gp.ghostArray[i].isVulnerable, gp);
+				}
+				
+				move(gp.ghostArray[i], left);
+				
+				if(gp.ghostArray[i].x == 480 && gp.ghostArray[i].y == 320)
+				{
+					return false;
+				}
+			}
+			else if(gp.ghostArray[i].currentDir == right)
+			{
+				if(gp.ghostArray[i].x == 640 && gp.ghostArray[i].y == 320)
+				{
+					gp.ghostArray[i] = new Ghost(i, right, 0, 320, gp.ghostArray[i].movementType, gp.ghostArray[i].isVulnerable, gp);
+				}
+				
+				move(gp.ghostArray[i], right);
+				
+				if(gp.ghostArray[i].x == 160 && gp.ghostArray[i].y == 320)
+				{
+					return false;
+				}
+			}
+			
+			return true;
+		}
+		
+		return false;
+	}
 	
 	private void selectGhostMovementType()
 	{
@@ -274,7 +193,7 @@ public class Ghost extends Character
 			}
 		}
 	}
-	
+
 	
 	private void moveRandomly()
 	{
@@ -497,12 +416,6 @@ public class Ghost extends Character
 			}
 		}
 	}
-	
-
-	public int getPortalCrossingStatus() 
-	{
-		return portalCrossingStatus;
-	}
 
 	public int getMovementType() 
 	{
@@ -524,11 +437,6 @@ public class Ghost extends Character
 		currentDir = dir;
 	}
 	
-	public void setPortalCrossingStatus(int portalStatus)
-	{
-		portalCrossingStatus = portalStatus;
-	}
-	
 	public int getNextDirection()
 	{
 		return nextDir;
@@ -537,5 +445,101 @@ public class Ghost extends Character
 	public int getID()
 	{
 		return ghostID;
+	}
+	
+	private void loadZoneDirectionsArray()
+	{	
+		for(int zone = 0; zone < zoneDirectionsArray.length; zone++)
+		{
+			zoneDirectionsArray[zone] = new zoneDirections();
+			
+			switch(zone)
+			{
+				case 0:
+					zoneDirectionsArray[zone].methodicalDir1 = left;
+					zoneDirectionsArray[zone].methodicalDir2 = -1;
+					zoneDirectionsArray[zone].findDir1 = downwards;
+					zoneDirectionsArray[zone].findDir2 = upwards;
+					break;
+				case 1:
+					zoneDirectionsArray[zone].methodicalDir1 = left;
+					zoneDirectionsArray[zone].methodicalDir2 = upwards;
+					zoneDirectionsArray[zone].findDir1 = downwards;
+					break;
+				case 2:
+					zoneDirectionsArray[zone].methodicalDir1 = upwards;
+					zoneDirectionsArray[zone].methodicalDir2 = left;
+					zoneDirectionsArray[zone].findDir1 = right;
+					break;
+				case 3:
+					zoneDirectionsArray[zone].methodicalDir1 = upwards;
+					zoneDirectionsArray[zone].methodicalDir2 = left;
+					zoneDirectionsArray[zone].findDir1 = right;
+					break;
+				case 4:
+					zoneDirectionsArray[zone].methodicalDir1 = upwards;
+					zoneDirectionsArray[zone].methodicalDir2 = -1;
+					zoneDirectionsArray[zone].findDir1 = right;
+					zoneDirectionsArray[zone].findDir2 = left;
+					break;
+				case 5:
+					zoneDirectionsArray[zone].methodicalDir1 = upwards;
+					zoneDirectionsArray[zone].methodicalDir2 = right;
+					zoneDirectionsArray[zone].findDir1 = left;
+					break;
+				case 6:
+					zoneDirectionsArray[zone].methodicalDir1 = upwards;
+					zoneDirectionsArray[zone].methodicalDir2 = right;
+					zoneDirectionsArray[zone].findDir1 = left;
+					break;
+				case 7:
+					zoneDirectionsArray[zone].methodicalDir1 = right;
+					zoneDirectionsArray[zone].methodicalDir2 = upwards;
+					zoneDirectionsArray[zone].findDir1 = downwards;
+					break;
+				case 8:
+					zoneDirectionsArray[zone].methodicalDir1 = right;
+					zoneDirectionsArray[zone].methodicalDir2 = -1;
+					zoneDirectionsArray[zone].findDir1 = upwards;
+					zoneDirectionsArray[zone].findDir2 = downwards;
+					break;
+				case 9:
+					zoneDirectionsArray[zone].methodicalDir1 = right;
+					zoneDirectionsArray[zone].methodicalDir2 = downwards;
+					zoneDirectionsArray[zone].findDir1 = upwards;
+					break;
+				case 10:
+					zoneDirectionsArray[zone].methodicalDir1 = downwards;
+					zoneDirectionsArray[zone].methodicalDir2 = right;
+					zoneDirectionsArray[zone].findDir1 = left;
+					break;
+				case 11:
+					zoneDirectionsArray[zone].methodicalDir1 = downwards;
+					zoneDirectionsArray[zone].methodicalDir2 = right;
+					zoneDirectionsArray[zone].findDir1 = left;
+					break;
+				case 12:
+					zoneDirectionsArray[zone].methodicalDir1 = downwards;
+					zoneDirectionsArray[zone].methodicalDir2 = -1;
+					zoneDirectionsArray[zone].findDir1 = right;
+					zoneDirectionsArray[zone].findDir2 = left;
+					break;
+				case 13:
+					zoneDirectionsArray[zone].methodicalDir1 = downwards;
+					zoneDirectionsArray[zone].methodicalDir2 = left;
+					zoneDirectionsArray[zone].findDir1 = right;
+					break;
+				case 14:
+					zoneDirectionsArray[zone].methodicalDir1 = downwards;
+					zoneDirectionsArray[zone].methodicalDir2 = left;
+					zoneDirectionsArray[zone].findDir1 = right;
+					break;
+				case 15:
+					zoneDirectionsArray[zone].methodicalDir1 = left;
+					zoneDirectionsArray[zone].methodicalDir2 = downwards;
+					zoneDirectionsArray[zone].findDir1 = upwards;
+					break;
+			}
+		}
 	}
 }
