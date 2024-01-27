@@ -13,8 +13,8 @@ public class Ghost extends Character
 	private Random randomGen;
 	
 	public int ghostID;
-	private int portalCrossingStatus;
-	private int movementType;
+	public int portalCrossingStatus;
+	public int movementType;
 	public boolean isVulnerable = false;
 	
 	public static final int randomMovement = 0;

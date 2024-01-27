@@ -48,6 +48,37 @@ public class Character extends Rectangle
 		}
 	}
 	
+	public void portalCrossGhosts(int i)
+	{
+		if((gp.ghostArray[i].x < 160 || gp.ghostArray[i].x > 480) && gp.ghostArray[i].y == 320)
+		{
+			if(gp.ghostArray[i].currentDir == left)
+			{
+				if(gp.ghostArray[i].x == 0)
+				{
+					gp.ghostArray[i] = new Ghost(i, gp.ghostArray[i].movementType, crossingPortalFromLeftSide, gp.ghostArray[i].isVulnerable, gp);
+				}
+				
+				if(gp.ghostArray[i].x == 480)
+				{
+					gp.ghostArray[i].portalCrossingStatus = notCrossingPortal;
+				}
+			}
+			else if(gp.ghostArray[i].currentDir == right)
+			{
+				if(gp.ghostArray[i].x == 640)
+				{
+					gp.ghostArray[i] = new Ghost(i, gp.ghostArray[i].movementType, crossingPortalFromRightSide, gp.ghostArray[i].isVulnerable, gp);
+				}
+				
+				if(gp.ghostArray[i].x == 160)
+				{
+					gp.ghostArray[i].portalCrossingStatus = notCrossingPortal;
+				}
+			}
+		}
+	}
+	
 	protected void portalEvents(Character character)
 	{		
 		if(isCrossingPortalFromGivenSide(character, left))
