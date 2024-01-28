@@ -9,6 +9,11 @@ public class VulnerableGhost extends Ghost
 {
 	private static final long serialVersionUID = 1L;
 
+	public int frameIndexVulnerable = 0;
+	public double elapsedFrameTimeInSecondsVulnerable = 0;		
+	public double targetTimePerFrameInSecondsVulnerable = 0.05;
+	public int totalNumberOfFramesVulnerable = Animation.vulnerableGhostSprites.length;
+	
 	public VulnerableGhost(int ID, int cD, int x, int y, int movementStatus, GamePanel gp) 
 	{
 		super(ID, cD, x, y, movementStatus, gp);

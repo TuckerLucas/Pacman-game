@@ -3,7 +3,6 @@ package character;
 import java.awt.Graphics;
 import java.util.Random;
 
-import Game.Animation;
 import main.GamePanel;
 
 public class Ghost extends Character
@@ -35,21 +34,6 @@ public class Ghost extends Character
 	public int deltaY;
 	
 	public int pacmanZone;
-	
-	public int frameIndex = 0;
-	public double elapsedFrameTimeInSeconds = 0;		
-	public double targetTimePerFrameInSeconds = 0.05;
-	public int totalNumberOfFrames = Animation.hostileGhostSprites[0][0].length;
-	
-	public int frameIndexVulnerable = 0;
-	public double elapsedFrameTimeInSecondsVulnerable = 0;		
-	public double targetTimePerFrameInSecondsVulnerable = 0.05;
-	public int totalNumberOfFramesVulnerable = Animation.vulnerableGhostSprites.length;
-	
-	public static int frameIndexFlashing = 0;
-	public static double elapsedFrameTimeInSecondsFlashing = 0;
-	public static double targetTimePerFrameInSecondsFlashing = 0.33;
-	public int totalNumberOfFramesFlashing = Animation.flashingGhostSprites.length;
 	
 	public static double timeInstantToBeginFlashingInSeconds = 5.0;
 	

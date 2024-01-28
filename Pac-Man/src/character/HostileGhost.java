@@ -9,6 +9,11 @@ public class HostileGhost extends Ghost
 {
 	private static final long serialVersionUID = 1L;
 
+	public int frameIndex = 0;
+	public double elapsedFrameTimeInSeconds = 0;		
+	public double targetTimePerFrameInSeconds = 0.05;
+	public int totalNumberOfFrames = Animation.hostileGhostSprites[0][0].length;
+	
 	public HostileGhost(int ID, int cD, int x, int y, int movementStatus, GamePanel gp) 
 	{
 		super(ID, cD, x, y, movementStatus, gp);
@@ -18,24 +23,17 @@ public class HostileGhost extends Ghost
 	{
 		if(!isCrossingPortal(ghostID, this))
 		{
-			selectGhostMovementType();
+			if(movementType == randomMovement)
+			{
+				moveRandomly(this);
+			}
+			else if(movementType == methodicalMovement)
+			{
+				moveMethodically();
+			}
 		}
 		
 		manageAnimationTiming();
-		manageVulnerableAnimationTiming();
-		manageFlashingAnimationTiming();
-	}
-	
-	public void selectGhostMovementType()
-	{
-		if(movementType == randomMovement)
-		{
-			moveRandomly(this);
-		}
-		else if(movementType == methodicalMovement)
-		{
-			moveMethodically();
-		}		
 	}
 	
 	public void manageAnimationTiming()
@@ -50,38 +48,6 @@ public class HostileGhost extends Ghost
 			if(frameIndex == totalNumberOfFrames)
 			{
 				frameIndex = 0;
-			}
-		}
-	}
-	
-	public void manageVulnerableAnimationTiming()
-	{
-		elapsedFrameTimeInSecondsVulnerable += gp.secondsPerTick;
-		
-		if(elapsedFrameTimeInSecondsVulnerable >= targetTimePerFrameInSecondsVulnerable)
-		{
-			elapsedFrameTimeInSecondsVulnerable = 0;
-			frameIndexVulnerable++;
-			
-			if(frameIndexVulnerable == totalNumberOfFramesVulnerable)
-			{
-				frameIndexVulnerable = 0;
-			}
-		}
-	}
-	
-	public void manageFlashingAnimationTiming()
-	{
-		elapsedFrameTimeInSecondsFlashing += gp.secondsPerTick;
-		
-		if(elapsedFrameTimeInSecondsFlashing >= targetTimePerFrameInSecondsFlashing)
-		{
-			elapsedFrameTimeInSecondsFlashing = 0;
-			frameIndexFlashing++;
-			
-			if(frameIndexFlashing == totalNumberOfFramesFlashing)
-			{
-				frameIndexFlashing = 0;
 			}
 		}
 	}

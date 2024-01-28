@@ -51,7 +51,7 @@ public class Energizer extends Food
 	
 	public void checkEnergizerActivity()
 	{
-		if(!gp.isActive)
+		if(gp.isActive == false)
 		{
 			return;
 		}
