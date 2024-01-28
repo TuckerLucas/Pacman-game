@@ -90,16 +90,16 @@ public class BonusScore extends Rectangle
 			switch(gp.numberOfEatenGhosts)
 			{
 				case 1: 
-					g.drawImage(Animation.bonusScore200Sprites[frameIndex], x, y, width, height, null);
+					g.drawImage(gp.animation.bonusScore200Sprites[frameIndex], x, y, width, height, null);
 					break;
 				case 2: 
-					g.drawImage(Animation.bonusScore400Sprites[frameIndex], x, y, width, height, null);
+					g.drawImage(gp.animation.bonusScore400Sprites[frameIndex], x, y, width, height, null);
 					break;
 				case 3: 
-					g.drawImage(Animation.bonusScore800Sprites[frameIndex], x, y, width, height, null);
+					g.drawImage(gp.animation.bonusScore800Sprites[frameIndex], x, y, width, height, null);
 					break;
 				case 4:
-					g.drawImage(Animation.bonusScore1600Sprites[frameIndex], x, y, width, height, null);
+					g.drawImage(gp.animation.bonusScore1600Sprites[frameIndex], x, y, width, height, null);
 					break;
 			}
 		}

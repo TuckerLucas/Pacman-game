@@ -3,7 +3,6 @@ package food;
 import java.awt.Graphics;
 
 import character.Ghost;
-import Game.Animation;
 import main.GamePanel;
 
 public class Energizer extends Food
@@ -19,7 +18,7 @@ public class Energizer extends Food
 	private double targetTimePerFrameInSeconds = 0.2;
 	
 	private static int frameIndex = 0;
-	private int totalNumberOfFrames = Animation.energizerSprites.length;	
+	private int totalNumberOfFrames = gp.animation.energizerSprites.length;	
 	
 	public Energizer(int x, int y, GamePanel gp)
 	{
@@ -83,6 +82,6 @@ public class Energizer extends Food
 	
 	public void render(Graphics g)
 	{
-		g.drawImage(Animation.energizerSprites[frameIndex], x, y, width, height, null);	
+		g.drawImage(gp.animation.energizerSprites[frameIndex], x, y, width, height, null);	
 	}
 }

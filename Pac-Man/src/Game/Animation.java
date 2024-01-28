@@ -33,11 +33,11 @@ public class Animation
 	public BufferedImage[][][] hostileGhostSprites;
 	public BufferedImage[] vulnerableGhostSprites;
 	public BufferedImage[] flashingGhostSprites;
-	public static BufferedImage[] energizerSprites;
-	public static BufferedImage[] bonusScore200Sprites;
-	public static BufferedImage[] bonusScore400Sprites;
-	public static BufferedImage[] bonusScore800Sprites;
-	public static BufferedImage[] bonusScore1600Sprites;
+	public BufferedImage[] energizerSprites;
+	public BufferedImage[] bonusScore200Sprites;
+	public BufferedImage[] bonusScore400Sprites;
+	public BufferedImage[] bonusScore800Sprites;
+	public BufferedImage[] bonusScore1600Sprites;
 	
 	private BufferedImage spritesheet;
 	
