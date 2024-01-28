@@ -32,7 +32,7 @@ public class GamePanel extends Canvas implements Runnable
 	private static final long serialVersionUID = 1L;
 	
 	// Screen settings
-	final int originalTileSize = 16;
+	public final int originalTileSize = 16;
 	final int scale = 2;
 	public final int tileSize = originalTileSize * scale;
 	public final int maxScreenCol = 21;
@@ -74,7 +74,8 @@ public class GamePanel extends Canvas implements Runnable
 	public boolean isActive = false;
 	public int numberOfEatenGhosts = 0;	
 	public int highscore;
-	public int score = 0;			
+	public int score = 0;	
+	public int numberOfLives = 3;
 	
 	public GamePanel()
 	{
@@ -98,7 +99,7 @@ public class GamePanel extends Canvas implements Runnable
 	public void resetGame()
 	{
 		score = 0;
-		Pacman.numberOfLives = 3;	
+		numberOfLives = 3;	
 		resetLevel();
 	}
 	

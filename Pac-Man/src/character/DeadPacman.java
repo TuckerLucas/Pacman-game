@@ -2,7 +2,6 @@ package character;
 
 import java.awt.Graphics;
 
-import Game.Animation;
 import main.GamePanel;
 
 public class DeadPacman extends Pacman
@@ -35,11 +34,11 @@ public class DeadPacman extends Pacman
 			
 			frameIndex++;
 			
-			if(frameIndex >= Animation.deadPacmanSprites.length)
+			if(frameIndex >= gp.animation.deadPacmanSprites.length)
 			{
 				frameIndex = 0;
 				
-				if(Pacman.numberOfLives == 0)
+				if(gp.numberOfLives == 0)
 				{
 					gp.gameState = gp.gameOverState;
 				}
@@ -54,6 +53,6 @@ public class DeadPacman extends Pacman
 	
 	public void render(Graphics g)
 	{	
-		g.drawImage(Animation.deadPacmanSprites[frameIndex], x, y, width, height, null);
+		g.drawImage(gp.animation.deadPacmanSprites[frameIndex], x, y, width, height, null);
 	}
 }

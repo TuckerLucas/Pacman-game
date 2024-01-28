@@ -28,16 +28,16 @@ public class Animation
 	private int spriteLine8 = spriteHeightInPixels*7;
 	private int spriteLine9 = spriteHeightInPixels*8;
 	
-	public static BufferedImage[][] alivePacmanSprites;
-	public static BufferedImage[] deadPacmanSprites;
-	public BufferedImage[][][] hostileGhostSprites;
-	public BufferedImage[] vulnerableGhostSprites;
-	public BufferedImage[] flashingGhostSprites;
-	public BufferedImage[] energizerSprites;
-	public BufferedImage[] bonusScore200Sprites;
-	public BufferedImage[] bonusScore400Sprites;
-	public BufferedImage[] bonusScore800Sprites;
-	public BufferedImage[] bonusScore1600Sprites;
+	public BufferedImage[][] alivePacmanSprites = new BufferedImage[4][3];
+	public BufferedImage[] deadPacmanSprites = new BufferedImage[21];
+	public BufferedImage[][][] hostileGhostSprites = new BufferedImage[4][4][2];
+	public BufferedImage[] vulnerableGhostSprites = new BufferedImage[2];
+	public BufferedImage[] flashingGhostSprites = new BufferedImage[4];
+	public BufferedImage[] energizerSprites = new BufferedImage[2];
+	public BufferedImage[] bonusScore200Sprites = new BufferedImage[2];
+	public BufferedImage[] bonusScore400Sprites = new BufferedImage[2];
+	public BufferedImage[] bonusScore800Sprites = new BufferedImage[2];
+	public BufferedImage[] bonusScore1600Sprites = new BufferedImage[2];
 	
 	private BufferedImage spritesheet;
 	
@@ -63,18 +63,6 @@ public class Animation
 	
 	private void loadAnimationArrays()
 	{
-		alivePacmanSprites = new BufferedImage[4][3];
-		deadPacmanSprites = new BufferedImage[21];
-		hostileGhostSprites = new BufferedImage[4][4][2];
-		vulnerableGhostSprites = new BufferedImage[2];
-		flashingGhostSprites = new BufferedImage[4];
-		energizerSprites = new BufferedImage[2];
-		bonusScore200Sprites = new BufferedImage[2];
-		bonusScore400Sprites = new BufferedImage[2];
-		bonusScore800Sprites = new BufferedImage[2];
-		bonusScore1600Sprites = new BufferedImage[2];
-		
-		
 		alivePacmanSprites[0][0] = getSprite(spriteColumn5, spriteLine5, spriteWidthInPixels, spriteHeightInPixels);		
 		alivePacmanSprites[0][1] = getSprite(spriteColumn6, spriteLine5, spriteWidthInPixels, spriteHeightInPixels);	
 		alivePacmanSprites[0][2] = getSprite(spriteColumn7, spriteLine5, spriteWidthInPixels, spriteHeightInPixels);	

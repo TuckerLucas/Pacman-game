@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import food.Energizer;
 import food.Food;
 import food.Pellet;
-import Game.Animation;
 import main.GamePanel;
 import main.Sounds;
 
@@ -14,8 +13,6 @@ public class AlivePacman extends Pacman
 	GamePanel gp;
 	
 	private static final long serialVersionUID = 1L;
-
-	private int totalNumberOfFrames = Animation.alivePacmanSprites[currentDir].length;
 
 	public AlivePacman(int cD, int nD, int x, int y, GamePanel gp)
 	{
@@ -63,7 +60,7 @@ public class AlivePacman extends Pacman
 			
 			frameIndex++;
 			
-			if(frameIndex >= totalNumberOfFrames)
+			if(frameIndex >= gp.animation.alivePacmanSprites[currentDir].length)
 			{
 				frameIndex = 0;
 			}
@@ -154,7 +151,7 @@ public class AlivePacman extends Pacman
 	private void die()
 	{
 		Sounds.playSoundEffect(Sounds.pacmanDeathSoundPath);
-		Pacman.numberOfLives--;
+		gp.numberOfLives--;
 		gp.bonusScore.isBeingDisplayed = false;
 		gp.pacman = new DeadPacman(x, y, gp);
 		gp.gameState = gp.lifeLostState;
@@ -162,6 +159,6 @@ public class AlivePacman extends Pacman
 	
 	public void render(Graphics g)
 	{
-		g.drawImage(Animation.alivePacmanSprites[currentDir][frameIndex], x, y, width, height, null);
+		g.drawImage(gp.animation.alivePacmanSprites[currentDir][frameIndex], x, y, width, height, null);
 	}
 }
