@@ -208,6 +208,7 @@ public class GamePanel extends Canvas implements Runnable
 		if(gameState == playState)
 		{
 			pacman.tick();
+			pathFinder.tick();
 			
 			for(int i = 0; i < ghostArray.length; i++)
 			{

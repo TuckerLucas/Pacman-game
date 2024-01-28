@@ -15,7 +15,21 @@ public class PathFinder
 		loadPathFinder();
 	}
 	
-	private void loadPathFinder()
+	public void tick()
+	{
+		updateDistanceToPacman();
+	}
+	
+	private void updateDistanceToPacman()
+	{
+		for(int i = 0; i < gp.ghostArray.length; i++)
+		{
+			gp.ghostArray[i].deltaX = gp.ghostArray[i].x - gp.pacman.x;
+			gp.ghostArray[i].deltaY = gp.ghostArray[i].y - gp.pacman.y;
+		}
+	}
+	
+	public void loadPathFinder()
 	{	
 		for(int i = 0; i < 16; i++)
 		{

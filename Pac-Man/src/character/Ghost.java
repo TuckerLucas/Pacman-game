@@ -32,8 +32,8 @@ public class Ghost extends Character
 	private double coolDownTimeInSeconds = 0.0;
 	private double coolDownTargetTimeInSeconds = 5.0; 
 	
-	private int deltaX;
-	private int deltaY;
+	public int deltaX;
+	public int deltaY;
 	private int detectionRange = 80;
 	
 	private int pacmanZone;
@@ -82,7 +82,7 @@ public class Ghost extends Character
 	{	
 		if(!isCrossingPortal(ghostID))
 		{
-			updateDistanceToPacman();
+			//updateDistanceToPacman();
 			selectGhostMovementType();
 		}
 		
@@ -296,12 +296,6 @@ public class Ghost extends Character
 			isCoolingDown = true;			
 			movementType = randomMovement;	
 		}
-	}
-	
-	private void updateDistanceToPacman()
-	{
-		deltaX = x - gp.pacman.x; 
-		deltaY = y - gp.pacman.y;
 	}
 	
 	private boolean pacmanIsClose()
