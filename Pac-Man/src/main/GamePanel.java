@@ -16,9 +16,12 @@ import food.Food;
 import Game.Animation;
 import Game.BonusScore;
 import character.Character;
+import character.FlashingGhost;
 import character.Ghost;
+import character.HostileGhost;
 import Game.Level;
 import character.Pacman;
+import character.VulnerableGhost;
 import character.AlivePacman;
 import Game.SpawnBoxDoor;
 import Game.Wall;
@@ -71,8 +74,7 @@ public class GamePanel extends Canvas implements Runnable
 	public boolean isActive = false;
 	public int numberOfEatenGhosts = 0;	
 	public int highscore;
-	public int score = 0;							
-	public int targetFrames = 30;
+	public int score = 0;			
 	
 	public GamePanel()
 	{
@@ -154,7 +156,7 @@ public class GamePanel extends Canvas implements Runnable
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
-			ghostArray[i].isVulnerable = true;
+			ghostArray[i] = new VulnerableGhost(ghostArray[i].ghostID, ghostArray[i].currentDir, ghostArray[i].x, ghostArray[i].y, ghostArray[i].movementType, this);
 		}
 		
 		numberOfEatenGhosts = 0;
@@ -164,7 +166,10 @@ public class GamePanel extends Canvas implements Runnable
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
-			ghostArray[i].isVulnerable = false;
+			if(ghostArray[i] instanceof FlashingGhost)
+			{
+				ghostArray[i] = new HostileGhost(ghostArray[i].ghostID, ghostArray[i].currentDir, ghostArray[i].x, ghostArray[i].y, ghostArray[i].movementType, this);
+			}
 		}
 	}
 	
@@ -172,9 +177,9 @@ public class GamePanel extends Canvas implements Runnable
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
-			if(ghostArray[i].isVulnerable)
+			if(ghostArray[i] instanceof VulnerableGhost)
 			{
-				ghostArray[i].isFlashing = true;
+				ghostArray[i] = new FlashingGhost(ghostArray[i].ghostID, ghostArray[i].currentDir, ghostArray[i].x, ghostArray[i].y, ghostArray[i].movementType, this);
 			}
 		}
 	}
@@ -183,7 +188,10 @@ public class GamePanel extends Canvas implements Runnable
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
-			ghostArray[i].isFlashing = false;
+			if(ghostArray[i] instanceof FlashingGhost)
+			{
+				ghostArray[i] = new HostileGhost(ghostArray[i].ghostID, ghostArray[i].currentDir, ghostArray[i].x, ghostArray[i].y, ghostArray[i].movementType, this);
+			}
 		}
 	}
 	

@@ -14,7 +14,6 @@ public class Ghost extends Character
 	
 	public int ghostID;
 	public int movementType;
-	public boolean isVulnerable = false;
 	
 	public static final int randomMovement = 0;
 	public static final int methodicalMovement = 1;
@@ -52,16 +51,14 @@ public class Ghost extends Character
 	public static double targetTimePerFrameInSecondsFlashing = 0.33;
 	public int totalNumberOfFramesFlashing = Animation.flashingGhostSprites.length;
 	
-	public boolean isFlashing = false;
 	public static double timeInstantToBeginFlashingInSeconds = 5.0;
 	
-	public Ghost(int ID, int cD, int x, int y, int movementStatus, boolean vulnerabilityStatus, GamePanel gp)
+	public Ghost(int ID, int cD, int x, int y, int movementStatus, GamePanel gp)
 	{	
 		super(gp);
 		
 		ghostID = ID;                  			
-		movementType = movementStatus; 			
-		isVulnerable = vulnerabilityStatus; 	
+		movementType = movementStatus; 		 	
 		currentDir = cD;
 		setBounds(x, y, gp.tileSize, gp.tileSize);
 		
@@ -74,7 +71,7 @@ public class Ghost extends Character
 
 	}
 
-	public boolean isCrossingPortal(int i)
+	public boolean isCrossingPortal(int i, Ghost ghost)
 	{
 		if((gp.ghostArray[i].x < 160 || gp.ghostArray[i].x > 480) && gp.ghostArray[i].y == 320)
 		{
@@ -82,7 +79,18 @@ public class Ghost extends Character
 			{
 				if(gp.ghostArray[i].x == 0 && gp.ghostArray[i].y == 320)
 				{
-					gp.ghostArray[i] = new HostileGhost(i, left, 640, 320, gp.ghostArray[i].movementType, gp.ghostArray[i].isVulnerable, gp);
+					if(gp.ghostArray[i] instanceof HostileGhost)
+					{
+						gp.ghostArray[i] = new HostileGhost(i, left, 640, 320, gp.ghostArray[i].movementType, gp);
+					}
+					else if(gp.ghostArray[i] instanceof FlashingGhost)
+					{
+						gp.ghostArray[i] = new FlashingGhost(i, left, 640, 320, gp.ghostArray[i].movementType, gp);
+					}
+					else if(gp.ghostArray[i] instanceof VulnerableGhost)
+					{
+						gp.ghostArray[i] = new VulnerableGhost(i, left, 640, 320, gp.ghostArray[i].movementType, gp);
+					}
 				}
 				
 				move(gp.ghostArray[i], left);
@@ -96,7 +104,18 @@ public class Ghost extends Character
 			{
 				if(gp.ghostArray[i].x == 640 && gp.ghostArray[i].y == 320)
 				{
-					gp.ghostArray[i] = new HostileGhost(i, right, 0, 320, gp.ghostArray[i].movementType, gp.ghostArray[i].isVulnerable, gp);
+					if(gp.ghostArray[i] instanceof HostileGhost)
+					{
+						gp.ghostArray[i] = new HostileGhost(i, right, 0, 320, gp.ghostArray[i].movementType, gp);
+					}
+					else if(gp.ghostArray[i] instanceof FlashingGhost)
+					{
+						gp.ghostArray[i] = new FlashingGhost(i, right, 0, 320, gp.ghostArray[i].movementType, gp);
+					}
+					else if(gp.ghostArray[i] instanceof VulnerableGhost)
+					{
+						gp.ghostArray[i] = new VulnerableGhost(i, right, 0, 320, gp.ghostArray[i].movementType, gp);
+					}
 				}
 				
 				move(gp.ghostArray[i], right);
@@ -112,20 +131,8 @@ public class Ghost extends Character
 		
 		return false;
 	}
-	
-	public void selectGhostMovementType()
-	{
-		if(movementType == randomMovement)
-		{
-			moveRandomly();
-		}
-		else if(movementType == methodicalMovement)
-		{
-			moveMethodically();
-		}		
-	}
-	
-	private void moveRandomly()
+		
+	public void moveRandomly(Ghost ghost)
 	{
 		if(isCoolingDown == true)
 		{
@@ -139,7 +146,7 @@ public class Ghost extends Character
 		}
 		else if(isCoolingDown == false)
 		{
-			if(gp.pathFinder.pacmanIsClose(deltaX, deltaY) && !isVulnerable && !isInSpawnBox(this))
+			if(gp.pathFinder.pacmanIsClose(deltaX, deltaY) && ghost instanceof HostileGhost && !isInSpawnBox(this))
 			{
 				movementType = methodicalMovement;
 			}
@@ -159,18 +166,8 @@ public class Ghost extends Character
 		nextDir = randomGen.nextInt(4);
 	}
 
-	private void moveMethodically()
+	public void moveMethodically()
 	{
-		if(isVulnerable)
-		{
-			timeMovingMethodicallyInSeconds = 0;
-			findDir1Blocked = false;
-			isFindingPath = false;
-			isCoolingDown = false;
-			movementType = randomMovement;
-			return;
-		}
-		
 		if(!isFindingPath)
 		{
 			pacmanZone = gp.pathFinder.updatePacmanZone(deltaX, deltaY);
@@ -227,6 +224,8 @@ public class Ghost extends Character
 		
 		if(timeMovingMethodicallyInSeconds >= targetTimeMovingMethodicallyInSeconds) 				
 		{			
+			findDir1Blocked = false;
+			isFindingPath = false;
 			timeMovingMethodicallyInSeconds = 0;				
 			isCoolingDown = true;			
 			movementType = randomMovement;	

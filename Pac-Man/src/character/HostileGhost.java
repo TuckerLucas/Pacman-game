@@ -9,14 +9,14 @@ public class HostileGhost extends Ghost
 {
 	private static final long serialVersionUID = 1L;
 
-	public HostileGhost(int ID, int cD, int x, int y, int movementStatus, boolean vulnerabilityStatus, GamePanel gp) 
+	public HostileGhost(int ID, int cD, int x, int y, int movementStatus, GamePanel gp) 
 	{
-		super(ID, cD, x, y, movementStatus, vulnerabilityStatus, gp);
+		super(ID, cD, x, y, movementStatus, gp);
 	}
 	
 	public void tick()
 	{
-		if(!isCrossingPortal(ghostID))
+		if(!isCrossingPortal(ghostID, this))
 		{
 			selectGhostMovementType();
 		}
@@ -24,6 +24,18 @@ public class HostileGhost extends Ghost
 		manageAnimationTiming();
 		manageVulnerableAnimationTiming();
 		manageFlashingAnimationTiming();
+	}
+	
+	public void selectGhostMovementType()
+	{
+		if(movementType == randomMovement)
+		{
+			moveRandomly(this);
+		}
+		else if(movementType == methodicalMovement)
+		{
+			moveMethodically();
+		}		
 	}
 	
 	public void manageAnimationTiming()
@@ -76,20 +88,6 @@ public class HostileGhost extends Ghost
 	
 	public void render(Graphics g)
 	{
-		if(isVulnerable == false)
-		{
-			g.drawImage(Animation.hostileGhostSprites[ghostID][currentDir][frameIndex], x, y, width, height, null);
-		}
-		else if(isVulnerable == true)
-		{
-			if(isFlashing)
-			{
-				g.drawImage(Animation.flashingGhostSprites[frameIndexFlashing], x, y, width, height, null);
-			}
-			else if(!isFlashing)
-			{
-				g.drawImage(Animation.vulnerableGhostSprites[frameIndexVulnerable], x, y, width, height, null);
-			}
-		}
+		g.drawImage(Animation.hostileGhostSprites[ghostID][currentDir][frameIndex], x, y, width, height, null);
 	}
 }

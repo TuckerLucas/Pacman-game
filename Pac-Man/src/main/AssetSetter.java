@@ -19,10 +19,10 @@ public class AssetSetter
 	{
 		int i = 0;
 		
-		gp.ghostArray[i] = new HostileGhost(i, Character.right, 320, 256, Ghost.randomMovement, false, gp); i++;
-		gp.ghostArray[i] = new HostileGhost(i, Character.right, 288, 320, Ghost.randomMovement, false, gp); i++;
-		gp.ghostArray[i] = new HostileGhost(i, Character.upwards, 320, 320, Ghost.randomMovement, false, gp); i++;
-		gp.ghostArray[i] = new HostileGhost(i, Character.left, 352, 320, Ghost.randomMovement, false, gp);
+		gp.ghostArray[i] = new HostileGhost(i, Character.right, 320, 256, Ghost.randomMovement, gp); i++;
+		gp.ghostArray[i] = new HostileGhost(i, Character.right, 288, 320, Ghost.randomMovement, gp); i++;
+		gp.ghostArray[i] = new HostileGhost(i, Character.upwards, 320, 320, Ghost.randomMovement, gp); i++;
+		gp.ghostArray[i] = new HostileGhost(i, Character.left, 352, 320, Ghost.randomMovement, gp);
 	}
 	
 	public void setPacman()
