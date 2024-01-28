@@ -30,6 +30,13 @@ public class Pacman extends Character
 		return currentDir;
 	}
 	
-	public void tick() {};
-	public void render(Graphics g) {};
+	public void tick() 
+	{
+		
+	}
+	
+	public void render(Graphics g) 
+	{
+		
+	}
 }

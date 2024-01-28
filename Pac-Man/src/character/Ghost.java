@@ -34,7 +34,6 @@ public class Ghost extends Character
 	
 	public int deltaX;
 	public int deltaY;
-	private int detectionRange = 80;
 	
 	private int pacmanZone;
 	
@@ -56,14 +55,6 @@ public class Ghost extends Character
 	public boolean isFlashing = false;
 	public static double timeInstantToBeginFlashingInSeconds = 5.0;
 	
-	class zoneDirections
-	{	
-		int methodicalDir1;
-		int methodicalDir2;
-		int findDir1;
-		int findDir2;
-	}
-	
 	public Ghost(int ID, int cD, int x, int y, int movementStatus, boolean vulnerabilityStatus, GamePanel gp)
 	{	
 		super(gp);
@@ -75,14 +66,13 @@ public class Ghost extends Character
 		setBounds(x, y, gp.tileSize, gp.tileSize);
 		
 		randomGen = new Random();
-		generateNextDirection();
+		nextDir = randomGen.nextInt(4);
 	}
 	
 	public void tick()
 	{	
 		if(!isCrossingPortal(ghostID))
 		{
-			//updateDistanceToPacman();
 			selectGhostMovementType();
 		}
 		
@@ -132,11 +122,14 @@ public class Ghost extends Character
 	
 	private void selectGhostMovementType()
 	{
-		switch(movementType)
+		if(movementType == randomMovement)
 		{
-			case randomMovement: moveRandomly(); break;
-			case methodicalMovement: moveMethodically(); break;
-		}			
+			moveRandomly();
+		}
+		else if(movementType == methodicalMovement)
+		{
+			moveMethodically();
+		}		
 	}
 	
 	private void manageAnimationTiming()
@@ -202,7 +195,7 @@ public class Ghost extends Character
 		}
 		else if(isCoolingDown == false)
 		{
-			if(pacmanIsClose() && !isVulnerable && !isInSpawnBox(this))
+			if(gp.pathFinder.pacmanIsClose(deltaX, deltaY) && !isVulnerable && !isInSpawnBox(this))
 			{
 				movementType = methodicalMovement;
 			}
@@ -211,17 +204,15 @@ public class Ghost extends Character
 		if(canMove(this, nextDir))
 		{
 			currentDir = nextDir;
-			
 			move(this, nextDir);
 		}
 		else if(canMove(this, currentDir))
 		{
 			move(this, currentDir);
-			
 			return;
 		}
 		
-		generateNextDirection();
+		nextDir = randomGen.nextInt(4);
 	}
 
 	private void moveMethodically()
@@ -298,21 +289,9 @@ public class Ghost extends Character
 		}
 	}
 	
-	private boolean pacmanIsClose()
-	{
-		return ((deltaX < detectionRange && deltaX > -detectionRange) && 
-				(deltaY < detectionRange && deltaY > -detectionRange)) 
-				? true : false;
-	}
-	
 	public static boolean isInSpawnBox(Ghost ghost)
 	{
 		return ((ghost.x < 368 && ghost.x > 272) && (ghost.y < 336 && ghost.y > 256)) ? true : false;
-	}
-	
-	private void generateNextDirection()
-	{
-		nextDir = randomGen.nextInt(4);
 	}
 
 	public void render(Graphics g)

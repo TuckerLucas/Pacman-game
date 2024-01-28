@@ -222,11 +222,6 @@ public class GamePanel extends Canvas implements Runnable
 		{
 			pacman.tick();
 		}
-		
-		if(score >= highscore)
-		{
-			highscore = score;
-		}
 	}
 	
 	private void render()

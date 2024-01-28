@@ -9,6 +9,8 @@ public class PathFinder
 	
 	public int pathFinderArray[][] = new int[16][4];
 	
+	public int detectionRange = 80;
+	
 	public PathFinder(GamePanel gp)
 	{
 		this.gp = gp;
@@ -191,5 +193,12 @@ public class PathFinder
 		}
 		
 		return 0;
+	}
+	
+	public boolean pacmanIsClose(int deltaX, int deltaY)
+	{
+		return ((deltaX < detectionRange && deltaX > -detectionRange) && 
+				(deltaY < detectionRange && deltaY > -detectionRange)) 
+				? true : false;
 	}
 }

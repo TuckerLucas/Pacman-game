@@ -20,8 +20,6 @@ public class Character extends Rectangle
 	public static final int crossingPortalFromRightSide = 0;
 	public static final int crossingPortalFromLeftSide = 1;
 	
-	public static int portalYCoordinate = 320;
-	
 	public static int pixelsTravelledPerTick = 2;
 	
 	public Character(GamePanel gp)
@@ -115,5 +113,8 @@ public class Character extends Rectangle
 		}
 	}
 	
-	public int getCurrentDirection() {return -1;}
+	public int getCurrentDirection() 
+	{
+		return 0;
+	}
 }
