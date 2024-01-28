@@ -22,6 +22,7 @@ import character.Pacman;
 import character.AlivePacman;
 import Game.SpawnBoxDoor;
 import Game.Wall;
+import ai.PathFinder;
 
 public class GamePanel extends Canvas implements Runnable
 {	
@@ -44,6 +45,7 @@ public class GamePanel extends Canvas implements Runnable
 	public AssetSetter aSetter = new AssetSetter(this);
 	public KeyHandler keyH = new KeyHandler(this);
 	public UI ui = new UI(this);
+	public PathFinder pathFinder = new PathFinder(this);
 	Thread gameThread;
 	
 	// Characters and objects
