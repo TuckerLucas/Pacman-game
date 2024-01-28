@@ -2,7 +2,6 @@ package character;
 
 import java.awt.Graphics;
 
-import Game.Animation;
 import main.GamePanel;
 
 public class FlashingGhost extends Ghost
@@ -12,7 +11,7 @@ public class FlashingGhost extends Ghost
 	private int frameIndexFlashing = 0;
 	private double elapsedFrameTimeInSecondsFlashing = 0;
 	private double targetTimePerFrameInSecondsFlashing = 0.33;
-	private int totalNumberOfFramesFlashing = Animation.flashingGhostSprites.length;
+	private int totalNumberOfFramesFlashing = gp.animation.flashingGhostSprites.length;
 	
 	public FlashingGhost(int ID, int cD, int x, int y, int movementStatus, GamePanel gp) 
 	{
@@ -47,6 +46,6 @@ public class FlashingGhost extends Ghost
 	
 	public void render(Graphics g)
 	{
-		g.drawImage(Animation.flashingGhostSprites[frameIndexFlashing], x, y, width, height, null);
+		g.drawImage(gp.animation.flashingGhostSprites[frameIndexFlashing], x, y, width, height, null);
 	}
 }

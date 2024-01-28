@@ -2,7 +2,6 @@ package character;
 
 import java.awt.Graphics;
 
-import Game.Animation;
 import main.GamePanel;
 
 public class VulnerableGhost extends Ghost
@@ -12,7 +11,7 @@ public class VulnerableGhost extends Ghost
 	public int frameIndexVulnerable = 0;
 	public double elapsedFrameTimeInSecondsVulnerable = 0;		
 	public double targetTimePerFrameInSecondsVulnerable = 0.05;
-	public int totalNumberOfFramesVulnerable = Animation.vulnerableGhostSprites.length;
+	public int totalNumberOfFramesVulnerable = gp.animation.vulnerableGhostSprites.length;
 	
 	public VulnerableGhost(int ID, int cD, int x, int y, int movementStatus, GamePanel gp) 
 	{
@@ -47,6 +46,6 @@ public class VulnerableGhost extends Ghost
 	
 	public void render(Graphics g)
 	{
-		g.drawImage(Animation.vulnerableGhostSprites[frameIndexVulnerable], x, y, width, height, null);
+		g.drawImage(gp.animation.vulnerableGhostSprites[frameIndexVulnerable], x, y, width, height, null);
 	}
 }

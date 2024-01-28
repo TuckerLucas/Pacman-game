@@ -30,9 +30,9 @@ public class Animation
 	
 	public static BufferedImage[][] alivePacmanSprites;
 	public static BufferedImage[] deadPacmanSprites;
-	public static BufferedImage[][][] hostileGhostSprites;
-	public static BufferedImage[] vulnerableGhostSprites;
-	public static BufferedImage[] flashingGhostSprites;
+	public BufferedImage[][][] hostileGhostSprites;
+	public BufferedImage[] vulnerableGhostSprites;
+	public BufferedImage[] flashingGhostSprites;
 	public static BufferedImage[] energizerSprites;
 	public static BufferedImage[] bonusScore200Sprites;
 	public static BufferedImage[] bonusScore400Sprites;

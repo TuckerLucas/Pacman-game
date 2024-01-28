@@ -2,7 +2,6 @@ package character;
 
 import java.awt.Graphics;
 
-import Game.Animation;
 import main.GamePanel;
 
 public class HostileGhost extends Ghost
@@ -12,7 +11,7 @@ public class HostileGhost extends Ghost
 	public int frameIndex = 0;
 	public double elapsedFrameTimeInSeconds = 0;		
 	public double targetTimePerFrameInSeconds = 0.05;
-	public int totalNumberOfFrames = Animation.hostileGhostSprites[0][0].length;
+	public int totalNumberOfFrames = gp.animation.hostileGhostSprites[0][0].length;
 	
 	public HostileGhost(int ID, int cD, int x, int y, int movementStatus, GamePanel gp) 
 	{
@@ -54,6 +53,6 @@ public class HostileGhost extends Ghost
 	
 	public void render(Graphics g)
 	{
-		g.drawImage(Animation.hostileGhostSprites[ghostID][currentDir][frameIndex], x, y, width, height, null);
+		g.drawImage(gp.animation.hostileGhostSprites[ghostID][currentDir][frameIndex], x, y, width, height, null);
 	}
 }
