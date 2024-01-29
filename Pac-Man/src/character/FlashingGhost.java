@@ -10,7 +10,7 @@ public class FlashingGhost extends Ghost
 
 	private int frameIndex = 0;
 	private double elapsedFrameTimeInSeconds = 0;
-	private double targetTimePerFrameInSeconds = 0.33;
+	private double targetTimePerFrameInSeconds = 0.05;
 	private int totalNumberOfFrames = gp.animation.flashingGhostSprites.length;
 	
 	public FlashingGhost(int ID, int cD, int x, int y, int movementStatus, GamePanel gp) 
