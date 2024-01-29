@@ -49,13 +49,13 @@ public class Ghost extends Character
 		nextDir = randomGen.nextInt(4);
 	}
 	
-	public Ghost(Ghost ghost, int x, int y, GamePanel gp)
+	public Ghost(GamePanel gp, int i, int x, int y)
 	{
 		super(gp);
 		
-		ghostID = ghost.ghostID;
-		movementType = ghost.movementType;
-		currentDir = ghost.currentDir;
+		ghostID = i;
+		movementType = gp.ghostArray[i].movementType;
+		currentDir = gp.ghostArray[i].currentDir;
 		this.x = x;
 		this.y = y;
 		setBounds(this.x, this.y, gp.tileSize, gp.tileSize);
@@ -78,15 +78,15 @@ public class Ghost extends Character
 				{
 					if(gp.ghostArray[i] instanceof HostileGhost)
 					{
-						gp.ghostArray[i] = new HostileGhost(gp.ghostArray[i], 640, 320, gp);
+						gp.ghostArray[i] = new HostileGhost(gp, i, 640, 320);
 					}
 					else if(gp.ghostArray[i] instanceof FlashingGhost)
 					{
-						gp.ghostArray[i] = new FlashingGhost(gp.ghostArray[i], 640, 320, gp);
+						gp.ghostArray[i] = new FlashingGhost(gp, i, 640, 320);
 					}
 					else if(gp.ghostArray[i] instanceof VulnerableGhost)
 					{
-						gp.ghostArray[i] = new VulnerableGhost(gp.ghostArray[i], 640, 320, gp);
+						gp.ghostArray[i] = new VulnerableGhost(gp, i, 640, 320);
 					}
 				}
 				
@@ -103,15 +103,15 @@ public class Ghost extends Character
 				{
 					if(gp.ghostArray[i] instanceof HostileGhost)
 					{
-						gp.ghostArray[i] = new HostileGhost(gp.ghostArray[i], 0, 320, gp);
+						gp.ghostArray[i] = new HostileGhost(gp, i, 0, 320);
 					}
 					else if(gp.ghostArray[i] instanceof FlashingGhost)
 					{
-						gp.ghostArray[i] = new FlashingGhost(gp.ghostArray[i], 0, 320, gp);
+						gp.ghostArray[i] = new FlashingGhost(gp, i, 0, 320);
 					}
 					else if(gp.ghostArray[i] instanceof VulnerableGhost)
 					{
-						gp.ghostArray[i] = new VulnerableGhost(gp.ghostArray[i], 0, 320, gp);
+						gp.ghostArray[i] = new VulnerableGhost(gp, i, 0, 320);
 					}
 				}
 				

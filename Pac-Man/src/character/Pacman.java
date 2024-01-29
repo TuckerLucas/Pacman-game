@@ -8,7 +8,7 @@ public class Pacman extends Character
 {
 	private static final long serialVersionUID = 1L;
 	
-	protected int intersectedGhost;
+	public int intersectedGhost;
 	
 	public int currentDir;
 	public int nextDir;

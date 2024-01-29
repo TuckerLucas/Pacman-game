@@ -18,9 +18,9 @@ public class FlashingGhost extends Ghost
 		super(ID, cD, x, y, movementStatus, gp);
 	}
 	
-	public FlashingGhost(Ghost ghost, int x, int y,GamePanel gp) 
+	public FlashingGhost(GamePanel gp, int i, int x, int y) 
 	{
-		super(ghost, x, y, gp);
+		super(gp, i, x, y);
 	}
 	
 	public void tick()

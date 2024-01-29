@@ -18,9 +18,9 @@ public class HostileGhost extends Ghost
 		super(ID, cD, x, y, movementStatus, gp);
 	}
 	
-	public HostileGhost(Ghost ghost, int x, int y, GamePanel gp) 
+	public HostileGhost(GamePanel gp, int i, int x, int y) 
 	{
-		super(ghost, x, y, gp);
+		super(gp, i, x, y);
 	}
 	
 	public void tick()
