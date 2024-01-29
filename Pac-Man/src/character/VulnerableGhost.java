@@ -8,10 +8,10 @@ public class VulnerableGhost extends Ghost
 {
 	private static final long serialVersionUID = 1L;
 
-	public int frameIndexVulnerable = 0;
-	public double elapsedFrameTimeInSecondsVulnerable = 0;		
-	public double targetTimePerFrameInSecondsVulnerable = 0.05;
-	public int totalNumberOfFramesVulnerable = gp.animation.vulnerableGhostSprites.length;
+	public int frameIndex = 0;
+	public double elapsedFrameTimeInSeconds = 0;		
+	public double targetTimePerFrameInSeconds = 0.05;
+	public int totalNumberOfFrames = gp.animation.vulnerableGhostSprites.length;
 	
 	public VulnerableGhost(int ID, int cD, int x, int y, int movementStatus, GamePanel gp) 
 	{
@@ -30,22 +30,22 @@ public class VulnerableGhost extends Ghost
 	
 	public void manageVulnerableAnimationTiming()
 	{
-		elapsedFrameTimeInSecondsVulnerable += gp.secondsPerTick;
+		elapsedFrameTimeInSeconds += gp.secondsPerTick;
 		
-		if(elapsedFrameTimeInSecondsVulnerable >= targetTimePerFrameInSecondsVulnerable)
+		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
 		{
-			elapsedFrameTimeInSecondsVulnerable = 0;
-			frameIndexVulnerable++;
+			elapsedFrameTimeInSeconds = 0;
+			frameIndex++;
 			
-			if(frameIndexVulnerable == totalNumberOfFramesVulnerable)
+			if(frameIndex == totalNumberOfFrames)
 			{
-				frameIndexVulnerable = 0;
+				frameIndex = 0;
 			}
 		}
 	}
 	
 	public void render(Graphics g)
 	{
-		g.drawImage(gp.animation.vulnerableGhostSprites[frameIndexVulnerable], x, y, width, height, null);
+		g.drawImage(gp.animation.vulnerableGhostSprites[frameIndex], x, y, width, height, null);
 	}
 }

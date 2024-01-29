@@ -8,10 +8,10 @@ public class FlashingGhost extends Ghost
 {
 	private static final long serialVersionUID = 1L;
 
-	private int frameIndexFlashing = 0;
-	private double elapsedFrameTimeInSecondsFlashing = 0;
-	private double targetTimePerFrameInSecondsFlashing = 0.33;
-	private int totalNumberOfFramesFlashing = gp.animation.flashingGhostSprites.length;
+	private int frameIndex = 0;
+	private double elapsedFrameTimeInSeconds = 0;
+	private double targetTimePerFrameInSeconds = 0.33;
+	private int totalNumberOfFrames = gp.animation.flashingGhostSprites.length;
 	
 	public FlashingGhost(int ID, int cD, int x, int y, int movementStatus, GamePanel gp) 
 	{
@@ -30,22 +30,22 @@ public class FlashingGhost extends Ghost
 	
 	public void manageFlashingAnimationTiming()
 	{
-		elapsedFrameTimeInSecondsFlashing += gp.secondsPerTick;
+		elapsedFrameTimeInSeconds += gp.secondsPerTick;
 		
-		if(elapsedFrameTimeInSecondsFlashing >= targetTimePerFrameInSecondsFlashing)
+		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
 		{
-			elapsedFrameTimeInSecondsFlashing = 0;
-			frameIndexFlashing++;
+			elapsedFrameTimeInSeconds = 0;
+			frameIndex++;
 			
-			if(frameIndexFlashing == totalNumberOfFramesFlashing)
+			if(frameIndex == totalNumberOfFrames)
 			{
-				frameIndexFlashing = 0;
+				frameIndex = 0;
 			}
 		}
 	}
 	
 	public void render(Graphics g)
 	{
-		g.drawImage(gp.animation.flashingGhostSprites[frameIndexFlashing], x, y, width, height, null);
+		g.drawImage(gp.animation.flashingGhostSprites[frameIndex], x, y, width, height, null);
 	}
 }
