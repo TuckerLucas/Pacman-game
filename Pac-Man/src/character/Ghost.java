@@ -9,7 +9,7 @@ public class Ghost extends Character
 {
 	private static final long serialVersionUID = 1L;
 	
-	private Random randomGen;
+	private Random randomGen = new Random();
 	
 	public int ghostID;
 	public int movementType;
@@ -46,7 +46,20 @@ public class Ghost extends Character
 		currentDir = cD;
 		setBounds(x, y, gp.tileSize, gp.tileSize);
 		
-		randomGen = new Random();
+		nextDir = randomGen.nextInt(4);
+	}
+	
+	public Ghost(Ghost ghost, int x, int y, GamePanel gp)
+	{
+		super(gp);
+		
+		ghostID = ghost.ghostID;
+		movementType = ghost.movementType;
+		currentDir = ghost.currentDir;
+		this.x = x;
+		this.y = y;
+		setBounds(this.x, this.y, gp.tileSize, gp.tileSize);
+		
 		nextDir = randomGen.nextInt(4);
 	}
 	
@@ -65,15 +78,15 @@ public class Ghost extends Character
 				{
 					if(gp.ghostArray[i] instanceof HostileGhost)
 					{
-						gp.ghostArray[i] = new HostileGhost(i, left, 640, 320, gp.ghostArray[i].movementType, gp);
+						gp.ghostArray[i] = new HostileGhost(gp.ghostArray[i], 640, 320, gp);
 					}
 					else if(gp.ghostArray[i] instanceof FlashingGhost)
 					{
-						gp.ghostArray[i] = new FlashingGhost(i, left, 640, 320, gp.ghostArray[i].movementType, gp);
+						gp.ghostArray[i] = new FlashingGhost(gp.ghostArray[i], 640, 320, gp);
 					}
 					else if(gp.ghostArray[i] instanceof VulnerableGhost)
 					{
-						gp.ghostArray[i] = new VulnerableGhost(i, left, 640, 320, gp.ghostArray[i].movementType, gp);
+						gp.ghostArray[i] = new VulnerableGhost(gp.ghostArray[i], 640, 320, gp);
 					}
 				}
 				
@@ -90,15 +103,15 @@ public class Ghost extends Character
 				{
 					if(gp.ghostArray[i] instanceof HostileGhost)
 					{
-						gp.ghostArray[i] = new HostileGhost(i, right, 0, 320, gp.ghostArray[i].movementType, gp);
+						gp.ghostArray[i] = new HostileGhost(gp.ghostArray[i], 0, 320, gp);
 					}
 					else if(gp.ghostArray[i] instanceof FlashingGhost)
 					{
-						gp.ghostArray[i] = new FlashingGhost(i, right, 0, 320, gp.ghostArray[i].movementType, gp);
+						gp.ghostArray[i] = new FlashingGhost(gp.ghostArray[i], 0, 320, gp);
 					}
 					else if(gp.ghostArray[i] instanceof VulnerableGhost)
 					{
-						gp.ghostArray[i] = new VulnerableGhost(i, right, 0, 320, gp.ghostArray[i].movementType, gp);
+						gp.ghostArray[i] = new VulnerableGhost(gp.ghostArray[i], 0, 320, gp);
 					}
 				}
 				

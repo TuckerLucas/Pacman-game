@@ -8,15 +8,10 @@ public class DeadPacman extends Pacman
 {
 	private static final long serialVersionUID = 1L;
 	
-	public DeadPacman(int lastAliveX, int lastAliveY, GamePanel gp)
+	public DeadPacman(int x, int y, GamePanel gp)
 	{
 		super(gp);
-		spawnDeadPacman(lastAliveX, lastAliveY);
-	}
-	
-	private void spawnDeadPacman(int xCoordinate, int yCoordinate)
-	{
-		setBounds(xCoordinate, yCoordinate, gp.tileSize, gp.tileSize);
+		setBounds(x, y, gp.tileSize, gp.tileSize);
 	}
 	
 	public void tick()

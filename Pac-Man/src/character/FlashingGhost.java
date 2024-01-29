@@ -18,6 +18,11 @@ public class FlashingGhost extends Ghost
 		super(ID, cD, x, y, movementStatus, gp);
 	}
 	
+	public FlashingGhost(Ghost ghost, int x, int y,GamePanel gp) 
+	{
+		super(ghost, x, y, gp);
+	}
+	
 	public void tick()
 	{
 		if(!isCrossingPortal(ghostID, this))

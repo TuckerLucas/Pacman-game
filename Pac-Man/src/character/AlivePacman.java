@@ -23,6 +23,17 @@ public class AlivePacman extends Pacman
 		setBounds(x, y, gp.tileSize, gp.tileSize);
 	}
 	
+	public AlivePacman(Pacman pacman, int x, int y, GamePanel gp)
+	{
+		super(gp);
+		this.gp = gp;
+		this.currentDir = pacman.currentDir;
+		this.nextDir = pacman.nextDir;
+		this.x = x;
+		this.y = y;
+		setBounds(this.x, this.y, gp.tileSize, gp.tileSize);
+	}
+	
 	public void tick()
 	{	
 		if(canMove(this, nextDir))
@@ -41,12 +52,12 @@ public class AlivePacman extends Pacman
 	{
 		if(gp.pacman.x == 0 && gp.pacman.y == 320 && gp.pacman.currentDir == left)
 		{
-			gp.pacman = new AlivePacman(left, gp.pacman.nextDir, 640, 320, gp);
+			gp.pacman = new AlivePacman(gp.pacman, 640, 320, gp);
 		}
 		
 		if(gp.pacman.x == 640 && gp.pacman.y == 320 && gp.pacman.currentDir == right)
 		{
-			gp.pacman = new AlivePacman(right, gp.pacman.nextDir, 0, 320, gp);
+			gp.pacman = new AlivePacman(gp.pacman, 0, 320, gp);
 		}
 	}
 
@@ -135,7 +146,7 @@ public class AlivePacman extends Pacman
 	{
 		Sounds.playSoundEffect(Sounds.ghostEatenSoundPath);
 		
-		gp.ghostArray[intersectedGhost] = new HostileGhost(intersectedGhost, right, 320, 320, Ghost.randomMovement, gp);
+		gp.ghostArray[intersectedGhost] = new HostileGhost(gp.ghostArray[intersectedGhost], 320, 320, gp);
 				
 		gp.numberOfEatenGhosts++;
 		

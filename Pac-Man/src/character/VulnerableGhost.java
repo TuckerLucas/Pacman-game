@@ -17,6 +17,11 @@ public class VulnerableGhost extends Ghost
 	{
 		super(ID, cD, x, y, movementStatus, gp);
 	}
+	
+	public VulnerableGhost(Ghost ghost, int x, int y, GamePanel gp) 
+	{
+		super(ghost, x, y, gp);
+	}
 
 	public void tick()
 	{
