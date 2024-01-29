@@ -52,7 +52,7 @@ public class GamePanel extends Canvas implements Runnable
 	Thread gameThread;
 	
 	// Characters and objects
-	public Animation animation = new Animation();
+	public Animation animation = new Animation(this);
 	public List<Food> foodList = new ArrayList<>();
 	public BonusScore bonusScore = new BonusScore(this);
 	public Pacman pacman = new AlivePacman(Character.right, Character.right, 320, 512, this);
