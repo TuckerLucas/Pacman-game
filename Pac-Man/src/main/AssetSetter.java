@@ -27,7 +27,11 @@ public class AssetSetter
 	
 	public void setPacman()
 	{
-		gp.pacman = new AlivePacman(Character.right, Character.right, 320, 512, gp);
+		gp.pacman = new AlivePacman(gp);
+		gp.pacman.x = 320;
+		gp.pacman.y = 512;
+		gp.pacman.currentDir = Character.right;
+		gp.pacman.nextDir = Character.right;
 	}
 	
 	public void setDoor()

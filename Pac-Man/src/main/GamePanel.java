@@ -15,7 +15,6 @@ import food.Energizer;
 import food.Food;
 import Game.Animation;
 import Game.BonusScore;
-import character.Character;
 import character.FlashingGhost;
 import character.Ghost;
 import character.HostileGhost;
@@ -55,7 +54,7 @@ public class GamePanel extends Canvas implements Runnable
 	public Animation animation = new Animation(this);
 	public List<Food> foodList = new ArrayList<>();
 	public BonusScore bonusScore = new BonusScore(this);
-	public Pacman pacman = new AlivePacman(Character.right, Character.right, 320, 512, this);
+	public Pacman pacman = new AlivePacman(this);
 	public Ghost ghostArray[] = new Ghost[4];
 	public SpawnBoxDoor spawnBoxDoor = new SpawnBoxDoor(this, 320, 288);
 	public Wall[][] wallMatrix;

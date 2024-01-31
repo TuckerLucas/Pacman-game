@@ -13,25 +13,12 @@ public class AlivePacman extends Pacman
 	GamePanel gp;
 	
 	private static final long serialVersionUID = 1L;
-
-	public AlivePacman(int cD, int nD, int x, int y, GamePanel gp)
-	{
-		super(gp);
-		this.gp = gp;
-		currentDir = cD;
-		nextDir = nD;
-		setBounds(x, y, gp.tileSize, gp.tileSize);
-	}
 	
-	public AlivePacman(GamePanel gp, int x, int y)
+	public AlivePacman(GamePanel gp)
 	{
 		super(gp);
 		this.gp = gp;
-		this.currentDir = gp.pacman.currentDir;
-		this.nextDir = gp.pacman.nextDir;
-		this.x = x;
-		this.y = y;
-		setBounds(this.x, this.y, gp.tileSize, gp.tileSize);
+		setBounds(x, y, gp.tileSize, gp.tileSize);
 	}
 	
 	public void tick()
@@ -52,12 +39,14 @@ public class AlivePacman extends Pacman
 	{
 		if(gp.pacman.x == 0 && gp.pacman.y == 320 && gp.pacman.currentDir == left)
 		{
-			gp.pacman = new AlivePacman(gp, 640, 320);
+			gp.pacman.x = 640;
+			gp.pacman.y = 320;
 		}
 		
 		if(gp.pacman.x == 640 && gp.pacman.y == 320 && gp.pacman.currentDir == right)
 		{
-			gp.pacman = new AlivePacman(gp, 0, 320);
+			gp.pacman.x = 0;
+			gp.pacman.y = 320;
 		}
 	}
 
