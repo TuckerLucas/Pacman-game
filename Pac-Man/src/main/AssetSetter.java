@@ -31,7 +31,7 @@ public class AssetSetter
 		gp.pacman.x = 320;
 		gp.pacman.y = 512;
 		gp.pacman.currentDir = Character.right;
-		gp.pacman.nextDir = Character.right;
+		gp.pacman.nextDir = Character.stopped;
 	}
 	
 	public void setDoor()
