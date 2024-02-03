@@ -43,13 +43,6 @@ public class GamePanel extends Canvas implements Runnable
 	private double targetTick = 60.0; 				
 	public double secondsPerTick = 1.0 / targetTick;
 	
-	// System
-	public AssetSetter aSetter = new AssetSetter(this);
-	public KeyHandler keyH = new KeyHandler(this);
-	public UI ui = new UI(this);
-	public PathFinder pathFinder = new PathFinder(this);
-	Thread gameThread;
-	
 	// Characters and objects
 	public Animation animation = new Animation(this);
 	public List<Food> foodList = new ArrayList<>();
@@ -60,6 +53,13 @@ public class GamePanel extends Canvas implements Runnable
 	public Wall[][] wallMatrix;
 	public Energizer energizer = new Energizer(0, 0, this);
 	public Level level;
+	
+	// System
+	public AssetSetter aSetter = new AssetSetter(this);
+	public KeyHandler keyH = new KeyHandler(this);
+	public UI ui = new UI(this);
+	public PathFinder pathFinder = new PathFinder(this);
+	Thread gameThread;
 	
 	// Game state
 	public int gameState;
@@ -156,7 +156,7 @@ public class GamePanel extends Canvas implements Runnable
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
-			ghostArray[i] = new VulnerableGhost(ghostArray[i].ghostID, ghostArray[i].currentDir, ghostArray[i].x, ghostArray[i].y, ghostArray[i].movementType, this);
+			ghostArray[i] = new VulnerableGhost(this, i);
 		}
 		
 		numberOfEatenGhosts = 0;
@@ -168,7 +168,7 @@ public class GamePanel extends Canvas implements Runnable
 		{
 			if(ghostArray[i] instanceof FlashingGhost)
 			{
-				ghostArray[i] = new HostileGhost(ghostArray[i].ghostID, ghostArray[i].currentDir, ghostArray[i].x, ghostArray[i].y, ghostArray[i].movementType, this);
+				ghostArray[i] = new HostileGhost(this, i);
 			}
 		}
 	}
@@ -179,7 +179,7 @@ public class GamePanel extends Canvas implements Runnable
 		{
 			if(ghostArray[i] instanceof VulnerableGhost)
 			{
-				ghostArray[i] = new FlashingGhost(ghostArray[i].ghostID, ghostArray[i].currentDir, ghostArray[i].x, ghostArray[i].y, ghostArray[i].movementType, this);
+				ghostArray[i] = new FlashingGhost(this, i);
 			}
 		}
 	}
@@ -190,7 +190,7 @@ public class GamePanel extends Canvas implements Runnable
 		{
 			if(ghostArray[i] instanceof FlashingGhost)
 			{
-				ghostArray[i] = new HostileGhost(ghostArray[i].ghostID, ghostArray[i].currentDir, ghostArray[i].x, ghostArray[i].y, ghostArray[i].movementType, this);
+				ghostArray[i] = new HostileGhost(this, i);
 			}
 		}
 	}

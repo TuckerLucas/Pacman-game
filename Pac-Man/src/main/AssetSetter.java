@@ -23,6 +23,38 @@ public class AssetSetter
 		gp.ghostArray[i] = new HostileGhost(i, Character.right, 288, 320, Ghost.randomMovement, gp); i++;
 		gp.ghostArray[i] = new HostileGhost(i, Character.upwards, 320, 320, Ghost.randomMovement, gp); i++;
 		gp.ghostArray[i] = new HostileGhost(i, Character.left, 352, 320, Ghost.randomMovement, gp);
+		
+		/*
+		gp.ghostArray[i] = new HostileGhost(gp, i); 
+		gp.ghostArray[i].currentDir = Character.right;
+		gp.ghostArray[i].x = 320;
+		gp.ghostArray[i].y = 256;
+		gp.ghostArray[i].movementType = Ghost.randomMovement;
+		
+		i++;
+		
+		gp.ghostArray[i] = new HostileGhost(gp, i); 
+		gp.ghostArray[i].currentDir = Character.right;
+		gp.ghostArray[i].x = 288;
+		gp.ghostArray[i].y = 320;
+		gp.ghostArray[i].movementType = Ghost.randomMovement;
+		
+		i++;
+		
+		gp.ghostArray[i] = new HostileGhost(gp, i); 
+		gp.ghostArray[i].currentDir = Character.upwards;
+		gp.ghostArray[i].x = 320;
+		gp.ghostArray[i].y = 320;
+		gp.ghostArray[i].movementType = Ghost.randomMovement;
+		
+		i++;
+		
+		gp.ghostArray[i] = new HostileGhost(gp, i); 
+		gp.ghostArray[i].currentDir = Character.left;
+		gp.ghostArray[i].x = 352;
+		gp.ghostArray[i].y = 320;
+		gp.ghostArray[i].movementType = Ghost.randomMovement;
+		*/
 	}
 	
 	public void setPacman()

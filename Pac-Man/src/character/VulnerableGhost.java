@@ -13,14 +13,9 @@ public class VulnerableGhost extends Ghost
 	public double targetTimePerFrameInSeconds = 0.05;
 	public int totalNumberOfFrames = gp.animation.vulnerableGhostSprites.length;
 	
-	public VulnerableGhost(int ID, int cD, int x, int y, int movementStatus, GamePanel gp) 
+	public VulnerableGhost(GamePanel gp, int i) 
 	{
-		super(ID, cD, x, y, movementStatus, gp);
-	}
-	
-	public VulnerableGhost(GamePanel gp, int i, int x, int y) 
-	{
-		super(gp, i, x, y);
+		super(gp, i);
 	}
 
 	public void tick()

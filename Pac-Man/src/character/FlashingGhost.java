@@ -13,14 +13,9 @@ public class FlashingGhost extends Ghost
 	private double targetTimePerFrameInSeconds = 0.05;
 	private int totalNumberOfFrames = gp.animation.flashingGhostSprites.length;
 	
-	public FlashingGhost(int ID, int cD, int x, int y, int movementStatus, GamePanel gp) 
+	public FlashingGhost(GamePanel gp, int i) 
 	{
-		super(ID, cD, x, y, movementStatus, gp);
-	}
-	
-	public FlashingGhost(GamePanel gp, int i, int x, int y) 
-	{
-		super(gp, i, x, y);
+		super(gp, i);
 	}
 	
 	public void tick()

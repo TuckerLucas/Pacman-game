@@ -48,15 +48,15 @@ public class Ghost extends Character
 		nextDir = randomGen.nextInt(4);
 	}
 	
-	public Ghost(GamePanel gp, int i, int x, int y)
+	public Ghost(GamePanel gp, int i)
 	{
 		super(gp);
 		
 		ghostID = i;
 		movementType = gp.ghostArray[i].movementType;
 		currentDir = gp.ghostArray[i].currentDir;
-		this.x = x;
-		this.y = y;
+		this.x = gp.ghostArray[i].x;
+		this.y = gp.ghostArray[i].y;
 		setBounds(this.x, this.y, gp.tileSize, gp.tileSize);
 		
 		nextDir = randomGen.nextInt(4);

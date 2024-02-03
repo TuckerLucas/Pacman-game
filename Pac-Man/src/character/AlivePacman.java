@@ -135,7 +135,9 @@ public class AlivePacman extends Pacman
 	{
 		Sounds.playSoundEffect(Sounds.ghostEatenSoundPath);
 		
-		gp.ghostArray[intersectedGhost] = new HostileGhost(gp, intersectedGhost, 320, 320);
+		gp.ghostArray[intersectedGhost] = new HostileGhost(gp, intersectedGhost);
+		gp.ghostArray[intersectedGhost].x = 320;
+		gp.ghostArray[intersectedGhost].y = 320;
 		gp.ghostArray[intersectedGhost].movementType = Ghost.randomMovement;
 				
 		gp.numberOfEatenGhosts++;
