@@ -16,7 +16,6 @@ public class Ghost extends Character
 	
 	public static final int randomMovement = 0;
 	public static final int methodicalMovement = 1;
-	public static final int findingPath = 2;
 	
 	public boolean findDir1Blocked = false;
 	public boolean isFindingPath = false;
@@ -76,18 +75,8 @@ public class Ghost extends Character
 			{
 				if(gp.ghostArray[i].x == 0 && gp.ghostArray[i].y == 320)
 				{
-					if(gp.ghostArray[i] instanceof HostileGhost)
-					{
-						gp.ghostArray[i] = new HostileGhost(gp, i, 640, 320);
-					}
-					else if(gp.ghostArray[i] instanceof FlashingGhost)
-					{
-						gp.ghostArray[i] = new FlashingGhost(gp, i, 640, 320);
-					}
-					else if(gp.ghostArray[i] instanceof VulnerableGhost)
-					{
-						gp.ghostArray[i] = new VulnerableGhost(gp, i, 640, 320);
-					}
+					gp.ghostArray[i].x = 640;
+					gp.ghostArray[i].y = 320;
 				}
 				
 				move(gp.ghostArray[i], left);
@@ -101,18 +90,8 @@ public class Ghost extends Character
 			{
 				if(gp.ghostArray[i].x == 640 && gp.ghostArray[i].y == 320)
 				{
-					if(gp.ghostArray[i] instanceof HostileGhost)
-					{
-						gp.ghostArray[i] = new HostileGhost(gp, i, 0, 320);
-					}
-					else if(gp.ghostArray[i] instanceof FlashingGhost)
-					{
-						gp.ghostArray[i] = new FlashingGhost(gp, i, 0, 320);
-					}
-					else if(gp.ghostArray[i] instanceof VulnerableGhost)
-					{
-						gp.ghostArray[i] = new VulnerableGhost(gp, i, 0, 320);
-					}
+					gp.ghostArray[i].x = 0;
+					gp.ghostArray[i].y = 320;
 				}
 				
 				move(gp.ghostArray[i], right);

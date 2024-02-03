@@ -24,7 +24,8 @@ public class Level
 	public Level(GamePanel gp)	
 	{
 		this.gp = gp;
-		loadMap("/Images/map.png");
+		//loadMap("/Images/map.png");
+		loadMap("/Images/mapPortalCrossTest.png");
 	}
 	
 	private void loadMap(String filePath)
