@@ -16,10 +16,6 @@ public class Character extends Rectangle
 	public static final int upwards = 2;
 	public static final int downwards = 3;
 	
-	public static final int notCrossingPortal = -1;
-	public static final int crossingPortalFromRightSide = 0;
-	public static final int crossingPortalFromLeftSide = 1;
-	
 	public static int pixelsTravelledPerTick = 2;
 	
 	public Character(GamePanel gp)
