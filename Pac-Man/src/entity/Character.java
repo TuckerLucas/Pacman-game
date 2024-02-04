@@ -10,12 +10,6 @@ public class Character extends Entity
 	
 	private static final long serialVersionUID = 1L;
 	
-	public static final int stopped = -1;
-	public static final int right = 0;
-	public static final int left = 1;
-	public static final int upwards = 2;
-	public static final int downwards = 3;
-	
 	public static int pixelsTravelledPerTick = 2;
 	
 	public Character(GamePanel gp)
@@ -24,7 +18,7 @@ public class Character extends Entity
 		this.gp = gp;
 	}
 	
-	public void move(Character character, int direction)
+	public void move(Character character, String direction)
 	{
 		if(gp.gameState == gp.lifeLostState)
 		{
@@ -37,41 +31,41 @@ public class Character extends Entity
 		}
 		else
 		{
-			if(direction == right || direction == left)
+			if(direction == "right" || direction == "left")
 			{
-				if(character.getCurrentDirection() == upwards && canMove(character, upwards))
+				if(character.getCurrentDirection() == "up" && canMove(character, "up"))
 				{
-					shiftCharacterInGivenDirection(character, upwards);
+					shiftCharacterInGivenDirection(character, "up");
 				}
-				if(character.getCurrentDirection() == downwards && canMove(character, downwards))
+				if(character.getCurrentDirection() == "down" && canMove(character, "down"))
 				{
-					shiftCharacterInGivenDirection(character, downwards);
+					shiftCharacterInGivenDirection(character, "down");
 				}
 			}
-			else if(direction == upwards || direction == downwards)
+			else if(direction == "up" || direction == "down")
 			{
-				if(character.getCurrentDirection() == left && canMove(character, left))
+				if(character.getCurrentDirection() == "left" && canMove(character, "left"))
 				{
-					shiftCharacterInGivenDirection(character, left);
+					shiftCharacterInGivenDirection(character, "left");
 				}
-				if(character.getCurrentDirection() == right && canMove(character, right))
+				if(character.getCurrentDirection() == "right" && canMove(character, "right"))
 				{
-					shiftCharacterInGivenDirection(character, right);
+					shiftCharacterInGivenDirection(character, "right");
 				}
 			}
 		}
 	}
 
-	public boolean canMove(Character character, int direction)
+	public boolean canMove(Character character, String direction)
 	{
 		int nextX = 0, nextY = 0;
 		
 		switch(direction)
 		{
-			case right: nextX = character.x + pixelsTravelledPerTick; nextY = character.y; break;
-			case left: nextX = character.x - pixelsTravelledPerTick; nextY = character.y; break;
-			case upwards: nextX = character.x; nextY = character.y - pixelsTravelledPerTick; break;
-			case downwards: if(character.x == 320 && character.y == 256) {return false;}
+			case "right": nextX = character.x + pixelsTravelledPerTick; nextY = character.y; break;
+			case "left": nextX = character.x - pixelsTravelledPerTick; nextY = character.y; break;
+			case "up": nextX = character.x; nextY = character.y - pixelsTravelledPerTick; break;
+			case "down": if(character.x == 320 && character.y == 256) {return false;}
 							nextX = character.x; nextY = character.y + pixelsTravelledPerTick; break;
 		}
 		
@@ -99,19 +93,19 @@ public class Character extends Entity
 		return true;
 	}
 	
-	public void shiftCharacterInGivenDirection(Character character, int direction)
+	public void shiftCharacterInGivenDirection(Character character, String direction)
 	{
 		switch(direction)
 		{
-			case right: character.x += pixelsTravelledPerTick; break;
-			case left: character.x -= pixelsTravelledPerTick; break;
-			case upwards: character.y -= pixelsTravelledPerTick; break;
-			case downwards: character.y += pixelsTravelledPerTick; break;
+			case "right": character.x += pixelsTravelledPerTick; break;
+			case "left": character.x -= pixelsTravelledPerTick; break;
+			case "up": character.y -= pixelsTravelledPerTick; break;
+			case "down": character.y += pixelsTravelledPerTick; break;
 		}
 	}
 	
-	public int getCurrentDirection() 
+	public String getCurrentDirection() 
 	{
-		return 0;
+		return "";
 	}
 }

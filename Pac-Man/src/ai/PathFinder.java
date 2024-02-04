@@ -1,13 +1,12 @@
 package ai;
 
-import entity.Character;
 import main.GamePanel;
 
 public class PathFinder 
 {
 	GamePanel gp;
 	
-	public int pathFinderArray[][] = new int[16][4];
+	public String pathFinderArray[][] = new String[16][4];
 	
 	public int detectionRange = 80;
 	
@@ -38,88 +37,88 @@ public class PathFinder
 			switch(i)
 			{
 				case 0:
-					pathFinderArray[i][0] = Character.left;
-					pathFinderArray[i][1] = -1;
-					pathFinderArray[i][2] = Character.downwards;
-					pathFinderArray[i][3] = Character.upwards;
+					pathFinderArray[i][0] = "left";
+					pathFinderArray[i][1] = "N/A";
+					pathFinderArray[i][2] = "down";
+					pathFinderArray[i][3] = "up";
 					break;
 				case 1:
-					pathFinderArray[i][0] = Character.left;
-					pathFinderArray[i][1] = Character.upwards;
-					pathFinderArray[i][2] = Character.downwards;
+					pathFinderArray[i][0] = "left";
+					pathFinderArray[i][1] = "up";
+					pathFinderArray[i][2] = "down";
 					break;
 				case 2:
-					pathFinderArray[i][0] = Character.upwards;
-					pathFinderArray[i][1] = Character.left;
-					pathFinderArray[i][2] = Character.right;
+					pathFinderArray[i][0] = "up";
+					pathFinderArray[i][1] = "left";
+					pathFinderArray[i][2] = "right";
 					break;
 				case 3:
-					pathFinderArray[i][0] = Character.upwards;
-					pathFinderArray[i][1] = Character.left;
-					pathFinderArray[i][2] = Character.right;
+					pathFinderArray[i][0] = "up";
+					pathFinderArray[i][1] = "left";
+					pathFinderArray[i][2] = "right";
 					break;
 				case 4:
-					pathFinderArray[i][0] = Character.upwards;
-					pathFinderArray[i][1] = -1;
-					pathFinderArray[i][2] = Character.right;
-					pathFinderArray[i][3] = Character.left;
+					pathFinderArray[i][0] = "up";
+					pathFinderArray[i][1] = "N/A";
+					pathFinderArray[i][2] = "right";
+					pathFinderArray[i][3] = "left";
 					break;
 				case 5:
-					pathFinderArray[i][0] = Character.upwards;
-					pathFinderArray[i][1] = Character.right;
-					pathFinderArray[i][2] = Character.left;
+					pathFinderArray[i][0] = "up";
+					pathFinderArray[i][1] = "right";
+					pathFinderArray[i][2] = "left";
 					break;
 				case 6:
-					pathFinderArray[i][0] = Character.upwards;
-					pathFinderArray[i][1] = Character.right;
-					pathFinderArray[i][2] = Character.left;
+					pathFinderArray[i][0] = "up";
+					pathFinderArray[i][1] = "right";
+					pathFinderArray[i][2] = "left";
 					break;
 				case 7:
-					pathFinderArray[i][0] = Character.right;
-					pathFinderArray[i][1] = Character.upwards;
-					pathFinderArray[i][2] = Character.downwards;
+					pathFinderArray[i][0] = "right";
+					pathFinderArray[i][1] = "up";
+					pathFinderArray[i][2] = "down";
 					break;
 				case 8:
-					pathFinderArray[i][0] = Character.right;
-					pathFinderArray[i][1] = -1;
-					pathFinderArray[i][2] = Character.upwards;
-					pathFinderArray[i][3] = Character.downwards;
+					pathFinderArray[i][0] = "right";
+					pathFinderArray[i][1] = "N/A";
+					pathFinderArray[i][2] = "up";
+					pathFinderArray[i][3] = "down";
 					break;
 				case 9:
-					pathFinderArray[i][0] = Character.right;
-					pathFinderArray[i][1] = Character.downwards;
-					pathFinderArray[i][2] = Character.upwards;
+					pathFinderArray[i][0] = "right";
+					pathFinderArray[i][1] = "down";
+					pathFinderArray[i][2] = "up";
 					break;
 				case 10:
-					pathFinderArray[i][0] = Character.downwards;
-					pathFinderArray[i][1] = Character.right;
-					pathFinderArray[i][2] = Character.left;
+					pathFinderArray[i][0] = "down";
+					pathFinderArray[i][1] = "right";
+					pathFinderArray[i][2] = "left";
 					break;
 				case 11:
-					pathFinderArray[i][0] = Character.downwards;
-					pathFinderArray[i][1] = Character.right;
-					pathFinderArray[i][2] = Character.left;
+					pathFinderArray[i][0] = "down";
+					pathFinderArray[i][1] = "right";
+					pathFinderArray[i][2] = "left";
 					break;
 				case 12:
-					pathFinderArray[i][0] = Character.downwards;
-					pathFinderArray[i][1] = -1;
-					pathFinderArray[i][2] = Character.right;
-					pathFinderArray[i][3] = Character.left;
+					pathFinderArray[i][0] = "down";
+					pathFinderArray[i][1] = "N/A";
+					pathFinderArray[i][2] = "right";
+					pathFinderArray[i][3] = "left";
 					break;
 				case 13:
-					pathFinderArray[i][0] = Character.downwards;
-					pathFinderArray[i][1] = Character.left;
-					pathFinderArray[i][2] = Character.right;
+					pathFinderArray[i][0] = "down";
+					pathFinderArray[i][1] = "left";
+					pathFinderArray[i][2] = "right";
 					break;
 				case 14:
-					pathFinderArray[i][0] = Character.downwards;
-					pathFinderArray[i][1] = Character.left;
-					pathFinderArray[i][2] = Character.right;
+					pathFinderArray[i][0] = "down";
+					pathFinderArray[i][1] = "left";
+					pathFinderArray[i][2] = "right";
 					break;
 				case 15:
-					pathFinderArray[i][0] = Character.left;
-					pathFinderArray[i][1] = Character.downwards;
-					pathFinderArray[i][2] = Character.upwards;
+					pathFinderArray[i][0] = "left";
+					pathFinderArray[i][1] = "down";
+					pathFinderArray[i][2] = "up";
 					break;
 			}
 		}

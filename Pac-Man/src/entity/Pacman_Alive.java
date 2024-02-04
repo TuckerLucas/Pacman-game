@@ -39,13 +39,13 @@ public class Pacman_Alive extends Pacman
 	
 	public void portalCross()
 	{
-		if(gp.pacman.x == 0 && gp.pacman.y == 320 && gp.pacman.currentDir == left)
+		if(gp.pacman.x == 0 && gp.pacman.y == 320 && gp.pacman.currentDir == "left")
 		{
 			gp.pacman.x = 640;
 			gp.pacman.y = 320;
 		}
 		
-		if(gp.pacman.x == 640 && gp.pacman.y == 320 && gp.pacman.currentDir == right)
+		if(gp.pacman.x == 640 && gp.pacman.y == 320 && gp.pacman.currentDir == "right")
 		{
 			gp.pacman.x = 0;
 			gp.pacman.y = 320;
@@ -62,7 +62,7 @@ public class Pacman_Alive extends Pacman
 			
 			frameIndex++;
 			
-			if(frameIndex >= gp.animation.alivePacmanSprites[currentDir].length)
+			if(frameIndex >= gp.animation.alivePacmanSprites[1].length)
 			{
 				frameIndex = 0;
 			}
@@ -159,6 +159,20 @@ public class Pacman_Alive extends Pacman
 	
 	public void render(Graphics g)
 	{
-		g.drawImage(gp.animation.alivePacmanSprites[currentDir][frameIndex], x, y, width, height, null);
+		switch(currentDir)
+		{
+			case "right":
+				g.drawImage(gp.animation.alivePacmanSprites[0][frameIndex], x, y, width, height, null);
+				break;
+			case "left":
+				g.drawImage(gp.animation.alivePacmanSprites[1][frameIndex], x, y, width, height, null);
+				break;
+			case "up":
+				g.drawImage(gp.animation.alivePacmanSprites[2][frameIndex], x, y, width, height, null);
+				break;
+			case "down":
+				g.drawImage(gp.animation.alivePacmanSprites[3][frameIndex], x, y, width, height, null);
+				break;
+		}
 	}
 }

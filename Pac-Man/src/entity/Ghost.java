@@ -17,8 +17,8 @@ public class Ghost extends Character
 	public boolean findDir1Blocked = false;
 	public boolean isFindingPath = false;
 	
-	public int nextDir = 0;
-	public int currentDir = 0;
+	public String nextDir;
+	public String currentDir;
 	
 	public double timeMovingMethodicallyInSeconds = 0.0;
 	public double targetTimeMovingMethodicallyInSeconds = 12.0; 
@@ -48,7 +48,7 @@ public class Ghost extends Character
 			this.y = gp.ghostArray[i].y;
 		}
 		
-		nextDir = randomGen.nextInt(4);
+		generateNextDir();
 	}
 	
 	public void tick()
@@ -60,7 +60,7 @@ public class Ghost extends Character
 	{
 		if((gp.ghostArray[i].x < 160 || gp.ghostArray[i].x > 480) && gp.ghostArray[i].y == 320)
 		{
-			if(gp.ghostArray[i].currentDir == left)
+			if(gp.ghostArray[i].currentDir == "left")
 			{
 				if(gp.ghostArray[i].x == 0 && gp.ghostArray[i].y == 320)
 				{
@@ -68,14 +68,14 @@ public class Ghost extends Character
 					gp.ghostArray[i].y = 320;
 				}
 				
-				move(gp.ghostArray[i], left);
+				move(gp.ghostArray[i], "left");
 				
 				if(gp.ghostArray[i].x == 480 && gp.ghostArray[i].y == 320)
 				{
 					return false;
 				}
 			}
-			else if(gp.ghostArray[i].currentDir == right)
+			else if(gp.ghostArray[i].currentDir == "right")
 			{
 				if(gp.ghostArray[i].x == 640 && gp.ghostArray[i].y == 320)
 				{
@@ -83,7 +83,7 @@ public class Ghost extends Character
 					gp.ghostArray[i].y = 320;
 				}
 				
-				move(gp.ghostArray[i], right);
+				move(gp.ghostArray[i], "right");
 				
 				if(gp.ghostArray[i].x == 160 && gp.ghostArray[i].y == 320)
 				{
@@ -95,6 +95,21 @@ public class Ghost extends Character
 		}
 		
 		return false;
+	}
+	
+	public void generateNextDir()
+	{
+		int temp;
+		
+		temp = randomGen.nextInt(4);
+		
+		switch(temp)
+		{
+			case 0: nextDir = "right"; break;
+			case 1: nextDir = "left"; break;
+			case 2: nextDir = "up"; break;
+			case 3: nextDir = "down"; break;
+		}
 	}
 		
 	public void moveRandomly(Ghost ghost)
@@ -128,7 +143,7 @@ public class Ghost extends Character
 			return;
 		}
 		
-		nextDir = randomGen.nextInt(4);
+		generateNextDir();
 	}
 
 	public void moveMethodically()
@@ -207,7 +222,7 @@ public class Ghost extends Character
 
 	}
 	
-	public int getCurrentDirection()
+	public String getCurrentDirection()
 	{
 		return currentDir;
 	}

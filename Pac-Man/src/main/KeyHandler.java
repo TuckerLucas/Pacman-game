@@ -3,8 +3,6 @@ package main;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import entity.Character;
-
 public class KeyHandler implements KeyListener
 {
 	GamePanel gp;
@@ -93,13 +91,13 @@ public class KeyHandler implements KeyListener
 		switch(code)
 		{
 			case KeyEvent.VK_D:	// fall through
-			case KeyEvent.VK_RIGHT: gp.pacman.nextDir = Character.right; break;
+			case KeyEvent.VK_RIGHT: gp.pacman.nextDir = "right"; break;
 			case KeyEvent.VK_A:	// fall through
-			case KeyEvent.VK_LEFT: gp.pacman.nextDir = Character.left; break;
+			case KeyEvent.VK_LEFT: gp.pacman.nextDir = "left"; break;
 			case KeyEvent.VK_W:	// fall through
-			case KeyEvent.VK_UP: gp.pacman.nextDir = Character.upwards; break;
+			case KeyEvent.VK_UP: gp.pacman.nextDir = "up"; break;
 			case KeyEvent.VK_S:	// fall through
-			case KeyEvent.VK_DOWN: gp.pacman.nextDir = Character.downwards; break;
+			case KeyEvent.VK_DOWN: gp.pacman.nextDir = "down"; break;
 		}
 	}
 	

@@ -8,8 +8,8 @@ public class Pacman extends Character
 {
 	private static final long serialVersionUID = 1L;
 	
-	public int currentDir;
-	public int nextDir;
+	public String currentDir;
+	public String nextDir;
 	
 	public int frameIndex = 0;
 	public double elapsedFrameTimeInSeconds = 0.0;	
@@ -20,7 +20,7 @@ public class Pacman extends Character
 		super(gp);
 	}
 	
-	public int getCurrentDirection()
+	public String getCurrentDirection()
 	{
 		return currentDir;
 	}

@@ -1,6 +1,5 @@
 package main;
 
-import entity.Character;
 import entity.Ghost_Hostile;
 import entity.Pacman_Alive;
 import entity.SpawnBoxDoor;
@@ -19,7 +18,7 @@ public class AssetSetter
 		int i = 0;
 		
 		gp.ghostArray[i] = new Ghost_Hostile(gp, i); 
-		gp.ghostArray[i].currentDir = Character.right;
+		gp.ghostArray[i].currentDir = "right";
 		gp.ghostArray[i].x = 320;
 		gp.ghostArray[i].y = 256;
 		gp.ghostArray[i].movementType = "random";
@@ -27,7 +26,7 @@ public class AssetSetter
 		i++;
 		
 		gp.ghostArray[i] = new Ghost_Hostile(gp, i); 
-		gp.ghostArray[i].currentDir = Character.right;
+		gp.ghostArray[i].currentDir = "right";
 		gp.ghostArray[i].x = 288;
 		gp.ghostArray[i].y = 320;
 		gp.ghostArray[i].movementType = "random";
@@ -35,7 +34,7 @@ public class AssetSetter
 		i++;
 		
 		gp.ghostArray[i] = new Ghost_Hostile(gp, i); 
-		gp.ghostArray[i].currentDir = Character.upwards;
+		gp.ghostArray[i].currentDir = "up";
 		gp.ghostArray[i].x = 320;
 		gp.ghostArray[i].y = 320;
 		gp.ghostArray[i].movementType = "random";
@@ -43,7 +42,7 @@ public class AssetSetter
 		i++;
 		
 		gp.ghostArray[i] = new Ghost_Hostile(gp, i); 
-		gp.ghostArray[i].currentDir = Character.left;
+		gp.ghostArray[i].currentDir = "left";
 		gp.ghostArray[i].x = 352;
 		gp.ghostArray[i].y = 320;
 		gp.ghostArray[i].movementType = "random";
@@ -54,8 +53,8 @@ public class AssetSetter
 		gp.pacman = new Pacman_Alive(gp);
 		gp.pacman.x = 320;
 		gp.pacman.y = 512;
-		gp.pacman.currentDir = Character.right;
-		gp.pacman.nextDir = Character.stopped;
+		gp.pacman.currentDir = "right";
+		gp.pacman.nextDir = "stopped";
 	}
 	
 	public void setDoor()
