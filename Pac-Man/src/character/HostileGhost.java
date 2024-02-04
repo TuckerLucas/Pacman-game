@@ -13,11 +13,6 @@ public class HostileGhost extends Ghost
 	public double targetTimePerFrameInSeconds = 0.05;
 	public int totalNumberOfFrames = gp.animation.hostileGhostSprites[0][0].length;
 	
-	public HostileGhost(int ID, int cD, int x, int y, int movementStatus, GamePanel gp) 
-	{
-		super(ID, cD, x, y, movementStatus, gp);
-	}
-	
 	public HostileGhost(GamePanel gp, int i) 
 	{
 		super(gp, i);

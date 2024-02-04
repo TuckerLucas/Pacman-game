@@ -19,12 +19,13 @@ public class AssetSetter
 	{
 		int i = 0;
 		
+		/*
 		gp.ghostArray[i] = new HostileGhost(i, Character.right, 320, 256, Ghost.randomMovement, gp); i++;
 		gp.ghostArray[i] = new HostileGhost(i, Character.right, 288, 320, Ghost.randomMovement, gp); i++;
 		gp.ghostArray[i] = new HostileGhost(i, Character.upwards, 320, 320, Ghost.randomMovement, gp); i++;
 		gp.ghostArray[i] = new HostileGhost(i, Character.left, 352, 320, Ghost.randomMovement, gp);
+		*/
 		
-		/*
 		gp.ghostArray[i] = new HostileGhost(gp, i); 
 		gp.ghostArray[i].currentDir = Character.right;
 		gp.ghostArray[i].x = 320;
@@ -54,7 +55,6 @@ public class AssetSetter
 		gp.ghostArray[i].x = 352;
 		gp.ghostArray[i].y = 320;
 		gp.ghostArray[i].movementType = Ghost.randomMovement;
-		*/
 	}
 	
 	public void setPacman()

@@ -36,27 +36,21 @@ public class Ghost extends Character
 	
 	public static double timeInstantToBeginFlashingInSeconds = 5.0;
 	
-	public Ghost(int ID, int cD, int x, int y, int movementStatus, GamePanel gp)
-	{	
-		super(gp);
-		
-		ghostID = ID;                  			
-		movementType = movementStatus; 		 	
-		currentDir = cD;
-		setBounds(x, y, gp.tileSize, gp.tileSize);
-		
-		nextDir = randomGen.nextInt(4);
-	}
-	
 	public Ghost(GamePanel gp, int i)
 	{
 		super(gp);
 		
-		ghostID = i;
-		movementType = gp.ghostArray[i].movementType;
-		currentDir = gp.ghostArray[i].currentDir;
-		this.x = gp.ghostArray[i].x;
-		this.y = gp.ghostArray[i].y;
+		// Need to ensure we're not instantiating ghosts for the first time
+		// Because if we are then gp.ghostArray[i] is null leading to problems
+		if(gp.ghostArray[i] != null)
+		{
+			movementType = gp.ghostArray[i].movementType;
+			currentDir = gp.ghostArray[i].currentDir;
+			ghostID = i;
+			this.x = gp.ghostArray[i].x;
+			this.y = gp.ghostArray[i].y;
+		}
+		
 		setBounds(this.x, this.y, gp.tileSize, gp.tileSize);
 		
 		nextDir = randomGen.nextInt(4);
