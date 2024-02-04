@@ -1,11 +1,11 @@
 package food;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
+import entity.Entity;
 import main.GamePanel;
 
-public class Food extends Rectangle
+public class Food extends Entity
 {	
 	GamePanel gp;
 	
@@ -13,6 +13,7 @@ public class Food extends Rectangle
 	
 	public Food(GamePanel gp)
 	{
+		super(gp);
 		this.gp = gp;
 	}
 	

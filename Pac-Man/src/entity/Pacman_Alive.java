@@ -94,7 +94,7 @@ public class Pacman_Alive extends Pacman
 		}
 		else if(food instanceof Food_Pellet)
 		{
-			Food_Pellet.getEaten();
+			Sounds.playSoundEffect(Sounds.pacmanEatingSoundPath);
 		}
 
 		gp.score += food.getFoodPoints();

@@ -24,8 +24,8 @@ public class Level
 	public Level(GamePanel gp)	
 	{
 		this.gp = gp;
-		loadMap("/Images/map.png");
-		//loadMap("/Images/mapPortalCrossTest.png");
+		//loadMap("/Images/map.png");
+		loadMap("/Images/mapPortalCrossTest.png");
 	}
 	
 	private void loadMap(String filePath)
@@ -58,13 +58,18 @@ public class Level
 
 						case white:
 							
-							gp.foodList.add(new Food_Pellet(x*gp.tileSize, y*gp.tileSize, gp));
-							
+							gp.foodList.add(new Food_Pellet(gp));
+							gp.foodList.get(gp.foodList.size()-1).x = (x*gp.tileSize)+12;
+							gp.foodList.get(gp.foodList.size()-1).y = (y*gp.tileSize)+12;
+							gp.foodList.get(gp.foodList.size()-1).width = 8;
+							gp.foodList.get(gp.foodList.size()-1).height = 8;
 							break;
 							
 						case lightYellow:
 							
-							gp.foodList.add(new Food_Energizer(x*gp.tileSize, y*gp.tileSize, gp));
+							gp.foodList.add(new Food_Energizer(gp));
+							gp.foodList.get(gp.foodList.size()-1).x = x*gp.tileSize;
+							gp.foodList.get(gp.foodList.size()-1).y = y*gp.tileSize;
 							break;
 					}
 				}	

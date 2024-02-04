@@ -13,6 +13,6 @@ public class Entity extends Rectangle
 	public Entity(GamePanel gp)
 	{
 		this.gp = gp;
-		setBounds(this.x, this.y, gp.tileSize, gp.tileSize);
+		setBounds(x, y, gp.tileSize, gp.tileSize);
 	}
 }

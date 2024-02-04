@@ -20,10 +20,9 @@ public class Food_Energizer extends Food
 	private static int frameIndex = 0;
 	private int totalNumberOfFrames = gp.animation.energizerSprites.length;	
 	
-	public Food_Energizer(int x, int y, GamePanel gp)
+	public Food_Energizer(GamePanel gp)
 	{
 		super(gp);
-		setBounds(x, y, gp.tileSize, gp.tileSize);
 	}
 	
 	public void tick()

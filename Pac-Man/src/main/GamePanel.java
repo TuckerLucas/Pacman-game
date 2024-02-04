@@ -49,7 +49,7 @@ public class GamePanel extends Canvas implements Runnable
 	public Ghost ghostArray[] = new Ghost[4];
 	public SpawnBoxDoor spawnBoxDoor = new SpawnBoxDoor(this);
 	public Wall[][] wallMatrix;
-	public Food_Energizer energizer = new Food_Energizer(0, 0, this);
+	public Food_Energizer energizer = new Food_Energizer(this);
 	public Level level;
 	
 	// System
