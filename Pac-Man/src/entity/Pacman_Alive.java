@@ -140,7 +140,7 @@ public class Pacman_Alive extends Pacman
 		gp.ghostArray[intersectedGhost] = new Ghost_Hostile(gp, intersectedGhost);
 		gp.ghostArray[intersectedGhost].x = 320;
 		gp.ghostArray[intersectedGhost].y = 320;
-		gp.ghostArray[intersectedGhost].movementType = Ghost.randomMovement;
+		gp.ghostArray[intersectedGhost].movementType = "random";
 				
 		gp.numberOfEatenGhosts++;
 		

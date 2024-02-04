@@ -12,10 +12,7 @@ public class Ghost extends Character
 	private Random randomGen = new Random();
 	
 	public int ghostID;
-	public int movementType;
-	
-	public static final int randomMovement = 0;
-	public static final int methodicalMovement = 1;
+	public String movementType;
 	
 	public boolean findDir1Blocked = false;
 	public boolean isFindingPath = false;
@@ -116,7 +113,7 @@ public class Ghost extends Character
 		{
 			if(gp.pathFinder.pacmanIsClose(deltaX, deltaY) && ghost instanceof Ghost_Hostile && !isInSpawnBox(this))
 			{
-				movementType = methodicalMovement;
+				movementType = "methodical";
 			}
 		}
 		
@@ -196,7 +193,7 @@ public class Ghost extends Character
 			isFindingPath = false;
 			timeMovingMethodicallyInSeconds = 0;				
 			isCoolingDown = true;			
-			movementType = randomMovement;	
+			movementType = "random";	
 		}
 	}
 	

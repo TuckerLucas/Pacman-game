@@ -22,11 +22,11 @@ public class Ghost_Hostile extends Ghost
 	{
 		if(!isCrossingPortal(ghostID, this))
 		{
-			if(movementType == randomMovement)
+			if(movementType == "random")
 			{
 				moveRandomly(this);
 			}
-			else if(movementType == methodicalMovement)
+			else if(movementType == "methodical")
 			{
 				moveMethodically();
 			}

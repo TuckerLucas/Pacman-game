@@ -1,7 +1,6 @@
 package main;
 
 import entity.Character;
-import entity.Ghost;
 import entity.Ghost_Hostile;
 import entity.Pacman_Alive;
 import entity.SpawnBoxDoor;
@@ -23,7 +22,7 @@ public class AssetSetter
 		gp.ghostArray[i].currentDir = Character.right;
 		gp.ghostArray[i].x = 320;
 		gp.ghostArray[i].y = 256;
-		gp.ghostArray[i].movementType = Ghost.randomMovement;
+		gp.ghostArray[i].movementType = "random";
 		
 		i++;
 		
@@ -31,7 +30,7 @@ public class AssetSetter
 		gp.ghostArray[i].currentDir = Character.right;
 		gp.ghostArray[i].x = 288;
 		gp.ghostArray[i].y = 320;
-		gp.ghostArray[i].movementType = Ghost.randomMovement;
+		gp.ghostArray[i].movementType = "random";
 		
 		i++;
 		
@@ -39,7 +38,7 @@ public class AssetSetter
 		gp.ghostArray[i].currentDir = Character.upwards;
 		gp.ghostArray[i].x = 320;
 		gp.ghostArray[i].y = 320;
-		gp.ghostArray[i].movementType = Ghost.randomMovement;
+		gp.ghostArray[i].movementType = "random";
 		
 		i++;
 		
@@ -47,7 +46,7 @@ public class AssetSetter
 		gp.ghostArray[i].currentDir = Character.left;
 		gp.ghostArray[i].x = 352;
 		gp.ghostArray[i].y = 320;
-		gp.ghostArray[i].movementType = Ghost.randomMovement;
+		gp.ghostArray[i].movementType = "random";
 	}
 	
 	public void setPacman()

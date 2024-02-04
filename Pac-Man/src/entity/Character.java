@@ -99,7 +99,7 @@ public class Character extends Entity
 		return true;
 	}
 	
-	public static void shiftCharacterInGivenDirection(Character character, int direction)
+	public void shiftCharacterInGivenDirection(Character character, int direction)
 	{
 		switch(direction)
 		{

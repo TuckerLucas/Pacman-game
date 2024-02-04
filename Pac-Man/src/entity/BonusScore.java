@@ -12,14 +12,14 @@ public class BonusScore extends Character
 	
 	public boolean isBeingDisplayed = false;
 	
-	private static double elapsedAnimationTimeInSeconds = 0.0;
+	private double elapsedAnimationTimeInSeconds = 0.0;
 	private double targetTimeForAnimationInSeconds = 5.0;
 	
-	private static double elapsedFrameTimeInSeconds = 0.0;
+	private double elapsedFrameTimeInSeconds = 0.0;
 	private double targetTimePerFrameInSeconds = 0.1;
 	
-	private static int frameIndex = 0;
-	private static int totalNumberOfFrames = 2;
+	private int frameIndex = 0;
+	private int totalNumberOfFrames = 2;
 	
 	public BonusScore(GamePanel gp)
 	{
