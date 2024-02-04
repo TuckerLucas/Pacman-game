@@ -6,12 +6,15 @@ import main.GamePanel;
 
 public class DeadPacman extends Pacman
 {
+	GamePanel gp;
+	
 	private static final long serialVersionUID = 1L;
 	
-	public DeadPacman(int x, int y, GamePanel gp)
+	public DeadPacman(GamePanel gp)
 	{
 		super(gp);
-		setBounds(x, y, gp.tileSize, gp.tileSize);
+		this.gp = gp;
+		setBounds(gp.pacman.x, gp.pacman.y, gp.tileSize, gp.tileSize);
 	}
 	
 	public void tick()

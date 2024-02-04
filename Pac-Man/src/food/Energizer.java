@@ -61,7 +61,7 @@ public class Energizer extends Food
 		}
 		else if(elapsedTimeWhileActiveInSeconds >= activeTargetTimeInSeconds)		
 		{
-			gp.deactivate();
+			gp.flashingToHostile();
 		}
 	}
 	
@@ -71,7 +71,7 @@ public class Energizer extends Food
 		
 		if(elapsedTimeWhileActiveInSeconds >= Ghost.timeInstantToBeginFlashingInSeconds)
 		{
-			gp.startFlashing();
+			gp.vulnerableToFlashing();
 		}
 	}
 	

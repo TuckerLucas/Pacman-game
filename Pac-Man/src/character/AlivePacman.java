@@ -12,6 +12,8 @@ public class AlivePacman extends Pacman
 {	
 	GamePanel gp;
 	
+	public int intersectedGhost;
+	
 	private static final long serialVersionUID = 1L;
 	
 	public AlivePacman(GamePanel gp)
@@ -88,7 +90,7 @@ public class AlivePacman extends Pacman
 	{	
 		if(food instanceof Energizer)
 		{
-			gp.activate();
+			gp.allToVulnerable();
 		}
 		else if(food instanceof Pellet)
 		{
@@ -142,11 +144,6 @@ public class AlivePacman extends Pacman
 				
 		gp.numberOfEatenGhosts++;
 		
-		if(gp.numberOfEatenGhosts == gp.ghostArray.length)
-		{
-			gp.deactivate();
-		}
-		
 		gp.bonusScore.displayBonusScore(x, y);
 		gp.bonusScore.sumBonusScoreToGameScore();
 	}
@@ -156,7 +153,7 @@ public class AlivePacman extends Pacman
 		Sounds.playSoundEffect(Sounds.pacmanDeathSoundPath);
 		gp.numberOfLives--;
 		gp.bonusScore.isBeingDisplayed = false;
-		gp.pacman = new DeadPacman(x, y, gp);
+		gp.pacman = new DeadPacman(gp);
 		gp.gameState = gp.lifeLostState;
 	}
 	

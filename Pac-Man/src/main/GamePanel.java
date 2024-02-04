@@ -113,7 +113,6 @@ public class GamePanel extends Canvas implements Runnable
 	public void respawnCharacters()
 	{
 		bonusScore.isBeingDisplayed = false;
-		deactivate();
 		aSetter.setGhosts();
 		aSetter.setPacman();
 	}
@@ -152,8 +151,13 @@ public class GamePanel extends Canvas implements Runnable
 		}
 	}
 	
-	public void turnAllVulnerable()
+	public void allToVulnerable()
 	{
+		Sounds.playSoundEffect(Sounds.eatenEnergizerSoundPath);
+		
+		Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
+		isActive = true;
+		
 		for(int i = 0; i < ghostArray.length; i++)
 		{
 			ghostArray[i] = new VulnerableGhost(this, i);
@@ -162,7 +166,7 @@ public class GamePanel extends Canvas implements Runnable
 		numberOfEatenGhosts = 0;
 	}
 	
-	public void turnAllHostile()
+	public void flashingToHostile()
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
@@ -173,7 +177,7 @@ public class GamePanel extends Canvas implements Runnable
 		}
 	}
 	
-	public void startFlashing()
+	public void vulnerableToFlashing()
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
@@ -183,34 +187,7 @@ public class GamePanel extends Canvas implements Runnable
 			}
 		}
 	}
-	
-	public void stopFlashing()
-	{
-		for(int i = 0; i < ghostArray.length; i++)
-		{
-			if(ghostArray[i] instanceof FlashingGhost)
-			{
-				ghostArray[i] = new HostileGhost(this, i);
-			}
-		}
-	}
-	
-	public void activate()
-	{	
-		Sounds.playSoundEffect(Sounds.eatenEnergizerSoundPath);
-		
-		Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
-		isActive = true;	
-		stopFlashing();
-		
-		turnAllVulnerable();
-	}
-	
-	public void deactivate()
-	{	
-		turnAllHostile();
-	}
-	
+
 	private void tick()
 	{
 		if(gameState == playState)
