@@ -1,21 +1,20 @@
-package Game;
+package entity;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
 import main.GamePanel;
 
-public class Wall extends Rectangle 
+public class Wall extends Entity 
 {
 	GamePanel gp;
 	
 	private static final long serialVersionUID = 1L;
 	
-	public Wall(int x, int y, GamePanel gp)
+	public Wall(GamePanel gp)
 	{	
+		super(gp);
 		this.gp = gp;
-		setBounds(x, y, gp.tileSize, gp.tileSize);
 	}
 	
 	public void render(Graphics g)

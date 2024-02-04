@@ -1,4 +1,4 @@
-package character;
+package entity;
 
 import java.awt.Graphics;
 

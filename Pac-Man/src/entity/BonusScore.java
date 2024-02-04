@@ -1,11 +1,10 @@
-package Game;
+package entity;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
 import main.GamePanel;
 
-public class BonusScore extends Rectangle
+public class BonusScore extends Character
 {
 	GamePanel gp;
 	
@@ -24,8 +23,9 @@ public class BonusScore extends Rectangle
 	
 	public BonusScore(GamePanel gp)
 	{
+		super(gp);
 		this.gp = gp;
-		setBounds(0, 0, gp.tileSize*2, gp.tileSize);
+		this.width = gp.tileSize*2;
 	}
 	
 	public void tick()

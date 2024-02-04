@@ -1,10 +1,10 @@
 package main;
 
-import Game.SpawnBoxDoor;
-import character.Character;
-import character.Ghost;
-import character.Ghost_Hostile;
-import character.Pacman_Alive;
+import entity.Character;
+import entity.Ghost;
+import entity.Ghost_Hostile;
+import entity.Pacman_Alive;
+import entity.SpawnBoxDoor;
 
 public class AssetSetter 
 {
@@ -61,6 +61,8 @@ public class AssetSetter
 	
 	public void setDoor()
 	{
-		gp.spawnBoxDoor = new SpawnBoxDoor(gp, 320, 288);
+		gp.spawnBoxDoor = new SpawnBoxDoor(gp);
+		gp.spawnBoxDoor.x = 320;
+		gp.spawnBoxDoor.y = 288;
 	}
 }

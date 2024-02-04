@@ -1,7 +1,7 @@
 package ai;
 
+import entity.Character;
 import main.GamePanel;
-import character.Character;
 
 public class PathFinder 
 {

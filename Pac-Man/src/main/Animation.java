@@ -1,9 +1,7 @@
-package Game;
+package main;
 
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
-
-import main.GamePanel;
 
 import java.io.IOException;
 

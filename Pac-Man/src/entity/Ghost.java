@@ -1,4 +1,4 @@
-package character;
+package entity;
 
 import java.awt.Graphics;
 import java.util.Random;
@@ -50,8 +50,6 @@ public class Ghost extends Character
 			this.x = gp.ghostArray[i].x;
 			this.y = gp.ghostArray[i].y;
 		}
-		
-		setBounds(this.x, this.y, gp.tileSize, gp.tileSize);
 		
 		nextDir = randomGen.nextInt(4);
 	}

@@ -13,18 +13,16 @@ import java.util.List;
 
 import food.Food;
 import food.Food_Energizer;
-import Game.Animation;
-import Game.BonusScore;
-import character.Ghost;
-import character.Ghost_Flashing;
-import character.Ghost_Hostile;
-import character.Ghost_Vulnerable;
-import Game.Level;
-import character.Pacman;
-import character.Pacman_Alive;
-import Game.SpawnBoxDoor;
-import Game.Wall;
 import ai.PathFinder;
+import entity.BonusScore;
+import entity.Ghost;
+import entity.Ghost_Flashing;
+import entity.Ghost_Hostile;
+import entity.Ghost_Vulnerable;
+import entity.Pacman;
+import entity.Pacman_Alive;
+import entity.SpawnBoxDoor;
+import entity.Wall;
 
 public class GamePanel extends Canvas implements Runnable
 {	
@@ -49,7 +47,7 @@ public class GamePanel extends Canvas implements Runnable
 	public BonusScore bonusScore = new BonusScore(this);
 	public Pacman pacman = new Pacman_Alive(this);
 	public Ghost ghostArray[] = new Ghost[4];
-	public SpawnBoxDoor spawnBoxDoor = new SpawnBoxDoor(this, 320, 288);
+	public SpawnBoxDoor spawnBoxDoor = new SpawnBoxDoor(this);
 	public Wall[][] wallMatrix;
 	public Food_Energizer energizer = new Food_Energizer(0, 0, this);
 	public Level level;

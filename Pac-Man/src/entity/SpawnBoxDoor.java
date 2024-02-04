@@ -1,21 +1,20 @@
-package Game;
+package entity;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 
 import main.GamePanel;
 
-public class SpawnBoxDoor extends Rectangle 
+public class SpawnBoxDoor extends Entity 
 {
 	GamePanel gp;
 	
 	private static final long serialVersionUID = 1L;
 	
-	public SpawnBoxDoor(GamePanel gp, int x, int y)
+	public SpawnBoxDoor(GamePanel gp)
 	{
+		super(gp);
 		this.gp = gp;
-		setBounds(x, y, gp.tileSize, gp.tileSize);
 	}
 	
 	public void render(Graphics g)

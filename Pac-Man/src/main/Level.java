@@ -1,4 +1,4 @@
-package Game;
+package main;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -6,9 +6,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import entity.Wall;
 import food.Food_Energizer;
 import food.Food_Pellet;
-import main.GamePanel;
 
 public class Level
 {
@@ -51,12 +51,15 @@ public class Level
 					{
 						case black:
 							
-							gp.wallMatrix[x][y] = new Wall(x*gp.tileSize, y*gp.tileSize, gp);
+							gp.wallMatrix[x][y] = new Wall(gp);
+							gp.wallMatrix[x][y].x = x*gp.tileSize;
+							gp.wallMatrix[x][y].y = y*gp.tileSize;
 							break;
 
 						case white:
 							
 							gp.foodList.add(new Food_Pellet(x*gp.tileSize, y*gp.tileSize, gp));
+							
 							break;
 							
 						case lightYellow:

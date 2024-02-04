@@ -2,7 +2,7 @@ package food;
 
 import java.awt.Graphics;
 
-import character.Ghost;
+import entity.Ghost;
 import main.GamePanel;
 
 public class Food_Energizer extends Food

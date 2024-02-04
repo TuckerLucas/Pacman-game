@@ -1,10 +1,10 @@
-package character;
+package entity;
 
 import java.awt.Rectangle;
 
 import main.GamePanel;
 
-public class Character extends Rectangle
+public class Character extends Entity
 {
 	GamePanel gp;
 	
@@ -20,6 +20,7 @@ public class Character extends Rectangle
 	
 	public Character(GamePanel gp)
 	{
+		super(gp);
 		this.gp = gp;
 	}
 	

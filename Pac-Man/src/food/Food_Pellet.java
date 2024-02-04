@@ -17,6 +17,12 @@ public class Food_Pellet extends Food
 	public Food_Pellet(int x, int y, GamePanel gp)
 	{
 		super(gp);
+		/*
+		this.gp = gp;
+		this.x = x+12;
+		this.y = y+12;
+		this.width = 8;
+		this.height = 8;*/
 		setBounds(x+12, y+12, 8, 8);
 	}
 	
