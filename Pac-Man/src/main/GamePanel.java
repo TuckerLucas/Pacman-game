@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import food.Energizer;
 import food.Food;
+import food.Food_Energizer;
 import Game.Animation;
 import Game.BonusScore;
 import character.Ghost;
@@ -51,7 +51,7 @@ public class GamePanel extends Canvas implements Runnable
 	public Ghost ghostArray[] = new Ghost[4];
 	public SpawnBoxDoor spawnBoxDoor = new SpawnBoxDoor(this, 320, 288);
 	public Wall[][] wallMatrix;
-	public Energizer energizer = new Energizer(0, 0, this);
+	public Food_Energizer energizer = new Food_Energizer(0, 0, this);
 	public Level level;
 	
 	// System
@@ -105,7 +105,7 @@ public class GamePanel extends Canvas implements Runnable
 	public void resetLevel()
 	{
 		isActive = false;
-		Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
+		Food_Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
 		respawnCharacters();
 		level = new Level(this);
 	}
@@ -155,7 +155,7 @@ public class GamePanel extends Canvas implements Runnable
 	{
 		Sounds.playSoundEffect(Sounds.eatenEnergizerSoundPath);
 		
-		Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
+		Food_Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
 		isActive = true;
 		
 		for(int i = 0; i < ghostArray.length; i++)

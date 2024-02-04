@@ -6,8 +6,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import food.Energizer;
-import food.Pellet;
+import food.Food_Energizer;
+import food.Food_Pellet;
 import main.GamePanel;
 
 public class Level
@@ -56,12 +56,12 @@ public class Level
 
 						case white:
 							
-							gp.foodList.add(new Pellet(x*gp.tileSize, y*gp.tileSize, gp));
+							gp.foodList.add(new Food_Pellet(x*gp.tileSize, y*gp.tileSize, gp));
 							break;
 							
 						case lightYellow:
 							
-							gp.foodList.add(new Energizer(x*gp.tileSize, y*gp.tileSize, gp));
+							gp.foodList.add(new Food_Energizer(x*gp.tileSize, y*gp.tileSize, gp));
 							break;
 					}
 				}	

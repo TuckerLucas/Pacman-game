@@ -2,9 +2,9 @@ package character;
 
 import java.awt.Graphics;
 
-import food.Energizer;
 import food.Food;
-import food.Pellet;
+import food.Food_Energizer;
+import food.Food_Pellet;
 import main.GamePanel;
 import main.Sounds;
 
@@ -88,13 +88,13 @@ public class Pacman_Alive extends Pacman
 
 	public void eat(Food food)
 	{	
-		if(food instanceof Energizer)
+		if(food instanceof Food_Energizer)
 		{
 			gp.allToVulnerable();
 		}
-		else if(food instanceof Pellet)
+		else if(food instanceof Food_Pellet)
 		{
-			Pellet.getEaten();
+			Food_Pellet.getEaten();
 		}
 
 		gp.score += food.getFoodPoints();

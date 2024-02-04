@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import character.Ghost;
 import main.GamePanel;
 
-public class Energizer extends Food
+public class Food_Energizer extends Food
 {
 	private static final long serialVersionUID = 1L;
 		
@@ -20,7 +20,7 @@ public class Energizer extends Food
 	private static int frameIndex = 0;
 	private int totalNumberOfFrames = gp.animation.energizerSprites.length;	
 	
-	public Energizer(int x, int y, GamePanel gp)
+	public Food_Energizer(int x, int y, GamePanel gp)
 	{
 		super(gp);
 		setBounds(x, y, gp.tileSize, gp.tileSize);

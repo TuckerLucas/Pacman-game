@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import main.GamePanel;
 import main.Sounds;
 
-public class Pellet extends Food
+public class Food_Pellet extends Food
 {
 	GamePanel gp;
 	
@@ -14,7 +14,7 @@ public class Pellet extends Food
 	
 	private int points = 10;
 
-	public Pellet(int x, int y, GamePanel gp)
+	public Food_Pellet(int x, int y, GamePanel gp)
 	{
 		super(gp);
 		setBounds(x+12, y+12, 8, 8);
