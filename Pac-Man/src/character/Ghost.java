@@ -116,7 +116,7 @@ public class Ghost extends Character
 		}
 		else if(isCoolingDown == false)
 		{
-			if(gp.pathFinder.pacmanIsClose(deltaX, deltaY) && ghost instanceof HostileGhost && !isInSpawnBox(this))
+			if(gp.pathFinder.pacmanIsClose(deltaX, deltaY) && ghost instanceof Ghost_Hostile && !isInSpawnBox(this))
 			{
 				movementType = methodicalMovement;
 			}

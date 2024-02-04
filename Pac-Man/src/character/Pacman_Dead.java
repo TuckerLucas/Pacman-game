@@ -4,13 +4,13 @@ import java.awt.Graphics;
 
 import main.GamePanel;
 
-public class DeadPacman extends Pacman
+public class Pacman_Dead extends Pacman
 {
 	GamePanel gp;
 	
 	private static final long serialVersionUID = 1L;
 	
-	public DeadPacman(GamePanel gp)
+	public Pacman_Dead(GamePanel gp)
 	{
 		super(gp);
 		this.gp = gp;

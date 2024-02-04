@@ -15,13 +15,13 @@ import food.Energizer;
 import food.Food;
 import Game.Animation;
 import Game.BonusScore;
-import character.FlashingGhost;
 import character.Ghost;
-import character.HostileGhost;
+import character.Ghost_Flashing;
+import character.Ghost_Hostile;
+import character.Ghost_Vulnerable;
 import Game.Level;
 import character.Pacman;
-import character.VulnerableGhost;
-import character.AlivePacman;
+import character.Pacman_Alive;
 import Game.SpawnBoxDoor;
 import Game.Wall;
 import ai.PathFinder;
@@ -47,7 +47,7 @@ public class GamePanel extends Canvas implements Runnable
 	public Animation animation = new Animation(this);
 	public List<Food> foodList = new ArrayList<>();
 	public BonusScore bonusScore = new BonusScore(this);
-	public Pacman pacman = new AlivePacman(this);
+	public Pacman pacman = new Pacman_Alive(this);
 	public Ghost ghostArray[] = new Ghost[4];
 	public SpawnBoxDoor spawnBoxDoor = new SpawnBoxDoor(this, 320, 288);
 	public Wall[][] wallMatrix;
@@ -160,7 +160,7 @@ public class GamePanel extends Canvas implements Runnable
 		
 		for(int i = 0; i < ghostArray.length; i++)
 		{
-			ghostArray[i] = new VulnerableGhost(this, i);
+			ghostArray[i] = new Ghost_Vulnerable(this, i);
 		}
 		
 		numberOfEatenGhosts = 0;
@@ -170,9 +170,9 @@ public class GamePanel extends Canvas implements Runnable
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
-			if(ghostArray[i] instanceof FlashingGhost)
+			if(ghostArray[i] instanceof Ghost_Flashing)
 			{
-				ghostArray[i] = new HostileGhost(this, i);
+				ghostArray[i] = new Ghost_Hostile(this, i);
 			}
 		}
 	}
@@ -181,9 +181,9 @@ public class GamePanel extends Canvas implements Runnable
 	{
 		for(int i = 0; i < ghostArray.length; i++)
 		{
-			if(ghostArray[i] instanceof VulnerableGhost)
+			if(ghostArray[i] instanceof Ghost_Vulnerable)
 			{
-				ghostArray[i] = new FlashingGhost(this, i);
+				ghostArray[i] = new Ghost_Flashing(this, i);
 			}
 		}
 	}

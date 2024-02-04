@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import main.GamePanel;
 
-public class HostileGhost extends Ghost
+public class Ghost_Hostile extends Ghost
 {
 	private static final long serialVersionUID = 1L;
 
@@ -13,7 +13,7 @@ public class HostileGhost extends Ghost
 	public double targetTimePerFrameInSeconds = 0.05;
 	public int totalNumberOfFrames = gp.animation.hostileGhostSprites[0][0].length;
 	
-	public HostileGhost(GamePanel gp, int i) 
+	public Ghost_Hostile(GamePanel gp, int i) 
 	{
 		super(gp, i);
 	}

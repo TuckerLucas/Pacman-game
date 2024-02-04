@@ -4,20 +4,20 @@ import java.awt.Graphics;
 
 import main.GamePanel;
 
-public class VulnerableGhost extends Ghost
+public class Ghost_Flashing extends Ghost
 {
 	private static final long serialVersionUID = 1L;
 
-	public int frameIndex = 0;
-	public double elapsedFrameTimeInSeconds = 0;		
-	public double targetTimePerFrameInSeconds = 0.05;
-	public int totalNumberOfFrames = gp.animation.vulnerableGhostSprites.length;
+	private int frameIndex = 0;
+	private double elapsedFrameTimeInSeconds = 0;
+	private double targetTimePerFrameInSeconds = 0.05;
+	private int totalNumberOfFrames = gp.animation.flashingGhostSprites.length;
 	
-	public VulnerableGhost(GamePanel gp, int i) 
+	public Ghost_Flashing(GamePanel gp, int i) 
 	{
 		super(gp, i);
 	}
-
+	
 	public void tick()
 	{
 		if(!isCrossingPortal(ghostID, this))
@@ -25,10 +25,10 @@ public class VulnerableGhost extends Ghost
 			moveRandomly(this);
 		}
 		
-		manageVulnerableAnimationTiming();
+		manageFlashingAnimationTiming();
 	}
 	
-	public void manageVulnerableAnimationTiming()
+	public void manageFlashingAnimationTiming()
 	{
 		elapsedFrameTimeInSeconds += gp.secondsPerTick;
 		
@@ -46,6 +46,6 @@ public class VulnerableGhost extends Ghost
 	
 	public void render(Graphics g)
 	{
-		g.drawImage(gp.animation.vulnerableGhostSprites[frameIndex], x, y, width, height, null);
+		g.drawImage(gp.animation.flashingGhostSprites[frameIndex], x, y, width, height, null);
 	}
 }

@@ -8,7 +8,7 @@ import food.Pellet;
 import main.GamePanel;
 import main.Sounds;
 
-public class AlivePacman extends Pacman
+public class Pacman_Alive extends Pacman
 {	
 	GamePanel gp;
 	
@@ -16,7 +16,7 @@ public class AlivePacman extends Pacman
 	
 	private static final long serialVersionUID = 1L;
 	
-	public AlivePacman(GamePanel gp)
+	public Pacman_Alive(GamePanel gp)
 	{
 		super(gp);
 		this.gp = gp;
@@ -108,8 +108,8 @@ public class AlivePacman extends Pacman
 			return;
 		}
 		
-		if(gp.ghostArray[intersectedGhost] instanceof VulnerableGhost
-				|| gp.ghostArray[intersectedGhost] instanceof FlashingGhost)
+		if(gp.ghostArray[intersectedGhost] instanceof Ghost_Vulnerable
+				|| gp.ghostArray[intersectedGhost] instanceof Ghost_Flashing)
 		{
 			eatGhost();
 		}
@@ -137,7 +137,7 @@ public class AlivePacman extends Pacman
 	{
 		Sounds.playSoundEffect(Sounds.ghostEatenSoundPath);
 		
-		gp.ghostArray[intersectedGhost] = new HostileGhost(gp, intersectedGhost);
+		gp.ghostArray[intersectedGhost] = new Ghost_Hostile(gp, intersectedGhost);
 		gp.ghostArray[intersectedGhost].x = 320;
 		gp.ghostArray[intersectedGhost].y = 320;
 		gp.ghostArray[intersectedGhost].movementType = Ghost.randomMovement;
@@ -153,7 +153,7 @@ public class AlivePacman extends Pacman
 		Sounds.playSoundEffect(Sounds.pacmanDeathSoundPath);
 		gp.numberOfLives--;
 		gp.bonusScore.isBeingDisplayed = false;
-		gp.pacman = new DeadPacman(gp);
+		gp.pacman = new Pacman_Dead(gp);
 		gp.gameState = gp.lifeLostState;
 	}
 	
