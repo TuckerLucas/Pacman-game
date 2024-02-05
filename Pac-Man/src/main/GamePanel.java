@@ -41,6 +41,15 @@ public class GamePanel extends Canvas implements Runnable
 	private double targetTick = 60.0; 				
 	public double secondsPerTick = 1.0 / targetTick;
 	
+	// System
+	public AssetSetter aSetter = new AssetSetter(this);
+	public KeyHandler keyH = new KeyHandler(this);
+	public UI ui = new UI(this);
+	public PathFinder pathFinder = new PathFinder(this);
+	Sound music = new Sound();
+	Sound se = new Sound();
+	Thread gameThread;
+	
 	// Characters and objects
 	public Animation animation = new Animation(this);
 	public List<Food> foodList = new ArrayList<>();
@@ -51,14 +60,6 @@ public class GamePanel extends Canvas implements Runnable
 	public Wall[][] wallMatrix;
 	public Food_Energizer energizer = new Food_Energizer(this);
 	public Level level;
-	
-	// System
-	public AssetSetter aSetter = new AssetSetter(this);
-	public KeyHandler keyH = new KeyHandler(this);
-	public UI ui = new UI(this);
-	public PathFinder pathFinder = new PathFinder(this);
-	public Sound sound = new Sound();
-	Thread gameThread;
 	
 	// Game state
 	public int gameState;
@@ -153,7 +154,7 @@ public class GamePanel extends Canvas implements Runnable
 	
 	public void allToVulnerable()
 	{
-		Sound.playSoundEffect(Sound.eatenEnergizerSoundPath);
+		playSE(1);
 		
 		Food_Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
 		isActive = true;
@@ -186,6 +187,24 @@ public class GamePanel extends Canvas implements Runnable
 				ghostArray[i] = new Ghost_Flashing(this, i);
 			}
 		}
+	}
+	
+	public void playMusic(int i)
+	{
+		music.setFile(i);
+		music.play();
+		music.loop();
+	}
+	
+	public void stopMusic()
+	{
+		music.stop();
+	}
+	
+	public void playSE(int i)
+	{
+		se.setFile(i);
+		se.play();
 	}
 
 	private void tick()
