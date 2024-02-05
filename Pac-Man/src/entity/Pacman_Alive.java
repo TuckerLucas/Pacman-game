@@ -6,7 +6,7 @@ import food.Food;
 import food.Food_Energizer;
 import food.Food_Pellet;
 import main.GamePanel;
-import main.Sounds;
+import main.Sound;
 
 public class Pacman_Alive extends Pacman
 {	
@@ -94,7 +94,7 @@ public class Pacman_Alive extends Pacman
 		}
 		else if(food instanceof Food_Pellet)
 		{
-			Sounds.playSoundEffect(Sounds.pacmanEatingSoundPath);
+			Sound.playSoundEffect(Sound.pacmanEatingSoundPath);
 		}
 
 		gp.score += food.getFoodPoints();
@@ -135,7 +135,7 @@ public class Pacman_Alive extends Pacman
 	
 	private void eatGhost()
 	{
-		Sounds.playSoundEffect(Sounds.ghostEatenSoundPath);
+		Sound.playSoundEffect(Sound.ghostEatenSoundPath);
 		
 		gp.ghostArray[intersectedGhost] = new Ghost_Hostile(gp, intersectedGhost);
 		gp.ghostArray[intersectedGhost].x = 320;
@@ -150,7 +150,7 @@ public class Pacman_Alive extends Pacman
 	
 	private void die()
 	{
-		Sounds.playSoundEffect(Sounds.pacmanDeathSoundPath);
+		Sound.playSoundEffect(Sound.pacmanDeathSoundPath);
 		gp.numberOfLives--;
 		gp.bonusScore.isBeingDisplayed = false;
 		gp.pacman = new Pacman_Dead(gp);

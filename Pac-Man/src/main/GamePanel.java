@@ -57,6 +57,7 @@ public class GamePanel extends Canvas implements Runnable
 	public KeyHandler keyH = new KeyHandler(this);
 	public UI ui = new UI(this);
 	public PathFinder pathFinder = new PathFinder(this);
+	public Sound sound = new Sound();
 	Thread gameThread;
 	
 	// Game state
@@ -152,7 +153,7 @@ public class GamePanel extends Canvas implements Runnable
 	
 	public void allToVulnerable()
 	{
-		Sounds.playSoundEffect(Sounds.eatenEnergizerSoundPath);
+		Sound.playSoundEffect(Sound.eatenEnergizerSoundPath);
 		
 		Food_Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
 		isActive = true;
