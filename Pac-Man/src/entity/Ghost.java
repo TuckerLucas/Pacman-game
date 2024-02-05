@@ -31,8 +31,6 @@ public class Ghost extends Character
 	
 	public int pacmanZone;
 	
-	public static double timeInstantToBeginFlashingInSeconds = 5.0;
-	
 	public Ghost(GamePanel gp, int i)
 	{
 		super(gp);
@@ -212,7 +210,7 @@ public class Ghost extends Character
 		}
 	}
 	
-	public static boolean isInSpawnBox(Ghost ghost)
+	public boolean isInSpawnBox(Ghost ghost)
 	{
 		return ((ghost.x < 368 && ghost.x > 272) && (ghost.y < 336 && ghost.y > 256)) ? true : false;
 	}

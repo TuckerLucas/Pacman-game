@@ -73,6 +73,7 @@ public class GamePanel extends Canvas implements Runnable
 	public int highscore;
 	public int score = 0;	
 	public int numberOfLives = 3;
+	public double timeInstantToBeginFlashingInSeconds = 5.0;
 	
 	public GamePanel()
 	{

@@ -12,7 +12,7 @@ public class UI
 	GamePanel gp;
 	Graphics g;
 	
-	static Font maruMonica;
+	Font maruMonica;
 	public int menuOptionIndex = 0;
 	
 	public UI(GamePanel gp)

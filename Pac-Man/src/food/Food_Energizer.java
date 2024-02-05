@@ -2,7 +2,6 @@ package food;
 
 import java.awt.Graphics;
 
-import entity.Ghost;
 import main.GamePanel;
 
 public class Food_Energizer extends Food
@@ -68,7 +67,7 @@ public class Food_Energizer extends Food
 	{
 		elapsedTimeWhileActiveInSeconds += gp.secondsPerTick;
 		
-		if(elapsedTimeWhileActiveInSeconds >= Ghost.timeInstantToBeginFlashingInSeconds)
+		if(elapsedTimeWhileActiveInSeconds >= gp.timeInstantToBeginFlashingInSeconds)
 		{
 			gp.vulnerableToFlashing();
 		}

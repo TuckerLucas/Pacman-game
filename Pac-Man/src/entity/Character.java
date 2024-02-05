@@ -10,7 +10,7 @@ public class Character extends Entity
 	
 	private static final long serialVersionUID = 1L;
 	
-	public static int pixelsTravelledPerTick = 2;
+	public int pixelsTravelledPerTick = 2;
 	
 	public Character(GamePanel gp)
 	{
