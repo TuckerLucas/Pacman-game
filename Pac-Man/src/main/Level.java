@@ -67,9 +67,9 @@ public class Level
 							
 						case lightYellow:
 							
-							gp.foodList.add(new Food_Energizer(gp));
-							gp.foodList.get(gp.foodList.size()-1).x = x*gp.tileSize;
-							gp.foodList.get(gp.foodList.size()-1).y = y*gp.tileSize;
+							gp.energizerList.add(new Food_Energizer(gp));
+							gp.energizerList.get(gp.energizerList.size()-1).x = x*gp.tileSize;
+							gp.energizerList.get(gp.energizerList.size()-1).y = y*gp.tileSize;
 							break;
 					}
 				}	
@@ -97,6 +97,11 @@ public class Level
 		for(int i = 0; i < gp.foodList.size(); i++)
 		{	
 			gp.foodList.get(i).render(g);
+		}
+		
+		for(int i = 0; i < gp.energizerList.size(); i++)
+		{	
+			gp.energizerList.get(i).render(g);
 		}
 		
 		gp.pacman.render(g);

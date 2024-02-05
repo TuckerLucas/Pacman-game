@@ -10,13 +10,10 @@ public class Food_Energizer extends Food
 		
 	private int points = 50;
 	
-	public static double elapsedTimeWhileActiveInSeconds = 0.0; 
-	private final double activeTargetTimeInSeconds = 8.0;
-	
 	private double elapsedFrameTimeInSeconds = 0;			
 	private double targetTimePerFrameInSeconds = 0.2;
 	
-	private static int frameIndex = 0;
+	private int frameIndex = 0;
 	private int totalNumberOfFrames = gp.animation.energizerSprites.length;	
 	
 	public Food_Energizer(GamePanel gp)
@@ -27,7 +24,6 @@ public class Food_Energizer extends Food
 	public void tick()
 	{	
 		manageAnimationTiming();
-		checkEnergizerActivity();
 	}
 	
 	public void manageAnimationTiming()
@@ -43,33 +39,6 @@ public class Food_Energizer extends Food
 		if(frameIndex >= totalNumberOfFrames)
 		{
 			frameIndex = 0;
-		}
-	}
-	
-	public void checkEnergizerActivity()
-	{
-		if(gp.isActive == false)
-		{
-			return;
-		}
-		
-		if(elapsedTimeWhileActiveInSeconds < activeTargetTimeInSeconds)	
-		{
-			checkIfEnergizerTimeNearlyOver();
-		}
-		else if(elapsedTimeWhileActiveInSeconds >= activeTargetTimeInSeconds)		
-		{
-			gp.flashingToHostile();
-		}
-	}
-	
-	public void checkIfEnergizerTimeNearlyOver()
-	{
-		elapsedTimeWhileActiveInSeconds += gp.secondsPerTick;
-		
-		if(elapsedTimeWhileActiveInSeconds >= gp.timeInstantToBeginFlashingInSeconds)
-		{
-			gp.vulnerableToFlashing();
 		}
 	}
 	

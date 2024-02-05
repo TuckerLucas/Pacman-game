@@ -53,6 +53,7 @@ public class GamePanel extends Canvas implements Runnable
 	// Characters and objects
 	public Animation animation = new Animation(this);
 	public List<Food> foodList = new ArrayList<>();
+	public List<Food_Energizer> energizerList = new ArrayList<>();
 	public BonusScore bonusScore = new BonusScore(this);
 	public Pacman pacman = new Pacman_Alive(this);
 	public Ghost ghostArray[] = new Ghost[4];
@@ -75,7 +76,9 @@ public class GamePanel extends Canvas implements Runnable
 	public int highscore;
 	public int score = 0;	
 	public int numberOfLives = 3;
-	public double timeInstantToBeginFlashingInSeconds = 5.0;
+	public double timeInstantToBeginFlashingInSeconds = 5.0; 
+	private final double activeTargetTimeInSeconds = 8.0;
+	public double elapsedTimeWhileActiveInSeconds = 0.0;
 	
 	public GamePanel()
 	{
@@ -106,7 +109,7 @@ public class GamePanel extends Canvas implements Runnable
 	public void resetLevel()
 	{
 		isActive = false;
-		Food_Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
+		elapsedTimeWhileActiveInSeconds = 0.0f;
 		respawnCharacters();
 		level = new Level(this);
 	}
@@ -156,7 +159,8 @@ public class GamePanel extends Canvas implements Runnable
 	{
 		playSE(1);
 		
-		Food_Energizer.elapsedTimeWhileActiveInSeconds = 0.0f;
+		elapsedTimeWhileActiveInSeconds = 0.0f;
+		
 		isActive = true;
 		
 		for(int i = 0; i < ghostArray.length; i++)
@@ -186,6 +190,33 @@ public class GamePanel extends Canvas implements Runnable
 			{
 				ghostArray[i] = new Ghost_Flashing(this, i);
 			}
+		}
+	}
+	
+	public void checkEnergizerActivity()
+	{
+		if(isActive == false)
+		{
+			return;
+		}
+		
+		if(elapsedTimeWhileActiveInSeconds < activeTargetTimeInSeconds)	
+		{
+			checkIfEnergizerTimeNearlyOver();
+		}
+		else if(elapsedTimeWhileActiveInSeconds >= activeTargetTimeInSeconds)		
+		{
+			flashingToHostile();
+		}
+	}
+	
+	public void checkIfEnergizerTimeNearlyOver()
+	{
+		elapsedTimeWhileActiveInSeconds += secondsPerTick;
+		
+		if(elapsedTimeWhileActiveInSeconds >= timeInstantToBeginFlashingInSeconds)
+		{
+			vulnerableToFlashing();
 		}
 	}
 	
@@ -220,12 +251,18 @@ public class GamePanel extends Canvas implements Runnable
 			}
 			
 			bonusScore.tick();
-			energizer.tick();
+			
+			for(int i = 0; i < energizerList.size(); i++)
+			{
+				energizerList.get(i).tick();
+			}
 		}
 		else if(gameState == lifeLostState)
 		{
 			pacman.tick();
 		}
+		
+		checkEnergizerActivity();
 	}
 	
 	private void render()
