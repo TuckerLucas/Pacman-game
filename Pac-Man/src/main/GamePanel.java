@@ -16,9 +16,6 @@ import food.Food_Pellet;
 import ai.PathFinder;
 import entity.BonusScore;
 import entity.Ghost;
-import entity.Ghost_Flashing;
-import entity.Ghost_Hostile;
-import entity.Ghost_Vulnerable;
 import entity.Pacman;
 import entity.Pacman_Alive;
 import entity.SpawnBoxDoor;
@@ -45,6 +42,7 @@ public class GamePanel extends Canvas implements Runnable
 	public AssetSetter aSetter = new AssetSetter(this);
 	public KeyHandler keyH = new KeyHandler(this);
 	public UI ui = new UI(this);
+	public EventHandler eHandler = new EventHandler(this);
 	public PathFinder pathFinder = new PathFinder(this);
 	Sound music = new Sound();
 	Sound se = new Sound();
@@ -77,7 +75,7 @@ public class GamePanel extends Canvas implements Runnable
 	public int score = 0;	
 	public int numberOfLives = 3;
 	public double timeInstantToBeginFlashingInSeconds = 5.0; 
-	private final double activeTargetTimeInSeconds = 8.0;
+	public double activeTargetTimeInSeconds = 8.0;
 	public double elapsedTimeWhileActiveInSeconds = 0.0;
 	
 	public GamePanel()
@@ -155,71 +153,6 @@ public class GamePanel extends Canvas implements Runnable
 		}
 	}
 	
-	public void allToVulnerable()
-	{
-		playSE(1);
-		
-		elapsedTimeWhileActiveInSeconds = 0.0f;
-		
-		isActive = true;
-		
-		for(int i = 0; i < ghostArray.length; i++)
-		{
-			ghostArray[i] = new Ghost_Vulnerable(this, i);
-		}
-		
-		numberOfEatenGhosts = 0;
-	}
-	
-	public void flashingToHostile()
-	{
-		for(int i = 0; i < ghostArray.length; i++)
-		{
-			if(ghostArray[i] instanceof Ghost_Flashing)
-			{
-				ghostArray[i] = new Ghost_Hostile(this, i);
-			}
-		}
-	}
-	
-	public void vulnerableToFlashing()
-	{
-		for(int i = 0; i < ghostArray.length; i++)
-		{
-			if(ghostArray[i] instanceof Ghost_Vulnerable)
-			{
-				ghostArray[i] = new Ghost_Flashing(this, i);
-			}
-		}
-	}
-	
-	public void checkEnergizerActivity()
-	{
-		if(isActive == false)
-		{
-			return;
-		}
-		
-		if(elapsedTimeWhileActiveInSeconds < activeTargetTimeInSeconds)	
-		{
-			checkIfEnergizerTimeNearlyOver();
-		}
-		else if(elapsedTimeWhileActiveInSeconds >= activeTargetTimeInSeconds)		
-		{
-			flashingToHostile();
-		}
-	}
-	
-	public void checkIfEnergizerTimeNearlyOver()
-	{
-		elapsedTimeWhileActiveInSeconds += secondsPerTick;
-		
-		if(elapsedTimeWhileActiveInSeconds >= timeInstantToBeginFlashingInSeconds)
-		{
-			vulnerableToFlashing();
-		}
-	}
-	
 	public void playMusic(int i)
 	{
 		music.setFile(i);
@@ -262,7 +195,7 @@ public class GamePanel extends Canvas implements Runnable
 			pacman.tick();
 		}
 		
-		checkEnergizerActivity();
+		eHandler.tick();
 	}
 	
 	private void render()

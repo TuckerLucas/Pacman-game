@@ -98,7 +98,7 @@ public class Pacman_Alive extends Pacman
 	{	
 		if(food instanceof Food_Energizer)
 		{
-			gp.allToVulnerable();
+			gp.eHandler.allToVulnerable();
 			gp.energizerList.remove(food);
 		}
 		else if(food instanceof Food_Pellet)
