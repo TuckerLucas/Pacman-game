@@ -58,11 +58,11 @@ public class Level
 
 						case white:
 							
-							gp.foodList.add(new Food_Pellet(gp));
-							gp.foodList.get(gp.foodList.size()-1).x = (x*gp.tileSize)+12;
-							gp.foodList.get(gp.foodList.size()-1).y = (y*gp.tileSize)+12;
-							gp.foodList.get(gp.foodList.size()-1).width = 8;
-							gp.foodList.get(gp.foodList.size()-1).height = 8;
+							gp.pelletList.add(new Food_Pellet(gp));
+							gp.pelletList.get(gp.pelletList.size()-1).x = (x*gp.tileSize)+12;
+							gp.pelletList.get(gp.pelletList.size()-1).y = (y*gp.tileSize)+12;
+							gp.pelletList.get(gp.pelletList.size()-1).width = 8;
+							gp.pelletList.get(gp.pelletList.size()-1).height = 8;
 							break;
 							
 						case lightYellow:
@@ -94,9 +94,9 @@ public class Level
 			}
 		}
 		
-		for(int i = 0; i < gp.foodList.size(); i++)
+		for(int i = 0; i < gp.pelletList.size(); i++)
 		{	
-			gp.foodList.get(i).render(g);
+			gp.pelletList.get(i).render(g);
 		}
 		
 		for(int i = 0; i < gp.energizerList.size(); i++)

@@ -70,11 +70,11 @@ public class Pacman_Alive extends Pacman
 	
 	private void foodCollision()
 	{	
-		for(int i = 0; i < gp.foodList.size(); i++) 		
+		for(int i = 0; i < gp.pelletList.size(); i++) 		
 		{    
-			if(this.intersects(gp.foodList.get(i)))							
+			if(this.intersects(gp.pelletList.get(i)))							
 			{
-				eat(gp.foodList.get(i));
+				eat(gp.pelletList.get(i));
 				break;
 			}
 		}
@@ -88,7 +88,7 @@ public class Pacman_Alive extends Pacman
 			}
 		}
 		
-		if(gp.foodList.size() == 0 && gp.energizerList.size() == 0)
+		if(gp.pelletList.size() == 0 && gp.energizerList.size() == 0)
 		{
 			gp.gameState = gp.winState;
 		}
@@ -104,7 +104,7 @@ public class Pacman_Alive extends Pacman
 		else if(food instanceof Food_Pellet)
 		{
 			gp.playSE(0);
-			gp.foodList.remove(food);
+			gp.pelletList.remove(food);
 		}
 
 		gp.score += food.getFoodPoints();

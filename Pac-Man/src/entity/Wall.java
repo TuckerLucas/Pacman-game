@@ -19,7 +19,7 @@ public class Wall extends Entity
 	
 	public void render(Graphics g)
 	{
-		g.setColor(new Color(0, 0, 170));
+		g.setColor(new Color(0, 0, 255));
 		g.fillRect(x, y, width, height);
 	}
 }

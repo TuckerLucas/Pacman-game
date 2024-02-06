@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import food.Food;
 import food.Food_Energizer;
+import food.Food_Pellet;
 import ai.PathFinder;
 import entity.BonusScore;
 import entity.Ghost;
@@ -52,7 +52,7 @@ public class GamePanel extends Canvas implements Runnable
 	
 	// Characters and objects
 	public Animation animation = new Animation(this);
-	public List<Food> foodList = new ArrayList<>();
+	public List<Food_Pellet> pelletList = new ArrayList<>();
 	public List<Food_Energizer> energizerList = new ArrayList<>();
 	public BonusScore bonusScore = new BonusScore(this);
 	public Pacman pacman = new Pacman_Alive(this);
