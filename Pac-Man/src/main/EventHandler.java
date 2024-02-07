@@ -14,6 +14,7 @@ public class EventHandler
 	GamePanel gp;
 	
 	public boolean isActive = false;
+	public int numberOfEatenGhosts = 0;	
 	
 	public double timeInstantToBeginFlashingInSeconds = 5.0; 
 	public double activeTargetTimeInSeconds = 8.0;
@@ -79,7 +80,7 @@ public class EventHandler
 		gp.ghostArray[i].y = 320;
 		gp.ghostArray[i].movementType = "random";
 				
-		gp.numberOfEatenGhosts++;
+		numberOfEatenGhosts++;
 		
 		
 		gp.bonusScore.sumBonusScoreToGameScore();
@@ -101,7 +102,7 @@ public class EventHandler
 	{
 		isActive = true;
 		elapsedTimeWhileActiveInSeconds = 0.0;
-		gp.numberOfEatenGhosts = 0;
+		numberOfEatenGhosts = 0;
 
 		for(int i = 0; i < gp.ghostArray.length; i++)
 		{

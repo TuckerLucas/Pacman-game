@@ -80,14 +80,14 @@ public class BonusScore extends Character
 	
 	private double calculateBonusScore()
 	{
-		return Math.pow(2.0, (double)gp.numberOfEatenGhosts) * 100.0;
+		return Math.pow(2.0, (double)gp.eHandler.numberOfEatenGhosts) * 100.0;
 	}
 	
 	public void render(Graphics g)
 	{
 		if(isBeingDisplayed)
 		{
-			switch(gp.numberOfEatenGhosts)
+			switch(gp.eHandler.numberOfEatenGhosts)
 			{
 				case 1: 
 					g.drawImage(gp.animation.bonusScore200Sprites[frameIndex], x, y, width, height, null);
