@@ -33,12 +33,13 @@ public class Food_Energizer extends Food
 		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
 		{
 			elapsedFrameTimeInSeconds = 0;	
+			
 			frameIndex++;
-		}
-		
-		if(frameIndex >= totalNumberOfFrames)
-		{
-			frameIndex = 0;
+
+			if(frameIndex >= totalNumberOfFrames)
+			{
+				frameIndex = 0;
+			}
 		}
 	}
 	

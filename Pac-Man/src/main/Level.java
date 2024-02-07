@@ -3,6 +3,7 @@ package main;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -39,6 +40,8 @@ public class Level
 			
 			int pixels[] = map.getRGB(0, 0, gameWidth, gameHeight, null, 0, gameWidth);
 			
+			gp.pelletList = new ArrayList<>();
+			gp.energizerList = new ArrayList<>();
 			gp.wallMatrix = new Wall[gameWidth][gameHeight];
 			
 			for(int x = 0; x < gameWidth; x++)
