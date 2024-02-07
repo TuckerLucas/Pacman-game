@@ -2,16 +2,13 @@ package entity;
 
 import java.awt.Graphics;
 
-import food.Food;
-import food.Food_Energizer;
-import food.Food_Pellet;
 import main.GamePanel;
 
 public class Pacman_Alive extends Pacman
 {	
 	GamePanel gp;
 	
-	public int intersectedGhost;
+	//public int intersectedGhost;
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -73,7 +70,7 @@ public class Pacman_Alive extends Pacman
 		{    
 			if(this.intersects(gp.pelletList.get(i)))							
 			{
-				eat(gp.pelletList.get(i));
+				gp.eHandler.eat(gp.pelletList.get(i));
 				break;
 			}
 		}
@@ -82,7 +79,7 @@ public class Pacman_Alive extends Pacman
 		{    
 			if(this.intersects(gp.energizerList.get(i)))							
 			{
-				eat(gp.energizerList.get(i));
+				gp.eHandler.eat(gp.energizerList.get(i));
 				break;
 			}
 		}
@@ -92,80 +89,24 @@ public class Pacman_Alive extends Pacman
 			gp.gameState = gp.winState;
 		}
 	}	
-
-	public void eat(Food food)
-	{	
-		if(food instanceof Food_Energizer)
-		{
-			gp.eHandler.allToVulnerable();
-			gp.energizerList.remove(food);
-		}
-		else if(food instanceof Food_Pellet)
-		{
-			gp.playSE(0);
-			gp.pelletList.remove(food);
-		}
-
-		gp.score += food.getFoodPoints();
-	}
 	
 	private void ghostCollision()
-	{
-		if(!pacmanIntersectedGhost())
-		{
-			return;
-		}
-		
-		if(gp.ghostArray[intersectedGhost] instanceof Ghost_Vulnerable
-				|| gp.ghostArray[intersectedGhost] instanceof Ghost_Flashing)
-		{
-			eatGhost();
-		}
-		else 
-		{
-			die();
-		}
-	}
-	
-	public boolean pacmanIntersectedGhost()
 	{
 		for(int i = 0; i < gp.ghostArray.length; i++)
 		{
 			if(gp.ghostArray[i].intersects(this))
 			{	
-				intersectedGhost = i;
-				
-				return true;
+				if(gp.ghostArray[i] instanceof Ghost_Vulnerable
+						|| gp.ghostArray[i] instanceof Ghost_Flashing)
+				{
+					gp.eHandler.eatGhost(i);
+				}
+				else 
+				{
+					gp.eHandler.die(this);
+				}
 			}
 		}
-		return false;
-	}
-	
-	private void eatGhost()
-	{
-		gp.playSE(3);
-		
-		gp.ghostArray[intersectedGhost] = new Ghost_Hostile(gp, intersectedGhost);
-		gp.ghostArray[intersectedGhost].x = 320;
-		gp.ghostArray[intersectedGhost].y = 320;
-		gp.ghostArray[intersectedGhost].movementType = "random";
-				
-		gp.numberOfEatenGhosts++;
-		
-		gp.bonusScore.displayBonusScore(x, y);
-		gp.bonusScore.sumBonusScoreToGameScore();
-	}
-	
-	private void die()
-	{
-		gp.playSE(2);
-		gp.numberOfLives--;
-		gp.bonusScore.isBeingDisplayed = false;
-		gp.eHandler.elapsedTimeWhileActiveInSeconds = 0.0;
-		gp.pacman = new Pacman_Dead(gp);
-		gp.pacman.x = x;
-		gp.pacman.y = y;
-		gp.gameState = gp.lifeLostState;
 	}
 	
 	public void render(Graphics g)

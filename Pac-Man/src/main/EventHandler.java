@@ -3,10 +3,17 @@ package main;
 import entity.Ghost_Flashing;
 import entity.Ghost_Hostile;
 import entity.Ghost_Vulnerable;
+import entity.Pacman;
+import entity.Pacman_Dead;
+import food.Food;
+import food.Food_Energizer;
+import food.Food_Pellet;
 
 public class EventHandler 
 {
 	GamePanel gp;
+	
+	public boolean isActive = false;
 	
 	public double timeInstantToBeginFlashingInSeconds = 5.0; 
 	public double activeTargetTimeInSeconds = 8.0;
@@ -24,7 +31,7 @@ public class EventHandler
 	
 	public void checkEnergizerActivity()
 	{
-		if(gp.isActive == false)
+		if(isActive == false)
 		{
 			return;
 		}
@@ -44,20 +51,62 @@ public class EventHandler
 		}
 	}
 	
+	public void eat(Food food)
+	{	
+		if(food instanceof Food_Energizer)
+		{
+			gp.playSE(1);
+			gp.eHandler.allToVulnerable();
+			gp.energizerList.remove(food);
+		}
+		else if(food instanceof Food_Pellet)
+		{
+			gp.playSE(0);
+			gp.pelletList.remove(food);
+		}
+
+		gp.score += food.getFoodPoints();
+	}
+	
+	public void eatGhost(int i)
+	{
+		gp.playSE(3);
+		
+		gp.bonusScore.displayBonusScore(gp.ghostArray[i].x, gp.ghostArray[i].y);
+		
+		gp.ghostArray[i] = new Ghost_Hostile(gp, i);
+		gp.ghostArray[i].x = 320;
+		gp.ghostArray[i].y = 320;
+		gp.ghostArray[i].movementType = "random";
+				
+		gp.numberOfEatenGhosts++;
+		
+		
+		gp.bonusScore.sumBonusScoreToGameScore();
+	}
+	
+	public void die(Pacman pacman)
+	{
+		gp.playSE(2);
+		gp.numberOfLives--;
+		gp.bonusScore.isBeingDisplayed = false;
+		gp.eHandler.elapsedTimeWhileActiveInSeconds = 0.0;
+		gp.pacman = new Pacman_Dead(gp);
+		gp.pacman.x = pacman.x;
+		gp.pacman.y = pacman.y;
+		gp.gameState = gp.lifeLostState;
+	}
+	
 	public void allToVulnerable()
 	{
-		gp.playSE(1);
-		
-		elapsedTimeWhileActiveInSeconds = 0.0f;
-		
-		gp.isActive = true;
-		
+		isActive = true;
+		elapsedTimeWhileActiveInSeconds = 0.0;
+		gp.numberOfEatenGhosts = 0;
+
 		for(int i = 0; i < gp.ghostArray.length; i++)
 		{
 			gp.ghostArray[i] = new Ghost_Vulnerable(gp, i);
 		}
-		
-		gp.numberOfEatenGhosts = 0;
 	}
 	
 	public void vulnerableToFlashing()

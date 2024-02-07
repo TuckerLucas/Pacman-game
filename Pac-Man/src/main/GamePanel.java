@@ -69,7 +69,6 @@ public class GamePanel extends Canvas implements Runnable
 	public final int lifeLostState = 4;
 	public final int settingsState = 5;
 	
-	public boolean isActive = false;
 	public int numberOfEatenGhosts = 0;	
 	public int highscore;
 	public int score = 0;	
@@ -103,7 +102,6 @@ public class GamePanel extends Canvas implements Runnable
 	
 	public void resetLevel()
 	{
-		isActive = false;
 		respawnCharacters();
 		level = new Level(this);
 	}
