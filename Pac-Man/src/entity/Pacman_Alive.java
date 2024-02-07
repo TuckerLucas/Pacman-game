@@ -8,8 +8,6 @@ public class Pacman_Alive extends Pacman
 {	
 	GamePanel gp;
 	
-	//public int intersectedGhost;
-	
 	private static final long serialVersionUID = 1L;
 	
 	public Pacman_Alive(GamePanel gp)
