@@ -19,7 +19,6 @@ public class Pacman_Alive extends Pacman
 	{
 		super(gp);
 		this.gp = gp;
-		setBounds(x, y, gp.tileSize, gp.tileSize);
 	}
 	
 	public void tick()
@@ -162,7 +161,10 @@ public class Pacman_Alive extends Pacman
 		gp.playSE(2);
 		gp.numberOfLives--;
 		gp.bonusScore.isBeingDisplayed = false;
+		gp.eHandler.elapsedTimeWhileActiveInSeconds = 0.0;
 		gp.pacman = new Pacman_Dead(gp);
+		gp.pacman.x = x;
+		gp.pacman.y = y;
 		gp.gameState = gp.lifeLostState;
 	}
 	

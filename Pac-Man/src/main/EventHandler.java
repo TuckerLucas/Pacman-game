@@ -8,6 +8,10 @@ public class EventHandler
 {
 	GamePanel gp;
 	
+	public double timeInstantToBeginFlashingInSeconds = 5.0; 
+	public double activeTargetTimeInSeconds = 8.0;
+	public double elapsedTimeWhileActiveInSeconds = 0.0;
+	
 	public EventHandler(GamePanel gp)
 	{
 		this.gp = gp;
@@ -25,16 +29,16 @@ public class EventHandler
 			return;
 		}
 		
-		if(gp.elapsedTimeWhileActiveInSeconds < gp.activeTargetTimeInSeconds)	
+		if(elapsedTimeWhileActiveInSeconds < activeTargetTimeInSeconds)	
 		{
-			gp.elapsedTimeWhileActiveInSeconds += gp.secondsPerTick;
+			elapsedTimeWhileActiveInSeconds += gp.secondsPerTick;
 			
-			if(gp.elapsedTimeWhileActiveInSeconds >= gp.timeInstantToBeginFlashingInSeconds)
+			if(elapsedTimeWhileActiveInSeconds >= timeInstantToBeginFlashingInSeconds)
 			{
 				vulnerableToFlashing();
 			}
 		}
-		else if(gp.elapsedTimeWhileActiveInSeconds >= gp.activeTargetTimeInSeconds)		
+		else if(elapsedTimeWhileActiveInSeconds >= activeTargetTimeInSeconds)		
 		{
 			flashingToHostile();
 		}
@@ -44,7 +48,7 @@ public class EventHandler
 	{
 		gp.playSE(1);
 		
-		gp.elapsedTimeWhileActiveInSeconds = 0.0f;
+		elapsedTimeWhileActiveInSeconds = 0.0f;
 		
 		gp.isActive = true;
 		

@@ -14,7 +14,6 @@ public class Pacman_Dead extends Pacman
 	{
 		super(gp);
 		this.gp = gp;
-		setBounds(gp.pacman.x, gp.pacman.y, gp.tileSize, gp.tileSize);
 	}
 	
 	public void tick()

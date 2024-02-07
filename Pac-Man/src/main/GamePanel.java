@@ -74,9 +74,6 @@ public class GamePanel extends Canvas implements Runnable
 	public int highscore;
 	public int score = 0;	
 	public int numberOfLives = 3;
-	public double timeInstantToBeginFlashingInSeconds = 5.0; 
-	public double activeTargetTimeInSeconds = 8.0;
-	public double elapsedTimeWhileActiveInSeconds = 0.0;
 	
 	public GamePanel()
 	{
@@ -107,14 +104,12 @@ public class GamePanel extends Canvas implements Runnable
 	public void resetLevel()
 	{
 		isActive = false;
-		elapsedTimeWhileActiveInSeconds = 0.0f;
 		respawnCharacters();
 		level = new Level(this);
 	}
 	
 	public void respawnCharacters()
 	{
-		bonusScore.isBeingDisplayed = false;
 		aSetter.setGhosts();
 		aSetter.setPacman();
 	}
