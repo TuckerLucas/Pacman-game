@@ -57,7 +57,7 @@ public class EventHandler
 		if(food instanceof Food_Energizer)
 		{
 			gp.playSE(1);
-			gp.eHandler.allToVulnerable();
+			allToVulnerable();
 			gp.energizerList.remove(food);
 		}
 		else if(food instanceof Food_Pellet)
@@ -82,7 +82,6 @@ public class EventHandler
 				
 		numberOfEatenGhosts++;
 		
-		
 		gp.bonusScore.sumBonusScoreToGameScore();
 	}
 	
@@ -91,7 +90,7 @@ public class EventHandler
 		gp.playSE(2);
 		gp.lives--;
 		gp.bonusScore.isBeingDisplayed = false;
-		gp.eHandler.elapsedTimeWhileActiveInSeconds = 0.0;
+		elapsedTimeWhileActiveInSeconds = 0.0;
 		gp.pacman = new Pacman_Dead(gp);
 		gp.pacman.x = pacman.x;
 		gp.pacman.y = pacman.y;

@@ -10,6 +10,11 @@ public class Entity extends Rectangle
 	
 	private static final long serialVersionUID = 1L;
 	
+	public int frameIndex;
+	public double elapsedFrameTimeInSeconds;
+	public double targetTimePerFrameInSeconds;
+	public int totalNumberOfFrames;
+	
 	public Entity(GamePanel gp)
 	{
 		this.gp = gp;

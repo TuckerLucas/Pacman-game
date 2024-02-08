@@ -69,7 +69,7 @@ public class Pacman_Alive extends Pacman
 			if(this.intersects(gp.pelletList.get(i)))							
 			{
 				gp.eHandler.eat(gp.pelletList.get(i));
-				break;
+				return;
 			}
 		}
 		
@@ -78,7 +78,7 @@ public class Pacman_Alive extends Pacman
 			if(this.intersects(gp.energizerList.get(i)))							
 			{
 				gp.eHandler.eat(gp.energizerList.get(i));
-				break;
+				return;
 			}
 		}
 		

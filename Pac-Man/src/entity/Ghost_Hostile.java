@@ -7,15 +7,15 @@ import main.GamePanel;
 public class Ghost_Hostile extends Ghost
 {
 	private static final long serialVersionUID = 1L;
-
-	public int frameIndex = 0;
-	public double elapsedFrameTimeInSeconds = 0;		
-	public double targetTimePerFrameInSeconds = 0.05;
-	public int totalNumberOfFrames = gp.animation.hostileGhostSprites[0][0].length;
 	
 	public Ghost_Hostile(GamePanel gp, int i) 
 	{
 		super(gp, i);
+		
+		frameIndex = 0;
+		elapsedFrameTimeInSeconds = 0;		
+		targetTimePerFrameInSeconds = 0.05;
+		totalNumberOfFrames = gp.animation.hostileGhostSprites[0][0].length;
 	}
 	
 	public void tick()
@@ -32,23 +32,7 @@ public class Ghost_Hostile extends Ghost
 			}
 		}
 		
-		manageAnimationTiming();
-	}
-	
-	public void manageAnimationTiming()
-	{
-		elapsedFrameTimeInSeconds += gp.secondsPerTick;
-		
-		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
-		{
-			elapsedFrameTimeInSeconds = 0;
-			frameIndex++;
-			
-			if(frameIndex == totalNumberOfFrames)
-			{
-				frameIndex = 0;
-			}
-		}
+		gp.animation.manageAnimationTiming(this);
 	}
 	
 	public void render(Graphics g)

@@ -10,37 +10,19 @@ public class Food_Energizer extends Food
 		
 	private int points = 50;
 	
-	private double elapsedFrameTimeInSeconds = 0;			
-	private double targetTimePerFrameInSeconds = 0.2;
-	
-	private int frameIndex = 0;
-	private int totalNumberOfFrames = gp.animation.energizerSprites.length;	
-	
 	public Food_Energizer(GamePanel gp)
 	{
 		super(gp);
+		
+		frameIndex = 0;
+		elapsedFrameTimeInSeconds = 0;		
+		targetTimePerFrameInSeconds = 0.2;
+		totalNumberOfFrames = gp.animation.energizerSprites.length;
 	}
 	
 	public void tick()
 	{	
-		manageAnimationTiming();
-	}
-	
-	public void manageAnimationTiming()
-	{
-		elapsedFrameTimeInSeconds += gp.secondsPerTick;
-		
-		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
-		{
-			elapsedFrameTimeInSeconds = 0;	
-			
-			frameIndex++;
-
-			if(frameIndex >= totalNumberOfFrames)
-			{
-				frameIndex = 0;
-			}
-		}
+		gp.animation.manageAnimationTiming(this);
 	}
 	
 	public int getFoodPoints()

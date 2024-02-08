@@ -15,17 +15,16 @@ public class BonusScore extends Character
 	private double elapsedAnimationTimeInSeconds = 0.0;
 	private double targetTimeForAnimationInSeconds = 5.0;
 	
-	private double elapsedFrameTimeInSeconds = 0.0;
-	private double targetTimePerFrameInSeconds = 0.1;
-	
-	private int frameIndex = 0;
-	private int totalNumberOfFrames = 2;
-	
 	public BonusScore(GamePanel gp)
 	{
 		super(gp);
 		this.gp = gp;
 		this.width = gp.tileSize*2;
+		
+		frameIndex = 0;
+		elapsedFrameTimeInSeconds = 0;		
+		targetTimePerFrameInSeconds = 0.1;
+		totalNumberOfFrames = 2;
 	}
 	
 	public void tick()
@@ -47,18 +46,7 @@ public class BonusScore extends Character
 			isBeingDisplayed = false;
 		}
 		
-		elapsedFrameTimeInSeconds += gp.secondsPerTick;
-		
-		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
-		{
-			elapsedFrameTimeInSeconds = 0;
-			frameIndex++;
-			
-			if(frameIndex >= totalNumberOfFrames)
-			{
-				frameIndex = 0;
-			}
-		}
+		gp.animation.manageAnimationTiming(this);
 	}
 	
 	public void displayBonusScore(int xCoordinate, int yCoordinate)

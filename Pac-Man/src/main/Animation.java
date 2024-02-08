@@ -3,6 +3,8 @@ package main;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
+import entity.Entity;
+
 import java.io.IOException;
 
 public class Animation
@@ -139,10 +141,25 @@ public class Animation
 		bonusScore1600Sprites[1] = getSprite(gp.originalTileSize*6, gp.originalTileSize*8, gp.originalTileSize*2, gp.originalTileSize);
 	}
 	
-	
 	private BufferedImage getSprite(int x, int y, int width, int height)
 	{
 		return spritesheet.getSubimage(x, y, width, height);
+	}
+	
+	public void manageAnimationTiming(Entity entity)
+	{
+		entity.elapsedFrameTimeInSeconds += gp.secondsPerTick;
+		
+		if(entity.elapsedFrameTimeInSeconds >= entity.targetTimePerFrameInSeconds)
+		{
+			entity.elapsedFrameTimeInSeconds = 0;
+			entity.frameIndex++;
+			
+			if(entity.frameIndex == entity.totalNumberOfFrames)
+			{
+				entity.frameIndex = 0;
+			}
+		}
 	}
 }
 
