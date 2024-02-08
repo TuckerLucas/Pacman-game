@@ -35,7 +35,7 @@ public class Pacman_Dead extends Pacman
 			{
 				frameIndex = 0;
 				
-				if(gp.numberOfLives == 0)
+				if(gp.lives == 0)
 				{
 					gp.gameState = gp.gameOverState;
 				}

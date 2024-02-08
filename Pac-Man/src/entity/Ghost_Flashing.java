@@ -25,10 +25,10 @@ public class Ghost_Flashing extends Ghost
 			moveRandomly(this);
 		}
 		
-		manageFlashingAnimationTiming();
+		manageAnimationTiming();
 	}
 	
-	public void manageFlashingAnimationTiming()
+	public void manageAnimationTiming()
 	{
 		elapsedFrameTimeInSeconds += gp.secondsPerTick;
 		

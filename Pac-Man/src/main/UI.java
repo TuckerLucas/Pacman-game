@@ -321,7 +321,7 @@ public class UI
 		
 		y = gp.screenHeight - (80/2) - (gp.tileSize/2) + 2; // 730
 
-		for(int i = 0; i < gp.numberOfLives; i++)
+		for(int i = 0; i < gp.lives; i++)
 		{
 			g.drawImage(gp.animation.alivePacmanSprites[0][2], 555 + ((gp.tileSize + 5) * i), y, gp.tileSize, gp.tileSize, null);
 		}

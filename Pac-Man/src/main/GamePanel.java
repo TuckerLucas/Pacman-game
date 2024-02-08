@@ -68,9 +68,13 @@ public class GamePanel extends Canvas implements Runnable
 	public final int gameOverState = 3; 
 	public final int lifeLostState = 4;
 	public final int settingsState = 5;
+	
+	// Scores
 	public int highscore;
 	public int score = 0;	
-	public int numberOfLives = 3;
+	
+	// Player lives
+	public int lives = 3;
 	
 	public GamePanel()
 	{
@@ -94,7 +98,7 @@ public class GamePanel extends Canvas implements Runnable
 	public void resetGame()
 	{
 		score = 0;
-		numberOfLives = 3;	
+		lives = 3;	
 		resetLevel();
 	}
 	

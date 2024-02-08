@@ -89,7 +89,7 @@ public class EventHandler
 	public void die(Pacman pacman)
 	{
 		gp.playSE(2);
-		gp.numberOfLives--;
+		gp.lives--;
 		gp.bonusScore.isBeingDisplayed = false;
 		gp.eHandler.elapsedTimeWhileActiveInSeconds = 0.0;
 		gp.pacman = new Pacman_Dead(gp);

@@ -25,10 +25,10 @@ public class Ghost_Vulnerable extends Ghost
 			moveRandomly(this);
 		}
 		
-		manageVulnerableAnimationTiming();
+		manageAnimationTiming();
 	}
 	
-	public void manageVulnerableAnimationTiming()
+	public void manageAnimationTiming()
 	{
 		elapsedFrameTimeInSeconds += gp.secondsPerTick;
 		
