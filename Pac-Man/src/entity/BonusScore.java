@@ -12,8 +12,8 @@ public class BonusScore extends Character
 	
 	public boolean isBeingDisplayed = false;
 	
-	private double elapsedAnimationTimeInSeconds = 0.0;
-	private double targetTimeForAnimationInSeconds = 5.0;
+	public double elapsedAnimationTimeInSeconds = 0.0;
+	public double targetTimeForAnimationInSeconds = 5.0;
 	
 	public BonusScore(GamePanel gp)
 	{
@@ -29,23 +29,6 @@ public class BonusScore extends Character
 	
 	public void tick()
 	{
-		manageAnimationTiming();
-	}
-	
-	private void manageAnimationTiming()
-	{
-		if(!isBeingDisplayed)
-		{
-			return;
-		}
-		
-		elapsedAnimationTimeInSeconds += gp.secondsPerTick;
-		
-		if(elapsedAnimationTimeInSeconds >= targetTimeForAnimationInSeconds)
-		{
-			isBeingDisplayed = false;
-		}
-		
 		gp.animation.manageAnimationTiming(this);
 	}
 	

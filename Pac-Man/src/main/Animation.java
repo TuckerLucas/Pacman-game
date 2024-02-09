@@ -3,6 +3,7 @@ package main;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
+import entity.BonusScore;
 import entity.Entity;
 import entity.Pacman_Dead;
 
@@ -149,6 +150,21 @@ public class Animation
 	
 	public void manageAnimationTiming(Entity entity)
 	{
+		if(entity instanceof BonusScore)
+		{
+			if(!gp.bonusScore.isBeingDisplayed)
+			{
+				return;
+			}
+			
+			gp.bonusScore.elapsedAnimationTimeInSeconds += gp.secondsPerTick;
+			
+			if(gp.bonusScore.elapsedAnimationTimeInSeconds >= gp.bonusScore.targetTimeForAnimationInSeconds)
+			{
+				gp.bonusScore.isBeingDisplayed = false;
+			}
+		}
+		
 		entity.elapsedFrameTimeInSeconds += gp.secondsPerTick;
 		
 		if(entity.elapsedFrameTimeInSeconds >= entity.targetTimePerFrameInSeconds)
