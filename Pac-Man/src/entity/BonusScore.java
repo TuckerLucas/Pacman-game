@@ -49,10 +49,10 @@ public class BonusScore extends Character
 		gp.animation.manageAnimationTiming(this);
 	}
 	
-	public void displayBonusScore(int xCoordinate, int yCoordinate)
+	public void displayBonusScore(int x, int y)
 	{
-		gp.bonusScore.x = xCoordinate;
-		gp.bonusScore.y = yCoordinate;
+		gp.bonusScore.x = x;
+		gp.bonusScore.y = y;
 		
 		isBeingDisplayed = true;
 		frameIndex = 0;

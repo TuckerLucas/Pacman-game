@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 import entity.Entity;
+import entity.Pacman_Dead;
 
 import java.io.IOException;
 
@@ -158,6 +159,19 @@ public class Animation
 			if(entity.frameIndex == entity.totalNumberOfFrames)
 			{
 				entity.frameIndex = 0;
+				
+				if(entity instanceof Pacman_Dead)
+				{
+					if(gp.lives == 0)
+					{
+						gp.gameState = gp.gameOverState;
+					}
+					else
+					{
+						gp.respawnCharacters();
+						gp.gameState = gp.playState;
+					}
+				}
 			}
 		}
 	}
