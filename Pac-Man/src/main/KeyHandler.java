@@ -84,6 +84,24 @@ public class KeyHandler implements KeyListener
 			
 			gp.ui.menuOptionIndex = 0;
 		}
+		
+		if(code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT)
+		{
+			if(gp.ui.menuOptionIndex == 0 && gp.music.volumeScale > 0)
+			{
+				gp.music.volumeScale--;
+				//gp.music.checkVolume();
+			}
+		}
+		
+		if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT)
+		{
+			if(gp.ui.menuOptionIndex == 0 && gp.music.volumeScale < 5)
+			{
+				gp.music.volumeScale++;
+				//gp.music.checkVolume();
+			}
+		}
 	}
 	
 	public void playState(int code)

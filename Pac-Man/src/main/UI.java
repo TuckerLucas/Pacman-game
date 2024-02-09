@@ -136,16 +136,18 @@ public class UI
 		int x = getXForCenteredText(g, text);
 		int y = 32*5;
 		
-		// SHADOW
+		// SHADOW #1
 		g.setColor(Color.gray);
 		g.drawString(text, x + 4, y + 4);
 		
+		// SHADOW #2
 		g.setColor(Color.black);
 		g.drawString(text, x + 3, y + 3);
 		
 		// MAIN COLOR
 		g.setColor(Color.white);
 		g.drawString(text, x, y);
+		
 		
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 36F));
 		text = "SOUNDS";
@@ -157,6 +159,11 @@ public class UI
 		{
 			g.drawString(">",  x - 32,  y);
 		}
+		
+		x += gp.tileSize*5;
+		g.drawRect(x, y-25, 120, 24); // 120/5 = 24
+		int volumeWidth = 24 * gp.music.volumeScale;
+		g.fillRect(x, y-25, volumeWidth, 24);
 		
 		text = "BACK";
 		x = getXForCenteredText(g, text);

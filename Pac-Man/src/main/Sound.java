@@ -13,7 +13,7 @@ public class Sound
 	URL soundURL[] = new URL[30];
 	FloatControl fc;
 	int volumeScale = 3;
-	float volume;
+	float volume = 3;
 	
 	public Sound()
 	{
