@@ -14,38 +14,13 @@ public class Pacman_Dead extends Pacman
 	{
 		super(gp);
 		this.gp = gp;
+		
+		totalNumberOfFrames = gp.animation.deadPacmanSprites.length;
 	}
 	
 	public void tick()
 	{
-		manageAnimationTiming();
-	}
-	
-	public void manageAnimationTiming()
-	{
-		elapsedFrameTimeInSeconds += gp.secondsPerTick;
-		
-		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
-		{
-			elapsedFrameTimeInSeconds = 0;
-			
-			frameIndex++;
-			
-			if(frameIndex >= gp.animation.deadPacmanSprites.length)
-			{
-				frameIndex = 0;
-				
-				if(gp.lives == 0)
-				{
-					gp.gameState = gp.gameOverState;
-				}
-				else
-				{
-					gp.respawnCharacters();
-					gp.gameState = gp.playState;
-				}
-			}
-		}
+		gp.animation.manageAnimationTiming(this);
 	}
 	
 	public void render(Graphics g)
