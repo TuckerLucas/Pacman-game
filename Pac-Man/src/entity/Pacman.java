@@ -11,13 +11,13 @@ public class Pacman extends Character
 	public String currentDir;
 	public String nextDir;
 	
-	public int frameIndex = 0;
-	public double elapsedFrameTimeInSeconds = 0.0;	
-	public double targetTimePerFrameInSeconds = 0.1;
-	
 	public Pacman(GamePanel gp)
 	{
 		super(gp);
+		
+		frameIndex = 0;
+		elapsedFrameTimeInSeconds = 0.0;	
+		targetTimePerFrameInSeconds = 0.1;
 	}
 	
 	public String getCurrentDirection()

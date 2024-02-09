@@ -14,6 +14,8 @@ public class Pacman_Alive extends Pacman
 	{
 		super(gp);
 		this.gp = gp;
+		
+		totalNumberOfFrames = gp.animation.alivePacmanSprites[0].length;
 	}
 	
 	public void tick()
@@ -25,7 +27,7 @@ public class Pacman_Alive extends Pacman
 		
 		move(this, nextDir);
 		portalCross();
-		manageAnimationTiming();
+		gp.animation.manageAnimationTiming(this);
 		foodCollision();
 		ghostCollision();
 	}
@@ -42,23 +44,6 @@ public class Pacman_Alive extends Pacman
 		{
 			gp.pacman.x = 0;
 			gp.pacman.y = 320;
-		}
-	}
-
-	public void manageAnimationTiming()
-	{
-		elapsedFrameTimeInSeconds += gp.secondsPerTick;
-		
-		if(elapsedFrameTimeInSeconds >= targetTimePerFrameInSeconds)
-		{
-			elapsedFrameTimeInSeconds = 0;
-			
-			frameIndex++;
-			
-			if(frameIndex >= gp.animation.alivePacmanSprites[1].length)
-			{
-				frameIndex = 0;
-			}
 		}
 	}
 	
