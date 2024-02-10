@@ -73,7 +73,6 @@ public class UI
 		g.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 		
 		// TITLE NAME
-		g.setFont(maruMonica);
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 92F));
 		String text = "PACMAN";
 		int x = getXForCenteredText(g, text);
@@ -124,56 +123,77 @@ public class UI
 	}
 
 	public void drawSettingsScreen(Graphics g)
-	{
+	{		
+		int textX;
+		int textY;
+		String text;
+		
 		// BACKGROUND COLOR
 		g.setColor(new Color(0, 0, 0));
 		g.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
 		
-		// TITLE NAME
-		g.setFont(maruMonica);
+		// TITLE
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 92F));
-		String text = "SETTINGS";
-		int x = getXForCenteredText(g, text);
-		int y = 32*5;
+		text = "SETTINGS";
 		
-		// SHADOW #1
+		textX = getXForCenteredText(g, text);
+		textY = gp.tileSize * 5;
+		
 		g.setColor(Color.gray);
-		g.drawString(text, x + 4, y + 4);
+		g.drawString(text, textX + 4, textY + 4);
 		
-		// SHADOW #2
 		g.setColor(Color.black);
-		g.drawString(text, x + 3, y + 3);
+		g.drawString(text, textX + 3, textY + 3);
 		
-		// MAIN COLOR
 		g.setColor(Color.white);
-		g.drawString(text, x, y);
+		g.drawString(text, textX, textY);
 		
-		
+		// OPTIONS
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 36F));
-		text = "SOUNDS";
-		x = getXForCenteredText(g, text);
-		y += 32*8;
-		g.drawString(text, x, y);
+		textX = gp.tileSize * 7;
+		
+		text = "MUSIC";
+		textY += gp.tileSize*8;
+		g.drawString(text, textX, textY);
 		
 		if(menuOptionIndex == 0)
 		{
-			g.drawString(">",  x - 32,  y);
+			g.drawString(">",  textX - gp.tileSize,  textY);
 		}
 		
-		x += gp.tileSize*5;
-		g.drawRect(x, y-25, 120, 24); // 120/5 = 24
-		int volumeWidth = 24 * gp.se.volumeScale;
-		g.fillRect(x, y-25, volumeWidth, 24);
-		
-		text = "BACK";
-		x = getXForCenteredText(g, text);
-		y += 40;
-		g.drawString(text, x, y);
+		text = "SOUNDS";
+		textY += gp.tileSize * 1.2;
+		g.drawString(text, textX, textY);
 		
 		if(menuOptionIndex == 1)
 		{
-			g.drawString(">",  x - 32,  y);
+			g.drawString(">",  textX - gp.tileSize,  textY);
 		}
+		
+		text = "BACK";
+		textY += gp.tileSize * 1.2;
+		g.drawString(text, textX, textY);
+		
+		if(menuOptionIndex == 2)
+		{
+			g.drawString(">",  textX - gp.tileSize,  textY);
+		}
+		
+		// VOLUME BARS
+		textX += gp.tileSize * 4;
+		textY = gp.tileSize * 13;
+		int rectWidth = 140;
+		int rectHeight = 28;
+		int musicVolumeWidth = rectHeight * gp.music.volumeScale;
+		
+		g.drawRect(textX, textY - rectHeight, rectWidth, rectHeight); 
+		g.fillRect(textX, textY - rectHeight, musicVolumeWidth, rectHeight);
+		
+		textY += gp.tileSize * 1.2;
+		int seVolumeWidth = rectHeight * gp.se.volumeScale;
+		
+		g.drawRect(textX, textY - rectHeight, rectWidth, rectHeight); 
+		g.fillRect(textX, textY - rectHeight, seVolumeWidth, rectHeight);
 	}
 	
 	private void drawWinScreen(Graphics g)

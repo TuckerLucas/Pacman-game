@@ -82,6 +82,7 @@ public class GamePanel extends Canvas implements Runnable
 		this.setBackground(Color.black);
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
+		playSE(0);
 	}
 	
 	public void setupGame()
@@ -165,6 +166,11 @@ public class GamePanel extends Canvas implements Runnable
 		se.setFile(i);
 		se.play();
 	}
+	
+	public void stopSE()
+	{
+		se.stop();
+	}
 
 	private void tick()
 	{
@@ -205,6 +211,7 @@ public class GamePanel extends Canvas implements Runnable
 		
 		Graphics g = bs.getDrawGraphics();
 		
+		g.setFont(ui.maruMonica);
 		g.setColor(Color.black);
 		g.fillRect(0, 0, screenWidth, screenHeight);
 		

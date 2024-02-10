@@ -14,7 +14,7 @@ public class Pacman_Dead extends Pacman
 	{
 		super(gp);
 		this.gp = gp;
-		
+		targetTimePerFrameInSeconds = 0.1;
 		totalNumberOfFrames = gp.animation.deadPacmanSprites.length;
 	}
 	

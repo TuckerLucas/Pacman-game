@@ -12,16 +12,16 @@ public class Sound
 	Clip clip;
 	URL soundURL[] = new URL[30];
 	FloatControl fc;
-	int volumeScale = 3;
-	float volume = 3;
+	int volumeScale = 0;
+	float volume = 0;
 	
 	public Sound()
 	{
-		soundURL[0] = getClass().getResource("/Sounds/PacmanEating.wav");
+		soundURL[0] = getClass().getResource("/Sounds/IntroMusic.wav");
 		soundURL[1] = getClass().getResource("/Sounds/Energizer.wav");
 		soundURL[2] = getClass().getResource("/Sounds/PacmanDeath.wav");
 		soundURL[3] = getClass().getResource("/Sounds/GhostEaten.wav");
-		soundURL[4] = getClass().getResource("/Sounds/IntroMusic.wav");
+		soundURL[4] = getClass().getResource("/Sounds/PacmanEating.wav");
 		soundURL[5] = getClass().getResource("/Sounds/Siren.wav");
 	}
 	

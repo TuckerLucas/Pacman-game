@@ -37,7 +37,7 @@ public class KeyHandler implements KeyListener
 		}
 		else if(gp.gameState == gp.settingsState)
 		{
-			settingsState(code, 2);
+			settingsState(code, 3);
 		}
 		else if(gp.gameState == gp.playState)
 		{
@@ -61,7 +61,7 @@ public class KeyHandler implements KeyListener
 		{
 			switch(gp.ui.menuOptionIndex)
 			{
-				case 0: gp.resetGame(); gp.gameState = gp.playState; break;
+				case 0: gp.resetGame(); gp.stopSE(); gp.playMusic(5); gp.gameState = gp.playState; break;
 				case 1: gp.gameState = gp.settingsState; break;
 				case 2: System.exit(0); break;
 			}
@@ -79,7 +79,8 @@ public class KeyHandler implements KeyListener
 			switch(gp.ui.menuOptionIndex)
 			{
 				case 0: break;
-				case 1: gp.gameState = gp.titleState; break;
+				case 1: break;
+				case 2: gp.gameState = gp.titleState; break;
 			}
 			
 			gp.ui.menuOptionIndex = 0;
@@ -87,7 +88,12 @@ public class KeyHandler implements KeyListener
 		
 		if(code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT)
 		{
-			if(gp.ui.menuOptionIndex == 0 && gp.se.volumeScale > 0)
+			if(gp.ui.menuOptionIndex == 0 && gp.music.volumeScale > 0)
+			{
+				gp.music.volumeScale--;
+			}
+			
+			if(gp.ui.menuOptionIndex == 1 && gp.se.volumeScale > 0)
 			{
 				gp.se.volumeScale--;
 			}
@@ -95,7 +101,12 @@ public class KeyHandler implements KeyListener
 		
 		if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT)
 		{
-			if(gp.ui.menuOptionIndex == 0 && gp.se.volumeScale < 5)
+			if(gp.ui.menuOptionIndex == 0 && gp.music.volumeScale < 5)
+			{
+				gp.music.volumeScale++;
+			}
+			
+			if(gp.ui.menuOptionIndex == 1 && gp.se.volumeScale < 5)
 			{
 				gp.se.volumeScale++;
 			}

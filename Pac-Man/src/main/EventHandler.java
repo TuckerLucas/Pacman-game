@@ -62,7 +62,7 @@ public class EventHandler
 		}
 		else if(food instanceof Food_Pellet)
 		{
-			gp.playSE(0);
+			gp.playSE(4);
 			gp.pelletList.remove(food);
 		}
 
