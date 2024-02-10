@@ -87,19 +87,17 @@ public class KeyHandler implements KeyListener
 		
 		if(code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT)
 		{
-			if(gp.ui.menuOptionIndex == 0 && gp.music.volumeScale > 0)
+			if(gp.ui.menuOptionIndex == 0 && gp.se.volumeScale > 0)
 			{
-				gp.music.volumeScale--;
-				//gp.music.checkVolume();
+				gp.se.volumeScale--;
 			}
 		}
 		
 		if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT)
 		{
-			if(gp.ui.menuOptionIndex == 0 && gp.music.volumeScale < 5)
+			if(gp.ui.menuOptionIndex == 0 && gp.se.volumeScale < 5)
 			{
-				gp.music.volumeScale++;
-				//gp.music.checkVolume();
+				gp.se.volumeScale++;
 			}
 		}
 	}

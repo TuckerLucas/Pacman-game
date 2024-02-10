@@ -162,7 +162,7 @@ public class UI
 		
 		x += gp.tileSize*5;
 		g.drawRect(x, y-25, 120, 24); // 120/5 = 24
-		int volumeWidth = 24 * gp.music.volumeScale;
+		int volumeWidth = 24 * gp.se.volumeScale;
 		g.fillRect(x, y-25, volumeWidth, 24);
 		
 		text = "BACK";
