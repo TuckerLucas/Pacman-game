@@ -10,6 +10,8 @@ public class Entity extends Rectangle
 	
 	private static final long serialVersionUID = 1L;
 	
+	public Rectangle solidArea = new Rectangle(0, 0, 32, 32);
+	
 	public int frameIndex;
 	public double elapsedFrameTimeInSeconds;
 	public double targetTimePerFrameInSeconds;

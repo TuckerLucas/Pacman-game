@@ -16,6 +16,11 @@ public class Pacman_Alive extends Pacman
 		this.gp = gp;
 		
 		totalNumberOfFrames = gp.animation.alivePacmanSprites[0].length;
+		
+		solidArea.x = 15;
+		solidArea.y = 15;
+		solidArea.width = 1;
+		solidArea.height = 1;
 	}
 	
 	public void tick()
@@ -77,7 +82,10 @@ public class Pacman_Alive extends Pacman
 	{
 		for(int i = 0; i < gp.ghostArray.length; i++)
 		{
-			if(gp.ghostArray[i].intersects(this))
+			gp.pacman.solidArea.x = gp.pacman.x + 15;
+			gp.pacman.solidArea.y = gp.pacman.y + 15;
+			
+			if(gp.ghostArray[i].intersects(gp.pacman.solidArea))
 			{	
 				if(gp.ghostArray[i] instanceof Ghost_Vulnerable
 						|| gp.ghostArray[i] instanceof Ghost_Flashing)
