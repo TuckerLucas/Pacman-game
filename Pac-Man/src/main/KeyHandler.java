@@ -80,13 +80,11 @@ public class KeyHandler implements KeyListener
 			{
 				case 0: break;
 				case 1: break;
-				case 2: gp.gameState = gp.titleState; break;
+				case 2: gp.ui.menuOptionIndex = 0; gp.gameState = gp.titleState; break;
 			}
-			
-			gp.ui.menuOptionIndex = 0;
 		}
 		
-		if(code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT)
+		if(code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT || code == KeyEvent.VK_MINUS)
 		{
 			if(gp.ui.menuOptionIndex == 0 && gp.music.volumeScale > 0)
 			{
@@ -99,7 +97,7 @@ public class KeyHandler implements KeyListener
 			}
 		}
 		
-		if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT)
+		if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT || code == KeyEvent.VK_PLUS)
 		{
 			if(gp.ui.menuOptionIndex == 0 && gp.music.volumeScale < 5)
 			{
