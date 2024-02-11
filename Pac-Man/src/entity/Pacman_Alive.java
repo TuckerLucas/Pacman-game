@@ -17,8 +17,6 @@ public class Pacman_Alive extends Pacman
 		
 		totalNumberOfFrames = gp.animation.alivePacmanSprites[0].length;
 		
-		solidArea.x = 15;
-		solidArea.y = 15;
 		solidArea.width = 1;
 		solidArea.height = 1;
 	}
@@ -84,6 +82,9 @@ public class Pacman_Alive extends Pacman
 		{
 			gp.pacman.solidArea.x = gp.pacman.x + 15;
 			gp.pacman.solidArea.y = gp.pacman.y + 15;
+			
+			gp.ghostArray[i].solidArea.x = gp.ghostArray[i].x + 15;
+			gp.ghostArray[i].solidArea.y = gp.ghostArray[i].y + 15;
 			
 			if(gp.ghostArray[i].intersects(gp.pacman.solidArea))
 			{	

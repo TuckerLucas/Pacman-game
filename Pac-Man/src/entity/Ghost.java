@@ -46,6 +46,9 @@ public class Ghost extends Character
 			this.y = gp.ghostArray[i].y;
 		}
 		
+		solidArea.width = 1;
+		solidArea.height = 1;
+		
 		generateNextDir();
 	}
 	
