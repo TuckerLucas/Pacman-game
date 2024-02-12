@@ -18,6 +18,11 @@ public class Pacman extends Character
 		frameIndex = 0;
 		elapsedFrameTimeInSeconds = 0.0;	
 		targetTimePerFrameInSeconds = 0.1;
+		
+		solidArea.x = x + 12;
+		solidArea.y = y + 12;
+		solidArea.width = 10;
+		solidArea.height = 10;
 	}
 	
 	public String getCurrentDirection()

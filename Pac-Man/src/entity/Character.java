@@ -10,7 +10,7 @@ public class Character extends Entity
 	
 	private static final long serialVersionUID = 1L;
 	
-	public int pixelsTravelledPerTick = 2;
+	public int pixelsTravelledPerTick = 1;
 	
 	public Character(GamePanel gp)
 	{
@@ -103,8 +103,8 @@ public class Character extends Entity
 			case "down": character.y += pixelsTravelledPerTick; break;
 		}
 		
-		character.solidArea.x = character.x + ((gp.tileSize/2) - character.solidArea.width);
-		character.solidArea.y = character.y + ((gp.tileSize/2) - character.solidArea.height);
+		character.solidArea.x = character.x + ((gp.tileSize-solidArea.width)/2);
+		character.solidArea.y = character.y + ((gp.tileSize-solidArea.height)/2);
 	}
 	
 	public String getCurrentDirection() 
