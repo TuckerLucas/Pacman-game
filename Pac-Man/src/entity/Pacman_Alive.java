@@ -80,12 +80,6 @@ public class Pacman_Alive extends Pacman
 	{
 		for(int i = 0; i < gp.ghostArray.length; i++)
 		{
-			gp.pacman.solidArea.x = gp.pacman.x + 15;
-			gp.pacman.solidArea.y = gp.pacman.y + 15;
-			
-			gp.ghostArray[i].solidArea.x = gp.ghostArray[i].x + 15;
-			gp.ghostArray[i].solidArea.y = gp.ghostArray[i].y + 15;
-			
 			if(gp.ghostArray[i].intersects(gp.pacman.solidArea))
 			{	
 				if(gp.ghostArray[i] instanceof Ghost_Vulnerable

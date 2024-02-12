@@ -102,6 +102,9 @@ public class Character extends Entity
 			case "up": character.y -= pixelsTravelledPerTick; break;
 			case "down": character.y += pixelsTravelledPerTick; break;
 		}
+		
+		character.solidArea.x = character.x + ((gp.tileSize/2) - character.solidArea.width);
+		character.solidArea.y = character.y + ((gp.tileSize/2) - character.solidArea.height);
 	}
 	
 	public String getCurrentDirection() 
