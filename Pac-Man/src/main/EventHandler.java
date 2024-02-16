@@ -28,6 +28,7 @@ public class EventHandler
 	public void tick()
 	{
 		checkEnergizerActivity();
+		checkIfBeatLevel();
 	}
 	
 	public void checkEnergizerActivity()
@@ -49,6 +50,14 @@ public class EventHandler
 		else if(elapsedTimeWhileActiveInSeconds >= activeTargetTimeInSeconds)		
 		{
 			flashingToHostile();
+		}
+	}
+	
+	private void checkIfBeatLevel()
+	{	
+		if(gp.pelletList.size() == 0 && gp.energizerList.size() == 0)
+		{
+			gp.gameState = gp.winState;
 		}
 	}
 	

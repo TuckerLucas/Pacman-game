@@ -28,7 +28,6 @@ public class Pacman_Alive extends Pacman
 		move(this, nextDir);
 		portalCross();
 		gp.animation.manageAnimationTiming(this);
-		foodCollision();
 	}
 	
 	public void portalCross()
@@ -43,14 +42,6 @@ public class Pacman_Alive extends Pacman
 		{
 			gp.pacman.x = 0;
 			gp.pacman.y = 320;
-		}
-	}
-	
-	private void foodCollision()
-	{	
-		if(gp.pelletList.size() == 0 && gp.energizerList.size() == 0)
-		{
-			gp.gameState = gp.winState;
 		}
 	}	
 	

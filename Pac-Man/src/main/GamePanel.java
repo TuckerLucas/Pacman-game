@@ -59,7 +59,7 @@ public class GamePanel extends Canvas implements Runnable
 	public SpawnBoxDoor spawnBoxDoor = new SpawnBoxDoor(this);
 	public Wall[][] wallMatrix;
 	public Food_Energizer energizer = new Food_Energizer(this);
-	public Level level;
+	public Level level = new Level(this);
 	
 	// Game state
 	public int gameState;
