@@ -32,19 +32,7 @@ public class Ghost_Hostile extends Ghost
 			}
 		}
 		
-		ghostCollision();
 		gp.animation.manageAnimationTiming(this);
-	}
-	
-	private void ghostCollision()
-	{
-		for(int i = 0; i < gp.ghostArray.length; i++)
-		{
-			if(this.solidArea.intersects(gp.pacman.solidArea))
-			{	
-				gp.eHandler.die(gp.pacman);
-			}
-		}
 	}
 	
 	public void render(Graphics g)

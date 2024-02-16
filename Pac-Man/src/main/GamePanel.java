@@ -42,6 +42,7 @@ public class GamePanel extends Canvas implements Runnable
 	public AssetSetter aSetter = new AssetSetter(this);
 	public KeyHandler keyH = new KeyHandler(this);
 	public UI ui = new UI(this);
+	public CollisionChecker cChecker = new CollisionChecker(this);
 	public EventHandler eHandler = new EventHandler(this);
 	public PathFinder pathFinder = new PathFinder(this);
 	Sound music = new Sound();
@@ -196,6 +197,7 @@ public class GamePanel extends Canvas implements Runnable
 			pacman.tick();
 		}
 		
+		cChecker.tick();
 		eHandler.tick();
 	}
 	

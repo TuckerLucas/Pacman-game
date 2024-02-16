@@ -29,7 +29,6 @@ public class Pacman_Alive extends Pacman
 		portalCross();
 		gp.animation.manageAnimationTiming(this);
 		foodCollision();
-		ghostCollision();
 	}
 	
 	public void portalCross()
@@ -49,44 +48,11 @@ public class Pacman_Alive extends Pacman
 	
 	private void foodCollision()
 	{	
-		for(int i = 0; i < gp.pelletList.size(); i++) 		
-		{    
-			if(this.intersects(gp.pelletList.get(i)))							
-			{
-				gp.eHandler.eat(gp.pelletList.get(i));
-				return;
-			}
-		}
-		
-		for(int i = 0; i < gp.energizerList.size(); i++) 		
-		{    
-			if(this.intersects(gp.energizerList.get(i)))							
-			{
-				gp.eHandler.eat(gp.energizerList.get(i));
-				return;
-			}
-		}
-		
 		if(gp.pelletList.size() == 0 && gp.energizerList.size() == 0)
 		{
 			gp.gameState = gp.winState;
 		}
 	}	
-	
-	private void ghostCollision()
-	{
-		for(int i = 0; i < gp.ghostArray.length; i++)
-		{
-			if(this.intersects(gp.ghostArray[i].solidArea))
-			{	
-				if(gp.ghostArray[i] instanceof Ghost_Vulnerable
-						|| gp.ghostArray[i] instanceof Ghost_Flashing)
-				{
-					gp.eHandler.eatGhost(i);
-				}
-			}
-		}
-	}
 	
 	public void render(Graphics g)
 	{
