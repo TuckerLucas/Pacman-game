@@ -77,16 +77,12 @@ public class Pacman_Alive extends Pacman
 	{
 		for(int i = 0; i < gp.ghostArray.length; i++)
 		{
-			if(gp.ghostArray[i].solidArea.intersects(gp.pacman.solidArea))
+			if(this.intersects(gp.ghostArray[i].solidArea))
 			{	
 				if(gp.ghostArray[i] instanceof Ghost_Vulnerable
 						|| gp.ghostArray[i] instanceof Ghost_Flashing)
 				{
 					gp.eHandler.eatGhost(i);
-				}
-				else 
-				{
-					gp.eHandler.die(this);
 				}
 			}
 		}

@@ -55,6 +55,10 @@ public class AssetSetter
 		gp.pacman.y = 512;
 		gp.pacman.currentDir = "right";
 		gp.pacman.nextDir = "stopped";
+		gp.pacman.solidArea.x = gp.pacman.x + 12;
+		gp.pacman.solidArea.y = gp.pacman.y + 12;
+		gp.pacman.solidArea.width = 10;
+		gp.pacman.solidArea.height = 10;
 	}
 	
 	public void setDoor()
