@@ -21,7 +21,7 @@ public class Ghost extends Character
 	public String currentDir;
 	
 	public double timeMovingMethodicallyInSeconds = 0.0;
-	public double targetTimeMovingMethodicallyInSeconds = 100.0; 
+	public double targetTimeMovingMethodicallyInSeconds = 12.0; 
 	public boolean isCoolingDown = false;
 	public double coolDownTimeInSeconds = 0.0;
 	public double coolDownTargetTimeInSeconds = 5.0; 

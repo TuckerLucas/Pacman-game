@@ -8,7 +8,7 @@ public class PathFinder
 	
 	public String pathFinderArray[][][] = new String[4][16][4];
 	
-	public int detectionRange = 800;
+	public int detectionRange = 80;
 	
 	public PathFinder(GamePanel gp)
 	{
