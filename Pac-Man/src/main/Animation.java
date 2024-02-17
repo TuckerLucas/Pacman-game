@@ -3,10 +3,6 @@ package main;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
-import entity.BonusScore;
-import entity.Entity;
-import entity.Pacman_Dead;
-
 import java.io.IOException;
 
 public class Animation
@@ -146,50 +142,6 @@ public class Animation
 	private BufferedImage getSprite(int x, int y, int width, int height)
 	{
 		return spritesheet.getSubimage(x, y, width, height);
-	}
-	
-	public void manageAnimationTiming(Entity entity)
-	{
-		if(entity instanceof BonusScore)
-		{
-			if(!gp.bonusScore.isBeingDisplayed)
-			{
-				return;
-			}
-			
-			gp.bonusScore.elapsedAnimationTimeInSeconds += gp.secondsPerTick;
-			
-			if(gp.bonusScore.elapsedAnimationTimeInSeconds >= gp.bonusScore.targetTimeForAnimationInSeconds)
-			{
-				gp.bonusScore.isBeingDisplayed = false;
-			}
-		}
-		
-		entity.elapsedFrameTimeInSeconds += gp.secondsPerTick;
-		
-		if(entity.elapsedFrameTimeInSeconds >= entity.targetTimePerFrameInSeconds)
-		{
-			entity.elapsedFrameTimeInSeconds = 0;
-			entity.frameIndex++;
-			
-			if(entity.frameIndex == entity.totalNumberOfFrames)
-			{
-				entity.frameIndex = 0;
-				
-				if(entity instanceof Pacman_Dead)
-				{
-					if(gp.lives == 0)
-					{
-						gp.gameState = gp.gameOverState;
-					}
-					else
-					{
-						gp.respawnCharacters();
-						gp.gameState = gp.playState;
-					}
-				}
-			}
-		}
 	}
 }
 

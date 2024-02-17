@@ -32,7 +32,7 @@ public class Ghost_Hostile extends Ghost
 			}
 		}
 		
-		gp.animation.manageAnimationTiming(this);
+		manageAnimationTiming(this);
 	}
 	
 	public void render(Graphics g)
@@ -52,5 +52,8 @@ public class Ghost_Hostile extends Ghost
 				g.drawImage(gp.animation.hostileGhostSprites[ghostID][3][frameIndex], x, y, width, height, null);
 				break;
 		}
+		
+//		g.setColor(Color.red);
+//		g.fillRect(solidArea.x, solidArea.y, solidArea.width, solidArea.height);
 	}
 }

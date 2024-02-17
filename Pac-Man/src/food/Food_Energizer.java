@@ -22,7 +22,7 @@ public class Food_Energizer extends Food
 	
 	public void tick()
 	{	
-		gp.animation.manageAnimationTiming(this);
+		manageAnimationTiming(this);
 	}
 	
 	public int getFoodPoints()

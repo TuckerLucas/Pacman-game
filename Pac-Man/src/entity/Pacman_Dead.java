@@ -20,7 +20,7 @@ public class Pacman_Dead extends Pacman
 	
 	public void tick()
 	{
-		gp.animation.manageAnimationTiming(this);
+		manageAnimationTiming(this);
 	}
 	
 	public void render(Graphics g)

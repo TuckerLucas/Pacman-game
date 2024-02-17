@@ -10,7 +10,7 @@ public class Character extends Entity
 	
 	private static final long serialVersionUID = 1L;
 	
-	public int pixelsTravelledPerTick = 2;
+	public int speed = 2;
 	
 	public Character(GamePanel gp)
 	{
@@ -18,7 +18,7 @@ public class Character extends Entity
 		this.gp = gp;
 	}
 	
-	public void move(Character character, String direction)
+	public void manageMovement(Character character, String direction)
 	{
 		if(gp.gameState == gp.lifeLostState)
 		{
@@ -27,7 +27,7 @@ public class Character extends Entity
 		
 		if(canMove(character, direction))
 		{
-			shiftCharacterInGivenDirection(character, direction);
+			move(character, direction);
 		}
 		else
 		{
@@ -35,22 +35,22 @@ public class Character extends Entity
 			{
 				if(character.getCurrentDirection() == "up" && canMove(character, "up"))
 				{
-					shiftCharacterInGivenDirection(character, "up");
+					move(character, "up");
 				}
 				if(character.getCurrentDirection() == "down" && canMove(character, "down"))
 				{
-					shiftCharacterInGivenDirection(character, "down");
+					move(character, "down");
 				}
 			}
 			else if(direction == "up" || direction == "down")
 			{
 				if(character.getCurrentDirection() == "left" && canMove(character, "left"))
 				{
-					shiftCharacterInGivenDirection(character, "left");
+					move(character, "left");
 				}
 				if(character.getCurrentDirection() == "right" && canMove(character, "right"))
 				{
-					shiftCharacterInGivenDirection(character, "right");
+					move(character, "right");
 				}
 			}
 		}
@@ -62,11 +62,11 @@ public class Character extends Entity
 		
 		switch(direction)
 		{
-			case "right": nextX = character.x + pixelsTravelledPerTick; nextY = character.y; break;
-			case "left": nextX = character.x - pixelsTravelledPerTick; nextY = character.y; break;
-			case "up": nextX = character.x; nextY = character.y - pixelsTravelledPerTick; break;
+			case "right": nextX = character.x + speed; nextY = character.y; break;
+			case "left": nextX = character.x - speed; nextY = character.y; break;
+			case "up": nextX = character.x; nextY = character.y - speed; break;
 			case "down": if(character.x == 320 && character.y == 256) {return false;}
-							nextX = character.x; nextY = character.y + pixelsTravelledPerTick; break;
+							nextX = character.x; nextY = character.y + speed; break;
 		}
 		
 		Rectangle bounds = new Rectangle();
@@ -93,14 +93,14 @@ public class Character extends Entity
 		return true;
 	}
 	
-	public void shiftCharacterInGivenDirection(Character character, String direction)
+	public void move(Character character, String direction)
 	{
 		switch(direction)
 		{
-			case "right": character.x += pixelsTravelledPerTick; break;
-			case "left": character.x -= pixelsTravelledPerTick; break;
-			case "up": character.y -= pixelsTravelledPerTick; break;
-			case "down": character.y += pixelsTravelledPerTick; break;
+			case "right": character.x += speed; break;
+			case "left": character.x -= speed; break;
+			case "up": character.y -= speed; break;
+			case "down": character.y += speed; break;
 		}
 		
 		character.solidArea.x = character.x + 12;//((gp.tileSize-solidArea.width)/2);

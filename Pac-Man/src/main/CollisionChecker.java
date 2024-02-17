@@ -15,10 +15,10 @@ public class CollisionChecker
 	
 	public void tick()
 	{
-		pacmanAndHostileGhost();
-		pacmanAndVulnerableGhost();
 		pacmanAndPellet();
 		pacmanAndEnergizer();
+		pacmanAndHostileGhost();
+		pacmanAndVulnerableGhost();
 	}
 	
 	private void pacmanAndHostileGhost()
@@ -56,7 +56,7 @@ public class CollisionChecker
 		{    
 			if(gp.pacman.intersects(gp.pelletList.get(i)))							
 			{
-				gp.eHandler.eat(gp.pelletList.get(i));
+				gp.eHandler.eatFood(gp.pelletList.get(i));
 				return;
 			}
 		}
@@ -68,7 +68,7 @@ public class CollisionChecker
 		{    
 			if(gp.pacman.intersects(gp.energizerList.get(i)))							
 			{
-				gp.eHandler.eat(gp.energizerList.get(i));
+				gp.eHandler.eatFood(gp.energizerList.get(i));
 				return;
 			}
 		}

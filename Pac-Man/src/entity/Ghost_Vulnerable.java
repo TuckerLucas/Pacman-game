@@ -25,7 +25,7 @@ public class Ghost_Vulnerable extends Ghost
 			moveRandomly(this);
 		}
 		
-		gp.animation.manageAnimationTiming(this);
+		manageAnimationTiming(this);
 	}
 	
 	public void render(Graphics g)

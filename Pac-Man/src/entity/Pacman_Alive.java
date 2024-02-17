@@ -25,9 +25,9 @@ public class Pacman_Alive extends Pacman
 			currentDir = nextDir;
 		}
 		
-		move(this, nextDir);
+		manageMovement(this, nextDir);
 		portalCross();
-		gp.animation.manageAnimationTiming(this);
+		manageAnimationTiming(this);
 	}
 	
 	public void portalCross()

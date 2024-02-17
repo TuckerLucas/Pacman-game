@@ -71,7 +71,7 @@ public class Ghost extends Character
 					gp.ghostArray[i].y = 320;
 				}
 				
-				move(gp.ghostArray[i], "left");
+				manageMovement(gp.ghostArray[i], "left");
 				
 				if(gp.ghostArray[i].x == 480 && gp.ghostArray[i].y == 320)
 				{
@@ -86,7 +86,7 @@ public class Ghost extends Character
 					gp.ghostArray[i].y = 320;
 				}
 				
-				move(gp.ghostArray[i], "right");
+				manageMovement(gp.ghostArray[i], "right");
 				
 				if(gp.ghostArray[i].x == 160 && gp.ghostArray[i].y == 320)
 				{
@@ -138,11 +138,11 @@ public class Ghost extends Character
 		if(canMove(this, nextDir))
 		{
 			currentDir = nextDir;
-			move(this, nextDir);
+			manageMovement(this, nextDir);
 		}
 		else if(canMove(this, currentDir))
 		{
-			move(this, currentDir);
+			manageMovement(this, currentDir);
 			return;
 		}
 		
@@ -159,13 +159,13 @@ public class Ghost extends Character
 			{
 				currentDir = gp.pathFinder.pathFinderArray[pacmanZone][0];
 				
-				move(this, gp.pathFinder.pathFinderArray[pacmanZone][0]);
+				manageMovement(this, gp.pathFinder.pathFinderArray[pacmanZone][0]);
 			}
 			else if(canMove(this, gp.pathFinder.pathFinderArray[pacmanZone][1]))
 			{
 				currentDir = gp.pathFinder.pathFinderArray[pacmanZone][1];
 				
-				move(this, gp.pathFinder.pathFinderArray[pacmanZone][1]);
+				manageMovement(this, gp.pathFinder.pathFinderArray[pacmanZone][1]);
 			}
 			else
 			{
@@ -187,7 +187,7 @@ public class Ghost extends Character
 					{
 						currentDir = gp.pathFinder.pathFinderArray[pacmanZone][2];
 						
-						move(this, gp.pathFinder.pathFinderArray[pacmanZone][2]);
+						manageMovement(this, gp.pathFinder.pathFinderArray[pacmanZone][2]);
 					}
 					else
 					{
@@ -198,7 +198,7 @@ public class Ghost extends Character
 				{
 					currentDir = gp.pathFinder.pathFinderArray[pacmanZone][3];
 					
-					move(this, gp.pathFinder.pathFinderArray[pacmanZone][3]);
+					manageMovement(this, gp.pathFinder.pathFinderArray[pacmanZone][3]);
 				}
 			}
 		}

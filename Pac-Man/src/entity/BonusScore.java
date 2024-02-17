@@ -29,7 +29,7 @@ public class BonusScore extends Character
 	
 	public void tick()
 	{
-		gp.animation.manageAnimationTiming(this);
+		manageAnimationTiming(this);
 	}
 	
 	public void displayBonusScore(int x, int y)

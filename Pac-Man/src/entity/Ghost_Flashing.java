@@ -25,7 +25,7 @@ public class Ghost_Flashing extends Ghost
 			moveRandomly(this);
 		}
 		
-		gp.animation.manageAnimationTiming(this);
+		manageAnimationTiming(this);
 	}
 	
 	public void render(Graphics g)

@@ -61,7 +61,7 @@ public class EventHandler
 		}
 	}
 	
-	public void eat(Food food)
+	public void eatFood(Food food)
 	{	
 		if(food instanceof Food_Energizer)
 		{
