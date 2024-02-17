@@ -21,7 +21,7 @@ public class Ghost extends Character
 	public String currentDir;
 	
 	public double timeMovingMethodicallyInSeconds = 0.0;
-	public double targetTimeMovingMethodicallyInSeconds = 12.0; 
+	public double targetTimeMovingMethodicallyInSeconds = 100.0; 
 	public boolean isCoolingDown = false;
 	public double coolDownTimeInSeconds = 0.0;
 	public double coolDownTargetTimeInSeconds = 5.0; 
@@ -155,17 +155,17 @@ public class Ghost extends Character
 		{
 			pacmanZone = gp.pathFinder.updatePacmanZone(deltaX, deltaY);
 			
-			if(canMove(this, gp.pathFinder.pathFinderArray[pacmanZone][0]))
+			if(canMove(this, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][0]))
 			{
-				currentDir = gp.pathFinder.pathFinderArray[pacmanZone][0];
+				currentDir = gp.pathFinder.pathFinderArray[ghostID][pacmanZone][0];
 				
-				manageMovement(this, gp.pathFinder.pathFinderArray[pacmanZone][0]);
+				manageMovement(this, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][0]);
 			}
-			else if(canMove(this, gp.pathFinder.pathFinderArray[pacmanZone][1]))
+			else if(canMove(this, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][1]))
 			{
-				currentDir = gp.pathFinder.pathFinderArray[pacmanZone][1];
+				currentDir = gp.pathFinder.pathFinderArray[ghostID][pacmanZone][1];
 				
-				manageMovement(this, gp.pathFinder.pathFinderArray[pacmanZone][1]);
+				manageMovement(this, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][1]);
 			}
 			else
 			{
@@ -174,7 +174,7 @@ public class Ghost extends Character
 		}
 		else if(isFindingPath)
 		{
-			if(canMove(this, gp.pathFinder.pathFinderArray[pacmanZone][0]))
+			if(canMove(this, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][0]))
 			{
 				findDir1Blocked = false;
 				isFindingPath = false;
@@ -183,11 +183,11 @@ public class Ghost extends Character
 			{
 				if(findDir1Blocked == false)
 				{
-					if(canMove(this, gp.pathFinder.pathFinderArray[pacmanZone][2]))
+					if(canMove(this, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][2]))
 					{
-						currentDir = gp.pathFinder.pathFinderArray[pacmanZone][2];
+						currentDir = gp.pathFinder.pathFinderArray[ghostID][pacmanZone][2];
 						
-						manageMovement(this, gp.pathFinder.pathFinderArray[pacmanZone][2]);
+						manageMovement(this, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][2]);
 					}
 					else
 					{
@@ -196,9 +196,9 @@ public class Ghost extends Character
 				}
 				else if(findDir1Blocked == true)
 				{
-					currentDir = gp.pathFinder.pathFinderArray[pacmanZone][3];
+					currentDir = gp.pathFinder.pathFinderArray[ghostID][pacmanZone][3];
 					
-					manageMovement(this, gp.pathFinder.pathFinderArray[pacmanZone][3]);
+					manageMovement(this, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][3]);
 				}
 			}
 		}
