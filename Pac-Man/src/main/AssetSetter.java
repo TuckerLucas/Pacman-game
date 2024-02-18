@@ -22,6 +22,10 @@ public class AssetSetter
 		gp.ghostArray[i].x = 320;
 		gp.ghostArray[i].y = 256;
 		gp.ghostArray[i].movementType = "random";
+		gp.ghostArray[i].solidArea.x = gp.ghostArray[i].x + 12;
+		gp.ghostArray[i].solidArea.y = gp.ghostArray[i].y + 12;
+		gp.ghostArray[i].solidArea.width = 10;
+		gp.ghostArray[i].solidArea.height = 10;
 		
 		i++;
 		
@@ -30,6 +34,10 @@ public class AssetSetter
 		gp.ghostArray[i].x = 288;
 		gp.ghostArray[i].y = 320;
 		gp.ghostArray[i].movementType = "random";
+		gp.ghostArray[i].solidArea.x = gp.ghostArray[i].x + 12;
+		gp.ghostArray[i].solidArea.y = gp.ghostArray[i].y + 12;
+		gp.ghostArray[i].solidArea.width = 10;
+		gp.ghostArray[i].solidArea.height = 10;
 		
 		i++;
 		
@@ -38,6 +46,10 @@ public class AssetSetter
 		gp.ghostArray[i].x = 320;
 		gp.ghostArray[i].y = 320;
 		gp.ghostArray[i].movementType = "random";
+		gp.ghostArray[i].solidArea.x = gp.ghostArray[i].x + 12;
+		gp.ghostArray[i].solidArea.y = gp.ghostArray[i].y + 12;
+		gp.ghostArray[i].solidArea.width = 10;
+		gp.ghostArray[i].solidArea.height = 10;
 		
 		i++;
 		
@@ -46,6 +58,10 @@ public class AssetSetter
 		gp.ghostArray[i].x = 352;
 		gp.ghostArray[i].y = 320;
 		gp.ghostArray[i].movementType = "random";
+		gp.ghostArray[i].solidArea.x = gp.ghostArray[i].x + 12;
+		gp.ghostArray[i].solidArea.y = gp.ghostArray[i].y + 12;
+		gp.ghostArray[i].solidArea.width = 10;
+		gp.ghostArray[i].solidArea.height = 10;
 	}
 	
 	public void setPacman()
