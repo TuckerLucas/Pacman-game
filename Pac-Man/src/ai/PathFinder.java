@@ -59,12 +59,21 @@ public class PathFinder
 					break;
 				case 1:
 					
-					for(int j = 0; j < 4; j++)
-					{
-						pathFinderArray[j][i][0] = "left";
-						pathFinderArray[j][i][1] = "up";
-						pathFinderArray[j][i][2] = "down";
-					}
+					pathFinderArray[0][i][0] = "left";
+					pathFinderArray[0][i][1] = "up";
+					pathFinderArray[0][i][2] = "down";
+					
+					pathFinderArray[1][i][0] = "left";
+					pathFinderArray[1][i][1] = "up";
+					pathFinderArray[1][i][2] = "down";
+					
+					pathFinderArray[2][i][0] = "left";
+					pathFinderArray[2][i][1] = "up";
+					pathFinderArray[2][i][2] = "down";
+					
+					pathFinderArray[3][i][0] = "left";
+					pathFinderArray[3][i][1] = "up";
+					pathFinderArray[3][i][2] = "down";
 				
 					break;
 				case 2:
@@ -85,12 +94,21 @@ public class PathFinder
 					pathFinderArray[3][i][2] = "right";
 					break;
 				case 3:
-					for(int j = 0; j < 4; j++)
-					{
-						pathFinderArray[j][i][0] = "up";
-						pathFinderArray[j][i][1] = "left";
-						pathFinderArray[j][i][2] = "right";
-					}
+					pathFinderArray[0][i][0] = "up";
+					pathFinderArray[0][i][1] = "left";
+					pathFinderArray[0][i][2] = "right";
+					
+					pathFinderArray[1][i][0] = "up";
+					pathFinderArray[1][i][1] = "left";
+					pathFinderArray[1][i][2] = "right";
+					
+					pathFinderArray[2][i][0] = "up";
+					pathFinderArray[2][i][1] = "left";
+					pathFinderArray[2][i][2] = "right";
+					
+					pathFinderArray[3][i][0] = "up";
+					pathFinderArray[3][i][1] = "left";
+					pathFinderArray[3][i][2] = "right";
 					break;
 				case 4:
 					pathFinderArray[0][i][0] = "up";
@@ -114,12 +132,21 @@ public class PathFinder
 					pathFinderArray[3][i][3] = "right";
 					break;
 				case 5:
-					for(int j = 0; j < 4; j++)
-					{
-						pathFinderArray[j][i][0] = "up";
-						pathFinderArray[j][i][1] = "right";
-						pathFinderArray[j][i][2] = "left";
-					}
+					pathFinderArray[0][i][0] = "up";
+					pathFinderArray[0][i][1] = "right";
+					pathFinderArray[0][i][2] = "left";
+					
+					pathFinderArray[1][i][0] = "up";
+					pathFinderArray[1][i][1] = "right";
+					pathFinderArray[1][i][2] = "left";
+					
+					pathFinderArray[2][i][0] = "up";
+					pathFinderArray[2][i][1] = "right";
+					pathFinderArray[2][i][2] = "left";
+					
+					pathFinderArray[3][i][0] = "up";
+					pathFinderArray[3][i][1] = "right";
+					pathFinderArray[3][i][2] = "left";
 					break;
 				case 6:
 					pathFinderArray[0][i][0] = "up";
@@ -139,12 +166,21 @@ public class PathFinder
 					pathFinderArray[3][i][2] = "down";
 					break;
 				case 7:
-					for(int j = 0; j < 4; j++)
-					{
-						pathFinderArray[j][i][0] = "right";
-						pathFinderArray[j][i][1] = "up";
-						pathFinderArray[j][i][2] = "down";
-					}
+					pathFinderArray[0][i][0] = "right";
+					pathFinderArray[0][i][1] = "up";
+					pathFinderArray[0][i][2] = "down";
+					
+					pathFinderArray[1][i][0] = "right";
+					pathFinderArray[1][i][1] = "up";
+					pathFinderArray[1][i][2] = "down";
+					
+					pathFinderArray[2][i][0] = "right";
+					pathFinderArray[2][i][1] = "up";
+					pathFinderArray[2][i][2] = "down";
+					
+					pathFinderArray[3][i][0] = "right";
+					pathFinderArray[3][i][1] = "up";
+					pathFinderArray[3][i][2] = "down";
 					break;
 				case 8:
 					pathFinderArray[0][i][0] = "right";
@@ -168,12 +204,21 @@ public class PathFinder
 					pathFinderArray[3][i][3] = "down";
 					break;
 				case 9:
-					for(int j = 0; j < 4; j++)
-					{
-						pathFinderArray[j][i][0] = "right";
-						pathFinderArray[j][i][1] = "down";
-						pathFinderArray[j][i][2] = "up";
-					}
+					pathFinderArray[0][i][0] = "right";
+					pathFinderArray[0][i][1] = "down";
+					pathFinderArray[0][i][2] = "up";
+					
+					pathFinderArray[1][i][0] = "right";
+					pathFinderArray[1][i][1] = "down";
+					pathFinderArray[1][i][2] = "up";
+					
+					pathFinderArray[2][i][0] = "right";
+					pathFinderArray[2][i][1] = "down";
+					pathFinderArray[2][i][2] = "up";
+					
+					pathFinderArray[3][i][0] = "right";
+					pathFinderArray[3][i][1] = "down";
+					pathFinderArray[3][i][2] = "up";
 					break;
 				case 10:
 					pathFinderArray[0][i][0] = "down";
@@ -193,12 +238,21 @@ public class PathFinder
 					pathFinderArray[3][i][2] = "up";
 					break;
 				case 11:
-					for(int j = 0; j < 4; j++)
-					{
-						pathFinderArray[j][i][0] = "down";
-						pathFinderArray[j][i][1] = "right";
-						pathFinderArray[j][i][2] = "left";
-					}
+					pathFinderArray[0][i][0] = "down";
+					pathFinderArray[0][i][1] = "right";
+					pathFinderArray[0][i][2] = "left";
+					
+					pathFinderArray[1][i][0] = "down";
+					pathFinderArray[1][i][1] = "right";
+					pathFinderArray[1][i][2] = "left";
+					
+					pathFinderArray[2][i][0] = "down";
+					pathFinderArray[2][i][1] = "right";
+					pathFinderArray[2][i][2] = "left";
+					
+					pathFinderArray[3][i][0] = "down";
+					pathFinderArray[3][i][1] = "right";
+					pathFinderArray[3][i][2] = "left";
 					break;
 				case 12:
 					pathFinderArray[0][i][0] = "down";
@@ -222,12 +276,21 @@ public class PathFinder
 					pathFinderArray[3][i][3] = "right";
 					break;
 				case 13:
-					for(int j = 0; j < 4; j++)
-					{
-						pathFinderArray[j][i][0] = "down";
-						pathFinderArray[j][i][1] = "left";
-						pathFinderArray[j][i][2] = "right";
-					}
+					pathFinderArray[0][i][0] = "down";
+					pathFinderArray[0][i][1] = "left";
+					pathFinderArray[0][i][2] = "right";
+					
+					pathFinderArray[1][i][0] = "down";
+					pathFinderArray[1][i][1] = "left";
+					pathFinderArray[1][i][2] = "right";
+					
+					pathFinderArray[2][i][0] = "down";
+					pathFinderArray[2][i][1] = "left";
+					pathFinderArray[2][i][2] = "right";
+					
+					pathFinderArray[3][i][0] = "down";
+					pathFinderArray[3][i][1] = "left";
+					pathFinderArray[3][i][2] = "right";
 					break;
 				case 14:
 					pathFinderArray[0][i][0] = "down";
@@ -247,12 +310,21 @@ public class PathFinder
 					pathFinderArray[3][i][2] = "up";
 					break;
 				case 15:
-					for(int j = 0; j < 4; j++)
-					{
-						pathFinderArray[j][i][0] = "left";
-						pathFinderArray[j][i][1] = "down";
-						pathFinderArray[j][i][2] = "up";
-					}
+					pathFinderArray[0][i][0] = "left";
+					pathFinderArray[0][i][1] = "down";
+					pathFinderArray[0][i][2] = "up";
+					
+					pathFinderArray[1][i][0] = "left";
+					pathFinderArray[1][i][1] = "down";
+					pathFinderArray[1][i][2] = "up";
+					
+					pathFinderArray[2][i][0] = "left";
+					pathFinderArray[2][i][1] = "down";
+					pathFinderArray[2][i][2] = "up";
+					
+					pathFinderArray[3][i][0] = "left";
+					pathFinderArray[3][i][1] = "down";
+					pathFinderArray[3][i][2] = "up";
 					break;
 			}
 		}
