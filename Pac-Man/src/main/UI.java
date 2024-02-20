@@ -1,9 +1,12 @@
 package main;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -40,7 +43,11 @@ public class UI
 		
 		if(gp.gameState == gp.titleState)
 		{
-			drawInitScreen(g);
+			drawTitleScreen(g);
+		}
+		if(gp.gameState == gp.leaderboardState)
+		{
+			drawLeaderboardScreen(g);
 		}
 		if(gp.gameState == gp.settingsState)
 		{
@@ -66,7 +73,7 @@ public class UI
 		}
 	}
 	
-	public void drawInitScreen(Graphics g)
+	public void drawTitleScreen(Graphics g)
 	{	
 		// BACKGROUND COLOR
 		g.setColor(new Color(0, 0, 0));
@@ -101,7 +108,7 @@ public class UI
 			g.drawString(">",  x - 32,  y);
 		}
 		
-		text = "SETTINGS";
+		text = "LEADERBOARD";
 		x = getXForCenteredText(g, text);
 		y += 40;
 		g.drawString(text, x, y);
@@ -111,7 +118,7 @@ public class UI
 			g.drawString(">",  x - 32,  y);
 		}
 		
-		text = "QUIT";
+		text = "SETTINGS";
 		x = getXForCenteredText(g, text);
 		y += 40;
 		g.drawString(text, x, y);
@@ -120,8 +127,54 @@ public class UI
 		{
 			g.drawString(">",  x - 32,  y);
 		}
+		
+		text = "QUIT";
+		x = getXForCenteredText(g, text);
+		y += 40;
+		g.drawString(text, x, y);
+		
+		if(menuOptionIndex == 3)
+		{
+			g.drawString(">",  x - 32,  y);
+		}
 	}
 
+	public void drawLeaderboardScreen(Graphics g)
+	{
+		int textX;
+		int textY;
+		String text;
+		
+		// BACKGROUND COLOR
+		g.setColor(new Color(0, 0, 0));
+		g.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+				
+		// TITLE
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 92F));
+		text = "LEADERBOARD";
+		
+		textX = getXForCenteredText(g, text);
+		textY = gp.tileSize * 5;
+		
+		g.setColor(Color.gray);
+		g.drawString(text, textX + 4, textY + 4);
+		
+		g.setColor(Color.black);
+		g.drawString(text, textX + 3, textY + 3);
+		
+		g.setColor(Color.CYAN);
+		g.drawString(text, textX, textY);
+		
+		g.setColor(new Color(255, 255, 255));
+		
+		Graphics2D g2 = (Graphics2D) g;
+		
+		g2.setStroke(new BasicStroke(6));
+        //g2.draw(new Line2D.Float(30, 260, 230, 260));
+        
+        g2.drawRect(60, 260, 200, 300);
+	}
+	
 	public void drawSettingsScreen(Graphics g)
 	{		
 		int textX;

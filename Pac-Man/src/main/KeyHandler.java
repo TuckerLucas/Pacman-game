@@ -33,7 +33,11 @@ public class KeyHandler implements KeyListener
 		
 		if(gp.gameState == gp.titleState)
 		{
-			titleState(code, 3);
+			titleState(code, 4);
+		}
+		else if(gp.gameState == gp.leaderboardState)
+		{
+			leaderboardState(code, 1);
 		}
 		else if(gp.gameState == gp.settingsState)
 		{
@@ -62,11 +66,25 @@ public class KeyHandler implements KeyListener
 			switch(gp.ui.menuOptionIndex)
 			{
 				case 0: gp.resetGame(); gp.stopSE(); gp.playMusic(5); gp.gameState = gp.playState; break;
-				case 1: gp.gameState = gp.settingsState; break;
-				case 2: System.exit(0); break;
+				case 1: gp.gameState = gp.leaderboardState; break;
+				case 2: gp.gameState = gp.settingsState; break;
+				case 3: System.exit(0); break;
 			}
 			
 			gp.ui.menuOptionIndex = 0;
+		}
+	}
+	
+	public void leaderboardState(int code, int nMenuOptions)
+	{
+		enableScrolling(code, nMenuOptions);
+		
+		if(code == KeyEvent.VK_ENTER)
+		{
+			switch(gp.ui.menuOptionIndex)
+			{
+				case 0: gp.gameState = gp.titleState; break;
+			}
 		}
 	}
 	
