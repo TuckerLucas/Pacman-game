@@ -173,6 +173,16 @@ public class UI
         //g2.draw(new Line2D.Float(30, 260, 230, 260));
         
         g2.drawRect(60, 260, 200, 300);
+        
+        g.setFont(g.getFont().deriveFont(Font.BOLD, 36F));
+        text = "BACK";
+		textY += gp.tileSize * 1.2;
+		g.drawString(text, textX, textY);
+		
+		if(menuOptionIndex == 0)
+		{
+			g.drawString(">",  textX - gp.tileSize,  textY);
+		}
 	}
 	
 	public void drawSettingsScreen(Graphics g)
