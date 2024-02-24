@@ -55,6 +55,7 @@ public class Entity extends Rectangle
 				{
 					if(gp.lives == 0)
 					{
+						gp.stopMusic();
 						gp.gameState = gp.gameOverState;
 					}
 					else

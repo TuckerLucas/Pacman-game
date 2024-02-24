@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.Line2D;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -170,13 +169,41 @@ public class UI
 		Graphics2D g2 = (Graphics2D) g;
 		
 		g2.setStroke(new BasicStroke(6));
-        //g2.draw(new Line2D.Float(30, 260, 230, 260));
         
-        g2.drawRect(60, 260, 200, 300);
+        g2.setColor(new Color(64,64,64));
         
-        g.setFont(g.getFont().deriveFont(Font.BOLD, 36F));
+        g2.fillRect(gp.tileSize*3, gp.tileSize*7, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
+        g2.fillRect((gp.screenWidth/2), gp.tileSize*7, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
+        
+        g2.setColor(Color.white);
+        
+        g2.drawRect(gp.tileSize*3, gp.tileSize*7, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
+        g2.drawRect((gp.screenWidth/2), gp.tileSize*7, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
+        
+        g.setFont(g.getFont().deriveFont(Font.BOLD, 32F));
+        
+        text = "USERNAME";
+        textX = getXForCenteredText(g, text, gp.tileSize*3, gp.screenWidth/2);
+        g2.drawString("USERNAME", textX, gp.tileSize*8);
+        
+        text = "POINTS";
+        textX = getXForCenteredText(g, text, (gp.screenWidth/2), gp.screenWidth - (gp.tileSize*3));
+        g2.drawString(text, textX, gp.tileSize*8);
+        
+        g2.drawRect(gp.tileSize*3, gp.tileSize*9, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
+        g2.drawRect((gp.screenWidth/2), gp.tileSize*9, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
+        g2.drawRect(gp.tileSize*3, gp.tileSize*11, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
+        g2.drawRect((gp.screenWidth/2), gp.tileSize*11, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
+        g2.drawRect(gp.tileSize*3, gp.tileSize*13, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
+        g2.drawRect((gp.screenWidth/2), gp.tileSize*13, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
+        g2.drawRect(gp.tileSize*3, gp.tileSize*15, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
+        g2.drawRect((gp.screenWidth/2), gp.tileSize*15, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
+        g2.drawRect(gp.tileSize*3, gp.tileSize*17, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
+        g2.drawRect((gp.screenWidth/2), gp.tileSize*17, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
+        
         text = "BACK";
-		textY += gp.tileSize * 1.2;
+        textX = getXForCenteredText(g, text);
+		textY = gp.screenHeight - (gp.tileSize*3);
 		g.drawString(text, textX, textY);
 		
 		if(menuOptionIndex == 0)
@@ -421,6 +448,14 @@ public class UI
 	{
 		int length = (int)g.getFontMetrics().getStringBounds(text, g).getWidth();
 		int x = gp.screenWidth/2 - length/2;
+		
+		return x;
+	}
+	
+	public int getXForCenteredText(Graphics g, String text, int x1, int x2)
+	{
+		int length = (int)g.getFontMetrics().getStringBounds(text, g).getWidth();
+		int x = ((x2+x1)/2) - length/2;
 		
 		return x;
 	}
