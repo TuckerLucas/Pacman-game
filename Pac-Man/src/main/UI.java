@@ -140,6 +140,9 @@ public class UI
 
 	public void drawLeaderboardScreen(Graphics g)
 	{
+		gp.fHandler.reorderLeaderboardInfo();
+		gp.fHandler.writeLeaderboardInfo();
+		
 		int textX, textY, tableX, tableY, tableW, tableRowH;
 		String text;
 		

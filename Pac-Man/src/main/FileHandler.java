@@ -1,7 +1,9 @@
 package main;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileHandler 
@@ -44,43 +46,42 @@ public class FileHandler
 			e.printStackTrace();
 		}
 	}
-
-	/*
-	public void swap_values()
+	
+	public void reorderLeaderboardInfo()
 	{
-		for(int i = 0; i < N_SUPPORTED_USERNAMES; i++)
+		int score;
+		
+		for(int i = 0; i < 5; i++)
 		{
-			scoreValue = (Integer) scoreVector.get(i);
-			usernameValue = (String) usernameVector.get(i);
+			score = Integer.parseInt(scoreArray[i]);
 			
-			if(gp.score >= scoreValue)
+			if(gp.score >= score)
 			{
-				for(int j = N_SUPPORTED_USERNAMES-1; j > i; j--)
+				for(int j = 4; j > i; j--)
 				{
-					scoreVector.set(j, scoreVector.get(j-1));
-					usernameVector.set(j, usernameVector.get(j-1));
+					scoreArray[j] = scoreArray[j-1];
+					usernameArray[j] = usernameArray[j-1];
 				}
-				scoreVector.set(i, gp.score);
-				//usernameVector.set(i, LeaderboardPanel.username);
-				i = N_SUPPORTED_USERNAMES;
+				
+				scoreArray[i] = Integer.toString(gp.score);
+				usernameArray[i] = gp.username;
+				i = 5;
 			}
 		}
 	}
-
-	public static void write_to_file()
+	
+	public void writeLeaderboardInfo()
 	{
 		try
 		{
 			BufferedWriter scoreWriter, usernameWriter = null;
 			scoreWriter = new BufferedWriter(new FileWriter("res/Files/Scores.txt"));
 			usernameWriter = new BufferedWriter(new FileWriter("res/Files/Usernames.txt"));
-			String string;
 			
-			for(int i = 0; i < N_SUPPORTED_USERNAMES; i++)
+			for(int i = 0; i < 5; i++)
 			{
-				string = String.valueOf(scoreVector.get(i));
-				scoreWriter.write(string + "\n");
-				usernameWriter.write(usernameVector.get(i) + "\n");
+				scoreWriter.write(scoreArray[i] + "\n");
+				usernameWriter.write(usernameArray[i] + "\n");
 			}
 			
 			scoreWriter.close();
@@ -90,5 +91,5 @@ public class FileHandler
 		{
 			e.printStackTrace();
 		}
-	}*/
+	}
 }
