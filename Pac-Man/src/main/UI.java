@@ -63,12 +63,12 @@ public class UI
 		if(gp.gameState == gp.lifeLostState)
 		{
 			drawPacmanDying(g);
-			displayGameStats(g);
+			drawGameStats(g);
 		}
 		if(gp.gameState == gp.playState)
 		{
 			gp.level.render(g);
-			displayGameStats(g);
+			drawGameStats(g);
 		}
 	}
 	
@@ -164,43 +164,45 @@ public class UI
 		g.setColor(Color.CYAN);
 		g.drawString(text, textX, textY);
 		
-		g.setColor(new Color(255, 255, 255));
-		
 		Graphics2D g2 = (Graphics2D) g;
 		
 		g2.setStroke(new BasicStroke(6));
-        
         g2.setColor(new Color(64,64,64));
         
+        // LEADERBOARD HEADER
         g2.fillRect(gp.tileSize*3, gp.tileSize*7, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
         g2.fillRect((gp.screenWidth/2), gp.tileSize*7, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
-        
         g2.setColor(Color.white);
-        
         g2.drawRect(gp.tileSize*3, gp.tileSize*7, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
         g2.drawRect((gp.screenWidth/2), gp.tileSize*7, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
-        
         g.setFont(g.getFont().deriveFont(Font.BOLD, 32F));
-        
         text = "USERNAME";
         textX = getXForCenteredText(g, text, gp.tileSize*3, gp.screenWidth/2);
-        g2.drawString("USERNAME", textX, gp.tileSize*8);
-        
+        textY = getYForCenteredText(g, text, gp.tileSize*7, gp.tileSize*9);
+        g2.drawString("USERNAME", textX, textY);
         text = "POINTS";
         textX = getXForCenteredText(g, text, (gp.screenWidth/2), gp.screenWidth - (gp.tileSize*3));
-        g2.drawString(text, textX, gp.tileSize*8);
+        g2.drawString(text, textX, textY);
         
-        g2.drawRect(gp.tileSize*3, gp.tileSize*9, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
-        g2.drawRect((gp.screenWidth/2), gp.tileSize*9, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
-        g2.drawRect(gp.tileSize*3, gp.tileSize*11, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
-        g2.drawRect((gp.screenWidth/2), gp.tileSize*11, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
-        g2.drawRect(gp.tileSize*3, gp.tileSize*13, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
-        g2.drawRect((gp.screenWidth/2), gp.tileSize*13, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
-        g2.drawRect(gp.tileSize*3, gp.tileSize*15, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
-        g2.drawRect((gp.screenWidth/2), gp.tileSize*15, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
-        g2.drawRect(gp.tileSize*3, gp.tileSize*17, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
-        g2.drawRect((gp.screenWidth/2), gp.tileSize*17, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
+        // LEADERBOARD DATA
+        textY = gp.tileSize*11;
         
+        for(int i = 0; i < 5; i++)
+        {
+        	text = gp.fHandler.usernameArray[i];
+        	textX = getXForCenteredText(g, text, gp.tileSize*3, gp.screenWidth/2);
+        	g2.drawRect(gp.tileSize*3, textY-gp.tileSize*2, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
+            g2.drawString(text, textX, textY);
+            
+            text = gp.fHandler.scoreArray[i];
+            textX = getXForCenteredText(g, text, gp.screenWidth/2, gp.screenWidth - (gp.tileSize*3));
+            g2.drawRect((gp.screenWidth/2), textY-gp.tileSize*2, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
+            g2.drawString(text, textX, textY);
+            
+            textY += gp.tileSize*2;
+        }
+        
+        // BACK OPTION
         text = "BACK";
         textX = getXForCenteredText(g, text);
 		textY = gp.screenHeight - (gp.tileSize*3);
@@ -420,10 +422,10 @@ public class UI
 		}
 	}
 	
-	private void displayGameStats(Graphics g)
+	private void drawGameStats(Graphics g)
 	{	
 		g.setFont(maruMonica);
-		g.setFont(g.getFont().deriveFont(Font.BOLD, 35F));
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 32F));
 		g.setColor(Color.white);
 		
 		int y = getYForCenteredText(g);
@@ -432,7 +434,7 @@ public class UI
 		g.drawString(String.valueOf(gp.score), 120, y);
 		
 //		g.drawString("HIGHSCORE : ", 210, y);	
-//		g.drawString(String.valueOf(Game.highscore), 365, y);
+//		g.drawString(String.valueOf(gp.highscore), 365, y);
 		
 		g.drawString("LIVES:", 470, y);
 		
@@ -464,6 +466,14 @@ public class UI
 	{
 		int height = (int)g.getFontMetrics().getHeight();
 		int y = gp.screenHeight - (80/2 - height/2);
+		
+		return y;
+	}
+	
+	public int getYForCenteredText(Graphics g, String text, int y1, int y2)
+	{
+		int height = (int)g.getFontMetrics().getStringBounds(text, g).getHeight();
+		int y = ((y2+y1)/2) + (height/2);
 		
 		return y;
 	}

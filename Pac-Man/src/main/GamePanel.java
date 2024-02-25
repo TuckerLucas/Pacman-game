@@ -44,6 +44,7 @@ public class GamePanel extends Canvas implements Runnable
 	public UI ui = new UI(this);
 	public CollisionChecker cChecker = new CollisionChecker(this);
 	public EventHandler eHandler = new EventHandler(this);
+	public FileHandler fHandler = new FileHandler(this);
 	public PathFinder pathFinder = new PathFinder(this);
 	Sound music = new Sound();
 	Sound se = new Sound();
@@ -95,7 +96,14 @@ public class GamePanel extends Canvas implements Runnable
 		
 		gameState = titleState;			
 		
-		getGameHighScore();
+		fHandler.readLeaderboardInfo();
+		
+		for(int i = 0; i < 5; i++)
+		{
+			System.out.println(fHandler.usernameArray[i]);
+			System.out.println(fHandler.scoreArray[i]);
+		}
+		//getGameHighScore();
 	}
 	
 	public void resetGame()
