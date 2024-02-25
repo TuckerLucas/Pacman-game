@@ -140,8 +140,7 @@ public class UI
 
 	public void drawLeaderboardScreen(Graphics g)
 	{
-		int textX;
-		int textY;
+		int textX, textY, tableX, tableY, tableW, tableRowH;
 		String text;
 		
 		// BACKGROUND COLOR
@@ -166,42 +165,55 @@ public class UI
 		
 		Graphics2D g2 = (Graphics2D) g;
 		
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 32F));
+        
 		g2.setStroke(new BasicStroke(6));
-        g2.setColor(new Color(64,64,64));
+		g2.setColor(Color.white);
+		
+        tableX = gp.tileSize*3;
+        tableY = gp.tileSize*7;
+        tableW = gp.screenWidth-(gp.tileSize*6);
+        tableRowH = gp.tileSize*2;
+        
+        // DRAW TABLE
+        for(int i = 0; i < 6; i++)
+        {
+        	g2.drawRect(tableX, tableY+(i*gp.tileSize*2), tableW, tableRowH);
+        	g2.drawLine(gp.screenWidth/2, tableY+(i*gp.tileSize*2), gp.screenWidth/2, tableY+((i+1)*gp.tileSize*2));
+        }
         
         // LEADERBOARD HEADER
-        g2.fillRect(gp.tileSize*3, gp.tileSize*7, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
-        g2.fillRect((gp.screenWidth/2), gp.tileSize*7, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
-        g2.setColor(Color.white);
-        g2.drawRect(gp.tileSize*3, gp.tileSize*7, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
-        g2.drawRect((gp.screenWidth/2), gp.tileSize*7, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
-        g.setFont(g.getFont().deriveFont(Font.BOLD, 32F));
         text = "USERNAME";
-        textX = getXForCenteredText(g, text, gp.tileSize*3, gp.screenWidth/2);
-        textY = getYForCenteredText(g, gp.tileSize*7, gp.tileSize*9);
-        g2.drawString("USERNAME", textX, textY);
+        textX = getXForCenteredText(g, text, tableX, gp.screenWidth/2);
+        textY = getYForCenteredText(g, tableY, tableY+tableRowH);
+        g2.drawString(text, textX, textY);
         text = "POINTS";
         textX = getXForCenteredText(g, text, (gp.screenWidth/2), gp.screenWidth - (gp.tileSize*3));
         g2.drawString(text, textX, textY);
         
         // LEADERBOARD DATA
-        textY = getYForCenteredText(g, gp.tileSize*9, gp.tileSize*11);
-        int rectY = gp.tileSize*9;
-        
         for(int i = 0; i < 5; i++)
         {
+        	textY = getYForCenteredText(g, (tableY+(gp.tileSize*2)) + (i*gp.tileSize*2), (tableY+(gp.tileSize*4)) + (i*gp.tileSize*2));
+        	
+        	// PODIUM COLORS
+        	switch(i)
+        	{
+        		case 0: g2.setColor(new Color(255, 215, 0)); break;
+        		case 1: g2.setColor(new Color(192, 192, 192)); break;
+        		case 2: g2.setColor(new Color(205, 127, 50)); break;
+        		default: g2.setColor(Color.white); break;
+        	}
+        	
         	text = gp.fHandler.usernameArray[i];
-        	textX = getXForCenteredText(g, text, gp.tileSize*3, gp.screenWidth/2);
-        	g2.drawRect(gp.tileSize*3, rectY, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
-            g2.drawString(text, textX, textY);
+        	textX = getXForCenteredText(g, text, tableX, gp.screenWidth/2);
+
+        	g2.drawString(text, textX, textY);
             
             text = gp.fHandler.scoreArray[i];
-            textX = getXForCenteredText(g, text, gp.screenWidth/2, gp.screenWidth - (gp.tileSize*3));
-            g2.drawRect((gp.screenWidth/2), rectY, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
-            g2.drawString(text, textX, textY);
+            textX = getXForCenteredText(g, text, gp.screenWidth/2, gp.screenWidth - tableX);
             
-            textY += gp.tileSize*2;
-            rectY += gp.tileSize*2;
+            g2.drawString(text, textX, textY);
         }
         
         // BACK OPTION
@@ -435,8 +447,8 @@ public class UI
 		g.drawString("SCORE : ", 20, y);	
 		g.drawString(String.valueOf(gp.score), 120, y);
 		
-//		g.drawString("HIGHSCORE : ", 210, y);	
-//		g.drawString(String.valueOf(gp.highscore), 365, y);
+		g.drawString("HIGHSCORE : ", 210, y);	
+		g.drawString(String.valueOf(gp.highscore), 365, y);
 		
 		g.drawString("LIVES:", 470, y);
 		

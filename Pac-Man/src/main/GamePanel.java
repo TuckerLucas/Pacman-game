@@ -97,13 +97,7 @@ public class GamePanel extends Canvas implements Runnable
 		gameState = titleState;			
 		
 		fHandler.readLeaderboardInfo();
-		
-		for(int i = 0; i < 5; i++)
-		{
-			System.out.println(fHandler.usernameArray[i]);
-			System.out.println(fHandler.scoreArray[i]);
-		}
-		//getGameHighScore();
+		highscore = Integer.parseInt(fHandler.scoreArray[0]);
 	}
 	
 	public void resetGame()
