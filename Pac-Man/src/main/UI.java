@@ -178,28 +178,30 @@ public class UI
         g.setFont(g.getFont().deriveFont(Font.BOLD, 32F));
         text = "USERNAME";
         textX = getXForCenteredText(g, text, gp.tileSize*3, gp.screenWidth/2);
-        textY = getYForCenteredText(g, text, gp.tileSize*7, gp.tileSize*9);
+        textY = getYForCenteredText(g, gp.tileSize*7, gp.tileSize*9);
         g2.drawString("USERNAME", textX, textY);
         text = "POINTS";
         textX = getXForCenteredText(g, text, (gp.screenWidth/2), gp.screenWidth - (gp.tileSize*3));
         g2.drawString(text, textX, textY);
         
         // LEADERBOARD DATA
-        textY = gp.tileSize*11;
+        textY = getYForCenteredText(g, gp.tileSize*9, gp.tileSize*11);
+        int rectY = gp.tileSize*9;
         
         for(int i = 0; i < 5; i++)
         {
         	text = gp.fHandler.usernameArray[i];
         	textX = getXForCenteredText(g, text, gp.tileSize*3, gp.screenWidth/2);
-        	g2.drawRect(gp.tileSize*3, textY-gp.tileSize*2, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
+        	g2.drawRect(gp.tileSize*3, rectY, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
             g2.drawString(text, textX, textY);
             
             text = gp.fHandler.scoreArray[i];
             textX = getXForCenteredText(g, text, gp.screenWidth/2, gp.screenWidth - (gp.tileSize*3));
-            g2.drawRect((gp.screenWidth/2), textY-gp.tileSize*2, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
+            g2.drawRect((gp.screenWidth/2), rectY, (gp.screenWidth/2) - (gp.tileSize*3), gp.tileSize*2);
             g2.drawString(text, textX, textY);
             
             textY += gp.tileSize*2;
+            rectY += gp.tileSize*2;
         }
         
         // BACK OPTION
@@ -470,9 +472,9 @@ public class UI
 		return y;
 	}
 	
-	public int getYForCenteredText(Graphics g, String text, int y1, int y2)
+	public int getYForCenteredText(Graphics g, int y1, int y2)
 	{
-		int height = (int)g.getFontMetrics().getStringBounds(text, g).getHeight();
+		int height = (int)g.getFontMetrics().getHeight();
 		int y = ((y2+y1)/2) + (height/2);
 		
 		return y;
