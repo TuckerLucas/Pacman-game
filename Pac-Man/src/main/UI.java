@@ -139,10 +139,7 @@ public class UI
 	}
 
 	public void drawLeaderboardScreen(Graphics g)
-	{
-		gp.fHandler.reorderLeaderboardInfo();
-		gp.fHandler.writeLeaderboardInfo();
-		
+	{		
 		int textX, textY, tableX, tableY, tableW, tableRowH;
 		String text;
 		
@@ -368,7 +365,7 @@ public class UI
 	}
 	
 	public void drawLoseScreen(Graphics g)
-	{		
+	{				
 		String text = "YOU LOST!";
 		
 		g.setFont(maruMonica);

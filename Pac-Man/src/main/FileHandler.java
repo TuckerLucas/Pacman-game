@@ -65,7 +65,7 @@ public class FileHandler
 				
 				scoreArray[i] = Integer.toString(gp.score);
 				usernameArray[i] = gp.username;
-				i = 5;
+				return;
 			}
 		}
 	}
