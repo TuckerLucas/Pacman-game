@@ -65,6 +65,10 @@ public class UI
 			drawPacmanDying(g);
 			drawGameStats(g);
 		}
+		if(gp.gameState == gp.usernameState)
+		{
+			drawUsernameScreen(g);
+		}
 		if(gp.gameState == gp.playState)
 		{
 			gp.level.render(g);
@@ -442,6 +446,31 @@ public class UI
 		{
 			gp.level.render(g);
 		}
+	}
+	
+	private void drawUsernameScreen(Graphics g)
+	{
+		String text;
+		
+		g.setFont(maruMonica);
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 92F));
+		text = "INSERT USERNAME";
+		int x = getXForCenteredText(g, text);
+		int y = gp.tileSize*5;
+		
+		g.setColor(Color.gray);
+		g.drawString(text, x + 4, y + 4);
+		
+		g.setColor(Color.black);
+		g.drawString(text, x + 3, y + 3);
+		
+		g.setColor(Color.white);
+		g.drawString(text, x, y);
+		
+		x = getXForCenteredText(g, gp.username);
+		y += gp.tileSize*5;
+		
+		g.drawString(gp.username, x, y);
 	}
 	
 	private void drawGameStats(Graphics g)

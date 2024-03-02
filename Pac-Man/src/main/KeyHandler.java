@@ -55,6 +55,10 @@ public class KeyHandler implements KeyListener
 		{
 			loseState(code, 3);
 		}
+		else if(gp.gameState == gp.usernameState)
+		{
+			usernameState(e);
+		}
 	}
 	
 	public void titleState(int code, int nMenuOptions)
@@ -65,7 +69,7 @@ public class KeyHandler implements KeyListener
 		{
 			switch(gp.ui.menuOptionIndex)
 			{
-				case 0: gp.resetGame(); gp.stopSE(); gp.playMusic(5); gp.gameState = gp.playState; break;
+				case 0: gp.resetGame(); gp.stopSE(); gp.playMusic(5); gp.gameState = gp.usernameState; break;
 				case 1: gp.gameState = gp.leaderboardState; break;
 				case 2: gp.gameState = gp.settingsState; break;
 				case 3: System.exit(0); break;
@@ -126,6 +130,34 @@ public class KeyHandler implements KeyListener
 			{
 				gp.se.volumeScale++;
 			}
+		}
+	}
+	
+	public void usernameState(KeyEvent e)
+	{
+		char letter;
+		
+		if(e.getKeyCode() == KeyEvent.VK_ENTER)
+		{
+			gp.gameState = gp.playState;
+			return;
+		}
+		else if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+		{
+			gp.gameState = gp.titleState;
+			return;
+		}
+		else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+		{
+			if(gp.username != null && gp.username.length() > 0)
+			{
+				gp.username = gp.username.substring(0, gp.username.length() - 1);
+			}
+		}
+		else
+		{
+			letter = e.getKeyChar();
+			gp.username += letter;
 		}
 	}
 	

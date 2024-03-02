@@ -71,6 +71,7 @@ public class GamePanel extends Canvas implements Runnable
 	public final int lifeLostState = 4;
 	public final int settingsState = 5;
 	public final int leaderboardState = 6;
+	public final int usernameState = 7;
 	
 	// Scores & username
 	public int highscore;
