@@ -135,7 +135,7 @@ public class KeyHandler implements KeyListener
 	
 	public void usernameState(KeyEvent e)
 	{
-		char letter;
+		char character;
 		
 		if(e.getKeyCode() == KeyEvent.VK_ENTER)
 		{
@@ -156,8 +156,12 @@ public class KeyHandler implements KeyListener
 		}
 		else
 		{
-			letter = e.getKeyChar();
-			gp.username += letter;
+			character = e.getKeyChar();
+			
+			if(Character.isDigit(character) || Character.isAlphabetic(character))
+			{
+				gp.username += character;
+			}
 		}
 	}
 	
