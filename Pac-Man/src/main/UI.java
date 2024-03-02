@@ -96,7 +96,15 @@ public class UI
 		g.drawString(text, x, y);
 		
 		g.setColor(Color.white);
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 28F));
+		
+		text = "by Lucas Tucker";
+		x = getXForCenteredText(g, text);
+		y += gp.tileSize*2;
+		g.drawString(text, x, y);
+		
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 36F));
+		
 		text = "PLAY";
 		x = getXForCenteredText(g, text);
 		y += 32*8;
