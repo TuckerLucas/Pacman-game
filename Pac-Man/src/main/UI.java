@@ -467,10 +467,20 @@ public class UI
 		g.setColor(Color.white);
 		g.drawString(text, x, y);
 		
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 36F));
 		x = getXForCenteredText(g, gp.username);
 		y += gp.tileSize*5;
-		
 		g.drawString(gp.username, x, y);
+		
+		text = "PRESS [ENTER] TO START THE GAME";
+		x = getXForCenteredText(g, text);
+		y += gp.tileSize*6;
+		g.drawString(text, x, y);
+		
+		text = "PRESS [ESC] TO GO BACK";
+		x = getXForCenteredText(g, text);
+		y += gp.tileSize*2;
+		g.drawString(text, x, y);
 	}
 	
 	private void drawGameStats(Graphics g)

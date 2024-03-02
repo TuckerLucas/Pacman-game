@@ -139,7 +139,11 @@ public class KeyHandler implements KeyListener
 		
 		if(e.getKeyCode() == KeyEvent.VK_ENTER)
 		{
-			gp.gameState = gp.playState;
+			if(gp.username.length() != 0)
+			{
+				gp.gameState = gp.playState;
+			}
+			
 			return;
 		}
 		else if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
