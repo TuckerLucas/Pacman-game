@@ -100,9 +100,9 @@ public class GamePanel extends Canvas implements Runnable
 		
 		fHandler.readLeaderboardInfo();
 		
-		if(fHandler.scoreArray[0] != null)
+		if(fHandler.leaderboardInfo[0][0] != null)
 		{
-			highscore = Integer.parseInt(fHandler.scoreArray[0]);
+			highscore = Integer.parseInt(fHandler.leaderboardInfo[0][1]);
 		}
 	}
 	

@@ -10,8 +10,7 @@ public class FileHandler
 {
 	GamePanel gp;
 	
-	public String scoreArray[] = new String[5];
-	public String usernameArray[] = new String[5];
+	String leaderboardInfo[][] = new String[5][2];
 	
 	public FileHandler(GamePanel gp)
 	{
@@ -22,27 +21,26 @@ public class FileHandler
 	{
 		try
 		{
-			BufferedReader scoreReader, usernameReader;
-			scoreReader = new BufferedReader(new FileReader("res/Files/Scores.txt"));
-			usernameReader = new BufferedReader(new FileReader("res/Files/Usernames.txt"));
+			BufferedReader br;
+			String[] temp;
+			String line;
 			
-			String username;
-			String score;
-			
+			br = new BufferedReader(new FileReader("res/Files/LeaderboardInfo.txt"));
+
 			for(int i = 0; i < 5; i++)
 			{
-				username = usernameReader.readLine();
-				score = scoreReader.readLine();
+				line = br.readLine();
 				
-				if(username != null && score != null)
+				if(line != null)
 				{
-					usernameArray[i] = username;
-					scoreArray[i] = score;
+					temp = line.split(" ");
+					
+					leaderboardInfo[i][0] = (String)temp[0];
+					leaderboardInfo[i][1] = (String)temp[1];
 				}
 			}
 			
-	        scoreReader.close();
-	        usernameReader.close();
+			br.close();
 		}
 		catch(IOException e)
 		{
@@ -52,31 +50,31 @@ public class FileHandler
 	
 	public void reorderLeaderboardInfo()
 	{
-		int score;
+		int score; 
 		
 		for(int i = 0; i < 5; i++)
 		{
-			if(scoreArray[i] != null)
+			if(leaderboardInfo[i][1] != null)
 			{
-				score = Integer.parseInt(scoreArray[i]);
+				score = Integer.parseInt(leaderboardInfo[i][1]);
 				
-				if(gp.score >= score)
+				if(gp.score > score)
 				{
 					for(int j = 4; j > i; j--)
 					{
-						scoreArray[j] = scoreArray[j-1];
-						usernameArray[j] = usernameArray[j-1];
+						leaderboardInfo[j][0] = leaderboardInfo[j-1][0];
+						leaderboardInfo[j][1] = leaderboardInfo[j-1][1];
 					}
 					
-					scoreArray[i] = Integer.toString(gp.score);
-					usernameArray[i] = gp.username;
+					leaderboardInfo[i][0] = gp.username;
+					leaderboardInfo[i][1] = Integer.toString(gp.score);
 					return;
 				}
 			}
 			else
 			{
-				scoreArray[i] = Integer.toString(gp.score);
-				usernameArray[i] = gp.username;
+				leaderboardInfo[i][0] = gp.username;
+				leaderboardInfo[i][1] = Integer.toString(gp.score);
 				return;
 			}
 		}
@@ -86,21 +84,19 @@ public class FileHandler
 	{
 		try
 		{
-			BufferedWriter scoreWriter, usernameWriter = null;
-			scoreWriter = new BufferedWriter(new FileWriter("res/Files/Scores.txt"));
-			usernameWriter = new BufferedWriter(new FileWriter("res/Files/Usernames.txt"));
+			BufferedWriter lbWriter;
+			lbWriter = new BufferedWriter(new FileWriter("res/Files/LeaderboardInfo.txt"));
 			
 			for(int i = 0; i < 5; i++)
 			{
-				if(usernameArray[i] != null && scoreArray[i] != null)
+				if(leaderboardInfo[i][0] != null && leaderboardInfo[i][1] != null)
 				{
-					scoreWriter.write(scoreArray[i] + "\n");
-					usernameWriter.write(usernameArray[i] + "\n");
+					lbWriter.write(leaderboardInfo[i][0] + " ");
+					lbWriter.write(leaderboardInfo[i][1] + "\n");
 				}
 			}
 			
-			scoreWriter.close();
-			usernameWriter.close();
+			lbWriter.close();
 		}
 		catch(IOException e)
 		{

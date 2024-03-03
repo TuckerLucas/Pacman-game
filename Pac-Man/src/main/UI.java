@@ -241,14 +241,14 @@ public class UI
         		default: g2.setColor(Color.white); break;
         	}
         	
-        	if(gp.fHandler.usernameArray[i] != null && gp.fHandler.scoreArray[i] != null)
+        	if(gp.fHandler.leaderboardInfo[i][0] != null && gp.fHandler.leaderboardInfo[i][1] != null)
         	{
-	        	text = gp.fHandler.usernameArray[i];
+	        	text = gp.fHandler.leaderboardInfo[i][0];
 	        	textX = getXForCenteredText(g, text, tableX, gp.screenWidth/2);
 	
 	        	g2.drawString(text, textX, textY);
 	            
-	            text = gp.fHandler.scoreArray[i];
+	            text = gp.fHandler.leaderboardInfo[i][1];
 	            textX = getXForCenteredText(g, text, gp.screenWidth/2, gp.screenWidth - tableX);
 	            
 	            g2.drawString(text, textX, textY);
