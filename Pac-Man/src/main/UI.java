@@ -491,9 +491,9 @@ public class UI
 		g.setColor(Color.white);
 		g.drawString(text, x, y);
 		
-		g.setFont(g.getFont().deriveFont(Font.BOLD, 36F));
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 40F));
 		x = getXForCenteredText(g, gp.username);
-		y += gp.tileSize*5;
+		y = gp.screenHeight/2;
 		g.drawString(gp.username, x, y);
 		
 		if(showUnderscore)
@@ -501,9 +501,10 @@ public class UI
 			g.drawString("_", (gp.screenWidth/2) + ((int)g.getFontMetrics().getStringBounds(gp.username, g).getWidth() / 2), y);
 		}
 		
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 36F));
 		text = "PRESS [ENTER] TO START THE GAME";
 		x = getXForCenteredText(g, text);
-		y += gp.tileSize*6;
+		y += gp.tileSize*7;
 		g.drawString(text, x, y);
 		
 		text = "PRESS [ESC] TO GO BACK";
