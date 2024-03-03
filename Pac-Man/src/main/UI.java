@@ -433,6 +433,21 @@ public class UI
 		g.setColor(Color.white);
 		g.drawString(text, x, y);
 		
+		for(int i = 0; i < 5; i++)
+		{
+			if(gp.fHandler.leaderboardInfo[i][1] != null)
+			{
+				if(gp.score > Integer.parseInt(gp.fHandler.leaderboardInfo[i][1]));
+				{
+					g.setFont(g.getFont().deriveFont(Font.BOLD, 25F));
+					text = "You made it to #" + (i+1) + " on the leaderboard!";
+					x = getXForCenteredText(g, text);
+					g.drawString(text, x, y+50);
+					break;
+				}
+			}
+		}
+		
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 36F));
 		text = "HOME";
 		x = getXForCenteredText(g, text);
