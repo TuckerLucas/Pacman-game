@@ -69,7 +69,7 @@ public class KeyHandler implements KeyListener
 		{
 			switch(gp.ui.menuOptionIndex)
 			{
-				case 0: gp.resetGame(); gp.stopSE(); gp.playMusic(5); gp.gameState = gp.usernameState; break;
+				case 0: gp.resetGame(); gp.stopSE(); gp.gameState = gp.usernameState; break;
 				case 1: gp.gameState = gp.leaderboardState; break;
 				case 2: gp.gameState = gp.settingsState; break;
 				case 3: System.exit(0); break;
@@ -141,6 +141,7 @@ public class KeyHandler implements KeyListener
 		{
 			if(gp.username.length() != 0)
 			{
+				gp.playMusic(5);
 				gp.gameState = gp.playState;
 			}
 			
