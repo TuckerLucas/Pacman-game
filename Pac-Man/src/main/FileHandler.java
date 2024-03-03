@@ -35,8 +35,11 @@ public class FileHandler
 				{
 					temp = line.split(" ");
 					
-					leaderboardInfo[i][0] = (String)temp[0];
-					leaderboardInfo[i][1] = (String)temp[1];
+					if(temp.length != 0)
+					{
+						leaderboardInfo[i][0] = (String)temp[0];
+						leaderboardInfo[i][1] = (String)temp[1];
+					}
 				}
 			}
 			
