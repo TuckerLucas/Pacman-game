@@ -241,15 +241,18 @@ public class UI
         		default: g2.setColor(Color.white); break;
         	}
         	
-        	text = gp.fHandler.usernameArray[i];
-        	textX = getXForCenteredText(g, text, tableX, gp.screenWidth/2);
-
-        	g2.drawString(text, textX, textY);
-            
-            text = gp.fHandler.scoreArray[i];
-            textX = getXForCenteredText(g, text, gp.screenWidth/2, gp.screenWidth - tableX);
-            
-            g2.drawString(text, textX, textY);
+        	if(gp.fHandler.usernameArray[i] != null && gp.fHandler.scoreArray[i] != null)
+        	{
+	        	text = gp.fHandler.usernameArray[i];
+	        	textX = getXForCenteredText(g, text, tableX, gp.screenWidth/2);
+	
+	        	g2.drawString(text, textX, textY);
+	            
+	            text = gp.fHandler.scoreArray[i];
+	            textX = getXForCenteredText(g, text, gp.screenWidth/2, gp.screenWidth - tableX);
+	            
+	            g2.drawString(text, textX, textY);
+        	}
         }
         
         // BACK OPTION

@@ -34,8 +34,11 @@ public class FileHandler
 				username = usernameReader.readLine();
 				score = scoreReader.readLine();
 				
-				usernameArray[i] = username;
-				scoreArray[i] = score;
+				if(username != null && score != null)
+				{
+					usernameArray[i] = username;
+					scoreArray[i] = score;
+				}
 			}
 			
 	        scoreReader.close();
@@ -53,16 +56,25 @@ public class FileHandler
 		
 		for(int i = 0; i < 5; i++)
 		{
-			score = Integer.parseInt(scoreArray[i]);
-			
-			if(gp.score >= score)
+			if(scoreArray[i] != null)
 			{
-				for(int j = 4; j > i; j--)
-				{
-					scoreArray[j] = scoreArray[j-1];
-					usernameArray[j] = usernameArray[j-1];
-				}
+				score = Integer.parseInt(scoreArray[i]);
 				
+				if(gp.score >= score)
+				{
+					for(int j = 4; j > i; j--)
+					{
+						scoreArray[j] = scoreArray[j-1];
+						usernameArray[j] = usernameArray[j-1];
+					}
+					
+					scoreArray[i] = Integer.toString(gp.score);
+					usernameArray[i] = gp.username;
+					return;
+				}
+			}
+			else
+			{
 				scoreArray[i] = Integer.toString(gp.score);
 				usernameArray[i] = gp.username;
 				return;
@@ -80,8 +92,11 @@ public class FileHandler
 			
 			for(int i = 0; i < 5; i++)
 			{
-				scoreWriter.write(scoreArray[i] + "\n");
-				usernameWriter.write(usernameArray[i] + "\n");
+				if(usernameArray[i] != null && scoreArray[i] != null)
+				{
+					scoreWriter.write(scoreArray[i] + "\n");
+					usernameWriter.write(usernameArray[i] + "\n");
+				}
 			}
 			
 			scoreWriter.close();

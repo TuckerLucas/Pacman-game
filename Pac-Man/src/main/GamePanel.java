@@ -74,7 +74,7 @@ public class GamePanel extends Canvas implements Runnable
 	public final int usernameState = 7;
 	
 	// Scores & username
-	public int highscore;
+	public int highscore = 0;
 	public int score = 0;
 	public String username = "";
 	
@@ -99,7 +99,11 @@ public class GamePanel extends Canvas implements Runnable
 		gameState = titleState;			
 		
 		fHandler.readLeaderboardInfo();
-		highscore = Integer.parseInt(fHandler.scoreArray[0]);
+		
+		if(fHandler.scoreArray[0] != null)
+		{
+			highscore = Integer.parseInt(fHandler.scoreArray[0]);
+		}
 	}
 	
 	public void resetGame()
