@@ -162,7 +162,8 @@ public class KeyHandler implements KeyListener
 		{
 			character = e.getKeyChar();
 			
-			if(Character.isDigit(character) || Character.isAlphabetic(character))
+			// Allow special characters, digits and alphabetic (ASCII table)
+			if(character >= 33 && character <= 126)
 			{
 				gp.username += character;
 			}

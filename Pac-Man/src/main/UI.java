@@ -17,6 +17,11 @@ public class UI
 	Font maruMonica;
 	public int menuOptionIndex = 0;
 	
+	public boolean showUnderscore = false;
+	
+	public double elapsedTimeInSeconds = 0.0;
+	public double targetTimeInSeconds = 0.5;
+	
 	public UI(GamePanel gp)
 	{
 		this.gp = gp;
@@ -33,6 +38,25 @@ public class UI
 		catch (IOException e) 
 		{
 			e.printStackTrace();
+		}
+	}
+	
+	public void tick()
+	{
+		elapsedTimeInSeconds += gp.secondsPerTick;
+		
+		if(elapsedTimeInSeconds >= targetTimeInSeconds)
+		{
+			if(showUnderscore)
+			{
+				showUnderscore = false;
+			}
+			else
+			{
+				showUnderscore = true;
+			}
+			
+			elapsedTimeInSeconds = 0.0;
 		}
 	}
 	
@@ -455,7 +479,7 @@ public class UI
 		g.setFont(maruMonica);
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 92F));
 		text = "INSERT USERNAME";
-		int x = getXForCenteredText(g, text);
+		int x = getXForCenteredText(g, text); 
 		int y = gp.tileSize*5;
 		
 		g.setColor(Color.gray);
@@ -471,6 +495,11 @@ public class UI
 		x = getXForCenteredText(g, gp.username);
 		y += gp.tileSize*5;
 		g.drawString(gp.username, x, y);
+		
+		if(showUnderscore)
+		{
+			g.drawString("_", (gp.screenWidth/2) + ((int)g.getFontMetrics().getStringBounds(gp.username, g).getWidth() / 2), y);
+		}
 		
 		text = "PRESS [ENTER] TO START THE GAME";
 		x = getXForCenteredText(g, text);

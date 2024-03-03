@@ -201,6 +201,10 @@ public class GamePanel extends Canvas implements Runnable
 		{
 			pacman.tick();
 		}
+		else if(gameState == usernameState)
+		{
+			ui.tick();
+		}
 		
 		cChecker.tick();
 		eHandler.tick();
