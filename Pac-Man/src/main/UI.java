@@ -196,7 +196,7 @@ public class UI
 		g.setColor(Color.black);
 		g.drawString(text, textX + 3, textY + 3);
 		
-		g.setColor(Color.CYAN);
+		g.setColor(Color.white);
 		g.drawString(text, textX, textY);
 		
 		Graphics2D g2 = (Graphics2D) g;
@@ -555,25 +555,25 @@ public class UI
 	
 	private void drawGameStats(Graphics g)
 	{	
-		g.setFont(maruMonica);
-		g.setFont(g.getFont().deriveFont(Font.BOLD, 32F));
+		Font font = new Font(Font.DIALOG_INPUT, Font.BOLD, 24);
+		g.setFont(font);
 		g.setColor(Color.white);
 		
-		int y = getYForCenteredText(g);
+		int y = gp.screenHeight - (80/2) + (g.getFontMetrics(font).getHeight()/4);
 		
-		g.drawString("SCORE : ", 20, y);	
-		g.drawString(String.valueOf(gp.score), 120, y);
+		g.drawString("SCORE: ", 20, y);	
+		g.drawString(String.valueOf(gp.score), 118, y);
 		
-		g.drawString("HIGHSCORE : ", 210, y);	
-		g.drawString(String.valueOf(gp.highscore), 365, y);
+		g.drawString("HIGHSCORE: ", 210, y);	
+		g.drawString(String.valueOf(gp.highscore), 368, y);
 		
-		g.drawString("LIVES:", 470, y);
+		g.drawString("LIVES:", 465, y);
 		
-		y = gp.screenHeight - (80/2) - (gp.tileSize/2) + 2; // 730
+		y = gp.screenHeight - (80/2) - (gp.tileSize/2); // 730
 
 		for(int i = 0; i < gp.lives; i++)
 		{
-			g.drawImage(gp.animation.alivePacmanSprites[0][2], 555 + ((gp.tileSize + 5) * i), y, gp.tileSize, gp.tileSize, null);
+			g.drawImage(gp.animation.alivePacmanSprites[0][2], 555 + ((gp.tileSize + 5) * i), y, 30, 30, null);
 		}
 	}
 	
@@ -591,14 +591,6 @@ public class UI
 		int x = ((x2+x1)/2) - length/2;
 		
 		return x;
-	}
-	
-	public int getYForCenteredText(Graphics g)
-	{
-		int height = (int)g.getFontMetrics().getHeight();
-		int y = gp.screenHeight - (80/2 - height/2);
-		
-		return y;
 	}
 	
 	public int getYForCenteredText(Graphics g, int y1, int y2)

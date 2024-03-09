@@ -30,6 +30,7 @@ public class EventHandler
 		checkEnergizerActivity();
 		checkIfBeatLevel();
 		checkBoxTimeout();
+		checkScore();
 	}
 	
 	public void checkEnergizerActivity()
@@ -77,6 +78,14 @@ public class EventHandler
 					gp.ghostArray[i].timeSpentInBoxInSeconds = 0.0;
 				}
 			}
+		}
+	}
+	
+	public void checkScore()
+	{
+		if(gp.score > gp.highscore)
+		{
+			gp.highscore = gp.score;
 		}
 	}
 	
