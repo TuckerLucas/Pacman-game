@@ -28,7 +28,11 @@ public class Ghost_Hostile extends Ghost
 			}
 			else if(movementType == "methodical")
 			{
-				moveMethodically();
+				moveMethodically(this);
+			}
+			else if(movementType == "sideToSide")
+			{
+				moveSideToSide(this);
 			}
 		}
 		
@@ -53,7 +57,7 @@ public class Ghost_Hostile extends Ghost
 				break;
 		}
 		
-//		g.setColor(Color.red);
-//		g.fillRect(solidArea.x, solidArea.y, solidArea.width, solidArea.height);
+		//g.setColor(Color.red);
+		//g.fillRect(solidArea.x, solidArea.y, solidArea.width, solidArea.height);
 	}
 }

@@ -29,6 +29,7 @@ public class EventHandler
 	{
 		checkEnergizerActivity();
 		checkIfBeatLevel();
+		checkBoxTimeout();
 	}
 	
 	public void checkEnergizerActivity()
@@ -61,6 +62,24 @@ public class EventHandler
 		}
 	}
 	
+	public void checkBoxTimeout()
+	{
+		for(int i = 0; i < gp.ghostArray.length; i++)
+		{
+			if(gp.ghostArray[i].isEaten)
+			{
+				gp.ghostArray[i].timeSpentInBoxInSeconds += gp.secondsPerTick;
+				System.out.println(i + ":" + gp.ghostArray[i].timeSpentInBoxInSeconds);
+				if(gp.ghostArray[i].timeSpentInBoxInSeconds >= gp.ghostArray[i].targetTimeSpentInBoxInSeconds)
+				{
+					gp.ghostArray[i].isEaten = false;
+					gp.ghostArray[i].movementType = "random";
+					gp.ghostArray[i].timeSpentInBoxInSeconds = 0.0;
+				}
+			}
+		}
+	}
+	
 	public void eatFood(Food food)
 	{	
 		if(food instanceof Food_Energizer)
@@ -87,7 +106,12 @@ public class EventHandler
 		gp.ghostArray[i] = new Ghost_Hostile(gp, i);
 		gp.ghostArray[i].x = 320;
 		gp.ghostArray[i].y = 320;
-		gp.ghostArray[i].movementType = "random";
+		gp.ghostArray[i].solidArea.x = gp.ghostArray[i].x + 12;
+		gp.ghostArray[i].solidArea.y = gp.ghostArray[i].y + 12;
+		gp.ghostArray[i].solidArea.width = 10;
+		gp.ghostArray[i].solidArea.height = 10;
+		gp.ghostArray[i].movementType = "sideToSide";
+		gp.ghostArray[i].isEaten = true;
 				
 		numberOfEatenGhosts++;
 		

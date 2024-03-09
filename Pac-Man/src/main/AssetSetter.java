@@ -42,7 +42,7 @@ public class AssetSetter
 		i++;
 		
 		gp.ghostArray[i] = new Ghost_Hostile(gp, i); 
-		gp.ghostArray[i].currentDir = "up";
+		gp.ghostArray[i].currentDir = "left";
 		gp.ghostArray[i].x = 320;
 		gp.ghostArray[i].y = 320;
 		gp.ghostArray[i].movementType = "random";

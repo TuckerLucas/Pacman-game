@@ -24,7 +24,11 @@ public class Ghost extends Character
 	public double targetTimeMovingMethodicallyInSeconds = 12.0; 
 	public boolean isCoolingDown = false;
 	public double coolDownTimeInSeconds = 0.0;
-	public double coolDownTargetTimeInSeconds = 5.0; 
+	public double coolDownTargetTimeInSeconds = 5.0;
+	
+	public boolean isEaten = false;
+	public double timeSpentInBoxInSeconds = 0.0;
+	public double targetTimeSpentInBoxInSeconds = 5.0;
 	
 	public int deltaX;
 	public int deltaY;
@@ -51,7 +55,7 @@ public class Ghost extends Character
 		solidArea.width = 10;
 		solidArea.height = 10;
 		
-		generateNextDir();
+		generateNextDir(2);
 	}
 	
 	public void tick()
@@ -100,11 +104,11 @@ public class Ghost extends Character
 		return false;
 	}
 	
-	public void generateNextDir()
+	public void generateNextDir(int n)
 	{
 		int temp;
 		
-		temp = randomGen.nextInt(4);
+		temp = randomGen.nextInt(n);
 		
 		switch(temp)
 		{
@@ -129,43 +133,43 @@ public class Ghost extends Character
 		}
 		else if(isCoolingDown == false)
 		{
-			if(gp.pathFinder.pacmanIsClose(deltaX, deltaY) && ghost instanceof Ghost_Hostile && !isInSpawnBox(this))
+			if(gp.pathFinder.pacmanIsClose(deltaX, deltaY) && ghost instanceof Ghost_Hostile && !isInSpawnBox(ghost))
 			{
 				movementType = "methodical";
 			}
 		}
 		
-		if(canMove(this, nextDir))
+		if(canMove(ghost, nextDir))
 		{
 			currentDir = nextDir;
-			manageMovement(this, nextDir);
+			manageMovement(ghost, nextDir);
 		}
-		else if(canMove(this, currentDir))
+		else if(canMove(ghost, currentDir))
 		{
-			manageMovement(this, currentDir);
+			manageMovement(ghost, currentDir);
 			return;
 		}
 		
-		generateNextDir();
+		generateNextDir(4);
 	}
 
-	public void moveMethodically()
+	public void moveMethodically(Ghost ghost)
 	{
 		if(!isFindingPath)
 		{
 			pacmanZone = gp.pathFinder.updatePacmanZone(deltaX, deltaY);
 			
-			if(canMove(this, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][0]))
+			if(canMove(ghost, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][0]))
 			{
 				currentDir = gp.pathFinder.pathFinderArray[ghostID][pacmanZone][0];
 				
-				manageMovement(this, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][0]);
+				manageMovement(ghost, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][0]);
 			}
-			else if(canMove(this, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][1]))
+			else if(canMove(ghost, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][1]))
 			{
 				currentDir = gp.pathFinder.pathFinderArray[ghostID][pacmanZone][1];
 				
-				manageMovement(this, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][1]);
+				manageMovement(ghost, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][1]);
 			}
 			else
 			{
@@ -174,7 +178,7 @@ public class Ghost extends Character
 		}
 		else if(isFindingPath)
 		{
-			if(canMove(this, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][0]))
+			if(canMove(ghost, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][0]))
 			{
 				findDir1Blocked = false;
 				isFindingPath = false;
@@ -183,11 +187,11 @@ public class Ghost extends Character
 			{
 				if(findDir1Blocked == false)
 				{
-					if(canMove(this, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][2]))
+					if(canMove(ghost, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][2]))
 					{
 						currentDir = gp.pathFinder.pathFinderArray[ghostID][pacmanZone][2];
 						
-						manageMovement(this, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][2]);
+						manageMovement(ghost, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][2]);
 					}
 					else
 					{
@@ -198,7 +202,7 @@ public class Ghost extends Character
 				{
 					currentDir = gp.pathFinder.pathFinderArray[ghostID][pacmanZone][3];
 					
-					manageMovement(this, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][3]);
+					manageMovement(ghost, gp.pathFinder.pathFinderArray[ghostID][pacmanZone][3]);
 				}
 			}
 		}
@@ -213,6 +217,23 @@ public class Ghost extends Character
 			isCoolingDown = true;			
 			movementType = "random";	
 		}
+	}
+	
+	public void moveSideToSide(Ghost ghost)
+	{
+		if(canMove(ghost, nextDir))
+		{
+			currentDir = nextDir;
+			manageMovement(ghost, nextDir);
+			return;
+		}
+		else if(canMove(ghost, currentDir))
+		{
+			manageMovement(ghost, currentDir);
+			return;
+		}
+		
+		generateNextDir(2);
 	}
 	
 	public boolean isInSpawnBox(Ghost ghost)
