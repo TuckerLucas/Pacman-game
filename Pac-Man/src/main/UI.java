@@ -325,7 +325,8 @@ public class UI
 		}
 		
 		text = "BACK";
-		textY += gp.tileSize * 1.2;
+		textX = getXForCenteredText(g, text);
+		textY += gp.tileSize * 2.2;
 		g.drawString(text, textX, textY);
 		
 		if(menuOptionIndex == 3)
@@ -334,7 +335,7 @@ public class UI
 		}
 		
 		// VOLUME BARS
-		textX += gp.tileSize * 4;
+		textX = gp.tileSize * 11;
 		textY = gp.tileSize * 13;
 		int rectWidth = 140;
 		int rectHeight = 28;
