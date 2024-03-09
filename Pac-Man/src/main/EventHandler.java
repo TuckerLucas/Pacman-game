@@ -69,7 +69,7 @@ public class EventHandler
 			if(gp.ghostArray[i].isEaten)
 			{
 				gp.ghostArray[i].timeSpentInBoxInSeconds += gp.secondsPerTick;
-				System.out.println(i + ":" + gp.ghostArray[i].timeSpentInBoxInSeconds);
+
 				if(gp.ghostArray[i].timeSpentInBoxInSeconds >= gp.ghostArray[i].targetTimeSpentInBoxInSeconds)
 				{
 					gp.ghostArray[i].isEaten = false;
