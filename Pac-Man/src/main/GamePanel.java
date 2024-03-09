@@ -76,7 +76,7 @@ public class GamePanel extends Canvas implements Runnable
 	// Scores & username
 	public int highscore = 0;
 	public int score = 0;
-	public String username = "default_username";
+	public String username = "username";
 	
 	// Player lives
 	public int lives = 3;
