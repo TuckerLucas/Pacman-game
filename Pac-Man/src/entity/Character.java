@@ -10,8 +10,6 @@ public class Character extends Entity
 	
 	private static final long serialVersionUID = 1L;
 	
-	public int speed = 2;
-	
 	public Character(GamePanel gp)
 	{
 		super(gp);
@@ -62,11 +60,11 @@ public class Character extends Entity
 		
 		switch(direction)
 		{
-			case "right": nextX = character.x + speed; nextY = character.y; break;
-			case "left": nextX = character.x - speed; nextY = character.y; break;
-			case "up": nextX = character.x; nextY = character.y - speed; break;
+			case "right": nextX = character.x + gp.speed; nextY = character.y; break;
+			case "left": nextX = character.x - gp.speed; nextY = character.y; break;
+			case "up": nextX = character.x; nextY = character.y - gp.speed; break;
 			case "down": if(character.x == 320 && character.y == 256) {return false;}
-							nextX = character.x; nextY = character.y + speed; break;
+							nextX = character.x; nextY = character.y + gp.speed; break;
 		}
 		
 		Rectangle bounds = new Rectangle();
@@ -97,14 +95,14 @@ public class Character extends Entity
 	{
 		switch(direction)
 		{
-			case "right": character.x += speed; break;
-			case "left": character.x -= speed; break;
-			case "up": character.y -= speed; break;
-			case "down": character.y += speed; break;
+			case "right": character.x += gp.speed; break;
+			case "left": character.x -= gp.speed; break;
+			case "up": character.y -= gp.speed; break;
+			case "down": character.y += gp.speed; break;
 		}
 		
-		character.solidArea.x = character.x + 12;//((gp.tileSize-solidArea.width)/2);
-		character.solidArea.y = character.y + 12;//((gp.tileSize-solidArea.height)/2);
+		character.solidArea.x = character.x + 12;
+		character.solidArea.y = character.y + 12;
 	}
 	
 	public String getCurrentDirection() 

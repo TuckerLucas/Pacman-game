@@ -315,11 +315,20 @@ public class UI
 			g.drawString(">",  textX - gp.tileSize,  textY);
 		}
 		
-		text = "BACK";
+		text = "SPEED";
 		textY += gp.tileSize * 1.2;
 		g.drawString(text, textX, textY);
 		
 		if(menuOptionIndex == 2)
+		{
+			g.drawString(">",  textX - gp.tileSize,  textY);
+		}
+		
+		text = "BACK";
+		textY += gp.tileSize * 1.2;
+		g.drawString(text, textX, textY);
+		
+		if(menuOptionIndex == 3)
 		{
 			g.drawString(">",  textX - gp.tileSize,  textY);
 		}
@@ -339,6 +348,18 @@ public class UI
 		
 		g.drawRect(textX, textY - rectHeight, rectWidth, rectHeight); 
 		g.fillRect(textX, textY - rectHeight, seVolumeWidth, rectHeight);
+		
+		// SPEED SETTING
+		textY += gp.tileSize * 1.2;
+		
+		if(gp.speed == 2)
+		{
+			g.drawString("FAST", textX, textY);
+		}
+		else if(gp.speed == 1)
+		{
+			g.drawString("SLOW", textX, textY);
+		}
 	}
 	
 	private void drawWinScreen(Graphics g)

@@ -81,6 +81,9 @@ public class GamePanel extends Canvas implements Runnable
 	// Player lives
 	public int lives = 3;
 	
+	// Game speed
+	public int speed = 2;
+	
 	public GamePanel()
 	{
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));

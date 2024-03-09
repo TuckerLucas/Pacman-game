@@ -41,7 +41,7 @@ public class KeyHandler implements KeyListener
 		}
 		else if(gp.gameState == gp.settingsState)
 		{
-			settingsState(code, 3);
+			settingsState(code, 4);
 		}
 		else if(gp.gameState == gp.playState)
 		{
@@ -102,7 +102,8 @@ public class KeyHandler implements KeyListener
 			{
 				case 0: break;
 				case 1: break;
-				case 2: gp.ui.menuOptionIndex = 0; gp.gameState = gp.titleState; break;
+				case 2: if(gp.speed == 2) gp.speed--; else if(gp.speed == 1) gp.speed++; break;
+				case 3: gp.ui.menuOptionIndex = 0; gp.gameState = gp.titleState; break;
 			}
 		}
 		
@@ -117,6 +118,11 @@ public class KeyHandler implements KeyListener
 			{
 				gp.se.volumeScale--;
 			}
+			
+			if(gp.ui.menuOptionIndex == 2 && gp.speed == 2)
+			{
+				gp.speed--;
+			}
 		}
 		
 		if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT || code == KeyEvent.VK_PLUS)
@@ -129,6 +135,11 @@ public class KeyHandler implements KeyListener
 			if(gp.ui.menuOptionIndex == 1 && gp.se.volumeScale < 5)
 			{
 				gp.se.volumeScale++;
+			}
+			
+			if(gp.ui.menuOptionIndex == 2 && gp.speed == 1)
+			{
+				gp.speed++;
 			}
 		}
 	}
