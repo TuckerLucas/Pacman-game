@@ -17,7 +17,7 @@ public class UI
 	Font maruMonica;
 	public int menuOptionIndex = 0;
 	
-	public boolean showUnderscore = false;
+	public boolean showUsernameCursor = false;
 	
 	public double elapsedTimeInSeconds = 0.0;
 	public double targetTimeInSeconds = 0.5;
@@ -47,13 +47,13 @@ public class UI
 		
 		if(elapsedTimeInSeconds >= targetTimeInSeconds)
 		{
-			if(showUnderscore)
+			if(showUsernameCursor)
 			{
-				showUnderscore = false;
+				showUsernameCursor = false;
 			}
 			else
 			{
-				showUnderscore = true;
+				showUsernameCursor = true;
 			}
 			
 			elapsedTimeInSeconds = 0.0;
@@ -536,7 +536,7 @@ public class UI
 		y = gp.screenHeight/2;
 		g.drawString(gp.username, x, y);
 		
-		if(showUnderscore)
+		if(showUsernameCursor && gp.username.length() < 15)
 		{
 			g.drawString("_", (gp.screenWidth/2) + ((int)g.getFontMetrics().getStringBounds(gp.username, g).getWidth() / 2), y);
 		}
