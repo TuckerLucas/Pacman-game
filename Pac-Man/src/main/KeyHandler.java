@@ -102,8 +102,22 @@ public class KeyHandler implements KeyListener
 			{
 				case 0: break;
 				case 1: break;
-				case 2: if(gp.speed == 2) gp.speed--; else if(gp.speed == 1) gp.speed++; break;
-				case 3: gp.ui.menuOptionIndex = 0; gp.gameState = gp.titleState; break;
+				case 2: 
+					if(gp.speed == 2) 
+					{
+						gp.speed--; 
+					}
+					else if(gp.speed == 1) 
+					{
+						gp.speed++; 
+					}
+					
+					break;
+					
+				case 3: 
+					gp.ui.menuOptionIndex = 0; 
+					gp.gameState = gp.titleState; 
+					break;
 			}
 		}
 		
@@ -119,9 +133,16 @@ public class KeyHandler implements KeyListener
 				gp.se.volumeScale--;
 			}
 			
-			if(gp.ui.menuOptionIndex == 2 && gp.speed == 2)
+			if(gp.ui.menuOptionIndex == 2)
 			{
-				gp.speed--;
+				if(gp.speed == 1)
+				{
+					gp.speed++;
+				}
+				else if(gp.speed == 2)
+				{
+					gp.speed--;
+				}
 			}
 		}
 		
@@ -137,9 +158,16 @@ public class KeyHandler implements KeyListener
 				gp.se.volumeScale++;
 			}
 			
-			if(gp.ui.menuOptionIndex == 2 && gp.speed == 1)
+			if(gp.ui.menuOptionIndex == 2)
 			{
-				gp.speed++;
+				if(gp.speed == 1)
+				{
+					gp.speed++;
+				}
+				else if(gp.speed == 2)
+				{
+					gp.speed--;
+				}
 			}
 		}
 	}
