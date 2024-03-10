@@ -60,12 +60,12 @@ public class Level
 							break;
 
 						case white:
-							/*
+							
 							gp.pelletList.add(new Food_Pellet(gp));
 							gp.pelletList.get(gp.pelletList.size()-1).x = (x*gp.tileSize)+12;
 							gp.pelletList.get(gp.pelletList.size()-1).y = (y*gp.tileSize)+12;
 							gp.pelletList.get(gp.pelletList.size()-1).width = 8;
-							gp.pelletList.get(gp.pelletList.size()-1).height = 8;*/
+							gp.pelletList.get(gp.pelletList.size()-1).height = 8;
 							break;
 							
 						case lightYellow:
