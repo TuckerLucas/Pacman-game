@@ -426,7 +426,7 @@ public class UI
 	}
 	
 	public void drawLoseScreen(Graphics g)
-	{				
+	{		
 		String text = "YOU LOST!";
 		
 		g.setFont(maruMonica);

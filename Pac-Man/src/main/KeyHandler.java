@@ -180,7 +180,6 @@ public class KeyHandler implements KeyListener
 		{
 			if(gp.username.length() != 0)
 			{
-				gp.playMusic(5);
 				gp.gameState = gp.playState;
 			}
 			
