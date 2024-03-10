@@ -459,7 +459,9 @@ public class UI
 		{
 			if(gp.fHandler.leaderboardInfo[i][1] != null)
 			{
-				if(gp.score > Integer.parseInt(gp.fHandler.leaderboardInfo[i][1]));
+				int temp = Integer.parseInt(gp.fHandler.leaderboardInfo[i][1]);
+				
+				if(gp.score == temp)
 				{
 					g.setFont(g.getFont().deriveFont(Font.BOLD, 25F));
 					text = "You made it to #" + (i+1) + " on the leaderboard!";
