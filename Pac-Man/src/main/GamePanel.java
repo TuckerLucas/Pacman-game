@@ -46,6 +46,7 @@ public class GamePanel extends Canvas implements Runnable
 	public EventHandler eHandler = new EventHandler(this);
 	public FileHandler fHandler = new FileHandler(this);
 	public PathFinder pathFinder = new PathFinder(this);
+	public boolean wasdControls = false;
 	Sound music = new Sound();
 	Sound se = new Sound();
 	Thread gameThread;

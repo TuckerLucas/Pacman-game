@@ -295,9 +295,9 @@ public class UI
 		
 		// OPTIONS
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 36F));
-		textX = gp.tileSize * 7;
+		textX = gp.tileSize * 6;
 		
-		text = "MUSIC";
+		text = "CONTROLS";
 		textY += gp.tileSize*8;
 		g.drawString(text, textX, textY);
 		
@@ -339,10 +339,15 @@ public class UI
 		textY = gp.tileSize * 13;
 		int rectWidth = 140;
 		int rectHeight = 28;
-		int musicVolumeWidth = rectHeight * gp.music.volumeScale;
 		
-		g.drawRect(textX, textY - rectHeight, rectWidth, rectHeight); 
-		g.fillRect(textX, textY - rectHeight, musicVolumeWidth, rectHeight);
+		if(gp.wasdControls == true)
+		{
+			g.drawString("W A S D", textX, textY);
+		}
+		else if(gp.wasdControls == false)
+		{
+			g.drawString("ARROW KEYS", textX, textY);
+		}
 		
 		textY += gp.tileSize * 1.2;
 		int seVolumeWidth = rectHeight * gp.se.volumeScale;

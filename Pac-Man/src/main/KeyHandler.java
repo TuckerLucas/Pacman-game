@@ -112,10 +112,18 @@ public class KeyHandler implements KeyListener
 		
 		if(code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT || code == KeyEvent.VK_MINUS)
 		{
-			if(gp.ui.menuOptionIndex == 0 && gp.music.volumeScale > 0)
+			if(gp.ui.menuOptionIndex == 0)
 			{
 				gp.playSE(6);
-				gp.music.volumeScale--;
+				
+				if(gp.wasdControls == true)
+				{
+					gp.wasdControls = false;
+				}
+				else if(gp.wasdControls == false)
+				{
+					gp.wasdControls = true;
+				}
 			}
 			
 			if(gp.ui.menuOptionIndex == 1 && gp.se.volumeScale > 0)
@@ -141,10 +149,18 @@ public class KeyHandler implements KeyListener
 		
 		if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT || code == KeyEvent.VK_PLUS)
 		{
-			if(gp.ui.menuOptionIndex == 0 && gp.music.volumeScale < 5)
+			if(gp.ui.menuOptionIndex == 0)
 			{
 				gp.playSE(6);
-				gp.music.volumeScale++;
+				
+				if(gp.wasdControls == true)
+				{
+					gp.wasdControls = false;
+				}
+				else if(gp.wasdControls == false)
+				{
+					gp.wasdControls = true;
+				}
 			}
 			
 			if(gp.ui.menuOptionIndex == 1 && gp.se.volumeScale < 5)
@@ -211,16 +227,25 @@ public class KeyHandler implements KeyListener
 	
 	public void playState(int code)
 	{
-		switch(code)
+		if(gp.wasdControls == true)
 		{
-			case KeyEvent.VK_D:	// fall through
-			case KeyEvent.VK_RIGHT: gp.pacman.nextDir = "right"; break;
-			case KeyEvent.VK_A:	// fall through
-			case KeyEvent.VK_LEFT: gp.pacman.nextDir = "left"; break;
-			case KeyEvent.VK_W:	// fall through
-			case KeyEvent.VK_UP: gp.pacman.nextDir = "up"; break;
-			case KeyEvent.VK_S:	// fall through
-			case KeyEvent.VK_DOWN: gp.pacman.nextDir = "down"; break;
+			switch(code)
+			{
+				case KeyEvent.VK_D: gp.pacman.nextDir = "right"; break;
+				case KeyEvent.VK_A: gp.pacman.nextDir = "left"; break;
+				case KeyEvent.VK_W:	gp.pacman.nextDir = "up"; break;
+				case KeyEvent.VK_S:	gp.pacman.nextDir = "down"; break;
+			}
+		}
+		else if(gp.wasdControls == false)
+		{
+			switch(code)
+			{
+				case KeyEvent.VK_RIGHT: gp.pacman.nextDir = "right"; break;
+				case KeyEvent.VK_LEFT: gp.pacman.nextDir = "left"; break;
+				case KeyEvent.VK_UP: gp.pacman.nextDir = "up"; break;
+				case KeyEvent.VK_DOWN: gp.pacman.nextDir = "down"; break;
+			}
 		}
 	}
 	
