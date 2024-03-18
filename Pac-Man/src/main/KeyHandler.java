@@ -264,6 +264,8 @@ public class KeyHandler implements KeyListener
 		
 		if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP)
 		{
+			gp.playSE(6);
+			
 			gp.ui.menuOptionIndex--;
 			
 			if(gp.ui.menuOptionIndex < 0)
@@ -273,6 +275,8 @@ public class KeyHandler implements KeyListener
 		}
 		else if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
 		{
+			gp.playSE(6);
+
 			gp.ui.menuOptionIndex++;
 			
 			if(gp.ui.menuOptionIndex > maxIndex)

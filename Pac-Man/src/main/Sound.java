@@ -23,6 +23,7 @@ public class Sound
 		soundURL[3] = getClass().getResource("/Sounds/GhostEaten.wav");
 		soundURL[4] = getClass().getResource("/Sounds/PacmanEating.wav");
 		soundURL[5] = getClass().getResource("/Sounds/Siren.wav");
+		soundURL[6] = getClass().getResource("/Sounds/Cursor.wav");
 	}
 	
 	public void setFile(int i)
