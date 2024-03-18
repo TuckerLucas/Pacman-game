@@ -88,7 +88,7 @@ public class FileHandler
 		try
 		{
 			BufferedWriter lbWriter;
-			lbWriter = new BufferedWriter(new FileWriter("res/Files/LeaderboardInfo.txt"));
+			lbWriter = new BufferedWriter(new FileWriter("res/Files/LeaderboardInfo.txt", true));
 			
 			for(int i = 0; i < 5; i++)
 			{
