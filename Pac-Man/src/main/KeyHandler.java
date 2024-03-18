@@ -67,9 +67,11 @@ public class KeyHandler implements KeyListener
 		
 		if(code == KeyEvent.VK_ENTER)
 		{
+			gp.playSE(6);
+			
 			switch(gp.ui.menuOptionIndex)
 			{
-				case 0: gp.resetGame(); gp.stopSE(); gp.gameState = gp.usernameState; break;
+				case 0: gp.resetGame(); gp.gameState = gp.usernameState; break;
 				case 1: gp.gameState = gp.leaderboardState; break;
 				case 2: gp.gameState = gp.settingsState; break;
 				case 3: System.exit(0); break;
@@ -87,7 +89,7 @@ public class KeyHandler implements KeyListener
 		{
 			switch(gp.ui.menuOptionIndex)
 			{
-				case 0: gp.gameState = gp.titleState; break;
+				case 0: gp.playSE(6); gp.gameState = gp.titleState; break;
 			}
 		}
 	}
@@ -99,22 +101,9 @@ public class KeyHandler implements KeyListener
 		if(code == KeyEvent.VK_ENTER)
 		{
 			switch(gp.ui.menuOptionIndex)
-			{
-				case 0: break;
-				case 1: break;
-				case 2: 
-					if(gp.speed == 2) 
-					{
-						gp.speed--; 
-					}
-					else if(gp.speed == 1) 
-					{
-						gp.speed++; 
-					}
-					
-					break;
-					
+			{		
 				case 3: 
+					gp.playSE(6);
 					gp.ui.menuOptionIndex = 0; 
 					gp.gameState = gp.titleState; 
 					break;
@@ -125,16 +114,20 @@ public class KeyHandler implements KeyListener
 		{
 			if(gp.ui.menuOptionIndex == 0 && gp.music.volumeScale > 0)
 			{
+				gp.playSE(6);
 				gp.music.volumeScale--;
 			}
 			
 			if(gp.ui.menuOptionIndex == 1 && gp.se.volumeScale > 0)
 			{
+				gp.playSE(6);
 				gp.se.volumeScale--;
 			}
 			
 			if(gp.ui.menuOptionIndex == 2)
 			{
+				gp.playSE(6);
+				
 				if(gp.speed == 1)
 				{
 					gp.speed++;
@@ -150,16 +143,19 @@ public class KeyHandler implements KeyListener
 		{
 			if(gp.ui.menuOptionIndex == 0 && gp.music.volumeScale < 5)
 			{
+				gp.playSE(6);
 				gp.music.volumeScale++;
 			}
 			
 			if(gp.ui.menuOptionIndex == 1 && gp.se.volumeScale < 5)
 			{
+				gp.playSE(6);
 				gp.se.volumeScale++;
 			}
 			
 			if(gp.ui.menuOptionIndex == 2)
 			{
+				gp.playSE(6);
 				if(gp.speed == 1)
 				{
 					gp.speed++;
@@ -180,6 +176,7 @@ public class KeyHandler implements KeyListener
 		{
 			if(gp.username.length() != 0)
 			{
+				gp.playSE(6);
 				gp.gameState = gp.playState;
 			}
 			
@@ -187,6 +184,7 @@ public class KeyHandler implements KeyListener
 		}
 		else if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
 		{
+			gp.playSE(6);
 			gp.gameState = gp.titleState;
 			return;
 		}
@@ -194,6 +192,7 @@ public class KeyHandler implements KeyListener
 		{
 			if(gp.username != null && gp.username.length() > 0)
 			{
+				gp.playSE(6);
 				gp.username = gp.username.substring(0, gp.username.length() - 1);
 			}
 		}
@@ -204,6 +203,7 @@ public class KeyHandler implements KeyListener
 			// Allow special characters, digits and alphabetic (ASCII table)
 			if(character >= 33 && character <= 126 && gp.username.length() < 15)
 			{
+				gp.playSE(6);
 				gp.username += character;
 			}
 		}
@@ -230,6 +230,8 @@ public class KeyHandler implements KeyListener
 		
 		if(code == KeyEvent.VK_ENTER)
 		{
+			gp.playSE(6);
+			
 			switch(gp.ui.menuOptionIndex)
 			{
 				case 0: gp.gameState = gp.titleState; break;
@@ -247,6 +249,8 @@ public class KeyHandler implements KeyListener
 		
 		if(code == KeyEvent.VK_ENTER)
 		{
+			gp.playSE(6);
+			
 			switch(gp.ui.menuOptionIndex)
 			{
 				case 0: gp.resetLevel(); gp.gameState = gp.playState; break;
