@@ -25,7 +25,7 @@ public class FileHandler
 			String[] temp;
 			String line;
 			
-			br = new BufferedReader(new FileReader("res/Files/LeaderboardInfo.txt"));
+			br = new BufferedReader(new FileReader("LeaderboardInfo.txt"));
 
 			for(int i = 0; i < 5; i++)
 			{
@@ -88,7 +88,7 @@ public class FileHandler
 		try
 		{
 			BufferedWriter lbWriter;
-			lbWriter = new BufferedWriter(new FileWriter("res/Files/LeaderboardInfo.txt", true));
+			lbWriter = new BufferedWriter(new FileWriter("LeaderboardInfo.txt", true));
 			
 			for(int i = 0; i < 5; i++)
 			{
