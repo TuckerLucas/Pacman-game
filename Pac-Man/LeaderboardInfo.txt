@@ -1,1 +1,5 @@
-username 110
+LUCAS 10000
+user 4050
+username 1450
+TUCKER 350
+username 230

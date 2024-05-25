@@ -87,19 +87,18 @@ public class FileHandler
 	{
 		try
 		{
-			BufferedWriter lbWriter;
-			lbWriter = new BufferedWriter(new FileWriter("LeaderboardInfo.txt", true));
+			BufferedWriter bw = new BufferedWriter(new FileWriter("LeaderboardInfo.txt"));
 			
 			for(int i = 0; i < 5; i++)
 			{
 				if(leaderboardInfo[i][0] != null && leaderboardInfo[i][1] != null)
 				{
-					lbWriter.write(leaderboardInfo[i][0] + " ");
-					lbWriter.write(leaderboardInfo[i][1] + "\n");
+					bw.write(leaderboardInfo[i][0] + " ");
+					bw.write(leaderboardInfo[i][1] + "\n");
 				}
 			}
 			
-			lbWriter.close();
+			bw.close();
 		}
 		catch(IOException e)
 		{
