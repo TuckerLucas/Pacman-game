@@ -105,4 +105,74 @@ public class FileHandler
 			e.printStackTrace();
 		}
 	}
+	
+	public void saveSettings()
+	{
+		try
+		{
+			BufferedWriter bw = new BufferedWriter(new FileWriter("Settings.txt"));
+			
+			// CONTROLS
+			if(gp.wasdControls == true)
+			{
+				bw.write("WASD");
+			}
+			if(gp.wasdControls == false)
+			{
+				bw.write("Arrows");
+			}
+			
+			bw.newLine();
+			
+			// VOLUME
+			bw.write(String.valueOf(gp.se.volumeScale));
+			bw.newLine();
+			
+			// SPEED
+			bw.write(String.valueOf(gp.speed));
+			bw.newLine();
+			
+			bw.close();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void loadSettings()
+	{
+		try
+		{
+			BufferedReader br = new BufferedReader(new FileReader("Settings.txt"));
+
+			String s = br.readLine();
+			
+			// CONTROLS
+			if(s.equals("WASD"))
+			{
+				gp.wasdControls = true;
+			}
+			if(s.equals("Arrows"))
+			{
+				gp.wasdControls = false;
+			}
+			
+			// VOLUME
+			s = br.readLine();
+			
+			gp.se.volumeScale = Integer.parseInt(s);
+			
+			// SPEED
+			s = br.readLine();
+			
+			gp.speed = Integer.parseInt(s);
+			
+			br.close();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 }

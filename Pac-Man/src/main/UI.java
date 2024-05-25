@@ -366,6 +366,8 @@ public class UI
 		{
 			g.drawString("SLOW", textX, textY);
 		}
+		
+		gp.fHandler.saveSettings();
 	}
 	
 	private void drawWinScreen(Graphics g)
