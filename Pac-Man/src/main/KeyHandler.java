@@ -193,6 +193,7 @@ public class KeyHandler implements KeyListener
 			if(gp.username.length() != 0)
 			{
 				gp.playSE(6);
+				gp.fHandler.saveSettings();
 				gp.gameState = gp.playState;
 			}
 			

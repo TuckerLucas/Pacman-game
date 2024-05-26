@@ -112,6 +112,11 @@ public class FileHandler
 		{
 			BufferedWriter bw = new BufferedWriter(new FileWriter("Settings.txt"));
 			
+			// USERNAME
+			bw.write(gp.username);
+			
+			bw.newLine();
+			
 			// CONTROLS
 			if(gp.wasdControls == true)
 			{
@@ -147,6 +152,11 @@ public class FileHandler
 			BufferedReader br = new BufferedReader(new FileReader("Settings.txt"));
 
 			String s = br.readLine();
+			
+			// USERNAME
+			gp.username = s;
+			
+			s = br.readLine();
 			
 			// CONTROLS
 			if(s.equals("WASD"))
