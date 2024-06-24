@@ -41,7 +41,7 @@ public class GamePanel extends Canvas implements Runnable
 	// Ready state variables
 	private double elapsedReadyTimeInSeconds = 0.0;
 	private double targetReadyTimeInSeconds = 5.0;
-	public String readyText;
+	public String readyText = "READY!";
 	
 	// System
 	public AssetSetter aSetter = new AssetSetter(this);
