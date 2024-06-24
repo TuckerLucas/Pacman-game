@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -115,6 +117,17 @@ public class Level
 			gp.ghostArray[1].render(g);
 			gp.ghostArray[2].render(g);
 			gp.ghostArray[3].render(g);
+		}
+		
+		if(gp.gameState == gp.readyState)
+		{
+			g.setFont(gp.ui.maruMonica);
+			g.setFont(g.getFont().deriveFont(Font.BOLD, 32F));
+			int x = gp.ui.getXForCenteredText(g, gp.readyText);
+			int y = 413;
+			
+			g.setColor(Color.white);
+			g.drawString(gp.readyText, x, y);
 		}
 
 		gp.spawnBoxDoor.render(g);

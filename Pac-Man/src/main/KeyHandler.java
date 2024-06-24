@@ -59,6 +59,10 @@ public class KeyHandler implements KeyListener
 		{
 			usernameState(e);
 		}
+		else if(gp.gameState == gp.introState)
+		{
+			introState(e);
+		}
 	}
 	
 	public void titleState(int code, int nMenuOptions)
@@ -194,7 +198,7 @@ public class KeyHandler implements KeyListener
 			{
 				gp.playSE(6);
 				gp.fHandler.saveSettings();
-				gp.gameState = gp.playState;
+				gp.gameState = gp.introState;
 			}
 			
 			return;
@@ -223,6 +227,14 @@ public class KeyHandler implements KeyListener
 				gp.playSE(6);
 				gp.username += character;
 			}
+		}
+	}
+	
+	public void introState(KeyEvent e)
+	{
+		if(e.getKeyCode() == KeyEvent.VK_ENTER)
+		{
+			gp.gameState = gp.readyState;
 		}
 	}
 	

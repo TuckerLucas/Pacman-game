@@ -38,6 +38,11 @@ public class GamePanel extends Canvas implements Runnable
 	private double targetTick = 60.0; 				
 	public double secondsPerTick = 1.0 / targetTick;
 	
+	// Ready state variables
+	private double elapsedReadyTimeInSeconds = 0.0;
+	private double targetReadyTimeInSeconds = 5.0;
+	public String readyText;
+	
 	// System
 	public AssetSetter aSetter = new AssetSetter(this);
 	public KeyHandler keyH = new KeyHandler(this);
@@ -73,6 +78,8 @@ public class GamePanel extends Canvas implements Runnable
 	public final int settingsState = 5;
 	public final int leaderboardState = 6;
 	public final int usernameState = 7;
+	public final int introState = 8;
+	public final int readyState = 9;
 	
 	// Scores & username
 	public int highscore = 0;
@@ -205,11 +212,37 @@ public class GamePanel extends Canvas implements Runnable
 				energizerList.get(i).tick();
 			}
 		}
+		else if(gameState == readyState)
+		{
+			elapsedReadyTimeInSeconds += secondsPerTick;
+			
+			if(elapsedReadyTimeInSeconds < 2.0)
+			{
+				readyText = "READY!";
+			}
+			else if(elapsedReadyTimeInSeconds < 3.0)
+			{
+				readyText = "3";
+			}
+			else if(elapsedReadyTimeInSeconds < 4.0)
+			{
+				readyText = "2";
+			}
+			else if(elapsedReadyTimeInSeconds < 5.0)
+			{
+				readyText = "1";
+			}
+			else if(elapsedReadyTimeInSeconds >= targetReadyTimeInSeconds)
+			{
+				elapsedReadyTimeInSeconds = 0.0;
+				gameState = playState;
+			}
+		}
 		else if(gameState == lifeLostState)
 		{
 			pacman.tick();
 		}
-		else if(gameState == usernameState)
+		else if(gameState == usernameState || gameState == introState)
 		{
 			ui.tick();
 		}

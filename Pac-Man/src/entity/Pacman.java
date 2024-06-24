@@ -15,7 +15,7 @@ public class Pacman extends Character
 	{
 		super(gp);
 		
-		frameIndex = 0;
+		frameIndex = 2;
 		elapsedFrameTimeInSeconds = 0.0;	
 		targetTimePerFrameInSeconds = 0.1;
 		

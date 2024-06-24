@@ -15,12 +15,14 @@ public class UI
 	Graphics g;
 	
 	Font maruMonica;
+	
 	public int menuOptionIndex = 0;
 	
-	public boolean showUsernameCursor = false;
+	private boolean showUsernameCursor = false;
 	
-	public double elapsedTimeInSeconds = 0.0;
-	public double targetTimeInSeconds = 0.5;
+	private double elapsedTimeInSeconds = 0.0;
+	private double targetTimeUsernameCursorInSeconds = 0.5;
+	private double targetTimeIntroInSeconds = 5.0;
 	
 	public UI(GamePanel gp)
 	{
@@ -45,18 +47,29 @@ public class UI
 	{
 		elapsedTimeInSeconds += gp.secondsPerTick;
 		
-		if(elapsedTimeInSeconds >= targetTimeInSeconds)
+		if(gp.gameState == gp.usernameState)
+		{	
+			if(elapsedTimeInSeconds >= targetTimeUsernameCursorInSeconds)
+			{
+				if(showUsernameCursor)
+				{
+					showUsernameCursor = false;
+				}
+				else
+				{
+					showUsernameCursor = true;
+				}
+				
+				elapsedTimeInSeconds = 0.0;
+			}
+		}
+		if(gp.gameState == gp.introState)
 		{
-			if(showUsernameCursor)
+			if(elapsedTimeInSeconds >= targetTimeIntroInSeconds)
 			{
-				showUsernameCursor = false;
+				elapsedTimeInSeconds = 0.0;
+				gp.gameState = gp.readyState;
 			}
-			else
-			{
-				showUsernameCursor = true;
-			}
-			
-			elapsedTimeInSeconds = 0.0;
 		}
 	}
 	
@@ -92,6 +105,15 @@ public class UI
 		if(gp.gameState == gp.usernameState)
 		{
 			drawUsernameScreen(g);
+		}
+		if(gp.gameState == gp.introState)
+		{
+			drawIntroScreen(g);
+		}
+		if(gp.gameState == gp.readyState)
+		{
+			gp.level.render(g);
+			drawGameStats(g);
 		}
 		if(gp.gameState == gp.playState)
 		{
@@ -560,6 +582,28 @@ public class UI
 		x = getXForCenteredText(g, text);
 		y += gp.tileSize*2;
 		g.drawString(text, x, y);
+	}
+	
+	private void drawIntroScreen(Graphics g)
+	{	
+		int leftMarginX = 60;
+		int topMarginY = 220;
+		int spaceBetweenInfo = 60;
+		
+		// CHARACTERS
+		g.drawImage(gp.animation.alivePacmanSprites[0][2], leftMarginX, topMarginY, 32, 32, null);
+		g.drawImage(gp.animation.hostileGhostSprites[0][0][0], leftMarginX, topMarginY + spaceBetweenInfo*1, 32, 32, null);
+		g.drawImage(gp.animation.hostileGhostSprites[1][0][0], leftMarginX, topMarginY + spaceBetweenInfo*2, 32, 32, null);
+		g.drawImage(gp.animation.hostileGhostSprites[2][0][0], leftMarginX, topMarginY + spaceBetweenInfo*3, 32, 32, null);
+		g.drawImage(gp.animation.hostileGhostSprites[3][0][0], leftMarginX, topMarginY + spaceBetweenInfo*4, 32, 32, null);
+		g.drawImage(gp.animation.vulnerableGhostSprites[0], leftMarginX, topMarginY + spaceBetweenInfo*5, 32, 32, null);
+		
+		// FOOD
+		g.setColor(Color.yellow);				
+		g.fillRect(leftMarginX+12, (topMarginY + spaceBetweenInfo*7)+12, 8, 8);
+		
+		g.drawImage(gp.animation.energizerSprites[0], leftMarginX, topMarginY + spaceBetweenInfo*8, gp.tileSize, gp.tileSize, null);
+		
 	}
 	
 	private void drawGameStats(Graphics g)
