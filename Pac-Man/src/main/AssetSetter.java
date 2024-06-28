@@ -1,6 +1,7 @@
 package main;
 
 import entity.Ghost_Hostile;
+import entity.Ghost_Vulnerable;
 import entity.Pacman_Alive;
 import entity.SpawnBoxDoor;
 
@@ -82,5 +83,51 @@ public class AssetSetter
 		gp.spawnBoxDoor = new SpawnBoxDoor(gp);
 		gp.spawnBoxDoor.x = 320;
 		gp.spawnBoxDoor.y = 288;
+	}
+	
+	public void setIntroScreenEntities()
+	{
+		int i = 0;
+		
+		gp.introGhostArray[i] = new Ghost_Hostile(gp, 0); 
+		gp.introGhostArray[i].currentDir = "right";
+		gp.introGhostArray[i].x = 320;
+		gp.introGhostArray[i].y = 256;
+		gp.introGhostArray[i].ghostID = i;
+		
+		i++;
+		
+		gp.introGhostArray[i] = new Ghost_Hostile(gp, 1); 
+		gp.introGhostArray[i].currentDir = "right";
+		gp.introGhostArray[i].x = 288;
+		gp.introGhostArray[i].y = 320;
+		gp.introGhostArray[i].ghostID = i;
+		
+		i++;
+		
+		gp.introGhostArray[i] = new Ghost_Hostile(gp, 2); 
+		gp.introGhostArray[i].currentDir = "right";
+		gp.introGhostArray[i].x = 320;
+		gp.introGhostArray[i].y = 320;
+		gp.introGhostArray[i].ghostID = i;
+		
+		i++;
+		
+		gp.introGhostArray[i] = new Ghost_Hostile(gp, 3); 
+		gp.introGhostArray[i].currentDir = "right";
+		gp.introGhostArray[i].x = 352;
+		gp.introGhostArray[i].y = 320;
+		gp.introGhostArray[i].ghostID = i;
+		
+		gp.introPacman = new Pacman_Alive(gp);
+		gp.introPacman.x = 320;
+		gp.introPacman.y = 512;
+		gp.introPacman.currentDir = "right";
+		gp.introPacman.nextDir = "stopped";
+		
+		gp.introVulnerableGhost = new Ghost_Vulnerable(gp, 0);
+		gp.introVulnerableGhost.x = 200;
+		gp.introVulnerableGhost.y = 200;
+		gp.introVulnerableGhost.currentDir = "right";
 	}
 }

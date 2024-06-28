@@ -22,7 +22,7 @@ public class UI
 	
 	private double elapsedTimeInSeconds = 0.0;
 	private double targetTimeUsernameCursorInSeconds = 0.5;
-	private double targetTimeIntroInSeconds = 5.0;
+	private double targetTimeIntroInSeconds = 200.0;
 	
 	public UI(GamePanel gp)
 	{
@@ -70,6 +70,14 @@ public class UI
 				elapsedTimeInSeconds = 0.0;
 				gp.gameState = gp.readyState;
 			}
+			
+			for(int i = 0; i < 4; i++)
+			{
+				gp.introGhostArray[i].tick();
+			}
+			
+			gp.introPacman.tick();
+			gp.introVulnerableGhost.tick();
 		}
 	}
 	
@@ -110,12 +118,7 @@ public class UI
 		{
 			drawIntroScreen(g);
 		}
-		if(gp.gameState == gp.readyState)
-		{
-			gp.level.render(g);
-			drawGameStats(g);
-		}
-		if(gp.gameState == gp.playState)
+		if(gp.gameState == gp.readyState || gp.gameState == gp.playState)
 		{
 			gp.level.render(g);
 			drawGameStats(g);
@@ -586,24 +589,13 @@ public class UI
 	
 	private void drawIntroScreen(Graphics g)
 	{	
-		int leftMarginX = 60;
-		int topMarginY = 220;
-		int spaceBetweenInfo = 60;
+		for(int i = 0; i < 4; i++)
+		{
+			gp.introGhostArray[i].render(g);
+		}
 		
-		// CHARACTERS
-		g.drawImage(gp.animation.alivePacmanSprites[0][2], leftMarginX, topMarginY, 32, 32, null);
-		g.drawImage(gp.animation.hostileGhostSprites[0][0][0], leftMarginX, topMarginY + spaceBetweenInfo*1, 32, 32, null);
-		g.drawImage(gp.animation.hostileGhostSprites[1][0][0], leftMarginX, topMarginY + spaceBetweenInfo*2, 32, 32, null);
-		g.drawImage(gp.animation.hostileGhostSprites[2][0][0], leftMarginX, topMarginY + spaceBetweenInfo*3, 32, 32, null);
-		g.drawImage(gp.animation.hostileGhostSprites[3][0][0], leftMarginX, topMarginY + spaceBetweenInfo*4, 32, 32, null);
-		g.drawImage(gp.animation.vulnerableGhostSprites[0], leftMarginX, topMarginY + spaceBetweenInfo*5, 32, 32, null);
-		
-		// FOOD
-		g.setColor(Color.yellow);				
-		g.fillRect(leftMarginX+12, (topMarginY + spaceBetweenInfo*7)+12, 8, 8);
-		
-		g.drawImage(gp.animation.energizerSprites[0], leftMarginX, topMarginY + spaceBetweenInfo*8, gp.tileSize, gp.tileSize, null);
-		
+		gp.introPacman.render(g);
+		gp.introVulnerableGhost.render(g);
 	}
 	
 	private void drawGameStats(Graphics g)

@@ -68,6 +68,11 @@ public class GamePanel extends Canvas implements Runnable
 	public Food_Energizer energizer = new Food_Energizer(this);
 	public Level level = new Level(this);
 	
+	public Ghost introGhostArray[] = new Ghost[4];
+	public Pacman introPacman = new Pacman_Alive(this);
+	public Ghost introVulnerableGhost = new Ghost(this,0);
+	
+	
 	// Game state
 	public int gameState;
 	public final int titleState = 0;		
@@ -103,6 +108,8 @@ public class GamePanel extends Canvas implements Runnable
 	
 	public void setupGame()
 	{
+		aSetter.setIntroScreenEntities();
+		
 		aSetter.setGhosts();
 		aSetter.setPacman();
 		aSetter.setDoor();
