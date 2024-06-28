@@ -4,6 +4,7 @@ import entity.Ghost_Hostile;
 import entity.Ghost_Vulnerable;
 import entity.Pacman_Alive;
 import entity.SpawnBoxDoor;
+import food.Food_Energizer;
 
 public class AssetSetter 
 {
@@ -129,5 +130,9 @@ public class AssetSetter
 		gp.introVulnerableGhost.x = 200;
 		gp.introVulnerableGhost.y = 200;
 		gp.introVulnerableGhost.currentDir = "right";
+		
+		gp.introEnergizer = new Food_Energizer(gp);
+		gp.introEnergizer.x = 600;
+		gp.introEnergizer.y = 600;
 	}
 }

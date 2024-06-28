@@ -78,6 +78,7 @@ public class UI
 			
 			gp.introPacman.tick();
 			gp.introVulnerableGhost.tick();
+			gp.introEnergizer.tick();
 		}
 	}
 	
@@ -596,6 +597,7 @@ public class UI
 		
 		gp.introPacman.render(g);
 		gp.introVulnerableGhost.render(g);
+		gp.introEnergizer.render(g);
 	}
 	
 	private void drawGameStats(Graphics g)

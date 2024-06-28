@@ -71,6 +71,7 @@ public class GamePanel extends Canvas implements Runnable
 	public Ghost introGhostArray[] = new Ghost[4];
 	public Pacman introPacman = new Pacman_Alive(this);
 	public Ghost introVulnerableGhost = new Ghost(this,0);
+	public Food_Energizer introEnergizer = new Food_Energizer(this);
 	
 	
 	// Game state
