@@ -590,14 +590,103 @@ public class UI
 	
 	private void drawIntroScreen(Graphics g)
 	{	
-		for(int i = 0; i < 4; i++)
-		{
-			gp.introGhostArray[i].render(g);
-		}
+		int leftMarginX = 132;
+		int topMarginY = 0;
+		String text;
 		
+		topMarginY += gp.tileSize*2;
+		
+		text = "CHARACTERS";
+		g.setColor(Color.white);
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 40F));
+		g.drawString(text, getXForCenteredText(g, text), topMarginY);
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 35F));
+		
+		topMarginY += gp.tileSize*2;
+		
+		text = "PACMAN";
+		g.setColor(Color.yellow);
+		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize);
+		gp.introPacman.x = leftMarginX;
+		gp.introPacman.y = topMarginY;
 		gp.introPacman.render(g);
-		gp.introVulnerableGhost.render(g);
+		
+		topMarginY += gp.tileSize*2;
+		
+		text = "BLINKY";
+		g.setColor(Color.red);
+		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize);
+		gp.introGhostArray[0].x = leftMarginX;
+		gp.introGhostArray[0].y = topMarginY;
+		gp.introGhostArray[0].render(g);
+		
+		topMarginY += gp.tileSize;
+		
+		text = "INKY";
+		g.setColor(Color.cyan);
+		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize);
+		gp.introGhostArray[1].x = leftMarginX;
+		gp.introGhostArray[1].y = topMarginY;
+		gp.introGhostArray[1].render(g);
+		
+		topMarginY += gp.tileSize;
+		
+		text = "PINKY";
+		g.setColor(Color.pink);
+		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize);
+		gp.introGhostArray[2].x = leftMarginX;
+		gp.introGhostArray[2].y = topMarginY;
+		gp.introGhostArray[2].render(g);
+		
+		topMarginY += gp.tileSize;
+		
+		text = "CLYDE";
+		g.setColor(Color.orange);
+		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize);
+		gp.introGhostArray[3].x = leftMarginX;
+		gp.introGhostArray[3].y = topMarginY;
+		gp.introGhostArray[3].render(g);
+		
+		topMarginY += gp.tileSize*2;
+		
+		text = "PELLET";
+		g.setColor(Color.white);
+		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize);
+		g.setColor(Color.yellow);				
+		g.fillRect(leftMarginX+13, topMarginY+12, 9, 8);
+		
+		topMarginY += gp.tileSize;
+		
+		text = "ENERGIZER";
+		g.setColor(Color.white);
+		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize);
+		gp.introEnergizer.x = leftMarginX;
+		gp.introEnergizer.y = topMarginY;
 		gp.introEnergizer.render(g);
+		
+		topMarginY += gp.tileSize;
+		
+		text = "WEAK GHOST";
+		g.setColor(Color.blue);
+		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize);
+		gp.introVulnerableGhost.x = leftMarginX;
+		gp.introVulnerableGhost.y = topMarginY;
+		gp.introVulnerableGhost.render(g);
+		
+		topMarginY += gp.tileSize*3;
+		
+		g.setColor(Color.white);
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 30F));
+		text = "NAVIGATE THE MAZE AND EAT ALL PELLETS";
+		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize);
+		text = "AND ENERGIZERS TO MAKE IT TO THE NEXT LEVELS.";
+		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize*2);
+		text = "AVOID HOSTILE GHOSTS AT ALL COSTS!";
+		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize*3);
+		
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 25F));
+		text = "PRESS [ENTER] TO SKIP";
+		g.drawString(text, getXForCenteredText(g, text), gp.screenHeight-gp.tileSize*2);
 	}
 	
 	private void drawGameStats(Graphics g)

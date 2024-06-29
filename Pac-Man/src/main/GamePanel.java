@@ -284,15 +284,15 @@ public class GamePanel extends Canvas implements Runnable
 	@Override
 	public void run() 
 	{					
-		long lastTime = System.nanoTime();		// Previous game instant
-		double delta = 0;						// Time difference between game instants
+		long lastTime = System.nanoTime();				// Previous game instant
+		double delta = 0;								// Time difference between game instants
 		double drawInterval = 1000000000 / targetTick; 	// Time interval between ticks
 				
 		while(gameThread != null)				
 		{	
-			long currentTime = System.nanoTime();		// This game instant
+			long currentTime = System.nanoTime();					// This game instant
 			delta += (currentTime - lastTime) / drawInterval;		// Calculate time difference between instants
-			lastTime = currentTime;						// Update previous game instant
+			lastTime = currentTime;									// Update previous game instant
 			
 			while(delta >= 1)					// Check if enough time has elapsed	to justify updating the game		
 			{
