@@ -5,6 +5,7 @@ import entity.Ghost_Vulnerable;
 import entity.Pacman_Alive;
 import entity.SpawnBoxDoor;
 import food.Food_Energizer;
+import food.Food_Pellet;
 
 public class AssetSetter 
 {
@@ -119,6 +120,7 @@ public class AssetSetter
 		gp.introVulnerableGhost = new Ghost_Vulnerable(gp, 0);
 		gp.introVulnerableGhost.currentDir = "right";
 		
+		gp.introPellet = new Food_Pellet(gp);
 		gp.introEnergizer = new Food_Energizer(gp);
 	}
 }

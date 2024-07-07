@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import main.GamePanel;
@@ -21,6 +22,11 @@ public class Entity extends Rectangle
 	{
 		this.gp = gp;
 		setBounds(x, y, gp.tileSize, gp.tileSize);
+	}
+	
+	public void render(Graphics g)
+	{
+		
 	}
 	
 	public void manageAnimationTiming(Entity entity)

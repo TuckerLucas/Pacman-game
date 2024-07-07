@@ -9,6 +9,8 @@ import java.awt.Graphics2D;
 import java.io.IOException;
 import java.io.InputStream;
 
+import entity.Entity;
+
 public class UI 
 {
 	GamePanel gp;
@@ -22,7 +24,8 @@ public class UI
 	
 	private double elapsedTimeInSeconds = 0.0;
 	private double targetTimeUsernameCursorInSeconds = 0.5;
-	private double targetTimeIntroInSeconds = 200.0;
+	private double targetTimeIntroInSeconds = 40.0;
+	private double introTimeIntervalInSeconds = 3.0;
 	
 	public UI(GamePanel gp)
 	{
@@ -596,7 +599,7 @@ public class UI
 		
 		topMarginY += gp.tileSize*2;
 		
-		text = "CHARACTERS";
+		text = "INTRODUCTION";
 		g.setColor(Color.white);
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 40F));
 		g.drawString(text, getXForCenteredText(g, text), topMarginY);
@@ -606,87 +609,99 @@ public class UI
 		
 		text = "PACMAN";
 		g.setColor(Color.yellow);
-		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize);
 		gp.introPacman.x = leftMarginX;
 		gp.introPacman.y = topMarginY;
-		gp.introPacman.render(g);
+		drawIntroEntity(gp.introPacman, introTimeIntervalInSeconds, text);
 		
 		topMarginY += gp.tileSize*2;
 		
 		text = "BLINKY";
 		g.setColor(Color.red);
-		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize);
 		gp.introGhostArray[0].x = leftMarginX;
 		gp.introGhostArray[0].y = topMarginY;
-		gp.introGhostArray[0].render(g);
+		drawIntroEntity(gp.introGhostArray[0], introTimeIntervalInSeconds*2, text);
 		
 		topMarginY += gp.tileSize;
 		
 		text = "INKY";
 		g.setColor(Color.cyan);
-		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize);
 		gp.introGhostArray[1].x = leftMarginX;
 		gp.introGhostArray[1].y = topMarginY;
-		gp.introGhostArray[1].render(g);
+		drawIntroEntity(gp.introGhostArray[1], introTimeIntervalInSeconds*3, text);
 		
 		topMarginY += gp.tileSize;
 		
 		text = "PINKY";
 		g.setColor(Color.pink);
-		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize);
 		gp.introGhostArray[2].x = leftMarginX;
 		gp.introGhostArray[2].y = topMarginY;
-		gp.introGhostArray[2].render(g);
+		drawIntroEntity(gp.introGhostArray[2], introTimeIntervalInSeconds*4, text);
 		
 		topMarginY += gp.tileSize;
 		
 		text = "CLYDE";
 		g.setColor(Color.orange);
-		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize);
 		gp.introGhostArray[3].x = leftMarginX;
 		gp.introGhostArray[3].y = topMarginY;
-		gp.introGhostArray[3].render(g);
+		drawIntroEntity(gp.introGhostArray[3], introTimeIntervalInSeconds*5, text);
 		
 		topMarginY += gp.tileSize*2;
 		
 		text = "PELLET";
 		g.setColor(Color.white);
-		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize);
-		g.setColor(Color.yellow);				
-		g.fillRect(leftMarginX+13, topMarginY+12, 9, 8);
+		gp.introPellet.x = leftMarginX+12;
+		gp.introPellet.y = topMarginY+12;
+		gp.introPellet.width = 8;
+		gp.introPellet.height = 8;
+		drawIntroEntity(gp.introPellet, introTimeIntervalInSeconds*6, text);
 		
 		topMarginY += gp.tileSize;
 		
 		text = "ENERGIZER";
 		g.setColor(Color.white);
-		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize);
 		gp.introEnergizer.x = leftMarginX;
 		gp.introEnergizer.y = topMarginY;
-		gp.introEnergizer.render(g);
+		drawIntroEntity(gp.introEnergizer, introTimeIntervalInSeconds*7, text);
 		
 		topMarginY += gp.tileSize;
 		
 		text = "WEAK GHOST";
 		g.setColor(Color.blue);
-		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize);
 		gp.introVulnerableGhost.x = leftMarginX;
 		gp.introVulnerableGhost.y = topMarginY;
-		gp.introVulnerableGhost.render(g);
+		drawIntroEntity(gp.introVulnerableGhost, introTimeIntervalInSeconds*8, text);
 		
 		topMarginY += gp.tileSize*3;
 		
 		g.setColor(Color.white);
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 30F));
-		text = "NAVIGATE THE MAZE AND EAT ALL PELLETS";
-		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize);
-		text = "AND ENERGIZERS TO MAKE IT TO THE NEXT LEVELS.";
-		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize*2);
-		text = "AVOID HOSTILE GHOSTS AT ALL COSTS!";
-		g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize*3);
+		
+		if(elapsedTimeInSeconds >= 27.0)
+		{
+			text = "NAVIGATE THE MAZE AND EAT ALL PELLETS AND";
+			g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize);
+			text = "ENERGIZERS TO ADVANCE TO THE NEXT LEVELS.";
+			g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize*2);
+			text = "AVOID HOSTILE GHOSTS AT ALL COSTS!";
+			g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize*3);
+		}
 		
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 25F));
 		text = "PRESS [ENTER] TO SKIP";
-		g.drawString(text, getXForCenteredText(g, text), gp.screenHeight-gp.tileSize*2);
+		
+		if(elapsedTimeInSeconds >= 1.0)
+		{
+			g.drawString(text, getXForCenteredText(g, text), gp.screenHeight-gp.tileSize*2);
+		}
+	}
+	
+	private void drawIntroEntity(Entity entity, double timeInstant, String text)
+	{
+		if(elapsedTimeInSeconds >= timeInstant)
+		{
+			g.drawString(text, getXForCenteredText(g, text), entity.y + gp.tileSize);
+			entity.render(g);
+		}
 	}
 	
 	private void drawGameStats(Graphics g)
