@@ -18,7 +18,7 @@ public class Food_Pellet extends Food
 	{
 		super(gp);	
 		name = "PELLET";
-		action = "EAT (10 PTS)";
+		action = "EAT";
 	}
 	
 	public int getFoodPoints()

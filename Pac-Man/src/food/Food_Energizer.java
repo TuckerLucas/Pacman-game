@@ -15,7 +15,7 @@ public class Food_Energizer extends Food
 		super(gp);
 		
 		name = "ENERGIZER";
-		action = "EAT (50 PTS)";
+		action = "EAT";
 		frameIndex = 0;
 		elapsedFrameTimeInSeconds = 0;		
 		targetTimePerFrameInSeconds = 0.2;

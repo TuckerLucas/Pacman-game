@@ -22,9 +22,9 @@ public class UI
 	
 	private boolean showUsernameCursor = false;
 	
-	private double elapsedTimeInSeconds = 0.0;
+	public double elapsedTimeInSeconds = 0.0;
 	private double targetTimeUsernameCursorInSeconds = 0.5;
-	private double targetTimeIntroInSeconds = 40.0;
+	private double targetTimeIntroInSeconds = 30.0;
 	private double targetTimeIntroSkipInSeconds = 1.0;
 	private double introTimeIntervalInSeconds = 3.0;
 	
