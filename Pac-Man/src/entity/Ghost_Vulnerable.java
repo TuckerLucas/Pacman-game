@@ -12,6 +12,8 @@ public class Ghost_Vulnerable extends Ghost
 	{
 		super(gp, i);
 		
+		name = "WEAK GHOST";
+		action = "EAT";
 		frameIndex = 0;
 		elapsedFrameTimeInSeconds = 0;		
 		targetTimePerFrameInSeconds = 0.05;

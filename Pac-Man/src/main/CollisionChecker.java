@@ -54,7 +54,7 @@ public class CollisionChecker
 	{
 		for(int i = 0; i < gp.pelletList.size(); i++) 		
 		{    
-			if(gp.pacman.intersects(gp.pelletList.get(i)))							
+			if(gp.pacman.solidArea.intersects(gp.pelletList.get(i)))							
 			{
 				gp.eHandler.eatFood(gp.pelletList.get(i));
 				return;
@@ -66,7 +66,7 @@ public class CollisionChecker
 	{
 		for(int i = 0; i < gp.energizerList.size(); i++) 		
 		{    
-			if(gp.pacman.intersects(gp.energizerList.get(i)))							
+			if(gp.pacman.solidArea.intersects(gp.energizerList.get(i)))							
 			{
 				gp.eHandler.eatFood(gp.energizerList.get(i));
 				return;

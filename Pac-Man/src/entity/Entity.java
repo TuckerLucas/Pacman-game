@@ -18,6 +18,9 @@ public class Entity extends Rectangle
 	public double targetTimePerFrameInSeconds;
 	public int totalNumberOfFrames;
 	
+	public String name;
+	public String action;
+	
 	public Entity(GamePanel gp)
 	{
 		this.gp = gp;

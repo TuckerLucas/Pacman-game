@@ -89,38 +89,45 @@ public class AssetSetter
 	
 	public void setIntroScreenEntities()
 	{
+		int screenX = gp.tileSize*4;
+		int screenY = gp.tileSize*4;
+		
 		gp.introPacman = new Pacman_Alive(gp);
 		gp.introPacman.currentDir = "right";
 		gp.introPacman.nextDir = "stopped";
+		gp.introPacman.x = screenX;
+		gp.introPacman.y = screenY;
 		
-		int i = 0;
+		screenY += gp.tileSize*2;
 		
-		gp.introGhostArray[i] = new Ghost_Hostile(gp, 0); 
-		gp.introGhostArray[i].currentDir = "right";
-		gp.introGhostArray[i].ghostID = i;
+		for(int i = 0; i < gp.introGhostArray.length; i++)
+		{
+			gp.introGhostArray[i] = new Ghost_Hostile(gp, i); 
+			gp.introGhostArray[i].currentDir = "right";
+			gp.introGhostArray[i].x = screenX;
+			gp.introGhostArray[i].y = screenY;
+			gp.introGhostArray[i].ghostID = i;
+			
+			screenY += gp.tileSize;
+		}
 		
-		i++;
+		screenY += gp.tileSize;
 		
-		gp.introGhostArray[i] = new Ghost_Hostile(gp, 1); 
-		gp.introGhostArray[i].currentDir = "right";
-		gp.introGhostArray[i].ghostID = i;
+		gp.introPellet = new Food_Pellet(gp);
+		gp.introPellet.x = screenX;
+		gp.introPellet.y = screenY;
 		
-		i++;
+		screenY += gp.tileSize;
 		
-		gp.introGhostArray[i] = new Ghost_Hostile(gp, 2); 
-		gp.introGhostArray[i].currentDir = "right";
-		gp.introGhostArray[i].ghostID = i;
+		gp.introEnergizer = new Food_Energizer(gp);
+		gp.introEnergizer.x = screenX;
+		gp.introEnergizer.y = screenY;
 		
-		i++;
-		
-		gp.introGhostArray[i] = new Ghost_Hostile(gp, 3); 
-		gp.introGhostArray[i].currentDir = "right";
-		gp.introGhostArray[i].ghostID = i;
+		screenY += gp.tileSize;
 		
 		gp.introVulnerableGhost = new Ghost_Vulnerable(gp, 0);
 		gp.introVulnerableGhost.currentDir = "right";
-		
-		gp.introPellet = new Food_Pellet(gp);
-		gp.introEnergizer = new Food_Energizer(gp);
+		gp.introVulnerableGhost.x = screenX;
+		gp.introVulnerableGhost.y = screenY;
 	}
 }

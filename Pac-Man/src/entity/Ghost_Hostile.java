@@ -12,6 +12,15 @@ public class Ghost_Hostile extends Ghost
 	{
 		super(gp, i);
 		
+		switch(i)
+		{
+			case 0: name = "BLINKY"; break;
+			case 1: name = "INKY"; break;
+			case 2: name = "PINKY"; break;
+			case 3: name = "CLYDE"; break;
+		}
+		
+		action = "AVOID";
 		frameIndex = 0;
 		elapsedFrameTimeInSeconds = 0;		
 		targetTimePerFrameInSeconds = 0.05;

@@ -15,6 +15,8 @@ public class Pacman extends Character
 	{
 		super(gp);
 		
+		name = "PACMAN";
+		action = "PLAYER";
 		frameIndex = 2;
 		elapsedFrameTimeInSeconds = 0.0;	
 		targetTimePerFrameInSeconds = 0.1;

@@ -25,6 +25,7 @@ public class UI
 	private double elapsedTimeInSeconds = 0.0;
 	private double targetTimeUsernameCursorInSeconds = 0.5;
 	private double targetTimeIntroInSeconds = 40.0;
+	private double targetTimeIntroSkipInSeconds = 1.0;
 	private double introTimeIntervalInSeconds = 3.0;
 	
 	public UI(GamePanel gp)
@@ -593,113 +594,54 @@ public class UI
 	
 	private void drawIntroScreen(Graphics g)
 	{	
-		int leftMarginX = 132;
-		int topMarginY = 0;
-		String text;
+		String text = "INTRODUCTION";
 		
-		topMarginY += gp.tileSize*2;
-		
-		text = "INTRODUCTION";
 		g.setColor(Color.white);
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 40F));
-		g.drawString(text, getXForCenteredText(g, text), topMarginY);
+		g.drawString(text, getXForCenteredText(g, text), gp.tileSize*2);
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 35F));
-		
-		topMarginY += gp.tileSize*2;
-		
-		text = "PACMAN";
+				
 		g.setColor(Color.yellow);
-		gp.introPacman.x = leftMarginX;
-		gp.introPacman.y = topMarginY;
-		drawIntroEntity(gp.introPacman, introTimeIntervalInSeconds, text);
-		
-		topMarginY += gp.tileSize*2;
-		
-		text = "BLINKY";
+		drawIntroEntity(gp.introPacman, introTimeIntervalInSeconds);
+
 		g.setColor(Color.red);
-		gp.introGhostArray[0].x = leftMarginX;
-		gp.introGhostArray[0].y = topMarginY;
-		drawIntroEntity(gp.introGhostArray[0], introTimeIntervalInSeconds*2, text);
+		drawIntroEntity(gp.introGhostArray[0], introTimeIntervalInSeconds*2);
 		
-		topMarginY += gp.tileSize;
-		
-		text = "INKY";
 		g.setColor(Color.cyan);
-		gp.introGhostArray[1].x = leftMarginX;
-		gp.introGhostArray[1].y = topMarginY;
-		drawIntroEntity(gp.introGhostArray[1], introTimeIntervalInSeconds*3, text);
+		drawIntroEntity(gp.introGhostArray[1], introTimeIntervalInSeconds*3);
 		
-		topMarginY += gp.tileSize;
-		
-		text = "PINKY";
 		g.setColor(Color.pink);
-		gp.introGhostArray[2].x = leftMarginX;
-		gp.introGhostArray[2].y = topMarginY;
-		drawIntroEntity(gp.introGhostArray[2], introTimeIntervalInSeconds*4, text);
+		drawIntroEntity(gp.introGhostArray[2], introTimeIntervalInSeconds*4);
 		
-		topMarginY += gp.tileSize;
-		
-		text = "CLYDE";
 		g.setColor(Color.orange);
-		gp.introGhostArray[3].x = leftMarginX;
-		gp.introGhostArray[3].y = topMarginY;
-		drawIntroEntity(gp.introGhostArray[3], introTimeIntervalInSeconds*5, text);
+		drawIntroEntity(gp.introGhostArray[3], introTimeIntervalInSeconds*5);
 		
-		topMarginY += gp.tileSize*2;
-		
-		text = "PELLET";
 		g.setColor(Color.white);
-		gp.introPellet.x = leftMarginX+12;
-		gp.introPellet.y = topMarginY+12;
-		gp.introPellet.width = 8;
-		gp.introPellet.height = 8;
-		drawIntroEntity(gp.introPellet, introTimeIntervalInSeconds*6, text);
+		drawIntroEntity(gp.introPellet, introTimeIntervalInSeconds*6);
 		
-		topMarginY += gp.tileSize;
-		
-		text = "ENERGIZER";
 		g.setColor(Color.white);
-		gp.introEnergizer.x = leftMarginX;
-		gp.introEnergizer.y = topMarginY;
-		drawIntroEntity(gp.introEnergizer, introTimeIntervalInSeconds*7, text);
+		drawIntroEntity(gp.introEnergizer, introTimeIntervalInSeconds*7);
 		
-		topMarginY += gp.tileSize;
-		
-		text = "WEAK GHOST";
 		g.setColor(Color.blue);
-		gp.introVulnerableGhost.x = leftMarginX;
-		gp.introVulnerableGhost.y = topMarginY;
-		drawIntroEntity(gp.introVulnerableGhost, introTimeIntervalInSeconds*8, text);
+		drawIntroEntity(gp.introVulnerableGhost, introTimeIntervalInSeconds*8);
 		
-		topMarginY += gp.tileSize*3;
-		
-		g.setColor(Color.white);
-		g.setFont(g.getFont().deriveFont(Font.BOLD, 30F));
-		
-		if(elapsedTimeInSeconds >= 27.0)
-		{
-			text = "NAVIGATE THE MAZE AND EAT ALL PELLETS AND";
-			g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize);
-			text = "ENERGIZERS TO ADVANCE TO THE NEXT LEVELS.";
-			g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize*2);
-			text = "AVOID HOSTILE GHOSTS AT ALL COSTS!";
-			g.drawString(text, getXForCenteredText(g, text), topMarginY+gp.tileSize*3);
-		}
-		
-		g.setFont(g.getFont().deriveFont(Font.BOLD, 25F));
 		text = "PRESS [ENTER] TO SKIP";
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 25F));
+		g.setColor(Color.white);
 		
-		if(elapsedTimeInSeconds >= 1.0)
+		if(elapsedTimeInSeconds >= targetTimeIntroSkipInSeconds)
 		{
 			g.drawString(text, getXForCenteredText(g, text), gp.screenHeight-gp.tileSize*2);
 		}
 	}
 	
-	private void drawIntroEntity(Entity entity, double timeInstant, String text)
+	private void drawIntroEntity(Entity entity, double timeInstant)
 	{
 		if(elapsedTimeInSeconds >= timeInstant)
 		{
-			g.drawString(text, getXForCenteredText(g, text), entity.y + gp.tileSize);
+			g.drawString(entity.name, getXForCenteredText(g, entity.name), entity.y + gp.tileSize);
+			g.setColor(Color.white);
+			g.drawString(entity.action, gp.screenWidth - (gp.tileSize*6), entity.y + gp.tileSize);
 			entity.render(g);
 		}
 	}
