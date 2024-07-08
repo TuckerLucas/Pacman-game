@@ -75,7 +75,7 @@ public class UI
 				gp.gameState = gp.readyState;
 			}
 			
-			for(int i = 0; i < 4; i++)
+			for(int i = 0; i < gp.introGhostArray.length; i++)
 			{
 				gp.introGhostArray[i].tick();
 			}
@@ -594,36 +594,33 @@ public class UI
 	
 	private void drawIntroScreen(Graphics g)
 	{	
-		String text = "INTRODUCTION";
-		
+		String text;
 		g.setColor(Color.white);
-		g.setFont(g.getFont().deriveFont(Font.BOLD, 40F));
+		g.setFont(g.getFont().deriveFont(Font.BOLD, 45F));
+		
+		text =  "ENTITY";
+		
+		g.drawString(text, gp.tileSize*3, gp.tileSize*2);
+		
+		text = "NAME";
+		
 		g.drawString(text, getXForCenteredText(g, text), gp.tileSize*2);
+		
+		text = "ACTION";
+		
+		g.drawString(text, gp.screenWidth - (gp.tileSize*6), gp.tileSize*2);
+		
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 35F));
 				
-		g.setColor(Color.yellow);
-		drawIntroEntity(gp.introPacman, introTimeIntervalInSeconds);
-
-		g.setColor(Color.red);
-		drawIntroEntity(gp.introGhostArray[0], introTimeIntervalInSeconds*2);
+		Color[] introColors = {Color.yellow, Color.red, Color.cyan, Color.pink, Color.orange, Color.white, Color.white, Color.blue};
+		Entity[] introEntities = {gp.introPacman, gp.introGhostArray[0], gp.introGhostArray[1], gp.introGhostArray[2], gp.introGhostArray[3],
+				gp.introPellet, gp.introEnergizer, gp.introVulnerableGhost};
 		
-		g.setColor(Color.cyan);
-		drawIntroEntity(gp.introGhostArray[1], introTimeIntervalInSeconds*3);
-		
-		g.setColor(Color.pink);
-		drawIntroEntity(gp.introGhostArray[2], introTimeIntervalInSeconds*4);
-		
-		g.setColor(Color.orange);
-		drawIntroEntity(gp.introGhostArray[3], introTimeIntervalInSeconds*5);
-		
-		g.setColor(Color.white);
-		drawIntroEntity(gp.introPellet, introTimeIntervalInSeconds*6);
-		
-		g.setColor(Color.white);
-		drawIntroEntity(gp.introEnergizer, introTimeIntervalInSeconds*7);
-		
-		g.setColor(Color.blue);
-		drawIntroEntity(gp.introVulnerableGhost, introTimeIntervalInSeconds*8);
+		for(int i = 0; i < introEntities.length; i++)
+		{
+			g.setColor(introColors[i]);
+			drawIntroEntity(introEntities[i], introTimeIntervalInSeconds*(i+1));
+		}
 		
 		text = "PRESS [ENTER] TO SKIP";
 		g.setFont(g.getFont().deriveFont(Font.BOLD, 25F));

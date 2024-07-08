@@ -90,7 +90,7 @@ public class AssetSetter
 	public void setIntroScreenEntities()
 	{
 		int screenX = gp.tileSize*4;
-		int screenY = gp.tileSize*4;
+		int screenY = gp.tileSize*6;
 		
 		gp.introPacman = new Pacman_Alive(gp);
 		gp.introPacman.currentDir = "right";
