@@ -20,11 +20,6 @@ The standalone application includes several features, such as:
   + Animations (which apply to the characters, energizers and displayed bonus scores after eating a ghost);
   + Ghost AI for chasing pacman.
 
-## Coming soon
-I have a list of features/bug fixes in mind which I'd like to implement in the near future to improve the project:
-* Change each ghost's AI slightly so that they don't cover the exact same path when chasing pacman as not to overlap;
-* Cool down period for ghosts to spend in spawn box after eaten in order to allow pacman to eat ghosts close to the spawn box without having an instant death.
-
 ## Credits
 Credits go out to the [Java Game Development](https://www.youtube.com/@JavaGameDevelopment) YouTube channel which helped me get this project started and understand the underlying basics of developing the game through this [video playlist](https://www.youtube.com/watch?v=_g2_KQIr2qk&list=PLD5R3cJr8wU2ZNZ-l5MKowc7sXwaV8hFg&ab_channel=JavaGameDevelopment).
 
